@@ -19,6 +19,13 @@ function renderApp(path = '/words') {
   )
 }
 
+/** DB の読み込みが終わってボタンが押せる状態になるまで待つ */
+async function enabledButton(name: string) {
+  const button = await screen.findByRole('button', { name })
+  await waitFor(() => expect(button).toBeEnabled())
+  return button
+}
+
 beforeEach(async () => {
   await i18n.changeLanguage('en')
 })
@@ -67,7 +74,7 @@ describe('単語データ画面', () => {
     const user = userEvent.setup()
     renderApp()
 
-    await user.click(await screen.findByRole('button', { name: 'Delete all data' }))
+    await user.click(await enabledButton('Delete all data'))
     const dialog = screen.getByRole('dialog', { name: 'Delete all data' })
     expect(within(dialog).getByText(/cannot be undone/)).toBeInTheDocument()
     await user.click(within(dialog).getByRole('button', { name: 'Delete everything' }))
@@ -176,7 +183,7 @@ describe('タグの編集（FR-WORDS-08〜11）', () => {
     const user = userEvent.setup()
     renderApp()
 
-    await user.click(await screen.findByRole('button', { name: 'Manage tags' }))
+    await user.click(await enabledButton('Manage tags'))
     let dialog = screen.getByRole('dialog', { name: 'Manage tags' })
     await user.click(within(dialog).getByRole('button', { name: 'Rename：飲料' }))
     dialog = screen.getByRole('dialog', { name: 'Rename tag: 飲料' })
