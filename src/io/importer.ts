@@ -1,7 +1,7 @@
 // 取り込みのプレビューと計画（仕様書 9.3）。DB には触れない純粋な処理
 import type { Progress, Word } from '../types/word'
 import type { ParsedFile, ParsedRow } from './parsed'
-import { charLength, duplicateKey, LIMITS, type WordDraft } from './validate'
+import { duplicateKey, tagError, type WordDraft } from './validate'
 
 export const DUPLICATE_STRATEGIES = ['skip', 'overwrite', 'keepBoth'] as const
 export type DuplicateStrategy = (typeof DUPLICATE_STRATEGIES)[number]
@@ -57,7 +57,7 @@ export interface ImportPlan {
 }
 
 export function isValidExtraTag(tag: string): boolean {
-  return charLength(tag.trim()) <= LIMITS.tag
+  return tag.trim() === '' || tagError(tag) === null
 }
 
 export function planImport(

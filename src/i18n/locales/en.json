@@ -81,6 +81,50 @@
     "allDeleted": "All data has been deleted.",
     "writeFailed": "Saving failed. Your data has not been changed."
   },
+  "tags": {
+    "manage": "Manage tags",
+    "count": "{{count}} words",
+    "none": "There are no tags yet.",
+    "addToSelected": "Add tag ({{count}})",
+    "removeFromSelected": "Remove tag ({{count}})",
+    "addTitle": "Add a tag to the selected words",
+    "removeTitle": "Remove a tag from the selected words",
+    "tagName": "Tag name",
+    "tagPlaceholder": "e.g. review",
+    "willAdd": "The tag will be added to {{count}} words.",
+    "alreadyHave": "{{count}} words already have it.",
+    "overLimit": "{{count}} words already have the maximum of {{max}} tags and will be skipped.",
+    "willRemove": "The tag will be removed from {{count}} words. No words are deleted.",
+    "noTagsOnSelected": "The selected words have no tags.",
+    "add": "Add",
+    "remove": "Remove",
+    "added": "Added the tag \"{{tag}}\" to {{count}} words.",
+    "removed": "Removed the tag \"{{tag}}\" from {{count}} words.",
+    "editWord": "Edit tags of {{hanzi}}",
+    "editTitle": "Edit tags: {{hanzi}}",
+    "currentTags": "Current tags",
+    "noTags": "No tags.",
+    "removeTag": "Remove {{tag}}",
+    "newTag": "Add a tag",
+    "tooMany": "A word can have up to {{max}} tags.",
+    "save": "Save",
+    "saved": "Saved the tags of {{hanzi}}.",
+    "rename": "Rename",
+    "renameTitle": "Rename tag: {{tag}}",
+    "newName": "New name",
+    "mergeNote": "It will be merged with the existing tag \"{{tag}}\".",
+    "renamed": "Renamed the tag \"{{from}}\" to \"{{to}}\" ({{count}} words).",
+    "removeEverywhere": "Remove from all words",
+    "removeEverywhereTitle": "Remove tag: {{tag}}",
+    "confirmRemoveEverywhere": "The tag will be removed from {{count}} words. Words and study progress are kept.",
+    "back": "Back to list",
+    "errors": {
+      "empty": "Enter a tag name.",
+      "tooLong": "Tags must be 50 characters or fewer.",
+      "invalidChar": "Tags cannot contain \";\".",
+      "same": "This is the current name."
+    }
+  },
   "io": {
     "importTitle": "Import",
     "dropHere": "Drop a JSON or CSV file here",
@@ -103,7 +147,6 @@
     },
     "extraTag": "Tag to add to imported words (optional)",
     "extraTagPlaceholder": "e.g. imported-2026-11",
-    "extraTagTooLong": "Tags must be 50 characters or fewer.",
     "nothingToImport": "There are no words to import.",
     "chooseAnother": "Another file",
     "run": "Import ({{count}})",
@@ -124,6 +167,7 @@
       "tooLong": "{{field}} must be {{max}} characters or fewer",
       "tooMany": "{{field}}: no more than {{max}} allowed",
       "invalidType": "{{field}} is not in the correct format",
+      "invalidChar": "{{field}} contains a character that cannot be used (;)",
       "csvSyntax": "Invalid CSV syntax (e.g. an unclosed quote)"
     },
     "fatal": {
@@ -151,6 +195,7 @@
   "common": {
     "loading": "Loading…",
     "cancel": "Cancel",
-    "delete": "Delete"
+    "delete": "Delete",
+    "close": "Close"
   }
 }

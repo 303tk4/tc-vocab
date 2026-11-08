@@ -81,6 +81,50 @@
     "allDeleted": "全データを削除しました。",
     "writeFailed": "保存に失敗しました。データは変更されていません。"
   },
+  "tags": {
+    "manage": "タグの管理",
+    "count": "{{count}} 語",
+    "none": "タグはまだありません。",
+    "addToSelected": "タグを追加（{{count}}）",
+    "removeFromSelected": "タグを外す（{{count}}）",
+    "addTitle": "選択した単語にタグを追加",
+    "removeTitle": "選択した単語からタグを外す",
+    "tagName": "タグ名",
+    "tagPlaceholder": "例：復習",
+    "willAdd": "{{count}} 語に追加します。",
+    "alreadyHave": "{{count}} 語には既に付いています。",
+    "overLimit": "{{count}} 語はタグが上限（{{max}}件）に達しているため追加しません。",
+    "willRemove": "{{count}} 語から外します。単語は削除されません。",
+    "noTagsOnSelected": "選択した単語にはタグが付いていません。",
+    "add": "追加",
+    "remove": "外す",
+    "added": "タグ「{{tag}}」を {{count}} 語に追加しました。",
+    "removed": "タグ「{{tag}}」を {{count}} 語から外しました。",
+    "editWord": "{{hanzi}} のタグを編集",
+    "editTitle": "タグを編集：{{hanzi}}",
+    "currentTags": "付いているタグ",
+    "noTags": "タグはありません。",
+    "removeTag": "{{tag}} を外す",
+    "newTag": "タグを追加",
+    "tooMany": "タグは{{max}}件までです。",
+    "save": "保存",
+    "saved": "{{hanzi}} のタグを保存しました。",
+    "rename": "名前を変更",
+    "renameTitle": "タグの名前を変更：{{tag}}",
+    "newName": "新しい名前",
+    "mergeNote": "既にあるタグ「{{tag}}」と1つにまとめます。",
+    "renamed": "タグ「{{from}}」を「{{to}}」に変更しました（{{count}} 語）。",
+    "removeEverywhere": "全単語から外す",
+    "removeEverywhereTitle": "タグを外す：{{tag}}",
+    "confirmRemoveEverywhere": "このタグを {{count}} 語から外します。単語と学習進捗は削除されません。",
+    "back": "一覧へ戻る",
+    "errors": {
+      "empty": "タグ名を入力してください。",
+      "tooLong": "タグは50文字以内にしてください。",
+      "invalidChar": "タグに「;」は使えません。",
+      "same": "今と同じ名前です。"
+    }
+  },
   "io": {
     "importTitle": "インポート",
     "dropHere": "JSON または CSV ファイルをここにドロップ",
@@ -103,7 +147,6 @@
     },
     "extraTag": "取り込む単語に付けるタグ（任意）",
     "extraTagPlaceholder": "例：imported-2026-11",
-    "extraTagTooLong": "タグは50文字以内にしてください。",
     "nothingToImport": "取り込める単語がありません。",
     "chooseAnother": "別のファイル",
     "run": "取り込む（{{count}}）",
@@ -124,6 +167,7 @@
       "tooLong": "{{field}}は{{max}}文字以内にしてください",
       "tooMany": "{{field}}は{{max}}件以内にしてください",
       "invalidType": "{{field}}の形式が正しくありません",
+      "invalidChar": "{{field}}に使えない文字（;）が含まれています",
       "csvSyntax": "CSV の書式が正しくありません（引用符の閉じ忘れなど）"
     },
     "fatal": {
@@ -151,6 +195,7 @@
   "common": {
     "loading": "読み込み中…",
     "cancel": "キャンセル",
-    "delete": "削除"
+    "delete": "削除",
+    "close": "閉じる"
   }
 }

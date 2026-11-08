@@ -121,3 +121,83 @@ describe('初回起動時のサンプル単語（FR-SMP-03）', () => {
     await waitFor(() => expect(screen.queryByText('No words yet')).not.toBeInTheDocument())
   })
 })
+
+describe('タグの編集（FR-WORDS-08〜11）', () => {
+  it('選択した単語にタグをまとめて付け、外す', async () => {
+    await db.words.bulkPut([jieyun, tricky])
+    const user = userEvent.setup()
+    renderApp()
+
+    await user.click(await screen.findByRole('checkbox', { name: 'Select 捷運' }))
+    await user.click(screen.getByRole('checkbox', { name: `Select ${tricky.hanzi}` }))
+    await user.click(screen.getByRole('button', { name: 'Add tag (2)' }))
+    let dialog = screen.getByRole('dialog', { name: 'Add a tag to the selected words' })
+    await user.type(within(dialog).getByRole('combobox', { name: 'Tag name' }), 'a;b')
+    expect(within(dialog).getByText('Tags cannot contain ";".')).toBeInTheDocument()
+    expect(within(dialog).getByRole('button', { name: 'Add' })).toBeDisabled()
+
+    await user.clear(within(dialog).getByRole('combobox', { name: 'Tag name' }))
+    await user.type(within(dialog).getByRole('combobox', { name: 'Tag name' }), '復習')
+    expect(within(dialog).getByText('The tag will be added to 2 words.')).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Add' }))
+    expect(await screen.findByRole('status')).toHaveTextContent('Added the tag "復習" to 2 words.')
+    expect((await db.words.get('jieyun'))?.tags).toEqual(['交通', '復習'])
+
+    await user.click(screen.getByRole('button', { name: 'Remove tag (2)' }))
+    dialog = screen.getByRole('dialog', { name: 'Remove a tag from the selected words' })
+    await user.selectOptions(within(dialog).getByRole('combobox', { name: 'Tag' }), '復習')
+    await user.click(within(dialog).getByRole('button', { name: 'Remove' }))
+    await waitFor(async () => expect((await db.words.get('jieyun'))?.tags).toEqual(['交通']))
+    expect(await db.words.count()).toBe(2)
+  })
+
+  it('1語のタグを追加・削除して保存する', async () => {
+    await db.words.bulkPut([jieyun])
+    const user = userEvent.setup()
+    renderApp()
+
+    await user.click(await screen.findByRole('button', { name: 'Edit tags of 捷運' }))
+    const dialog = screen.getByRole('dialog', { name: 'Edit tags: 捷運' })
+    await user.click(within(dialog).getByRole('button', { name: 'Remove 交通' }))
+    await user.type(within(dialog).getByRole('combobox', { name: 'Add a tag' }), '台北{Enter}')
+    await user.type(within(dialog).getByRole('combobox', { name: 'Add a tag' }), '日常')
+    await user.click(within(dialog).getByRole('button', { name: 'Add' }))
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+
+    expect(await screen.findByRole('status')).toHaveTextContent('Saved the tags of 捷運.')
+    expect((await db.words.get('jieyun'))?.tags).toEqual(['台北', '日常'])
+  })
+
+  it('タグの名前を変えて統合し、全単語から外しても単語は残る', async () => {
+    await db.words.bulkPut([
+      makeWord({ id: 'a', hanzi: '茶', tags: ['飲料'] }),
+      makeWord({ id: 'b', hanzi: '水', tags: ['飲み物', '飲料'] }),
+    ])
+    const user = userEvent.setup()
+    renderApp()
+
+    await user.click(await screen.findByRole('button', { name: 'Manage tags' }))
+    let dialog = screen.getByRole('dialog', { name: 'Manage tags' })
+    await user.click(within(dialog).getByRole('button', { name: 'Rename：飲料' }))
+    dialog = screen.getByRole('dialog', { name: 'Rename tag: 飲料' })
+    const input = within(dialog).getByRole('combobox', { name: 'New name' })
+    await user.clear(input)
+    await user.type(input, '飲み物')
+    expect(within(dialog).getByText(/merged with the existing tag "飲み物"/)).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Rename' }))
+    expect(await screen.findByRole('status')).toHaveTextContent(
+      'Renamed the tag "飲料" to "飲み物" (2 words).',
+    )
+    expect((await db.words.get('a'))?.tags).toEqual(['飲み物'])
+    expect((await db.words.get('b'))?.tags).toEqual(['飲み物'])
+
+    await user.click(screen.getByRole('button', { name: 'Manage tags' }))
+    dialog = screen.getByRole('dialog', { name: 'Manage tags' })
+    await user.click(within(dialog).getByRole('button', { name: 'Remove from all words：飲み物' }))
+    dialog = screen.getByRole('dialog', { name: 'Remove tag: 飲み物' })
+    expect(within(dialog).getByText(/Words and study progress are kept/)).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Remove' }))
+    await waitFor(async () => expect((await db.words.get('a'))?.tags).toEqual([]))
+    expect(await db.words.count()).toBe(2)
+  })
+})

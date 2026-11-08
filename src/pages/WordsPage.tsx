@@ -16,10 +16,20 @@ import type { Word } from '../types/word'
 import { ExportDialog } from './words/ExportDialog'
 import { ImportDialog } from './words/ImportDialog'
 import { createMatcher, sortWords } from './words/search'
+import { BulkTagDialog, TagManagerDialog, WordTagsDialog } from './words/TagDialogs'
 import { WordList } from './words/WordList'
 import styles from './words/WordsPage.module.css'
 
-type DialogKind = 'import' | 'export' | 'deleteSelected' | 'deleteByTag' | 'deleteAll' | null
+type DialogKind =
+  | 'import'
+  | 'export'
+  | 'deleteSelected'
+  | 'deleteByTag'
+  | 'deleteAll'
+  | 'addTag'
+  | 'removeTag'
+  | 'manageTags'
+  | null
 type Notice = { kind: 'success' | 'error'; text: string } | null
 
 export function WordsPage() {
@@ -36,6 +46,8 @@ export function WordsPage() {
   const [notice, setNotice] = useState<Notice>(null)
   const [busy, setBusy] = useState(false)
   const [deleteTag, setDeleteTag] = useState('')
+  /** タグを編集中の単語の id */
+  const [editingId, setEditingId] = useState<string | null>(null)
 
   const sorted = useMemo(() => sortWords(allWords ?? []), [allWords])
   const activeFilterTags = filterTags.filter((tag) => allTags.includes(tag))
@@ -50,7 +62,9 @@ export function WordsPage() {
   }, [sorted, deferredQuery, filterKey])
 
   // 削除済みの単語は選択から外して数える
-  const selectedIds = sorted.filter((w) => selected.has(w.id)).map((w) => w.id)
+  const selectedWords = useMemo(() => sorted.filter((w) => selected.has(w.id)), [sorted, selected])
+  const selectedIds = selectedWords.map((w) => w.id)
+  const editingWord = sorted.find((w) => w.id === editingId) ?? null
   const allShownSelected = shown.length > 0 && shown.every((w) => selected.has(w.id))
   const effectiveDeleteTag = allTags.includes(deleteTag) ? deleteTag : (allTags[0] ?? '')
   const deleteTagCount = sorted.filter((w) => w.tags.includes(effectiveDeleteTag)).length
@@ -90,6 +104,7 @@ export function WordsPage() {
     } finally {
       setBusy(false)
       setDialog(null)
+      setEditingId(null)
     }
   }
 
@@ -146,6 +161,14 @@ export function WordsPage() {
         >
           {t('words.export')}
         </button>
+        <button
+          type="button"
+          className="button"
+          disabled={allTags.length === 0}
+          onClick={() => setDialog('manageTags')}
+        >
+          {t('tags.manage')}
+        </button>
         <button type="button" className="button" disabled={busy} onClick={() => void addSamples()}>
           {t('words.addSamples')}
         </button>
@@ -196,19 +219,42 @@ export function WordsPage() {
               />
               {t('words.selectAllShown', { count: shown.length })}
             </label>
-            <button
-              type="button"
-              className="button"
-              disabled={selectedIds.length === 0}
-              onClick={() => setDialog('deleteSelected')}
-            >
-              {t('words.deleteSelected', { count: selectedIds.length })}
-            </button>
+            <div className={styles.selectionActions}>
+              <button
+                type="button"
+                className="button"
+                disabled={selectedIds.length === 0}
+                onClick={() => setDialog('addTag')}
+              >
+                {t('tags.addToSelected', { count: selectedIds.length })}
+              </button>
+              <button
+                type="button"
+                className="button"
+                disabled={selectedIds.length === 0}
+                onClick={() => setDialog('removeTag')}
+              >
+                {t('tags.removeFromSelected', { count: selectedIds.length })}
+              </button>
+              <button
+                type="button"
+                className="button"
+                disabled={selectedIds.length === 0}
+                onClick={() => setDialog('deleteSelected')}
+              >
+                {t('words.deleteSelected', { count: selectedIds.length })}
+              </button>
+            </div>
           </div>
           {shown.length === 0 ? (
             <p className="muted">{allWords.length === 0 ? t('words.empty') : t('words.noMatch')}</p>
           ) : (
-            <WordList words={shown} selected={selected} onToggle={toggleWord} />
+            <WordList
+              words={shown}
+              selected={selected}
+              onToggle={toggleWord}
+              onEditTags={(w) => setEditingId(w.id)}
+            />
           )}
         </section>
       )}
@@ -254,6 +300,29 @@ export function WordsPage() {
           setDialog(null)
           setNotice({ kind: 'success', text: t('io.exported', { count }) })
         }}
+      />
+
+      <BulkTagDialog
+        mode={dialog === 'addTag' ? 'add' : dialog === 'removeTag' ? 'remove' : null}
+        words={selectedWords}
+        allTags={allTags}
+        busy={busy}
+        onClose={() => setDialog(null)}
+        run={write}
+      />
+      <WordTagsDialog
+        word={editingWord}
+        allTags={allTags}
+        busy={busy}
+        onClose={() => setEditingId(null)}
+        run={write}
+      />
+      <TagManagerDialog
+        open={dialog === 'manageTags'}
+        words={sorted}
+        busy={busy}
+        onClose={() => setDialog(null)}
+        run={write}
       />
 
       <Dialog

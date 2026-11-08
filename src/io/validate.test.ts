@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { duplicateKey, normalizeWord } from './validate'
+import { duplicateKey, normalizeWord, tagError } from './validate'
 
 describe('normalizeWord', () => {
   it('前後の空白を除き、省略可能な項目を補う', () => {
@@ -38,6 +38,7 @@ describe('normalizeWord', () => {
     [{ hanzi: '字'.repeat(51), meaning: 'x' }, [{ code: 'tooLong', field: 'hanzi', max: 50 }]],
     [{ hanzi: 1, meaning: 'x' }, [{ code: 'invalidType', field: 'hanzi' }]],
     [{ hanzi: '茶', meaning: 'x', tags: 'a' }, [{ code: 'invalidType', field: 'tags' }]],
+    [{ hanzi: '茶', meaning: 'x', tags: ['a;b'] }, [{ code: 'invalidChar', field: 'tags' }]],
     [
       { hanzi: '茶', meaning: 'x', tags: Array.from({ length: 21 }, (_, i) => `t${i}`) },
       [{ code: 'tooMany', field: 'tags', max: 20 }],
@@ -56,6 +57,15 @@ describe('normalizeWord', () => {
 
   it('サロゲートペアは1文字と数える', () => {
     expect(normalizeWord({ hanzi: '𠮷'.repeat(50), meaning: 'x' }).ok).toBe(true)
+  })
+})
+
+describe('tagError', () => {
+  it('空・長すぎる・使えない文字を検出する', () => {
+    expect(tagError(' 復習 ')).toBeNull()
+    expect(tagError('  ')).toBe('empty')
+    expect(tagError('a'.repeat(51))).toBe('tooLong')
+    expect(tagError('a;b')).toBe('invalidChar')
   })
 })
 

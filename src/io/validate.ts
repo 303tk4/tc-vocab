@@ -15,7 +15,8 @@ export const LIMITS = {
 export type WordField = 'word' | 'hanzi' | 'zhuyin' | 'pinyin' | 'meaning' | 'examples' | 'tags'
 
 export interface ValidationError {
-  code: 'notObject' | 'required' | 'tooLong' | 'tooMany' | 'invalidType' | 'csvSyntax'
+  code:
+    'notObject' | 'required' | 'tooLong' | 'tooMany' | 'invalidType' | 'invalidChar' | 'csvSyntax'
   field: WordField
   max?: number
 }
@@ -41,6 +42,20 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function isTimestamp(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0
+}
+
+/** タグに使えない文字（CSV のタグ区切り） */
+export const TAG_FORBIDDEN_CHAR = ';'
+
+export type TagError = 'empty' | 'tooLong' | 'invalidChar'
+
+/** タグ名を検証する（前後の空白は除いてから判定する）。問題がなければ null */
+export function tagError(tag: string): TagError | null {
+  const trimmed = tag.trim()
+  if (trimmed === '') return 'empty'
+  if (charLength(trimmed) > LIMITS.tag) return 'tooLong'
+  if (trimmed.includes(TAG_FORBIDDEN_CHAR)) return 'invalidChar'
+  return null
 }
 
 /** タグの前後の空白を除き、空のものと重複を取り除く */
@@ -122,6 +137,8 @@ export function normalizeWord(raw: unknown): NormalizeResult {
         errors.push({ code: 'tooMany', field: 'tags', max: LIMITS.tags })
       if (tags.some((t) => charLength(t) > LIMITS.tag))
         errors.push({ code: 'tooLong', field: 'tags', max: LIMITS.tag })
+      if (tags.some((t) => t.includes(TAG_FORBIDDEN_CHAR)))
+        errors.push({ code: 'invalidChar', field: 'tags' })
     }
   }
 

@@ -81,6 +81,50 @@
     "allDeleted": "已刪除所有資料。",
     "writeFailed": "儲存失敗，資料沒有任何變更。"
   },
+  "tags": {
+    "manage": "管理標籤",
+    "count": "{{count}} 個詞",
+    "none": "目前還沒有標籤。",
+    "addToSelected": "加上標籤（{{count}}）",
+    "removeFromSelected": "移除標籤（{{count}}）",
+    "addTitle": "為選取的詞加上標籤",
+    "removeTitle": "從選取的詞移除標籤",
+    "tagName": "標籤名稱",
+    "tagPlaceholder": "例：複習",
+    "willAdd": "將加到 {{count}} 個詞。",
+    "alreadyHave": "{{count}} 個詞已經有這個標籤。",
+    "overLimit": "{{count}} 個詞的標籤已達上限（{{max}} 個），不會加上。",
+    "willRemove": "將從 {{count}} 個詞移除。詞本身不會被刪除。",
+    "noTagsOnSelected": "選取的詞沒有標籤。",
+    "add": "加上",
+    "remove": "移除",
+    "added": "已為 {{count}} 個詞加上標籤「{{tag}}」。",
+    "removed": "已從 {{count}} 個詞移除標籤「{{tag}}」。",
+    "editWord": "編輯 {{hanzi}} 的標籤",
+    "editTitle": "編輯標籤：{{hanzi}}",
+    "currentTags": "目前的標籤",
+    "noTags": "沒有標籤。",
+    "removeTag": "移除 {{tag}}",
+    "newTag": "加上標籤",
+    "tooMany": "標籤最多 {{max}} 個。",
+    "save": "儲存",
+    "saved": "已儲存 {{hanzi}} 的標籤。",
+    "rename": "重新命名",
+    "renameTitle": "重新命名標籤：{{tag}}",
+    "newName": "新名稱",
+    "mergeNote": "將與現有的標籤「{{tag}}」合併。",
+    "renamed": "已將標籤「{{from}}」改為「{{to}}」（{{count}} 個詞）。",
+    "removeEverywhere": "從所有詞移除",
+    "removeEverywhereTitle": "移除標籤：{{tag}}",
+    "confirmRemoveEverywhere": "將從 {{count}} 個詞移除這個標籤。詞與學習進度不會被刪除。",
+    "back": "回到列表",
+    "errors": {
+      "empty": "請輸入標籤名稱。",
+      "tooLong": "標籤請在 50 個字以內。",
+      "invalidChar": "標籤不能使用「;」。",
+      "same": "與目前的名稱相同。"
+    }
+  },
   "io": {
     "importTitle": "匯入",
     "dropHere": "將 JSON 或 CSV 檔案拖放到這裡",
@@ -103,7 +147,6 @@
     },
     "extraTag": "為匯入的單字加上標籤（選填）",
     "extraTagPlaceholder": "例：imported-2026-11",
-    "extraTagTooLong": "標籤請在 50 個字以內。",
     "nothingToImport": "沒有可以匯入的單字。",
     "chooseAnother": "換一個檔案",
     "run": "匯入（{{count}}）",
@@ -124,6 +167,7 @@
       "tooLong": "{{field}}請在 {{max}} 個字以內",
       "tooMany": "{{field}}請在 {{max}} 筆以內",
       "invalidType": "{{field}}的格式不正確",
+      "invalidChar": "{{field}}含有無法使用的字元（;）",
       "csvSyntax": "CSV 格式不正確（例如引號沒有成對）"
     },
     "fatal": {
@@ -151,6 +195,7 @@
   "common": {
     "loading": "載入中…",
     "cancel": "取消",
-    "delete": "刪除"
+    "delete": "刪除",
+    "close": "關閉"
   }
 }

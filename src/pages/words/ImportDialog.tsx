@@ -12,7 +12,7 @@ import {
 } from '../../io/importer'
 import { ImportFileError, type ParsedFile } from '../../io/parsed'
 import { readImportFile } from '../../io/readFile'
-import type { ValidationError } from '../../io/validate'
+import { tagError, type ValidationError } from '../../io/validate'
 import styles from './WordsPage.module.css'
 
 /** 一覧に表示する件数の上限（多すぎると画面が重くなるため） */
@@ -75,6 +75,7 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
   }
 
   const tagValid = isValidExtraTag(extraTag)
+  const tagProblem = tagValid ? null : tagError(extraTag)
   const importable =
     state.step === 'preview'
       ? state.preview.counts.new + (strategy === 'skip' ? 0 : state.preview.counts.duplicate)
@@ -183,7 +184,7 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
             aria-invalid={!tagValid}
             onChange={(e) => setExtraTag(e.target.value)}
           />
-          {!tagValid && <p className={styles.error}>{t('io.extraTagTooLong')}</p>}
+          {tagProblem && <p className={styles.error}>{t(`tags.errors.${tagProblem}`)}</p>}
         </div>
 
         {importable === 0 && <p>{t('io.nothingToImport')}</p>}
