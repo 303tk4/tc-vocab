@@ -1,0 +1,55 @@
+/* M0 の最小スタイル。M1 で styles/tokens.css・global.css に整理する */
+:root {
+  --color-bg: #faf8f5;
+  --color-text: #1f1d1a;
+  --color-muted: #6b665f;
+  --color-accent: #b4232f;
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  line-height: 1.6;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #191816;
+    --color-text: #ece8e2;
+    --color-muted: #a29c93;
+    --color-accent: #e5636c;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.placeholder {
+  display: grid;
+  place-content: center;
+  min-height: 100dvh;
+  padding: 16px;
+  text-align: center;
+}
+
+.placeholder h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 10vw, 4rem);
+  color: var(--color-accent);
+}
+
+.placeholder p {
+  margin: 0.25rem 0 0;
+}
+
+.placeholder .note {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
