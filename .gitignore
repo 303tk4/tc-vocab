@@ -147,3 +147,7 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Claude Code（この開発機だけの設定・メモ）
+.claude/
+CLAUDE.local.md
