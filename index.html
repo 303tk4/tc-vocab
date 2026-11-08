@@ -6,7 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="繁体中文（台湾華語）の単語学習アプリ" />
     <meta name="color-scheme" content="light dark" />
-    <title>tc-vocab</title>
+    <title>學中文 | tc-vocab</title>
+    <script>
+      // React の描画前にテーマ・表示サイズ・言語を適用して、ちらつきを防ぐ。
+      // src/settings/boot.ts と対応（キー名・値を変えるときは両方を直す）
+      ;(function () {
+        var s = {}
+        try {
+          s = JSON.parse(localStorage.getItem('tc-vocab:boot') || '{}') || {}
+        } catch (e) {}
+        var root = document.documentElement
+        var dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        var theme = s.theme === 'light' || s.theme === 'dark' ? s.theme : dark ? 'dark' : 'light'
+        root.dataset.theme = theme
+        root.dataset.fontScale = /^(sm|md|lg|xl)$/.test(s.fontScale) ? s.fontScale : 'md'
+        if (/^(ja|zh-TW|en)$/.test(s.uiLanguage)) root.lang = s.uiLanguage
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

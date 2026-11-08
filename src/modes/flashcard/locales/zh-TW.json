@@ -1,0 +1,12 @@
+{
+  "title": "單字卡",
+  "description": "翻開卡片確認意思，並以四個等級評估記憶程度。快要忘記時會再次出現複習。",
+  "direction": "出題方向",
+  "directions": {
+    "hanziToMeaning": "繁體字 → 意思",
+    "meaningToHanzi": "意思 → 繁體字",
+    "random": "隨機"
+  },
+  "comingSoon": "單字卡的學習畫面將在 M3 實作。",
+  "finish": "結束"
+}

@@ -1,0 +1,66 @@
+/* デザイントークン。テーマは <html data-theme="light|dark">（仕様書 10.1） */
+
+:root {
+  --font-sans: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', 'Hiragino Sans', sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  --content-max: 960px;
+  --header-height: 56px;
+}
+
+:root,
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-bg: #f7f4ef;
+  --color-surface: #ffffff;
+  --color-surface-2: #efeae2;
+  --color-border: #d9d2c7;
+  --color-text: #1f1d1a;
+  --color-muted: #625d55;
+  --color-accent: #b4232f;
+  --color-accent-strong: #8f1a24;
+  --color-accent-soft: #f8e3e4;
+  --color-on-accent: #ffffff;
+  --color-focus: #2f6fdb;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 6%), 0 4px 16px rgb(0 0 0 / 5%);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #171614;
+  --color-surface: #22201d;
+  --color-surface-2: #2c2a26;
+  --color-border: #3d3a35;
+  --color-text: #ece8e2;
+  --color-muted: #a8a197;
+  --color-accent: #e5636c;
+  --color-accent-strong: #f2939a;
+  --color-accent-soft: #3e2326;
+  --color-on-accent: #1a0d0e;
+  --color-focus: #7aa7f5;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 40%);
+}
+
+/* 表示サイズ（FR-SET-02）。rem 基準なので全体が拡大縮小する */
+:root[data-font-scale='sm'] {
+  font-size: 87.5%;
+}
+:root[data-font-scale='md'] {
+  font-size: 100%;
+}
+:root[data-font-scale='lg'] {
+  font-size: 125%;
+}
+:root[data-font-scale='xl'] {
+  font-size: 150%;
+}

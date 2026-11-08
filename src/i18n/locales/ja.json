@@ -1,0 +1,58 @@
+{
+  "app": {
+    "name": "學中文",
+    "tagline": "繁体中文 単語学習"
+  },
+  "nav": {
+    "home": "ホーム",
+    "words": "単語データ",
+    "settings": "設定",
+    "back": "戻る"
+  },
+  "home": {
+    "title": "学習モード",
+    "wordCount": "登録単語数：{{count}} 語",
+    "emptyTitle": "単語がまだありません",
+    "emptyBody": "単語データ画面から単語をインポートするか、サンプル単語を追加してください。",
+    "emptyAction": "単語データへ",
+    "needWords": "{{count}} 語以上の単語が必要です"
+  },
+  "mode": {
+    "notFound": "指定された学習モードが見つかりません。",
+    "tags": "対象のタグ（未選択なら全単語）",
+    "targetWords": "対象：{{count}} 語",
+    "start": "学習を始める",
+    "abort": "中断",
+    "resultTitle": "結果",
+    "again": "もう一度",
+    "backHome": "ホームへ戻る",
+    "notEnoughWords": "単語が足りないため開始できません。"
+  },
+  "settings": {
+    "title": "設定",
+    "language": "UI 言語",
+    "fontScale": "表示サイズ",
+    "fontScales": {
+      "sm": "小",
+      "md": "中",
+      "lg": "大",
+      "xl": "特大"
+    },
+    "theme": "テーマ",
+    "themes": {
+      "light": "ライト",
+      "dark": "ダーク",
+      "system": "システムに従う"
+    },
+    "modeSettings": "学習モードの設定",
+    "data": "データ",
+    "dataLink": "単語データの管理（インポート・エクスポート）"
+  },
+  "words": {
+    "title": "単語データ",
+    "comingSoon": "一覧・インポート・エクスポートは次の段階（M2）で実装します。"
+  },
+  "common": {
+    "loading": "読み込み中…"
+  }
+}

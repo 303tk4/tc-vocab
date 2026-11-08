@@ -1,0 +1,12 @@
+{
+  "title": "暗記カード",
+  "description": "カードをめくって意味を確認し、覚え具合を4段階で評価します。忘れかけた頃に復習が出てきます。",
+  "direction": "出題の向き",
+  "directions": {
+    "hanziToMeaning": "繁体字 → 意味",
+    "meaningToHanzi": "意味 → 繁体字",
+    "random": "ランダム"
+  },
+  "comingSoon": "暗記カードの学習画面は M3 で実装します。",
+  "finish": "終了する"
+}

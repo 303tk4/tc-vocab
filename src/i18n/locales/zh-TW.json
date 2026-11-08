@@ -1,0 +1,58 @@
+{
+  "app": {
+    "name": "學中文",
+    "tagline": "繁體中文單字學習"
+  },
+  "nav": {
+    "home": "首頁",
+    "words": "單字資料",
+    "settings": "設定",
+    "back": "返回"
+  },
+  "home": {
+    "title": "學習模式",
+    "wordCount": "已登錄單字：{{count}} 個",
+    "emptyTitle": "目前還沒有單字",
+    "emptyBody": "請到單字資料頁面匯入單字，或加入範例單字。",
+    "emptyAction": "前往單字資料",
+    "needWords": "需要至少 {{count}} 個單字"
+  },
+  "mode": {
+    "notFound": "找不到指定的學習模式。",
+    "tags": "對象標籤（未選擇則為全部單字）",
+    "targetWords": "對象：{{count}} 個單字",
+    "start": "開始學習",
+    "abort": "中斷",
+    "resultTitle": "結果",
+    "again": "再學一次",
+    "backHome": "回到首頁",
+    "notEnoughWords": "單字數量不足，無法開始。"
+  },
+  "settings": {
+    "title": "設定",
+    "language": "介面語言",
+    "fontScale": "字體大小",
+    "fontScales": {
+      "sm": "小",
+      "md": "中",
+      "lg": "大",
+      "xl": "特大"
+    },
+    "theme": "主題",
+    "themes": {
+      "light": "淺色",
+      "dark": "深色",
+      "system": "跟隨系統"
+    },
+    "modeSettings": "學習模式設定",
+    "data": "資料",
+    "dataLink": "管理單字資料（匯入・匯出）"
+  },
+  "words": {
+    "title": "單字資料",
+    "comingSoon": "列表、匯入與匯出功能將在下一階段（M2）實作。"
+  },
+  "common": {
+    "loading": "載入中…"
+  }
+}

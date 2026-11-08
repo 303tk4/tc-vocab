@@ -1,0 +1,58 @@
+{
+  "app": {
+    "name": "學中文",
+    "tagline": "Traditional Chinese Vocabulary"
+  },
+  "nav": {
+    "home": "Home",
+    "words": "Word data",
+    "settings": "Settings",
+    "back": "Back"
+  },
+  "home": {
+    "title": "Study modes",
+    "wordCount": "Words: {{count}}",
+    "emptyTitle": "No words yet",
+    "emptyBody": "Import words from the Word data page, or add the sample words.",
+    "emptyAction": "Go to Word data",
+    "needWords": "Minimum words required: {{count}}"
+  },
+  "mode": {
+    "notFound": "The requested study mode was not found.",
+    "tags": "Tags (none selected = all words)",
+    "targetWords": "Target words: {{count}}",
+    "start": "Start",
+    "abort": "Quit",
+    "resultTitle": "Results",
+    "again": "Study again",
+    "backHome": "Back to Home",
+    "notEnoughWords": "Not enough words to start."
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Interface language",
+    "fontScale": "Display size",
+    "fontScales": {
+      "sm": "Small",
+      "md": "Medium",
+      "lg": "Large",
+      "xl": "Extra large"
+    },
+    "theme": "Theme",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "Use system setting"
+    },
+    "modeSettings": "Study mode settings",
+    "data": "Data",
+    "dataLink": "Manage word data (import / export)"
+  },
+  "words": {
+    "title": "Word data",
+    "comingSoon": "The list, import and export will be implemented in the next milestone (M2)."
+  },
+  "common": {
+    "loading": "Loading…"
+  }
+}

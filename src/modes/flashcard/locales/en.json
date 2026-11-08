@@ -1,0 +1,12 @@
+{
+  "title": "Flashcards",
+  "description": "Flip cards to check the meaning and rate how well you remember them. Reviews come back just before you forget.",
+  "direction": "Card direction",
+  "directions": {
+    "hanziToMeaning": "Characters → Meaning",
+    "meaningToHanzi": "Meaning → Characters",
+    "random": "Random"
+  },
+  "comingSoon": "The flashcard study screen will be implemented in M3.",
+  "finish": "Finish"
+}
