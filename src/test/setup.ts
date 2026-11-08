@@ -19,6 +19,19 @@ if (!window.matchMedia) {
     }) as MediaQueryList
 }
 
+// jsdom の <dialog> はモーダル表示を実装していないため、open 属性の切り替えで代用する
+if (typeof HTMLDialogElement !== 'undefined' && !HTMLDialogElement.prototype.showModal) {
+  HTMLDialogElement.prototype.showModal = function (this: HTMLDialogElement) {
+    this.open = true
+  }
+  HTMLDialogElement.prototype.close = function (this: HTMLDialogElement) {
+    this.open = false
+  }
+}
+
+// 仮想スクロールが呼ぶが jsdom には無い
+window.scrollTo = () => {}
+
 beforeEach(async () => {
   localStorage.clear()
   await Promise.all(db.tables.map((table) => table.clear()))

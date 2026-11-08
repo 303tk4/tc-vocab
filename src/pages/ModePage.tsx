@@ -3,6 +3,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router'
 import { BackIcon } from '../components/icons'
+import { TagChips } from '../components/TagChips'
 import { addSessionRecord, createProgressStore } from '../db/repos/progress'
 import { getSetting, setSetting } from '../db/repos/settings'
 import { listTags, listWords } from '../db/repos/words'
@@ -134,22 +135,12 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
         <div className="stack">
           <div className="panel stack">
             {allTags.length > 0 && (
-              <fieldset className={styles.tags}>
-                <legend className={styles.legend}>{t('mode.tags')}</legend>
-                <div className={styles.tagList}>
-                  {allTags.map((tag) => (
-                    <button
-                      key={tag}
-                      type="button"
-                      className={styles.tag}
-                      aria-pressed={activeTags.includes(tag)}
-                      onClick={() => toggleTag(tag)}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
+              <TagChips
+                legend={t('mode.tags')}
+                tags={allTags}
+                selected={activeTags}
+                onToggle={toggleTag}
+              />
             )}
             {mode.Setup && (
               <Suspense fallback={loading}>

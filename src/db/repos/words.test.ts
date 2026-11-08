@@ -1,0 +1,116 @@
+import { describe, expect, it, vi } from 'vitest'
+import { buildCsv, parseCsv } from '../../io/csv'
+import { buildJson, parseJson } from '../../io/json'
+import { jieyun, makeWord, tricky } from '../../test/fixtures'
+import type { Progress } from '../../types/word'
+import { db } from '../schema'
+import {
+  deleteAllData,
+  deleteWords,
+  deleteWordsByTag,
+  importWords,
+  listProgressForWords,
+  listWords,
+} from './words'
+
+const progress: Progress[] = [
+  { modeId: 'flashcard', wordId: 'jieyun', due: 5, state: { ease: 2.5 }, updatedAt: 1 },
+  { modeId: 'flashcard', wordId: 'tricky', due: null, state: { ease: 2.3 }, updatedAt: 2 },
+]
+
+async function seed() {
+  await db.words.bulkPut([jieyun, tricky])
+  await db.progress.bulkPut(progress)
+}
+
+const byId = <T extends { id: string }>(list: T[]) =>
+  [...list].sort((a, b) => a.id.localeCompare(b.id))
+
+describe('JSON の往復（仕様書 9.5）', () => {
+  it('エクスポートしてから空の DB に取り込むと、単語と進捗が元に戻る', async () => {
+    await seed()
+    const words = await listWords()
+    const json = buildJson(words, await listProgressForWords(words.map((w) => w.id)))
+
+    await deleteAllData()
+    const result = await importWords(parseJson(json), { strategy: 'skip' })
+
+    expect(result).toEqual({ added: 2, updated: 0, skipped: 0 })
+    expect(byId(await listWords())).toEqual(byId([jieyun, tricky]))
+    expect(await db.progress.toArray()).toEqual(expect.arrayContaining(progress))
+    expect(await db.progress.count()).toBe(2)
+  })
+
+  it('同じファイルをもう一度取り込むと、スキップで何も変わらない', async () => {
+    await seed()
+    const json = buildJson(await listWords())
+    expect(await importWords(parseJson(json), { strategy: 'skip' })).toEqual({
+      added: 0,
+      updated: 0,
+      skipped: 2,
+    })
+    expect(await db.words.count()).toBe(2)
+  })
+})
+
+describe('CSV の往復（仕様書 9.5）', () => {
+  it('例文が1件以下の単語は、全項目が元に戻る', async () => {
+    await seed()
+    const csv = buildCsv(await listWords())
+    await deleteAllData()
+    await importWords(parseCsv(csv), { strategy: 'skip' })
+
+    const strip = ({ hanzi, zhuyin, pinyin, meaning, examples, tags }: typeof jieyun) => ({
+      hanzi,
+      zhuyin,
+      pinyin,
+      meaning,
+      examples,
+      tags,
+    })
+    const sortByHanzi = <T extends { hanzi: string }>(list: T[]) =>
+      [...list].sort((a, b) => a.hanzi.localeCompare(b.hanzi))
+    expect(sortByHanzi((await listWords()).map(strip))).toEqual(
+      sortByHanzi([jieyun, tricky].map(strip)),
+    )
+  })
+})
+
+describe('取り込みのトランザクション（FR-IO-06）', () => {
+  it('単語を書き込んだ後、進捗の書き込みで失敗したら単語も取り込まない', async () => {
+    const word = makeWord()
+    const file = parseJson(
+      buildJson([word], [{ modeId: 'm', wordId: word.id, due: 1, state: {}, updatedAt: 1 }]),
+    )
+    const spy = vi.spyOn(db.progress, 'bulkPut').mockRejectedValueOnce(new Error('boom'))
+    await expect(importWords(file, { strategy: 'skip' })).rejects.toThrow('boom')
+    spy.mockRestore()
+    expect(await db.words.count()).toBe(0)
+  })
+})
+
+describe('削除', () => {
+  it('単語を削除すると、その単語の進捗も削除する', async () => {
+    await seed()
+    await deleteWords(['jieyun'])
+    expect((await listWords()).map((w) => w.id)).toEqual(['tricky'])
+    expect((await db.progress.toArray()).map((p) => p.wordId)).toEqual(['tricky'])
+  })
+
+  it('タグを指定して削除し、件数を返す', async () => {
+    await seed()
+    expect(await deleteWordsByTag('交通')).toBe(1)
+    expect((await listWords()).map((w) => w.id)).toEqual(['tricky'])
+  })
+
+  it('全データの削除では設定を残す', async () => {
+    await seed()
+    await db.sessions.add({ modeId: 'm', startedAt: 1, finishedAt: 2, summary: {} })
+    await db.settings.put({ key: 'app.theme', value: 'dark' })
+    await deleteAllData()
+    expect(await db.words.count()).toBe(0)
+    expect(await db.progress.count()).toBe(0)
+    expect(await db.sessions.count()).toBe(0)
+    expect(await db.settings.count()).toBe(1)
+  })
+})

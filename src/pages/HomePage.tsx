@@ -1,4 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import { ChevronRightIcon } from '../components/icons'
@@ -14,17 +15,7 @@ export function HomePage() {
 
   return (
     <div className="stack">
-      {wordCount === 0 && (
-        <section className={`panel ${styles.empty}`} aria-labelledby="empty-title">
-          <h2 id="empty-title" className="section-title">
-            {t('home.emptyTitle')}
-          </h2>
-          <p>{t('home.emptyBody')}</p>
-          <Link to="/words" className="button button--primary button--block-sm">
-            {t('home.emptyAction')}
-          </Link>
-        </section>
-      )}
+      {wordCount === 0 && <EmptyState />}
 
       <section aria-labelledby="modes-title">
         <div className={styles.heading}>
@@ -44,6 +35,54 @@ export function HomePage() {
         </ul>
       </section>
     </div>
+  )
+}
+
+/** 単語が0件のとき、サンプル単語を追加するか確認する（FR-HOME-05・FR-SMP-03） */
+function EmptyState() {
+  const { t } = useTranslation()
+  const [busy, setBusy] = useState(false)
+  const [failed, setFailed] = useState(false)
+
+  const add = async () => {
+    setBusy(true)
+    setFailed(false)
+    try {
+      // 取り込み処理は大きいため、押されたときに読み込む
+      const { addSampleWords } = await import('../services/samples')
+      await addSampleWords()
+    } catch {
+      setFailed(true)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <section className={`panel ${styles.empty}`} aria-labelledby="empty-title">
+      <h2 id="empty-title" className="section-title">
+        {t('home.emptyTitle')}
+      </h2>
+      <p>{t('home.emptyBody')}</p>
+      {failed && (
+        <p className={styles.reason} role="alert">
+          {t('home.samplesFailed')}
+        </p>
+      )}
+      <div className={styles.emptyActions}>
+        <button
+          type="button"
+          className="button button--primary button--block-sm"
+          disabled={busy}
+          onClick={() => void add()}
+        >
+          {busy ? t('home.addingSamples') : t('home.addSamples')}
+        </button>
+        <Link to="/words" className="button button--block-sm">
+          {t('home.emptyAction')}
+        </Link>
+      </div>
+    </section>
   )
 }
 

@@ -3,7 +3,7 @@
 | 項目 | 内容 |
 |---|---|
 | 文書名 | 繁体中文 単語学習アプリ「tc-vocab」仕様書 |
-| 版 | 1.0 |
+| 版 | 1.2 |
 | 作成日 | 2026-11-09 |
 | 状態 | 承認済み（実装前） |
 
@@ -83,6 +83,7 @@
 | データベース | IndexedDB + Dexie | 画面への反映は `dexie-react-hooks` の `useLiveQuery` |
 | 多言語化 | i18next + react-i18next | |
 | CSV 処理 | Papa Parse | |
+| 仮想スクロール | TanStack Virtual（`@tanstack/react-virtual`） | 単語一覧（FR-WORDS-01） |
 | PWA | vite-plugin-pwa（Workbox） | |
 | スタイル | CSS Modules + CSS カスタムプロパティ | UI ライブラリは使わない |
 | 単体テスト | Vitest + Testing Library | |
@@ -567,3 +568,4 @@ tc-vocab/
 |---|---|---|
 | 1.0 | 2026-11-09 | 初版 |
 | 1.1 | 2026-11-09 | 3.2 技術スタックを実装に合わせて更新（React 19、TypeScript 6.0、ESLint + Prettier を明記） |
+| 1.2 | 2026-11-09 | 3.2 技術スタックに仮想スクロール（TanStack Virtual）を追加 |
