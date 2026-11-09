@@ -9,7 +9,7 @@
 
 - **実装は SPEC.md に従う。** 仕様にない機能の追加や、仕様と異なる実装をする場合は、先に SPEC.md の変更案をユーザーに示し、承認を得る。
 - **SPEC.md を変更したら**、表紙の「版」を上げ、17章「改訂履歴」に1行追加する。要件 ID（例：`FR-WORDS-08`）は既存の番号を変えずに追番する。
-- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5, M4, M4.5, M4.6, M4.7 …）の単位で進める。完了済みは M0〜M4.7、次は M5（仕上げ）。各マイルストーンはユーザーの指示があってから始める。
+- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5, M4, M4.5, M4.6, M4.7, M5 …）の単位で進める。完了済みは M0〜M5（v1.0 公開）。次は15章の「以降」（クイズモードなどの機能追加）。各マイルストーンはユーザーの指示があってから始める。
 - コード中のコメント、テスト名、コミットメッセージは日本語で書く。コメントでは、関係する要件 ID や仕様書の節番号を示す（例：`// 取り込みの計画（仕様書 9.3）`）。
 
 ## 技術スタック
@@ -24,7 +24,7 @@
 | CSV            | Papa Parse                                                                                      |
 | 仮想スクロール | TanStack Virtual（`@tanstack/react-virtual`）                                                   |
 | スタイル       | CSS Modules + CSS カスタムプロパティ（`src/styles/tokens.css`）。UI ライブラリは使わない        |
-| テスト         | Vitest + Testing Library（jsdom、`fake-indexeddb`）。E2E（Playwright）は M5 で導入              |
+| テスト         | Vitest + Testing Library（jsdom、`fake-indexeddb`）。E2E は Playwright + `@axe-core/playwright` |
 | リント・整形   | ESLint（typescript-eslint）+ Prettier                                                           |
 | CI / デプロイ  | GitHub Actions（`.github/workflows/deploy.yml`）→ GitHub Pages                                  |
 | PWA            | vite-plugin-pwa（Workbox）                                                                      |
@@ -39,6 +39,8 @@ npm run lint           # ESLint
 npm run format         # Prettier で整形（format:check は確認のみ）
 npm test               # Vitest（一度だけ実行）
 npm run build          # 型チェック（tsc -b）+ ビルド
+npm run size           # 初回表示の JS の大きさ（gzip 後 200KB 以下、NFR-02）
+npm run test:e2e       # E2E（Playwright。先に build。Chrome だけなら `npx playwright test --project=chromium`）
 npm run preview        # ビルド結果の確認（/tc-vocab/ 配下）
 ```
 
@@ -47,10 +49,11 @@ npm run preview        # ビルド結果の確認（/tc-vocab/ 配下）
 コミットの前に次をすべて通す。CI（`deploy.yml`）も同じ順で実行し、1つでも失敗すると公開されない。
 
 ```bash
-npm run lint && npm run format:check && npm test && npm run build
+npm run lint && npm run format:check && npm test && npm run build && npm run size && npm run test:e2e
 ```
 
 - 失敗したまま、またはチェックを省いてコミットしない。
+- E2E は `e2e/` にあり、パソコンの Chrome（`chromium`）と iPhone の代わりの WebKit（`mobile-webkit`）で動かす。CI は `chromium` だけ。画面の文言や操作を変えたら、E2E の該当箇所も直す。確かめ方と結果は SPEC.md 13.1。
 - 画面に関わる変更は、`npm run build` → `npm run preview` で実際に動かして確認する。幅は 375px / 768px / 1280px で、横スクロールが出ないこと、コンソールにエラーがないことを見る。
 - **コミットと push は、ユーザーの承認を得てから行う。**
 - コミットメッセージは日本語。マイルストーンの完了時は `M3: 暗記カードの学習画面と SRS を追加` のように番号を先頭に付ける。
@@ -79,6 +82,8 @@ src/
 └─ test/                  # テストの共通設定（setup.ts）とフィクスチャ（fixtures.ts）
 public/samples/starter.json  # サンプル単語（すべてに「サンプル」タグ）
 docs/SPEC.md                 # 仕様書
+e2e/                         # Playwright の E2E テスト（flows, offline, a11y, keyboard, perf）
+scripts/check-size.mjs       # 初回表示の JS の大きさの確認
 ```
 
 - テストは対象ファイルの隣に `*.test.ts(x)` として置く。
@@ -89,9 +94,10 @@ docs/SPEC.md                 # 仕様書
 ## 実装の決まり
 
 - **文言**はすべて i18n を通す。共通の文言は `src/i18n/locales/` の3ファイルに、同じキーで追加する。キーが3言語でそろっていることは `src/i18n/locales.test.ts` が確認する。
-- **初回表示の JS は gzip 後 200KB 以下**（NFR-02）。大きな依存（Papa Parse など）を使う画面や処理は `React.lazy` か動的 `import()` で遅らせる。ビルド出力の `index-*.js` の gzip サイズで確認する。
+- **初回表示の JS は gzip 後 200KB 以下**（NFR-02）。大きな依存（Papa Parse など）を使う画面や処理は `React.lazy` か動的 `import()` で遅らせる。`npm run size` で確認する。
+- **1万語で単語一覧の表示と学習の開始が1秒以内**（NFR-01）。全件を読む処理を足したら `e2e/perf.spec.ts` で確かめる。
 - **DB への書き込みに失敗したら画面に通知**し、データを壊さない（NFR-07）。複数の表や行にまたがる書き込みは `db.transaction` で1つにまとめる。
-- **アクセシビリティ**（NFR-03・04）：キーボードだけで操作できるようにする。押せる要素は 44px 以上にする。中国語の部分には `lang="zh-TW"` を付ける。アイコンだけのボタンには `aria-label` を付ける。
+- **アクセシビリティ**（NFR-03・04）：キーボードだけで操作できるようにする。押せる要素は 44px 以上にする。中国語の部分には `lang="zh-TW"`（拼音は `lang="zh-Latn-pinyin"`）を付ける。アイコンだけのボタンには `aria-label` を付け、見えている文字があるリンクやボタンには `aria-label` で別の名前を付けない（読み上げ名は見えている文字から始める）。画面を足したら `usePageTitle` でタブの題名を付け、`e2e/a11y.spec.ts` に加える。
 - **レスポンシブ**：スマホ（〜599px）、タブレット、PC の3区分で考える。スマホではダイアログを画面下部に出し、ボタンを横いっぱいに並べる。
 - **外部への通信はしない**（NFR-06）。解析・広告・計測、CDN からの読み込みは使わない。
 - **中国語の内容は台湾の規範に従う**：繁体字、教育部《國語辭典》の読み、台湾の筆順。並べ替えは `zh-Hant-TW` の照合順序で行う。

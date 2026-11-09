@@ -1,8 +1,85 @@
-# tc-vocab
+# 學中文 tc-vocab
 
-繁体中文（台湾華語）の単語学習ブラウザアプリ。仕様は [docs/SPEC.md](docs/SPEC.md) を参照。
+A browser app for learning Taiwanese Mandarin (Traditional Chinese) vocabulary. Works offline; your data stays on your device.
 
-## 開発
+台湾華語（繁体字）の単語を、スマートフォン・タブレット・パソコンのブラウザで学習するアプリです。
+
+**アプリを開く：<https://303tk4.github.io/tc-vocab/>**
+
+- 登録は要りません。単語と学習の記録は、お使いの端末（ブラウザ）の中だけに保存します。
+- インターネットに接続していなくても使えます（一度開いたあと）。
+- 画面の言語は日本語・繁體中文・English から選べます。
+
+## 使い方
+
+### 1. 単語を追加する
+
+最初に開くと、単語を追加する方法が表示されます。
+
+- **用意された単語集から選ぶ**：TOCFL（華語文能力測驗）の入門級・基礎級に対応する単語集（約1,400語、注音・拼音・日本語の意味つき）などを無料で追加できます。ダウンロードにはインターネット接続が必要です。
+- **サンプル単語を追加**：基礎的な約50語です。アプリに含まれているので、通信なしで追加できます。
+- **ファイルを読み込んで単語を追加**：自分で作った CSV または JSON のファイルを読み込みます。
+- **単語を追加**：「単語データ」画面で1語ずつ入力することもできます。注音か拼音の片方を入れると、もう片方を自動で入れます。
+
+CSV は、1行目に次の英語の列名を書きます（`hanzi` と `meaning` は必須）。Excel で作る場合は「CSV UTF-8（コンマ区切り）」形式で保存してください。
+
+```csv
+hanzi,zhuyin,pinyin,meaning,example,example_translation,tags
+捷運,ㄐㄧㄝˊ ㄩㄣˋ,jié yùn,MRT（都市鉄道）,我每天坐捷運去公司。,毎日MRTで会社に行きます。,交通;生活
+```
+
+| 列名                  | 内容                                 |
+| --------------------- | ------------------------------------ |
+| `hanzi`               | 繁体字（必須）                       |
+| `zhuyin`              | 注音                                 |
+| `pinyin`              | 拼音（`jie2 yun4` のような数字も可） |
+| `meaning`             | 意味（必須）                         |
+| `example`             | 例文                                 |
+| `example_translation` | 例文の訳                             |
+| `tags`                | タグ（複数のときは `;` で区切る）    |
+
+### 2. 暗記カードで学習する
+
+ホームの「暗記カード」から始めます。カードをめくって意味を確かめ、覚え具合を5段階で評価すると、忘れかけた頃にもう一度出題されます（間隔反復）。
+
+- スマートフォンでは、タップでめくり、左右にスワイプして評価できます。
+- パソコンでは、Space でめくり、1〜5 のキーで評価します。S で読み上げ、T でタグの編集、E で単語の編集、Esc で中断します。
+- タグを選ぶと、その単語だけを学習できます。
+
+### 3. 単語を整理する
+
+「単語データ」画面では、検索、タグでの絞り込み、タグの追加・変更、重複した単語の統合、単語の編集・削除ができます。
+
+### 4. 設定
+
+文字の大きさ、背景の色（白・黒）、ボタンなどの色、画面の言語を変えられます。暗記カードの1日の新規カードの数や、注音・拼音を表示するかどうかも設定できます。
+
+## データの保存についての注意
+
+単語と学習の記録は、サーバーではなく、**お使いのブラウザの中だけ**に保存しています。
+
+- 別の端末やブラウザとは共有されません。端末を移るときは、「単語データ」→「ファイルに書き出す」で JSON ファイル（「学習進捗を含める」を選ぶ）を保存し、新しい端末で読み込んでください。
+- 次の場合、単語が消えることがあります。
+  - ブラウザの履歴やサイトのデータを消したとき
+  - シークレットモード（プライベートブラウズ）で開いたとき
+  - LINE などのアプリの中のブラウザで開いたとき
+  - iPhone・iPad の Safari で、しばらくアプリを開かなかったとき
+- 消えにくくするには、**ホーム画面にこのアプリを追加**してください（パソコンでは、ブラウザのメニューから「アプリとしてインストール」）。保護されているかどうかは、設定画面の「データの保存」で確かめられます。
+- 大切な単語は、ときどき「ファイルに書き出す」で保存しておくと安心です。
+
+このアプリは、解析・広告・計測のための通信を一切行いません。
+
+## 対応ブラウザ
+
+Chrome・Edge・Firefox・Safari（パソコン）と、iPhone・iPad の Safari、Android の Chrome の、それぞれ最新版と1つ前の版です。
+
+---
+
+## 開発者向け
+
+仕様の正本は [docs/SPEC.md](docs/SPEC.md) です。作業の決まりは [CLAUDE.md](CLAUDE.md) にまとめています。
+
+### 準備
 
 Node.js 24 以上が必要です。
 
@@ -11,17 +88,51 @@ npm install
 npm run dev
 ```
 
-| コマンド               | 内容                                     |
-| ---------------------- | ---------------------------------------- |
-| `npm run dev`          | 開発サーバーを起動                       |
-| `npm run build`        | 型チェックと本番ビルド（`dist/` に出力） |
-| `npm run preview`      | ビルド結果をローカルで確認               |
-| `npm test`             | 単体テスト（Vitest）                     |
-| `npm run lint`         | ESLint                                   |
-| `npm run format`       | Prettier で整形                          |
-| `npm run format:check` | 整形漏れの確認                           |
+E2E テストを初めて動かすときは、ブラウザを入れます（Chromium の代わりに、入っている Chrome を使う設定にしています。CI では Chromium を入れます）。
 
-## デプロイ
+```bash
+npx playwright install webkit
+```
 
-`main` への push で GitHub Actions が lint・テスト・ビルドを行い、GitHub Pages に公開します
-（`.github/workflows/deploy.yml`）。リポジトリの Settings → Pages で Source を「GitHub Actions」にしておく必要があります。
+### コマンド
+
+| コマンド               | 内容                                                            |
+| ---------------------- | --------------------------------------------------------------- |
+| `npm run dev`          | 開発サーバーを起動                                              |
+| `npm run build`        | 型チェックと本番ビルド（`dist/` に出力）                        |
+| `npm run size`         | 初回表示の JS の大きさ（gzip 後 200KB 以下）を確認              |
+| `npm run preview`      | ビルド結果をローカルで確認（`http://localhost:4173/tc-vocab/`） |
+| `npm test`             | 単体テスト（Vitest）                                            |
+| `npm run test:e2e`     | E2E テスト（Playwright。先に `npm run build` が必要）           |
+| `npm run lint`         | ESLint                                                          |
+| `npm run format`       | Prettier で整形                                                 |
+| `npm run format:check` | 整形漏れの確認                                                  |
+
+コミットの前に次をすべて通します。CI も同じ順に実行します。
+
+```bash
+npm run lint && npm run format:check && npm test && npm run build && npm run size && npm run test:e2e
+```
+
+### テスト
+
+- **単体テスト**（`src/**/*.test.ts(x)`）：Vitest + Testing Library。IndexedDB は `fake-indexeddb` で置き換えます。
+- **E2E テスト**（`e2e/`）：Playwright。`npm run build` の結果を `vite preview` で配信して確かめます。
+  - `flows.spec.ts`：最初の案内から学習まで、JSON・CSV の読み込みと書き出し、単語の追加・編集、単語集の追加、設定の保持
+  - `offline.spec.ts`：オフラインでの起動と学習
+  - `a11y.spec.ts`：全画面の自動のアクセシビリティ検査（axe。WCAG 2.1 AA）
+  - `keyboard.spec.ts`：キーボードだけでの操作、フォーカスの見え方、押せる大きさ（44px 以上）
+  - `perf.spec.ts`：1万語での単語一覧の表示と学習の開始の時間（1秒以内）
+- ブラウザは、パソコンの Chrome（`chromium`）と、iPhone の代わりの WebKit（`mobile-webkit`）の2つです。CI では `chromium` だけを動かします。Chrome だけで動かすときは `npx playwright test --project=chromium` とします。性能の計測（`perf`）は、ほかのテストと CPU を取り合わないよう、ほかが終わってから1つだけで動かします。
+
+### 学習モードの追加
+
+学習モードはプラグインとして追加できます。手順は [CLAUDE.md](CLAUDE.md) の「新しい学習モードの追加方法」と、仕様書の7章を見てください。
+
+### 単語集の作成
+
+用意された単語集（`public/packs/`）の作り方は [scripts/packs/README.md](scripts/packs/README.md) にあります。
+
+### 公開
+
+`main` への push で GitHub Actions が検査（lint・整形・単体テスト・ビルド・JS の大きさ・E2E）を行い、GitHub Pages に公開します（`.github/workflows/deploy.yml`）。リポジトリの Settings → Pages で Source を「GitHub Actions」にしておく必要があります。

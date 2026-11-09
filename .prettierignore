@@ -6,3 +6,5 @@ docs/SPEC.md
 # 単語パッケージの生成物（scripts/packs/build-tocfl.mjs が出力する）
 public/packs
 scripts/packs/reports
+test-results
+playwright-report

@@ -63,7 +63,6 @@ function WordRow(props: {
 }) {
   const { t } = useTranslation()
   const { word } = props
-  const reading = [word.zhuyin, word.pinyin].filter(Boolean)
   return (
     <div className={styles.row}>
       <label className={styles.select}>
@@ -79,9 +78,12 @@ function WordRow(props: {
             <span className={styles.hanzi} lang="zh-TW">
               {word.hanzi}
             </span>
-            {reading.length > 0 && (
-              <span className={styles.reading} lang="zh-TW">
-                {reading.join(' · ')}
+            {(word.zhuyin || word.pinyin) && (
+              <span className={styles.reading}>
+                {/* 注音と拼音で言語の指定を分ける（NFR-04） */}
+                {word.zhuyin && <span lang="zh-TW">{word.zhuyin}</span>}
+                {word.zhuyin && word.pinyin && ' · '}
+                {word.pinyin && <span lang="zh-Latn-pinyin">{word.pinyin}</span>}
               </span>
             )}
           </span>

@@ -16,10 +16,12 @@ import { resolveTheme } from '../settings/boot'
 import { FONT_SCALES, THEMES, UI_LANGUAGES } from '../settings/types'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import styles from './SettingsPage.module.css'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 export function SettingsPage() {
   const { t } = useTranslation()
   const { settings, update } = useSettings()
+  usePageTitle(t('settings.title'))
   // 色見本は、いま表示しているテーマの色にする
   const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')
   const shownTheme = resolveTheme(settings.theme, prefersDark)

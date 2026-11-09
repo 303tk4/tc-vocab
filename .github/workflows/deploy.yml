@@ -29,6 +29,11 @@ jobs:
       - run: npm run format:check
       - run: npm test
       - run: npm run build # tsc -b（型チェック）を含む
+      - run: npm run size # 初回表示の JS の大きさ（NFR-02）
+      # E2E テスト（仕様書 13.1）。CI では Chromium だけで動かす
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --project=chromium
+      - run: npx playwright test --project=perf # 1万語での性能（NFR-01）。ほかのテストと同時に動かさない
       - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:

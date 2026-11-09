@@ -11,10 +11,12 @@ import { modes } from '../modes/registry'
 import type { AnyStudyMode } from '../modes/types'
 import { HomeInstallHint } from './home/HomeInstallHint'
 import styles from './HomePage.module.css'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 export function HomePage() {
   const { t } = useTranslation()
   const wordCount = useLiveQuery(countWords)
+  usePageTitle()
 
   return (
     <div className="stack">

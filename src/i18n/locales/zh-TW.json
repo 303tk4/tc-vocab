@@ -8,7 +8,7 @@
     "words": "單字資料",
     "settings": "設定",
     "back": "返回",
-    "brandHome": "{{name}}（回到首頁）"
+    "brandHomeSuffix": "（回到首頁）"
   },
   "home": {
     "title": "學習模式",
