@@ -7,6 +7,59 @@
     "meaningToHanzi": "意思 → 繁體字",
     "random": "隨機"
   },
-  "comingSoon": "單字卡的學習畫面將在 M3 實作。",
-  "finish": "結束"
+  "loadFailed": "無法讀取學習資料。",
+  "saveFailed": "無法儲存評估結果，請再評估一次。",
+  "progress": "{{current}} / {{total}} 張",
+  "flipHintTouch": "點一下顯示答案",
+  "flipHintKey": "點擊或按 Space 顯示答案",
+  "swipeHint": "← 再一次　　普通 →",
+  "keyHint": "1～4：評估　S：朗讀　Esc：中斷",
+  "ratingsLabel": "記憶程度評估",
+  "ratings": {
+    "again": "再一次",
+    "hard": "困難",
+    "good": "普通",
+    "easy": "簡單"
+  },
+  "intervals": {
+    "minutes": "{{value}} 分鐘",
+    "days": "{{value}} 天",
+    "months": "{{value}} 個月",
+    "years": "{{value}} 年"
+  },
+  "speakWord": "朗讀繁體字",
+  "speakExample": "朗讀例句",
+  "examples": "例句",
+  "tags": "標籤",
+  "empty": {
+    "title": "今天沒有要學習的卡片",
+    "nextDue": "下次複習：{{date}}",
+    "noSchedule": "目前沒有複習排程。",
+    "studyMore": "額外學習新卡片（{{count}} 張）"
+  },
+  "summary": {
+    "studied": "學習張數",
+    "durationSec": "所需時間",
+    "dueTomorrow": "明天的複習",
+    "again": "再一次",
+    "hard": "困難",
+    "good": "普通",
+    "easy": "簡單"
+  },
+  "result": {
+    "ratings": "各評估的次數",
+    "cards": "{{count}} 張",
+    "times": "{{count}} 次",
+    "minSec": "{{m}} 分 {{s}} 秒",
+    "sec": "{{s}} 秒"
+  },
+  "settings": {
+    "newPerDay": "每日新卡片上限",
+    "newPerDayHint": "0～200 的整數。日期於上午 4 點切換。",
+    "newPerDayInvalid": "請輸入 0～200 的整數。",
+    "showZhuyin": "顯示注音",
+    "showPinyin": "顯示拼音",
+    "autoSpeak": "翻面時自動朗讀",
+    "saveFailed": "無法儲存設定。"
+  }
 }

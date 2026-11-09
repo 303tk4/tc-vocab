@@ -1,10 +1,12 @@
-import { Suspense } from 'react'
+import { Suspense, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import { ChevronRightIcon } from '../components/icons'
 import { SegmentedControl } from '../components/SegmentedControl'
+import { createModeSettingsStore } from '../db/repos/settings'
 import { LANGUAGE_NAMES, modeNamespace } from '../i18n'
 import { modes } from '../modes/registry'
+import type { AnyStudyMode } from '../modes/types'
 import { useSettings } from '../settings/context'
 import { FONT_SCALES, THEMES, UI_LANGUAGES } from '../settings/types'
 
@@ -46,9 +48,7 @@ export function SettingsPage() {
         <section className="stack">
           <h2 className="section-title">{t('settings.modeSettings')}</h2>
           {modesWithPanel.map((mode) => (
-            <ModeSettings key={mode.id} modeId={mode.id} titleKey={mode.titleKey}>
-              {mode.SettingsPanel && <mode.SettingsPanel />}
-            </ModeSettings>
+            <ModeSettings key={mode.id} mode={mode} />
           ))}
         </section>
       )}
@@ -64,14 +64,16 @@ export function SettingsPage() {
   )
 }
 
-function ModeSettings(props: { modeId: string; titleKey: string; children: React.ReactNode }) {
-  const { t } = useTranslation(modeNamespace(props.modeId))
+function ModeSettings({ mode }: { mode: AnyStudyMode }) {
+  const { t } = useTranslation(modeNamespace(mode.id))
   const { t: tc } = useTranslation()
+  const store = useMemo(() => createModeSettingsStore(mode.id), [mode.id])
+  const Panel = mode.SettingsPanel
   return (
     <div className="panel stack">
-      <h3 className="section-title">{t(props.titleKey)}</h3>
+      <h3 className="section-title">{t(mode.titleKey)}</h3>
       <Suspense fallback={<p className="muted">{tc('common.loading')}</p>}>
-        {props.children}
+        {Panel && <Panel settings={store} />}
       </Suspense>
     </div>
   )

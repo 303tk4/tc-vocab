@@ -3,7 +3,7 @@
 | 項目 | 内容 |
 |---|---|
 | 文書名 | 繁体中文 単語学習アプリ「tc-vocab」仕様書 |
-| 版 | 1.3 |
+| 版 | 1.4 |
 | 作成日 | 2026-11-09 |
 | 状態 | 承認済み（実装前） |
 
@@ -253,7 +253,8 @@ interface StudyMode<Options = unknown> {
   defaultOptions: Options;          // 準備画面のオプション初期値
   Setup?: React.LazyExoticComponent<React.ComponentType<SetupProps<Options>>>;
   Session: React.LazyExoticComponent<React.ComponentType<SessionProps<Options>>>;
-  SettingsPanel?: React.LazyExoticComponent<React.ComponentType>; // 設定画面に表示するモード別設定
+  SettingsPanel?: React.LazyExoticComponent<React.ComponentType<SettingsPanelProps>>; // 設定画面に表示するモード別設定
+  Result?: React.LazyExoticComponent<React.ComponentType<ResultProps>>; // 結果画面の集計の表示（省略時は summary をそのまま並べる）
   locales: Record<UiLanguage, Record<string, string>>;
   getBadge?(ctx: ModeContext): Promise<number | null>;
 }
@@ -267,9 +268,31 @@ interface SessionProps<O> {
   words: Word[];             // 準備画面の条件で絞り込んだ単語
   options: O;
   progress: ProgressStore;   // このモード専用の進捗 API（modeId で自動的に区切られる）
+  modeSettings: ModeSettingsStore; // このモード専用の設定 API（キー mode.<modeId>.*）
   services: CoreServices;
   onFinish(result: SessionResult): void;
   onAbort(): void;
+}
+
+interface SettingsPanelProps {
+  settings: ModeSettingsStore;
+}
+
+interface ResultProps {
+  summary: Record<string, number>; // onFinish で渡した集計
+}
+
+interface ProgressStore {        // modeId で自動的に区切られる
+  get(wordId: string): Promise<Progress | undefined>;
+  getMany(wordIds: string[]): Promise<Map<string, Progress>>;
+  list(): Promise<Progress[]>;   // このモードの進捗をすべて返す
+  put(wordId: string, due: number | null, state: unknown): Promise<void>;
+  dueBefore(time: number): Promise<Progress[]>; // 期限が time 以前のものを古い順に返す
+}
+
+interface ModeSettingsStore {    // キーには "mode.<modeId>." が自動で付く
+  get<T>(key: string): Promise<T | undefined>;
+  set(key: string, value: unknown): Promise<void>;
 }
 
 interface CoreServices {
@@ -286,7 +309,8 @@ interface CoreServices {
 | FR-PLUG-02 | `Setup`・`Session`・`SettingsPanel` は `React.lazy` で遅延読み込みする。使わないモードのコードは読み込まない |
 | FR-PLUG-03 | モードの文言は i18next の名前空間 `mode.<modeId>` として登録し、モード内で完結させる |
 | FR-PLUG-04 | モードは DB に直接アクセスせず、`ProgressStore` と `SessionProps` 経由でのみデータを扱う |
-| FR-PLUG-05 | モード固有の設定は `settings` テーブルのキー `mode.<modeId>.*` に保存する |
+| FR-PLUG-05 | モード固有の設定は `settings` テーブルのキー `mode.<modeId>.*` に保存する。読み書きは `ModeSettingsStore`（`SessionProps.modeSettings`、`SettingsPanelProps.settings`）経由で行う |
+| FR-PLUG-06 | モードは結果画面の集計の表示（`Result`）を提供できる。「もう一度」「ホームへ戻る」の操作とセッション履歴の保存はコア（`ModePage`）が行う |
 
 ### 7.3 予定しているモード
 | ID | 名称 | 時期 |
@@ -306,6 +330,11 @@ interface CoreServices {
 | FR-FC-02 | 新規カードは1日あたりの上限まで出す（モード設定。初期値 20、範囲 0〜200）。日付は端末のローカル時刻の午前4時で切り替わる |
 | FR-FC-03 | 出題対象が0件のときは、次の復習予定日時を表示し、「新規カードを追加で学習する」を選べる |
 | FR-FC-04 | 出題の向きを「繁体字→意味」「意味→繁体字」「ランダム」から選べる（準備画面のオプション） |
+
+- 新規カードは登録の古い順に出す。「ランダム」の向きはカードごとに決める。
+- 1日の上限（FR-FC-02）は、進捗の状態に保存した「初めて学習した日時」が今日（午前4時以降）である件数で数える。中断や複数回のセッションをまたいでも合算する。
+- FR-FC-03 の「新規カードを追加で学習する」では、その日の上限とは別に、上限と同じ枚数（上限が 0 のときは 20 枚）を出す。未学習の単語が残っていない場合はボタンを出さず、次の復習予定日時だけを示す。
+- ホームのバッジ（FR-HOME-02）には、復習期限が来ている単語の件数を表示する（新規カードは含めない）。
 
 ### 8.2 カード表示
 | ID | 要件 |
@@ -333,16 +362,30 @@ SM-2 簡略版の算出規則（`ease` 初期値 2.5、下限 1.3、間隔の単
 | 普通 | 初回1日、2回目3日、以降は前回の間隔 × ease | 変更なし |
 | 簡単 | 「普通」の間隔 × 1.3（初回は4日） | +0.15 |
 
+- 「初回」「2回目」は連続正解回数で数える。「難しい」「普通」「簡単」はいずれも連続正解回数を1増やす。
+- 間隔は四捨五入して日単位にし、最低1日とする。「普通」「簡単」の計算には、その評価で ease を更新する前の値を使う。
+- 日単位の間隔の復習期限は、「今日」（午前4時で切り替わる日付）から数えて間隔の日数後の午前4時とする。例：夜 22 時に「普通」（1日）と評価した単語は、翌日の午前4時から出題される。「もう一度」だけは評価した時刻から10分後とする。
+- 評価ボタンの間隔は、1時間未満は分、30日未満は日、365日未満は月（30日＝1か月）、それ以上は年で表示する。月と年は小数点以下1桁まで示す（例：「10分」「3日」「1.5か月」「1.2年」）。
+- FR-FC-22 の再出題は3枚後とする。残りが3枚未満なら最後に出す。
+
 ### 8.4 操作
 | ID | 端末 | 操作 |
 |---|---|---|
 | FR-FC-30 | タッチ | カードをタップして裏返す。裏面で左スワイプ＝「もう一度」、右スワイプ＝「普通」。ボタンでも評価できる |
 | FR-FC-31 | キーボード | `Space`：裏返す、`1`〜`4`：評価、`S`：読み上げ、`Esc`：中断 |
+| FR-FC-32 | 共通 | 中断したとき、1枚以上評価していれば結果画面を表示し、セッション履歴に保存する。1枚も評価していなければホームへ戻る。確認は求めない |
+
+- スワイプ中はカードが指に合わせて動き、カードの幅の 25% を超えて離すと評価が決まる。
+- 「意味→繁体字」の向きの表面では、答えがわかってしまうため読み上げない。
+- 評価の保存に失敗したときは画面に通知し、次のカードに進まない（NFR-07）。
 
 ### 8.5 結果画面
 | ID | 要件 |
 |---|---|
 | FR-FC-40 | 学習した枚数、評価ごとの件数、所要時間、次回の復習予定（明日の件数）を表示する |
+
+- 「学習した枚数」は単語の数（同じ単語を2回評価しても1枚）、評価ごとの件数は評価した回数で数える。
+- 「明日の件数」は、明日の終わり（翌々日の午前4時）までに復習期限が来る単語の件数とする（今日やり残した分を含む）。
 
 ---
 
@@ -512,6 +555,7 @@ tc-vocab/
 │  │     ├─ Result.tsx
 │  │     ├─ SettingsPanel.tsx
 │  │     ├─ srs.ts / srs.test.ts
+│  │     ├─ queue.ts / queue.test.ts  # 出題順の決定
 │  │     └─ locales/             # ja.json, zh-TW.json, en.json
 │  ├─ db/
 │  │  ├─ schema.ts               # Dexie の定義とマイグレーション
@@ -578,3 +622,4 @@ tc-vocab/
 | 1.1 | 2026-11-09 | 3.2 技術スタックを実装に合わせて更新（React 19、TypeScript 6.0、ESLint + Prettier を明記） |
 | 1.2 | 2026-11-09 | 3.2 技術スタックに仮想スクロール（TanStack Virtual）を追加 |
 | 1.3 | 2026-11-09 | タグの編集（FR-WORDS-08〜11）とマイルストーン M2.5 を追加。タグに `;` を使えないことを 6.1 に明記。16.1 の決定 2 を更新 |
+| 1.4 | 2026-11-09 | M3 に向けて暗記カードの細則を追加：7.1 に `ModeSettingsStore`・`Result`・`ProgressStore` を追加し、FR-PLUG-05 を更新、FR-PLUG-06 を追加。8章に新規カードの数え方、復習期限の時刻（午前4時に揃える）、間隔の丸めと表示、再出題の位置、中断の扱い（FR-FC-32）、結果の数え方、バッジの内容を追加。14章に queue.ts を追加 |

@@ -1,6 +1,7 @@
 // 学習モードのプラグイン仕様（仕様書 7.1）
 import type { ComponentType, LazyExoticComponent } from 'react'
 import type { ProgressStore } from '../db/repos/progress'
+import type { ModeSettingsStore } from '../db/repos/settings'
 import type { AppSettings, UiLanguage } from '../settings/types'
 import type { Word } from '../types/word'
 
@@ -31,9 +32,21 @@ export interface SessionProps<O> {
   options: O
   /** このモード専用の進捗 API */
   progress: ProgressStore
+  /** このモード専用の設定 API（キー mode.<modeId>.*。FR-PLUG-05） */
+  modeSettings: ModeSettingsStore
   services: CoreServices
   onFinish(result: SessionResult): void
   onAbort(): void
+}
+
+export interface SettingsPanelProps {
+  /** このモード専用の設定 API（FR-PLUG-05） */
+  settings: ModeSettingsStore
+}
+
+export interface ResultProps {
+  /** onFinish で渡した集計 */
+  summary: Record<string, number>
 }
 
 export interface ModeContext {
@@ -59,7 +72,9 @@ export interface StudyMode<O = unknown> {
   Setup?: Lazy<SetupProps<O>>
   Session: Lazy<SessionProps<O>>
   /** 設定画面に表示するモード別設定 */
-  SettingsPanel?: Lazy<object>
+  SettingsPanel?: Lazy<SettingsPanelProps>
+  /** 結果画面の集計の表示（FR-PLUG-06）。省略時は summary をそのまま並べる */
+  Result?: Lazy<ResultProps>
   locales: Record<UiLanguage, Record<string, unknown>>
   getBadge?(ctx: ModeContext): Promise<number | null>
 }

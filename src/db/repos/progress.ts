@@ -8,6 +8,8 @@ import { db } from '../schema'
 export interface ProgressStore {
   get<S>(wordId: string): Promise<Progress<S> | undefined>
   getMany<S>(wordIds: string[]): Promise<Map<string, Progress<S>>>
+  /** このモードの進捗をすべて返す */
+  list<S>(): Promise<Progress<S>[]>
   put<S>(wordId: string, due: number | null, state: S): Promise<void>
   /** 期限が指定日時以前の進捗を、期限の古い順に返す */
   dueBefore<S>(time: number): Promise<Progress<S>[]>
@@ -23,6 +25,9 @@ export function createProgressStore(modeId: string): ProgressStore {
       const map = new Map<string, Progress<S>>()
       for (const row of rows) if (row) map.set(row.wordId, row as Progress<S>)
       return map
+    },
+    async list<S>() {
+      return (await db.progress.where('modeId').equals(modeId).toArray()) as Progress<S>[]
     },
     async put<S>(wordId: string, due: number | null, state: S) {
       await db.progress.put({ modeId, wordId, due, state, updatedAt: Date.now() })

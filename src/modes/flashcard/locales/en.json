@@ -7,6 +7,59 @@
     "meaningToHanzi": "Meaning → Characters",
     "random": "Random"
   },
-  "comingSoon": "The flashcard study screen will be implemented in M3.",
-  "finish": "Finish"
+  "loadFailed": "Could not load study data.",
+  "saveFailed": "Could not save your rating. Please rate the card again.",
+  "progress": "Card {{current}} of {{total}}",
+  "flipHintTouch": "Tap to show the answer",
+  "flipHintKey": "Click or press Space to show the answer",
+  "swipeHint": "← Again    Good →",
+  "keyHint": "1–4: rate   S: speak   Esc: stop",
+  "ratingsLabel": "Rate how well you remembered",
+  "ratings": {
+    "again": "Again",
+    "hard": "Hard",
+    "good": "Good",
+    "easy": "Easy"
+  },
+  "intervals": {
+    "minutes": "{{value}} min",
+    "days": "{{value}} d",
+    "months": "{{value}} mo",
+    "years": "{{value}} yr"
+  },
+  "speakWord": "Speak the characters",
+  "speakExample": "Speak the example",
+  "examples": "Examples",
+  "tags": "Tags",
+  "empty": {
+    "title": "No cards to study today",
+    "nextDue": "Next review: {{date}}",
+    "noSchedule": "No reviews are scheduled.",
+    "studyMore": "Study extra new cards ({{count}})"
+  },
+  "summary": {
+    "studied": "Cards studied",
+    "durationSec": "Time",
+    "dueTomorrow": "Due tomorrow",
+    "again": "Again",
+    "hard": "Hard",
+    "good": "Good",
+    "easy": "Easy"
+  },
+  "result": {
+    "ratings": "Ratings",
+    "cards": "{{count}}",
+    "times": "{{count}}",
+    "minSec": "{{m}} min {{s}} s",
+    "sec": "{{s}} s"
+  },
+  "settings": {
+    "newPerDay": "New cards per day",
+    "newPerDayHint": "A whole number from 0 to 200. The day changes at 4 a.m.",
+    "newPerDayInvalid": "Enter a whole number from 0 to 200.",
+    "showZhuyin": "Show Zhuyin",
+    "showPinyin": "Show Pinyin",
+    "autoSpeak": "Speak automatically when the card is flipped",
+    "saveFailed": "Could not save the setting."
+  }
 }

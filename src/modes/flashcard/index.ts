@@ -6,7 +6,7 @@ import ja from './locales/ja.json'
 import zhTW from './locales/zh-TW.json'
 import type { FlashcardOptions } from './options'
 
-// 暗記カードモード（仕様書 8章）。M1 では骨組みのみで、学習処理は M3 で実装する
+// 暗記カードモード（仕様書 8章）
 export const flashcardMode = defineMode<FlashcardOptions>({
   id: 'flashcard',
   titleKey: 'title',
@@ -17,5 +17,12 @@ export const flashcardMode = defineMode<FlashcardOptions>({
   defaultOptions: { direction: 'hanziToMeaning' },
   Setup: lazy(() => import('./Setup')),
   Session: lazy(() => import('./Session')),
+  Result: lazy(() => import('./Result')),
+  SettingsPanel: lazy(() => import('./SettingsPanel')),
   locales: { ja, 'zh-TW': zhTW, en },
+  // ホームのバッジ：復習期限が来ている件数（FR-HOME-02、仕様書 8.1）
+  async getBadge({ progress, now }) {
+    const due = await progress.dueBefore(now)
+    return due.length > 0 ? due.length : null
+  },
 })

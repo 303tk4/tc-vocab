@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router'
 import { BackIcon } from '../components/icons'
 import { TagChips } from '../components/TagChips'
 import { addSessionRecord, createProgressStore } from '../db/repos/progress'
-import { getSetting, setSetting } from '../db/repos/settings'
+import { createModeSettingsStore, getSetting, setSetting } from '../db/repos/settings'
 import { listTags, listWords } from '../db/repos/words'
 import { modeNamespace } from '../i18n'
 import { getMode } from '../modes/registry'
@@ -52,6 +52,7 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
   const { settings } = useSettings()
 
   const progress = useMemo(() => createProgressStore(mode.id), [mode.id])
+  const modeSettings = useMemo(() => createModeSettingsStore(mode.id), [mode.id])
   const services = useMemo<CoreServices>(() => ({ speak, canSpeak, settings }), [settings])
 
   const [phase, setPhase] = useState<Phase>('setup')
@@ -173,6 +174,7 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
             words={sessionWords}
             options={options}
             progress={progress}
+            modeSettings={modeSettings}
             services={services}
             onFinish={finish}
             onAbort={() => void navigate('/')}
@@ -184,15 +186,21 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
         <div className="stack">
           <section className="panel">
             <h2 className="section-title">{t('mode.resultTitle')}</h2>
-            {Object.keys(result.summary).length > 0 && (
-              <dl className={styles.summary}>
-                {Object.entries(result.summary).map(([key, value]) => (
-                  <div key={key}>
-                    <dt>{tm(`summary.${key}`, { defaultValue: key })}</dt>
-                    <dd>{value}</dd>
-                  </div>
-                ))}
-              </dl>
+            {mode.Result ? (
+              <Suspense fallback={loading}>
+                <mode.Result summary={result.summary} />
+              </Suspense>
+            ) : (
+              Object.keys(result.summary).length > 0 && (
+                <dl className={styles.summary}>
+                  {Object.entries(result.summary).map(([key, value]) => (
+                    <div key={key}>
+                      <dt>{tm(`summary.${key}`, { defaultValue: key })}</dt>
+                      <dd>{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )
             )}
           </section>
           <div className={styles.actions}>

@@ -18,7 +18,8 @@
     "needWords": "Minimum words required: {{count}}",
     "addSamples": "Add sample words",
     "addingSamples": "Adding…",
-    "samplesFailed": "Could not add the sample words. Check your connection."
+    "samplesFailed": "Could not add the sample words. Check your connection.",
+    "badge": "{{count}} due"
   },
   "mode": {
     "notFound": "The requested study mode was not found.",

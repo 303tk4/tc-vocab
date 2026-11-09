@@ -1,0 +1,344 @@
+/* 暗記カードの学習画面（仕様書 5章・8章） */
+
+.session {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.counter {
+  margin: 0;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-surface-2);
+  overflow: hidden;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--color-accent);
+  transition: width 0.2s;
+}
+
+/* ---- カード ---- */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: min(52dvh, 26rem);
+  padding: var(--space-6) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 600px) {
+  .card {
+    padding: var(--space-8);
+  }
+}
+
+.front {
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  text-align: center;
+  cursor: pointer;
+}
+
+.front:active {
+  transform: scale(0.995);
+}
+
+@media (hover: hover) {
+  .front:hover {
+    border-color: var(--color-accent);
+  }
+}
+
+.frontHanzi {
+  font-size: clamp(3rem, 14vw, 5rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.frontMeaning {
+  font-size: clamp(1.25rem, 5vw, 1.75rem);
+  font-weight: 600;
+  white-space: pre-line;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.back {
+  justify-content: flex-start;
+  /* 縦のスクロールはブラウザに任せ、横の動きだけをスワイプとして扱う */
+  touch-action: pan-y;
+  user-select: none;
+  outline-offset: 4px;
+}
+
+.back[data-swipe='again'] {
+  border-color: var(--color-accent);
+}
+
+.back[data-swipe='good'] {
+  border-color: var(--color-good);
+}
+
+.swipeLabel {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  background: var(--color-surface-2);
+  font-weight: 700;
+}
+
+.back[data-swipe='again'] .swipeLabel {
+  right: auto;
+  left: var(--space-3);
+  color: var(--color-accent-strong);
+}
+
+.back[data-swipe='good'] .swipeLabel {
+  color: var(--color-good);
+}
+
+.backBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.backBody p {
+  margin: 0;
+}
+
+.headword {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.hanzi {
+  font-size: clamp(2.5rem, 12vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.readings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1) var(--space-4);
+  text-align: center;
+}
+
+.zhuyin {
+  font-size: 1.25rem;
+}
+
+.pinyin {
+  font-size: 1.125rem;
+  color: var(--color-muted);
+}
+
+.meaning {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.section {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.sectionTitle {
+  margin: 0 0 var(--space-2);
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.examples {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exampleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.exampleRow p {
+  font-size: 1.125rem;
+}
+
+.translation {
+  color: var(--color-muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 0.125rem var(--space-3);
+  border-radius: 999px;
+  background: var(--color-surface-2);
+  font-size: 0.875rem;
+}
+
+.speak {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .speak:hover {
+    border-color: var(--color-muted);
+  }
+}
+
+/* ---- 評価ボタン ---- */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* スマホでは評価ボタンを画面下部（親指が届く位置）に固定する */
+@media (max-width: 599px) {
+  .footer {
+    position: sticky;
+    bottom: 0;
+    margin: 0 calc(-1 * max(16px, env(safe-area-inset-left)));
+    padding: var(--space-3) max(16px, env(safe-area-inset-left))
+      calc(var(--space-3) + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--color-border);
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+  }
+}
+
+.ratings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+}
+
+.rating {
+  position: relative;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  min-height: 3.5rem;
+  padding: var(--space-2) var(--space-1);
+  line-height: 1.3;
+}
+
+.ratingName {
+  font-size: 0.9375rem;
+}
+
+.ratingInterval {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+.again {
+  border-color: var(--color-accent);
+  color: var(--color-accent-strong);
+}
+
+.good {
+  border-color: var(--color-good);
+}
+
+.kbd {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  font: inherit;
+  font-size: 0.6875rem;
+  color: var(--color-muted);
+}
+
+.hintLine {
+  margin: 0;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+  font-weight: 600;
+}
+
+/* ---- 出題対象が0件のとき（FR-FC-03） ---- */
+
+.emptyText {
+  margin: 0;
+}
+
+.emptyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

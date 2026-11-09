@@ -18,6 +18,14 @@ describe('ProgressStore', () => {
     expect([...map.keys()]).toEqual(['w1'])
   })
 
+  it('list はそのモードの進捗だけを返す', async () => {
+    const store = createProgressStore('m')
+    await store.put('w1', 1, null)
+    await store.put('w2', null, null)
+    await createProgressStore('other').put('w3', 1, null)
+    expect((await store.list()).map((p) => p.wordId).sort()).toEqual(['w1', 'w2'])
+  })
+
   it('dueBefore は期限切れのものを古い順に返し、期限なしは含めない', async () => {
     const store = createProgressStore('m')
     await store.put('late', 300, null)

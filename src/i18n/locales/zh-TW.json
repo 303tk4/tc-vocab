@@ -18,7 +18,8 @@
     "needWords": "需要至少 {{count}} 個單字",
     "addSamples": "加入範例單字",
     "addingSamples": "加入中…",
-    "samplesFailed": "無法加入範例單字，請檢查網路連線。"
+    "samplesFailed": "無法加入範例單字，請檢查網路連線。",
+    "badge": "待複習 {{count}}"
   },
   "mode": {
     "notFound": "找不到指定的學習模式。",

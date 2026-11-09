@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import { ChevronRightIcon } from '../components/icons'
+import { createProgressStore } from '../db/repos/progress'
 import { countWords } from '../db/repos/words'
 import { modeNamespace } from '../i18n'
 import { modes } from '../modes/registry'
@@ -92,6 +93,14 @@ function ModeCard({ mode, wordCount }: { mode: AnyStudyMode; wordCount: number }
   const minWords = mode.minWords ?? 1
   const available = wordCount >= minWords
   const Icon = mode.icon
+  // モードが提供するバッジ（例：暗記カードの復習待ち件数。FR-HOME-02）
+  const badge = useLiveQuery(
+    async () =>
+      available && mode.getBadge
+        ? mode.getBadge({ wordCount, progress: createProgressStore(mode.id), now: Date.now() })
+        : null,
+    [mode, wordCount, available],
+  )
 
   const body = (
     <>
@@ -99,7 +108,12 @@ function ModeCard({ mode, wordCount }: { mode: AnyStudyMode; wordCount: number }
         <Icon />
       </span>
       <span className={styles.text}>
-        <span className={styles.title}>{t(mode.titleKey)}</span>
+        <span className={styles.titleRow}>
+          <span className={styles.title}>{t(mode.titleKey)}</span>
+          {typeof badge === 'number' && (
+            <span className={styles.badge}>{tc('home.badge', { count: badge })}</span>
+          )}
+        </span>
         <span className={styles.description}>{t(mode.descriptionKey)}</span>
         {!available && (
           <span className={styles.reason}>{tc('home.needWords', { count: minWords })}</span>

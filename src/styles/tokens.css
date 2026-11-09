@@ -32,6 +32,8 @@
   --color-accent-soft: #f8e3e4;
   --color-on-accent: #ffffff;
   --color-focus: #2f6fdb;
+  /* 暗記カードの「普通」など、肯定的な操作の色 */
+  --color-good: #24704a;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 6%), 0 4px 16px rgb(0 0 0 / 5%);
 }
 
@@ -48,6 +50,7 @@
   --color-accent-soft: #3e2326;
   --color-on-accent: #1a0d0e;
   --color-focus: #7aa7f5;
+  --color-good: #6fcf97;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 40%);
 }
 

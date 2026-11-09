@@ -9,7 +9,7 @@
 
 - **実装は SPEC.md に従う。** 仕様にない機能の追加や、仕様と異なる実装をする場合は、先に SPEC.md の変更案をユーザーに示し、承認を得る。
 - **SPEC.md を変更したら**、表紙の「版」を上げ、17章「改訂履歴」に1行追加する。要件 ID（例：`FR-WORDS-08`）は既存の番号を変えずに追番する。
-- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3 …）の単位で進める。完了済みは M0〜M2.5、次は M3（暗記カード）。各マイルストーンはユーザーの指示があってから始める。
+- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3 …）の単位で進める。完了済みは M0〜M3、次は M4（PWA）。各マイルストーンはユーザーの指示があってから始める。
 - コード中のコメント、テスト名、コミットメッセージは日本語で書く。コメントでは、関係する要件 ID や仕様書の節番号を示す（例：`// 取り込みの計画（仕様書 9.3）`）。
 
 ## 技術スタック
@@ -111,6 +111,7 @@ docs/SPEC.md                 # 仕様書
    ├─ Setup.tsx       # 準備画面のオプション（任意）。default export
    ├─ Session.tsx     # 学習セッション（必須）。default export
    ├─ SettingsPanel.tsx  # 設定画面に出すモード別設定（任意）。default export
+   ├─ Result.tsx      # 結果画面の集計の表示（任意）。default export
    ├─ *.ts / *.test.ts   # 出題や採点のロジックと、その単体テスト
    └─ locales/        # ja.json, zh-TW.json, en.json（同じキー）
    ```
@@ -119,14 +120,14 @@ docs/SPEC.md                 # 仕様書
    - `titleKey` と `descriptionKey` は、そのモードの locales 内のキー。
    - `icon` を `components/icons.tsx` に追加する。
    - `minWords`（開始に必要な最少単語数）、`requiredFields`（出題に必須の項目）、`defaultOptions` を指定する。
-   - `Setup`・`Session`・`SettingsPanel` は必ず `lazy(() => import('./Session'))` の形で遅延読み込みにする（FR-PLUG-02）。
+   - `Setup`・`Session`・`SettingsPanel`・`Result` は必ず `lazy(() => import('./Session'))` の形で遅延読み込みにする（FR-PLUG-02）。
    - `locales: { ja, 'zh-TW': zhTW, en }` を渡す。文言は名前空間 `mode.quiz` に登録されるので、コンポーネントでは `useTranslation('mode.quiz')` で使う（FR-PLUG-03）。
 4. **登録する**：`src/modes/registry.ts` の `modes` 配列に追加する。並び順がホームでの表示順になる。これだけでホームに表示され、`#/mode/quiz` で開ける（FR-PLUG-01）。
 5. **データの扱い**（FR-PLUG-04・05）：
    - モードから `db` や `db/repos/` を直接使わない。単語は `SessionProps.words`（準備画面の条件で絞り込み済み）で受け取る。進捗は `SessionProps.progress`（`ProgressStore`。modeId で自動的に区切られる）で読み書きする。
    - 読み上げと共通設定は `SessionProps.services` から使う。
    - 終了時は `onFinish({ summary })`、中断時は `onAbort()` を呼ぶ。セッション履歴の保存や結果画面への遷移は `ModePage` が行う。
-   - モード固有の設定は `settings` テーブルのキー `mode.<modeId>.*` に保存する。
+   - モード固有の設定は `settings` テーブルのキー `mode.<modeId>.*` に保存する。読み書きは `ModeSettingsStore`（セッションでは `SessionProps.modeSettings`、SettingsPanel では props の `settings`）を使う。キーには `mode.<modeId>.` が自動で付く。
 6. **確認する**：
    - `src/modes/registry.test.ts`（ID の重複と形式）と `src/i18n/locales.test.ts`（3言語のキー）は、追加したモードも自動で検査する。
    - モードのロジックには単体テストを書く。

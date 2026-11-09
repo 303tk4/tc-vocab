@@ -14,3 +14,17 @@ export async function getSettingsByPrefix(prefix: string): Promise<Record<string
   const rows = await db.settings.where('key').startsWith(prefix).toArray()
   return Object.fromEntries(rows.map((r) => [r.key, r.value]))
 }
+
+/** モード専用の設定 API。キーには "mode.<modeId>." が自動で付く（FR-PLUG-05） */
+export interface ModeSettingsStore {
+  get<T>(key: string): Promise<T | undefined>
+  set(key: string, value: unknown): Promise<void>
+}
+
+export function createModeSettingsStore(modeId: string): ModeSettingsStore {
+  const prefix = `mode.${modeId}.`
+  return {
+    get: <T>(key: string) => getSetting<T>(prefix + key),
+    set: (key, value) => setSetting(prefix + key, value),
+  }
+}

@@ -18,7 +18,8 @@
     "needWords": "{{count}} 語以上の単語が必要です",
     "addSamples": "サンプル単語を追加",
     "addingSamples": "追加しています…",
-    "samplesFailed": "サンプル単語を追加できませんでした。通信状態を確認してください。"
+    "samplesFailed": "サンプル単語を追加できませんでした。通信状態を確認してください。",
+    "badge": "復習 {{count}}"
   },
   "mode": {
     "notFound": "指定された学習モードが見つかりません。",
