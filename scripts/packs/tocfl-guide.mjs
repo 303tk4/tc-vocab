@@ -2,7 +2,8 @@
 //
 // 対応の出典：國家華語測驗推動工作委員會「TOCFL 成績單新增 TBCL 對應欄位 答客問」（2021年10月修訂）の対応図
 //   https://tocfl.edu.tw/assets/files/announcement/TOCFLandTBCL.pdf
-// 詞語表の「第1*級」「第2*級」「第3*級」は、対応図の「1+級」「2+級」「3+級」にあたるものとして扱う（推定。README 参照）。
+// 詞語表の「第1*級」などの「*」は、同じ級の中で難度が相対的に高い語の印（國教院《華語文能力基準應用參考指引使用手冊精華版》）。
+// 単語のタグでは「*」を区別せず、「TBCL:1級」などにまとめる（README 参照）。
 
 const TBCL_URL = 'https://coct.naer.edu.tw/page.jsp?ID=41'
 const DICT_URL = 'https://dict.revised.moe.edu.tw/'
@@ -131,10 +132,10 @@ function indexEntry({ id, file, version, updatedAt, wordCount, size, tagCounts }
         en: 'TOCFL and TBCL levels',
       },
       note: {
-        ja: 'TOCFL の各級に相当する TBCL（臺灣華語文能力基準）の級です（聴力・閲読）。「2+」は2級と3級の間を表します。このパッケージは TBCL の第1〜3級（詞語表の 1・1*・2・2*・3・3* 級）を収め、TOCFL の準備級〜基礎級にあたります。入門級までに必要な語に「TOCFL:入門」、基礎級で加わる語に「TOCFL:基礎」のタグを付けています。',
+        ja: 'TOCFL の各級に相当する TBCL（臺灣華語文能力基準）の級です（聴力・閲読）。「2+」は2級と3級の間を表します。このパッケージは TBCL の第1〜3級を収め、TOCFL の準備級〜基礎級にあたります。入門級までに必要な語に「TOCFL:入門」、基礎級で加わる語に「TOCFL:基礎」のタグを付けています。',
         'zh-TW':
-          'TOCFL 各級相當的 TBCL（臺灣華語文能力基準）等級（聽力・閱讀）。「2+」表示介於2級與3級之間。本詞彙包收錄 TBCL 第1〜3級（詞語表 1、1*、2、2*、3、3* 級），相當於 TOCFL 準備級至基礎級。入門級所需詞彙標有「TOCFL:入門」，基礎級新增詞彙標有「TOCFL:基礎」。',
-        en: 'TBCL (Taiwan Benchmarks for the Chinese Language) levels equivalent to each TOCFL level (listening / reading). "2+" lies between levels 2 and 3. This pack contains TBCL levels 1–3 (word-list levels 1, 1*, 2, 2*, 3, 3*), equivalent to TOCFL Novice to Level 2. Words needed up to Level 1 are tagged "TOCFL:入門"; words added at Level 2 are tagged "TOCFL:基礎".',
+          'TOCFL 各級相當的 TBCL（臺灣華語文能力基準）等級（聽力・閱讀）。「2+」表示介於2級與3級之間。本詞彙包收錄 TBCL 第1〜3級，相當於 TOCFL 準備級至基礎級。入門級所需詞彙標有「TOCFL:入門」，基礎級新增詞彙標有「TOCFL:基礎」。',
+        en: 'TBCL (Taiwan Benchmarks for the Chinese Language) levels equivalent to each TOCFL level (listening / reading). "2+" lies between levels 2 and 3. This pack contains TBCL levels 1–3, equivalent to TOCFL Novice to Level 2. Words needed up to Level 1 are tagged "TOCFL:入門"; words added at Level 2 are tagged "TOCFL:基礎".',
       },
       columns: {
         tocfl: { ja: 'TOCFL', 'zh-TW': 'TOCFL', en: 'TOCFL' },

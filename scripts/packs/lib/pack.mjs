@@ -5,11 +5,13 @@ import { zhuyinToPinyin } from './zhuyin.mjs'
 export const NEEDS_CHECK_TAG = '要確認:読み'
 
 /**
- * TBCL の級 → タグ。例：「第1*級」→「TBCL:1*級」
+ * TBCL の級 → タグ。例：「第1級」→「TBCL:1級」
+ * 「*」の級（同じ級の中で難度が相対的に高い語）は利用者にわかりにくいため区別せず、
+ * 「第1*級」も「TBCL:1級」にまとめる（利用者の決定。README 参照）。
  * @param {string} level
  */
 export function tbclTag(level) {
-  return `TBCL:${level.replace(/^第/, '')}`
+  return `TBCL:${level.replace(/^第/, '').replace('*', '')}`
 }
 
 /**

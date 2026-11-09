@@ -30,9 +30,10 @@ const SOURCES = {
 const PACK = {
   id: 'tocfl-1',
   file: 'tocfl-1.json',
-  version: 1,
-  updatedAt: '2026-11-09',
-  // TBCL の第1級〜第3*級（TOCFL の準備級〜基礎級の目安。tocfl-guide.mjs）
+  // 2：TBCL のタグの「*」の区別をなくした（「TBCL:1*級」→「TBCL:1級」）
+  version: 2,
+  updatedAt: '2026-11-10',
+  // TBCL の第1級〜第3*級（「*」は同じ級の中で難度が高い語）（TOCFL の準備級〜基礎級の目安。tocfl-guide.mjs）
   levels: TBCL_LEVELS.slice(0, 6),
   meanings: join(here, 'meanings', 'tocfl-1.ja.tsv'),
 }
