@@ -71,7 +71,8 @@
       "not-persisted": "Your data is not protected. The browser may delete your words, for example when storage space runs low.",
       "unsupported": "This browser cannot tell whether your data is protected."
     },
-    "storageHint": "Adding this app to your phone’s home screen (on a computer, choosing “Install as app” from the browser menu) makes protection more likely. To be safe, export important words from the Word data page."
+    "storageHint": "Adding this app to your phone’s home screen (on a computer, choosing “Install as app” from the browser menu) makes protection more likely.",
+    "exportHint": "To be safe, export important words from the Word data page."
   },
   "words": {
     "title": "Word data",
@@ -456,5 +457,17 @@
       "exampleTextMissing": "Enter the example sentence (a translation alone cannot be saved).",
       "invalid": "The format is not valid."
     }
+  },
+  "install": {
+    "prompt": "Add this app to your phone’s home screen. Opening it from the icon makes your words less likely to be deleted.",
+    "button": "Add to home screen",
+    "promptDesktop": "Install this app on your computer. Opening it from the installed app makes your words less likely to be deleted.",
+    "buttonDesktop": "Install as app",
+    "ios": "Add this app to your home screen: tap the Share button (a square with an up arrow), then choose “Add to Home Screen”. If you can’t find the Share button, tap “…” first. Opening it from the icon makes your words less likely to be deleted.",
+    "line": "This page is open inside LINE, so it can’t be added to your home screen. Please open it again in Safari or Chrome.",
+    "lineLink": "Open in browser",
+    "inApp": "This page is open inside another app, so it can’t be added to your home screen. Use “Open in browser” (or similar) from the app’s menu to open it in Safari or Chrome.",
+    "done": "Added. Next time, open the app from the icon on your home screen.",
+    "doneDesktop": "Installed. Next time, open the installed app."
   }
 }

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import { BackLink } from '../components/BackLink'
 import { ChevronRightIcon } from '../components/icons'
+import { InstallHelp } from '../components/InstallHelp'
 import { SegmentedControl } from '../components/SegmentedControl'
 import { createModeSettingsStore } from '../db/repos/settings'
 import { LANGUAGE_NAMES, modeNamespace } from '../i18n'
@@ -111,8 +112,10 @@ function StorageStatus() {
       ) : (
         <>
           <p data-state={state}>{t(`settings.storageStates.${state}`)}</p>
+          {/* ホーム画面への追加の手助け（FR-PWA-05）。追加済みのアプリでは何も示さない */}
+          <InstallHelp className={`muted ${styles.hint}`} fallback={t('settings.storageHint')} />
           {state !== 'persisted' && (
-            <p className={`muted ${styles.hint}`}>{t('settings.storageHint')}</p>
+            <p className={`muted ${styles.hint}`}>{t('settings.exportHint')}</p>
           )}
         </>
       )}
