@@ -222,6 +222,19 @@
   list-style: none;
 }
 
+.tagSection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.editTags {
+  margin-left: auto;
+  font-size: 0.875rem;
+}
+
 .tags li {
   padding: 0.125rem var(--space-3);
   border-radius: 999px;
@@ -273,7 +286,7 @@
 
 .ratings {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: var(--space-2);
 }
 
@@ -304,6 +317,11 @@
 
 .good {
   border-color: var(--color-good);
+}
+
+.perfect {
+  border-color: var(--color-good);
+  border-width: 2px;
 }
 
 .kbd {

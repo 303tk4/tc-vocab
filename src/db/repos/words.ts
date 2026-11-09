@@ -48,16 +48,7 @@ export function deleteWords(ids: string[]): Promise<void> {
   })
 }
 
-/** 指定したタグが付いた単語を削除し、削除した件数を返す */
-export function deleteWordsByTag(tag: string): Promise<number> {
-  return db.transaction('rw', db.words, db.progress, async () => {
-    const ids = (await db.words.where('tags').equals(tag).primaryKeys()) as string[]
-    await deleteWords(ids)
-    return ids.length
-  })
-}
-
-/** 単語・学習進捗・学習履歴をすべて削除する。設定は残す（FR-WORDS-06） */
+/** 単語・学習進捗・学習履歴をすべて削除する。設定は残す（テストの準備などに使う） */
 export function deleteAllData(): Promise<void> {
   return db.transaction('rw', db.words, db.progress, db.sessions, async () => {
     await Promise.all([db.words.clear(), db.progress.clear(), db.sessions.clear()])

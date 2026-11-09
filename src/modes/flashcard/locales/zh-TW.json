@@ -1,6 +1,6 @@
 {
   "title": "單字卡",
-  "description": "翻開卡片確認意思，並以四個等級評估記憶程度。快要忘記時會再次出現複習。",
+  "description": "翻開卡片確認意思，並以五個等級評估記憶程度。快要忘記時會再次出現複習。",
   "direction": "出題方向",
   "directions": {
     "hanziToMeaning": "繁體字 → 意思",
@@ -13,13 +13,14 @@
   "flipHintTouch": "點一下顯示答案",
   "flipHintKey": "點擊或按 Space 顯示答案",
   "swipeHint": "← 再一次　　普通 →",
-  "keyHint": "1～4：評估　S：朗讀　Esc：中斷",
+  "keyHint": "1～5：評估　S：朗讀　T：標籤　Esc：中斷",
   "ratingsLabel": "記憶程度評估",
   "ratings": {
     "again": "再一次",
     "hard": "困難",
     "good": "普通",
-    "easy": "簡單"
+    "easy": "簡單",
+    "perfect": "完全記住"
   },
   "intervals": {
     "minutes": "{{value}} 分鐘",
@@ -31,6 +32,8 @@
   "speakExample": "朗讀例句",
   "examples": "例句",
   "tags": "標籤",
+  "editTags": "編輯標籤",
+  "tagSaveFailed": "無法儲存標籤，請再試一次。",
   "empty": {
     "title": "今天沒有要學習的卡片",
     "nextDue": "下次複習：{{date}}",
@@ -44,7 +47,8 @@
     "again": "再一次",
     "hard": "困難",
     "good": "普通",
-    "easy": "簡單"
+    "easy": "簡單",
+    "perfect": "完全記住"
   },
   "result": {
     "ratings": "各評估的次數",

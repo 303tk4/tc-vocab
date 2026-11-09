@@ -70,17 +70,11 @@
     "confirmDeleteSelected": "Delete the selected words ({{count}})? Their study progress will also be deleted.",
     "empty": "No words. Import some or add the sample words.",
     "noMatch": "No words match the current filter.",
-    "bulkTitle": "Bulk delete",
-    "deleteByTag": "Delete by tag",
     "tag": "Tag",
-    "confirmDeleteByTag": "Words with this tag will be deleted ({{count}}), along with their study progress.",
-    "deleteAll": "Delete all data",
-    "deleteAllConfirm": "Delete everything",
-    "confirmDeleteAll": "All words ({{count}}), study progress and study history will be deleted. Display settings are kept.",
     "cannotUndo": "This cannot be undone. Export your data first if you need it.",
     "deleted": "Deleted words: {{count}}.",
-    "allDeleted": "All data has been deleted.",
-    "writeFailed": "Saving failed. Your data has not been changed."
+    "writeFailed": "Saving failed. Your data has not been changed.",
+    "selectionActions": "Actions for selected words"
   },
   "tags": {
     "manage": "Manage tags",
@@ -130,7 +124,7 @@
     "importTitle": "Import",
     "dropHere": "Drop a JSON or CSV file here",
     "chooseFile": "Choose a file",
-    "fileHint": "Supported: .json / .csv (up to 20 MB)",
+    "fileHint": "Supported: .csv / .json (up to 20 MB)",
     "countNew": "New",
     "countDuplicate": "Duplicate",
     "countError": "Error",
@@ -175,10 +169,14 @@
       "invalidJson": "The file could not be read as JSON.",
       "invalidFormat": "This is not a tc-vocab JSON file.",
       "unsupportedVersion": "This JSON version is not supported.",
-      "missingColumns": "Required columns are missing ({{columns}}). Put the column names on the first line.",
+      "missingColumns": "Required columns ({{columns}}) are missing. Write the English column names (hanzi, meaning, …) in the first row. Columns found: {{found}}",
       "tooLarge": "The file is too large (20 MB maximum).",
-      "unsupportedType": "Choose a file with a .json or .csv extension.",
-      "readFailed": "The file could not be read."
+      "unsupportedType": "Choose a file with the .csv or .json extension.",
+      "readFailed": "The file could not be read.",
+      "empty": "The file is empty.",
+      "spreadsheet": "Spreadsheet files such as Excel workbooks cannot be read directly. Save the sheet as “CSV UTF-8 (Comma delimited)” and choose that file.",
+      "invalidEncoding": "The file is not encoded in UTF-8 (for example Shift_JIS or Big5), so it cannot be read. In Excel, save it again as “CSV UTF-8 (Comma delimited)”.",
+      "notText": "This is not a text file, so it cannot be read."
     },
     "exportTitle": "Export",
     "format": "Format",
@@ -191,7 +189,41 @@
     "csvExampleLoss": "Words with two or more examples: {{count}}. CSV keeps only the first example of each.",
     "download": "Download",
     "exported": "Exported words: {{count}}.",
-    "exportFailed": "Export failed."
+    "exportFailed": "Export failed.",
+    "ignoredColumns": "These columns will not be imported: {{columns}}",
+    "guide": {
+      "title": "How to make a CSV file",
+      "intro": "Make a table like the one below in a spreadsheet app (Excel, Google Sheets, Numbers, …) and save it in CSV format.",
+      "column": "Column name (row 1)",
+      "content": "Content",
+      "example": "e.g. ",
+      "required": "Required",
+      "columns": {
+        "hanzi": "The word (Traditional Chinese)",
+        "zhuyin": "Zhuyin, syllables separated by spaces",
+        "pinyin": "Pinyin with tone marks",
+        "meaning": "Meaning, in any language",
+        "example": "Example sentence (one only)",
+        "example_translation": "Translation of the example",
+        "tags": "Tags, separated by ;"
+      },
+      "examples": {
+        "hanzi": "捷運",
+        "zhuyin": "ㄐㄧㄝˊ ㄩㄣˋ",
+        "pinyin": "jié yùn",
+        "meaning": "MRT (metro)",
+        "example": "我坐捷運。",
+        "example_translation": "I take the MRT.",
+        "tags": "交通;基本"
+      },
+      "notes": {
+        "header": "Write the column names in English in the first row. The order is free, and you can leave out columns you do not use.",
+        "encoding": "Use UTF-8. In Excel choose “CSV UTF-8 (Comma delimited)”; in Google Sheets choose “File → Download → Comma-separated values (.csv)”.",
+        "duplicate": "A word whose characters and pinyin both match a saved word is treated as a duplicate.",
+        "json": "JSON is for restoring files (backups) exported from this app."
+      },
+      "template": "Download a sample CSV"
+    }
   },
   "common": {
     "loading": "Loading…",

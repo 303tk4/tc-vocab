@@ -1,7 +1,8 @@
 // 暗記カードの学習セッション（仕様書 8章）
 import { useEffect, useEffectEvent, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SpeakerIcon } from '../../components/icons'
+import { SpeakerIcon, TagIcon } from '../../components/icons'
+import { WordTagsDialog } from '../../components/WordTagsDialog'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useSwipe } from '../../hooks/useSwipe'
 import type { Progress } from '../../types/word'
@@ -133,6 +134,16 @@ function EmptyState(props: { loaded: Loaded; onStudyMore(): void; onBack(): void
 
 type Counts = Record<Rating, number>
 
+const zeroCounts = (): Counts => Object.fromEntries(RATINGS.map((rating) => [rating, 0])) as Counts
+
+/** タグの編集中の状態（FR-FC-15） */
+interface TagEditing {
+  /** 入力候補 */
+  allTags: string[]
+  busy: boolean
+  failed: boolean
+}
+
 function Study({ loaded, progress, services, onFinish, onAbort }: Props & { loaded: Loaded }) {
   const { t } = useTranslation('mode.flashcard')
   const { t: tc } = useTranslation()
@@ -147,10 +158,11 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
     for (const [id, p] of loaded.progress) if (isSrsState(p.state)) map.set(id, p.state)
     return map
   })
-  const [counts, setCounts] = useState<Counts>({ again: 0, hard: 0, good: 0, easy: 0 })
+  const [counts, setCounts] = useState<Counts>(zeroCounts)
   const [studied, setStudied] = useState<ReadonlySet<string>>(new Set())
   const [busy, setBusy] = useState(false)
   const [saveFailed, setSaveFailed] = useState(false)
+  const [tagEditing, setTagEditing] = useState<TagEditing | null>(null)
 
   const frontRef = useRef<HTMLButtonElement>(null)
   const backRef = useRef<HTMLDivElement>(null)
@@ -231,6 +243,34 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
     if (speakable) services.speak(word.hanzi)
   }
 
+  // その場でタグを編集する（FR-FC-15）。候補を読めなくても編集はできるようにする
+  const openTags = async () => {
+    if (!flipped || busy || tagEditing) return
+    setTagEditing({ allTags: [], busy: false, failed: false })
+    try {
+      const allTags = await services.tags.list()
+      setTagEditing((e) => e && { ...e, allTags })
+    } catch (error) {
+      console.error('タグの候補を読み込めませんでした', error)
+    }
+  }
+
+  const saveTags = async (tags: string[]) => {
+    setTagEditing((e) => e && { ...e, busy: true, failed: false })
+    try {
+      const saved = await services.tags.setWordTags(word.id, tags)
+      // 同じ単語のカード（再出題分を含む）すべてに反映する
+      setCards((list) =>
+        list.map((c) => (c.word.id === word.id ? { ...c, word: { ...c.word, tags: saved } } : c)),
+      )
+      setTagEditing(null)
+    } catch (error) {
+      // 保存に失敗したらダイアログ内で知らせる（NFR-07）
+      console.error('タグの保存に失敗しました', error)
+      setTagEditing((e) => e && { ...e, busy: false, failed: true })
+    }
+  }
+
   const swipe = useSwipe({
     enabled: flipped && !busy,
     onSwipeLeft: () => void rate('again'),
@@ -240,6 +280,8 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
   // キーボード操作（FR-FC-31）
   const onKeyDown = useEffectEvent((e: KeyboardEvent) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return
+    // タグの編集中はダイアログの操作を優先する
+    if (tagEditing) return
     const target = e.target instanceof HTMLElement ? e.target : null
     if (target?.closest('input, textarea, select, [contenteditable="true"]')) return
     if (e.key === 'Escape') {
@@ -253,7 +295,7 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
       }
       e.preventDefault()
       if (!e.repeat) flip()
-    } else if (/^[1-4]$/.test(e.key)) {
+    } else if (/^[1-9]$/.test(e.key) && Number(e.key) <= RATINGS.length) {
       if (!flipped || e.repeat) return
       e.preventDefault()
       void rate(RATINGS[Number(e.key) - 1])
@@ -261,6 +303,10 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
       if (e.repeat) return
       e.preventDefault()
       speakWord()
+    } else if (e.key === 't' || e.key === 'T') {
+      if (!flipped || e.repeat) return
+      e.preventDefault()
+      void openTags()
     }
   })
   useEffect(() => {
@@ -338,6 +384,7 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
             settings={settings}
             canSpeak={services.canSpeak}
             speak={services.speak}
+            onEditTags={() => void openTags()}
           />
         </div>
       )}
@@ -372,6 +419,15 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
           <p className={styles.hintLine}>{coarse ? t('swipeHint') : t('keyHint')}</p>
         </div>
       )}
+
+      <WordTagsDialog
+        word={tagEditing ? word : null}
+        allTags={tagEditing?.allTags ?? []}
+        busy={tagEditing?.busy ?? false}
+        error={tagEditing?.failed ? t('tagSaveFailed') : null}
+        onClose={() => setTagEditing(null)}
+        onSave={(tags) => void saveTags(tags)}
+      />
     </div>
   )
 }
@@ -382,6 +438,7 @@ function Back(props: {
   settings: FlashcardSettings
   canSpeak: boolean
   speak(text: string): void
+  onEditTags(): void
 }) {
   const { t } = useTranslation('mode.flashcard')
   const { word } = props.card
@@ -432,16 +489,21 @@ function Back(props: {
         </section>
       )}
 
-      {word.tags.length > 0 && (
-        <section className={styles.section}>
-          <h3 className="visually-hidden">{t('tags')}</h3>
+      <section className={`${styles.section} ${styles.tagSection}`}>
+        <h3 className="visually-hidden">{t('tags')}</h3>
+        {word.tags.length > 0 && (
           <ul className={styles.tags}>
             {word.tags.map((tag) => (
               <li key={tag}>{tag}</li>
             ))}
           </ul>
-        </section>
-      )}
+        )}
+        {/* タグの編集（FR-FC-15） */}
+        <button type="button" className={`button ${styles.editTags}`} onClick={props.onEditTags}>
+          <TagIcon />
+          {t('editTags')}
+        </button>
+      </section>
     </div>
   )
 }

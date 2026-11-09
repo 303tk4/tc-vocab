@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createProgressStore } from '../../db/repos/progress'
@@ -23,6 +23,10 @@ function renderSession(words: Word[], overrides: Partial<SessionProps<FlashcardO
       speak: vi.fn(),
       canSpeak: true,
       settings: { uiLanguage: 'en', fontScale: 'md', theme: 'system' },
+      tags: {
+        list: vi.fn().mockResolvedValue(['交通', '重点']),
+        setWordTags: vi.fn((_id: string, tags: string[]) => Promise.resolve(tags)),
+      },
     },
     onFinish: vi.fn(),
     onAbort: vi.fn(),
@@ -48,7 +52,8 @@ describe('暗記カードのセッション', () => {
     expect(screen.queryByRole('group', { name: /Rate/ })).not.toBeInTheDocument()
 
     await user.keyboard(' ')
-    expect(screen.getByRole('button', { name: /Good/ })).toHaveTextContent('1 d')
+    expect(screen.getByRole('button', { name: /^Good/ })).toHaveTextContent('7 d')
+    expect(screen.getByRole('button', { name: /^Perfect/ })).toHaveTextContent('1 y')
     await user.keyboard('3')
     await waitFor(async () => expect((await progress.get('a'))?.due).toBeGreaterThan(Date.now()))
 
@@ -63,9 +68,9 @@ describe('暗記カードのセッション', () => {
     await user.keyboard('3')
     await waitFor(() => expect(props.onFinish).toHaveBeenCalledTimes(1))
     const { summary } = vi.mocked(props.onFinish).mock.calls[0][0]
-    expect(summary).toMatchObject({ studied: 2, again: 1, hard: 0, good: 2, easy: 0 })
-    // 2語とも翌日に期限が来る
-    expect(summary.dueTomorrow).toBe(2)
+    expect(summary).toMatchObject({ studied: 2, again: 1, hard: 0, good: 2, easy: 0, perfect: 0 })
+    // 「もう一度」の後に「普通」とした1語だけが翌日に期限が来る
+    expect(summary.dueTomorrow).toBe(1)
   })
 
   it('裏面に注音・拼音・例文を表示し、設定で注音を隠せる（FR-FC-11・12）', async () => {
@@ -128,5 +133,47 @@ describe('暗記カードのセッション', () => {
     await user.keyboard('3')
     expect(await screen.findByRole('alert')).toHaveTextContent('Could not save your rating')
     expect(screen.getByText('Card 1 of 2')).toBeInTheDocument()
+  })
+
+  it('5 キーで「完璧」と評価し、1年後に期限を置く（FR-FC-20・31）', async () => {
+    const user = userEvent.setup()
+    renderSession([makeWord({ id: 'easy' })])
+    await screen.findByText('Card 1 of 1')
+    await user.keyboard(' ')
+    await user.keyboard('5')
+    await waitFor(async () =>
+      expect((await progress.get('easy'))?.state).toMatchObject({ reps: 1, interval: 365 }),
+    )
+  })
+
+  it('裏面でタグを編集すると保存して表示に反映し、編集中はキー操作を受け付けない（FR-FC-15）', async () => {
+    const user = userEvent.setup()
+    const props = renderSession([makeWord({ id: 'w', hanzi: '捷運', tags: ['交通'] })])
+    await screen.findByText('Card 1 of 1')
+    await user.keyboard(' ')
+    await user.keyboard('t')
+    const dialog = await screen.findByRole('dialog', { name: /捷運/ })
+    await user.type(within(dialog).getByRole('combobox'), '重点{Enter}')
+    // ダイアログの入力中に数字を打っても評価しない
+    await user.keyboard('3')
+    expect(props.onFinish).not.toHaveBeenCalled()
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+    expect(props.services.tags.setWordTags).toHaveBeenCalledWith('w', ['交通', '重点'])
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+    expect(screen.getByText('重点')).toBeInTheDocument()
+  })
+
+  it('タグの保存に失敗したらダイアログ内で知らせる（NFR-07）', async () => {
+    const user = userEvent.setup()
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    const props = renderSession([makeWord({ tags: [] })])
+    vi.mocked(props.services.tags.setWordTags).mockRejectedValue(new Error('quota'))
+    await screen.findByText('Card 1 of 1')
+    await user.keyboard(' ')
+    await user.click(screen.getByRole('button', { name: 'Edit tags' }))
+    const dialog = await screen.findByRole('dialog')
+    await user.type(within(dialog).getByRole('combobox'), 'x{Enter}')
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+    expect(await within(dialog).findByRole('alert')).toHaveTextContent('Could not save the tags')
   })
 })

@@ -4,14 +4,7 @@ import { buildJson, parseJson } from '../../io/json'
 import { jieyun, makeWord, tricky } from '../../test/fixtures'
 import type { Progress } from '../../types/word'
 import { db } from '../schema'
-import {
-  deleteAllData,
-  deleteWords,
-  deleteWordsByTag,
-  importWords,
-  listProgressForWords,
-  listWords,
-} from './words'
+import { deleteAllData, deleteWords, importWords, listProgressForWords, listWords } from './words'
 
 const progress: Progress[] = [
   { modeId: 'flashcard', wordId: 'jieyun', due: 5, state: { ease: 2.5 }, updatedAt: 1 },
@@ -95,12 +88,6 @@ describe('削除', () => {
     await deleteWords(['jieyun'])
     expect((await listWords()).map((w) => w.id)).toEqual(['tricky'])
     expect((await db.progress.toArray()).map((p) => p.wordId)).toEqual(['tricky'])
-  })
-
-  it('タグを指定して削除し、件数を返す', async () => {
-    await seed()
-    expect(await deleteWordsByTag('交通')).toBe(1)
-    expect((await listWords()).map((w) => w.id)).toEqual(['tricky'])
   })
 
   it('全データの削除では設定を残す', async () => {

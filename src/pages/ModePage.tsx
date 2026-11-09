@@ -6,6 +6,7 @@ import { BackIcon } from '../components/icons'
 import { TagChips } from '../components/TagChips'
 import { addSessionRecord, createProgressStore } from '../db/repos/progress'
 import { createModeSettingsStore, getSetting, setSetting } from '../db/repos/settings'
+import { setWordTags } from '../db/repos/tags'
 import { listTags, listWords } from '../db/repos/words'
 import { modeNamespace } from '../i18n'
 import { getMode } from '../modes/registry'
@@ -53,7 +54,10 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
 
   const progress = useMemo(() => createProgressStore(mode.id), [mode.id])
   const modeSettings = useMemo(() => createModeSettingsStore(mode.id), [mode.id])
-  const services = useMemo<CoreServices>(() => ({ speak, canSpeak, settings }), [settings])
+  const services = useMemo<CoreServices>(
+    () => ({ speak, canSpeak, settings, tags: { list: listTags, setWordTags } }),
+    [settings],
+  )
 
   const [phase, setPhase] = useState<Phase>('setup')
   const [options, setOptions] = useState<unknown>(mode.defaultOptions)

@@ -72,7 +72,7 @@ src/
 ├─ i18n/                  # i18next の初期化と共通の文言（locales/ja.json, zh-TW.json, en.json）
 ├─ services/              # 読み上げ、サンプル単語など
 ├─ settings/              # 設定の型・Provider
-├─ components/            # 複数の画面で使う UI 部品（Dialog, TagChips, SegmentedControl, icons）
+├─ components/            # 複数の画面で使う UI 部品（Dialog, TagChips, TagField, WordTagsDialog, SegmentedControl, icons）
 ├─ hooks/                 # 共通のフック
 ├─ styles/                # tokens.css（テーマ変数）, global.css
 ├─ types/                 # Word, Progress などの型
@@ -125,7 +125,7 @@ docs/SPEC.md                 # 仕様書
 4. **登録する**：`src/modes/registry.ts` の `modes` 配列に追加する。並び順がホームでの表示順になる。これだけでホームに表示され、`#/mode/quiz` で開ける（FR-PLUG-01）。
 5. **データの扱い**（FR-PLUG-04・05）：
    - モードから `db` や `db/repos/` を直接使わない。単語は `SessionProps.words`（準備画面の条件で絞り込み済み）で受け取る。進捗は `SessionProps.progress`（`ProgressStore`。modeId で自動的に区切られる）で読み書きする。
-   - 読み上げと共通設定は `SessionProps.services` から使う。
+   - 読み上げ、共通設定、単語のタグの読み書き（`services.tags`）は `SessionProps.services` から使う。1語のタグ編集には `components/WordTagsDialog.tsx` を使える。
    - 終了時は `onFinish({ summary })`、中断時は `onAbort()` を呼ぶ。セッション履歴の保存や結果画面への遷移は `ModePage` が行う。
    - モード固有の設定は `settings` テーブルのキー `mode.<modeId>.*` に保存する。読み書きは `ModeSettingsStore`（セッションでは `SessionProps.modeSettings`、SettingsPanel では props の `settings`）を使う。キーには `mode.<modeId>.` が自動で付く。
 6. **確認する**：

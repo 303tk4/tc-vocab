@@ -69,16 +69,18 @@ describe('単語データ画面', () => {
     expect(screen.queryByText('捷運')).not.toBeInTheDocument()
   })
 
-  it('全データの削除は、取り消せないことを示して確認する', async () => {
+  it('表示中をすべて選択して削除でき、取り消せないことを示して確認する（FR-WORDS-05）', async () => {
     await db.words.bulkPut([jieyun])
     const user = userEvent.setup()
     renderApp()
 
-    await user.click(await enabledButton('Delete all data'))
-    const dialog = screen.getByRole('dialog', { name: 'Delete all data' })
+    await user.click(await screen.findByRole('checkbox', { name: /Select all shown/ }))
+    await user.click(screen.getByRole('button', { name: 'Delete selected (1)' }))
+    const dialog = screen.getByRole('dialog', { name: 'Delete selected words' })
     expect(within(dialog).getByText(/cannot be undone/)).toBeInTheDocument()
-    await user.click(within(dialog).getByRole('button', { name: 'Delete everything' }))
+    await user.click(within(dialog).getByRole('button', { name: 'Delete' }))
     await waitFor(async () => expect(await db.words.count()).toBe(0))
+    expect(screen.queryByRole('button', { name: /Delete all/ })).not.toBeInTheDocument()
   })
 
   it('CSV をプレビューしてから取り込む', async () => {
@@ -110,7 +112,49 @@ describe('単語データ画面', () => {
     await user.click(await screen.findByRole('button', { name: 'Import' }))
     const dialog = screen.getByRole('dialog', { name: 'Import' })
     await user.upload(within(dialog).getByLabelText('Choose a file'), new File(['x'], 'a.txt'))
-    expect(await within(dialog).findByRole('alert')).toHaveTextContent('.json or .csv')
+    expect(await within(dialog).findByRole('alert')).toHaveTextContent('.csv or .json')
+  })
+
+  it('CSV の列の案内を表示し、文字コードの誤りや取り込まない列を知らせる（FR-IO-08・09）', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Import' }))
+    const dialog = screen.getByRole('dialog', { name: 'Import' })
+    const table = within(dialog).getByRole('table')
+    expect(
+      within(table)
+        .getAllByRole('rowheader')
+        .map((h) => h.textContent),
+    ).toEqual([
+      'hanziRequired',
+      'zhuyin',
+      'pinyin',
+      'meaningRequired',
+      'example',
+      'example_translation',
+      'tags',
+    ])
+    expect(
+      within(dialog).getByRole('button', { name: 'Download a sample CSV' }),
+    ).toBeInTheDocument()
+
+    // Shift_JIS の「水」
+    const sjis = new Uint8Array([
+      ...new TextEncoder().encode('hanzi,meaning\n'),
+      0x90,
+      0x85,
+      0x2c,
+      0x90,
+      0x85,
+    ])
+    await user.upload(within(dialog).getByLabelText('Choose a file'), new File([sjis], 's.csv'))
+    expect(await within(dialog).findByRole('alert')).toHaveTextContent('not encoded in UTF-8')
+
+    const csv = 'hanzi,meaning,level\n茶,tea,1\n'
+    await user.upload(within(dialog).getByLabelText('Choose a file'), new File([csv], 'w.csv'))
+    expect(
+      await within(dialog).findByText('These columns will not be imported: level'),
+    ).toBeInTheDocument()
   })
 })
 

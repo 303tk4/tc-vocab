@@ -1,6 +1,6 @@
 {
   "title": "暗記カード",
-  "description": "カードをめくって意味を確認し、覚え具合を4段階で評価します。忘れかけた頃に復習が出てきます。",
+  "description": "カードをめくって意味を確認し、覚え具合を5段階で評価します。忘れかけた頃に復習が出てきます。",
   "direction": "出題の向き",
   "directions": {
     "hanziToMeaning": "繁体字 → 意味",
@@ -13,13 +13,14 @@
   "flipHintTouch": "タップして答えを表示",
   "flipHintKey": "クリックまたは Space で答えを表示",
   "swipeHint": "← もう一度　　普通 →",
-  "keyHint": "1〜4：評価　S：読み上げ　Esc：中断",
+  "keyHint": "1〜5：評価　S：読み上げ　T：タグ　Esc：中断",
   "ratingsLabel": "覚え具合の評価",
   "ratings": {
     "again": "もう一度",
     "hard": "難しい",
     "good": "普通",
-    "easy": "簡単"
+    "easy": "簡単",
+    "perfect": "完璧"
   },
   "intervals": {
     "minutes": "{{value}}分",
@@ -31,6 +32,8 @@
   "speakExample": "例文を読み上げる",
   "examples": "例文",
   "tags": "タグ",
+  "editTags": "タグを編集",
+  "tagSaveFailed": "タグを保存できませんでした。もう一度お試しください。",
   "empty": {
     "title": "今日学習するカードはありません",
     "nextDue": "次の復習予定：{{date}}",
@@ -44,7 +47,8 @@
     "again": "もう一度",
     "hard": "難しい",
     "good": "普通",
-    "easy": "簡単"
+    "easy": "簡単",
+    "perfect": "完璧"
   },
   "result": {
     "ratings": "評価ごとの件数",

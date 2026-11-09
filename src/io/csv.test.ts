@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { jieyun, makeWord, tricky } from '../test/fixtures'
-import { buildCsv, countExampleLoss, parseCsv } from './csv'
+import { buildCsv, buildCsvTemplate, countExampleLoss, detectDelimiter, parseCsv } from './csv'
 import { BOM, ImportFileError } from './parsed'
 
 describe('buildCsv', () => {
@@ -58,7 +58,7 @@ describe('parseCsv', () => {
     try {
       parseCsv('hanzi,pinyin\n')
     } catch (e) {
-      expect((e as ImportFileError).params).toEqual({ columns: 'meaning' })
+      expect((e as ImportFileError).params).toEqual({ columns: 'meaning', found: 'hanzi, pinyin' })
     }
   })
 
@@ -75,5 +75,30 @@ describe('parseCsv', () => {
       tags,
     })
     expect(rows.map((r) => r.word)).toEqual(words.map(fields))
+  })
+})
+
+describe('区切り文字と列の扱い（仕様書 9.2）', () => {
+  it('1行目にカンマが無ければタブ、次にセミコロンで区切る', () => {
+    expect(detectDelimiter('hanzi,meaning,tags\n')).toBe(',')
+    expect(detectDelimiter('hanzi\tmeaning\n')).toBe('\t')
+    expect(detectDelimiter('hanzi;meaning\n')).toBe(';')
+    // カンマ区切りのタグ列にセミコロンがあってもカンマを優先する
+    const { rows } = parseCsv('hanzi,meaning,tags\n水,water,a;b\n')
+    expect(rows[0].word?.tags).toEqual(['a', 'b'])
+    expect(parseCsv('hanzi\tmeaning\n水\twater\n').rows[0].word?.meaning).toBe('water')
+  })
+
+  it('知らない列と、2つ目以降の同じ名前の列は取り込まずに知らせる', () => {
+    const parsed = parseCsv('hanzi,meaning,Level,memo,meaning\n水,water,1,x,y\n')
+    expect(parsed.ignoredColumns).toEqual(['Level', 'memo', 'meaning'])
+    expect(parsed.rows[0].word?.meaning).toBe('water')
+  })
+
+  it('テンプレートは必須の列を含み、そのまま取り込める', () => {
+    const parsed = parseCsv(buildCsvTemplate())
+    expect(parsed.rows.map((r) => r.word?.hanzi)).toEqual(['捷運', '好吃'])
+    expect(parsed.rows.every((r) => r.errors.length === 0)).toBe(true)
+    expect(parsed.ignoredColumns).toEqual([])
   })
 })

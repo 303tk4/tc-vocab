@@ -70,17 +70,11 @@
     "confirmDeleteSelected": "要刪除選取的 {{count}} 個單字嗎？學習進度也會一併刪除。",
     "empty": "沒有單字。請匯入單字或加入範例單字。",
     "noMatch": "沒有符合條件的單字。",
-    "bulkTitle": "批次刪除",
-    "deleteByTag": "依標籤刪除",
     "tag": "標籤",
-    "confirmDeleteByTag": "將刪除帶有此標籤的 {{count}} 個單字，學習進度也會一併刪除。",
-    "deleteAll": "刪除所有資料",
-    "deleteAllConfirm": "全部刪除",
-    "confirmDeleteAll": "將刪除所有單字（{{count}} 個）以及學習進度與學習紀錄。顯示等設定會保留。",
     "cannotUndo": "此操作無法復原。如有需要，請先匯出。",
     "deleted": "已刪除 {{count}} 個單字。",
-    "allDeleted": "已刪除所有資料。",
-    "writeFailed": "儲存失敗，資料沒有任何變更。"
+    "writeFailed": "儲存失敗，資料沒有任何變更。",
+    "selectionActions": "選取單字的操作"
   },
   "tags": {
     "manage": "管理標籤",
@@ -130,7 +124,7 @@
     "importTitle": "匯入",
     "dropHere": "將 JSON 或 CSV 檔案拖放到這裡",
     "chooseFile": "選擇檔案",
-    "fileHint": "支援格式：.json / .csv（上限 20MB）",
+    "fileHint": "支援格式：.csv / .json（最大 20MB）",
     "countNew": "新增",
     "countDuplicate": "重複",
     "countError": "錯誤",
@@ -175,10 +169,14 @@
       "invalidJson": "無法以 JSON 格式讀取。",
       "invalidFormat": "不是 tc-vocab 的 JSON 格式。",
       "unsupportedVersion": "不支援此版本的 JSON。",
-      "missingColumns": "缺少必要的欄位（{{columns}}）。請在第 1 行寫上欄位名稱。",
+      "missingColumns": "缺少必要欄位（{{columns}}）。請在第 1 列用英文填寫欄位名稱（hanzi、meaning 等）。找到的欄位：{{found}}",
       "tooLarge": "檔案太大（上限 20MB）。",
-      "unsupportedType": "請選擇副檔名為 .json 或 .csv 的檔案。",
-      "readFailed": "無法讀取檔案。"
+      "unsupportedType": "請選擇副檔名為 .csv 或 .json 的檔案。",
+      "readFailed": "無法讀取檔案。",
+      "empty": "檔案是空的。",
+      "spreadsheet": "無法直接讀取 Excel 等試算表軟體的檔案。請另存為「CSV UTF-8（逗號分隔）」格式後再選擇。",
+      "invalidEncoding": "檔案的文字編碼不是 UTF-8（例如 Big5 或 Shift_JIS），因此無法讀取。在 Excel 中請另存為「CSV UTF-8（逗號分隔）」格式。",
+      "notText": "這不是文字檔，無法讀取。"
     },
     "exportTitle": "匯出",
     "format": "格式",
@@ -191,7 +189,41 @@
     "csvExampleLoss": "有 {{count}} 個單字有 2 個以上的例句。CSV 只會輸出第 1 個例句。",
     "download": "下載",
     "exported": "已匯出 {{count}} 個單字。",
-    "exportFailed": "匯出失敗。"
+    "exportFailed": "匯出失敗。",
+    "ignoredColumns": "以下欄位不會匯入：{{columns}}",
+    "guide": {
+      "title": "CSV 檔案的製作方式",
+      "intro": "請用試算表軟體（Excel、Google 試算表、Numbers 等）製作如下的表格，並存成 CSV 格式。",
+      "column": "欄位名稱（第 1 列）",
+      "content": "內容",
+      "example": "範例：",
+      "required": "必填",
+      "columns": {
+        "hanzi": "單字（繁體字）",
+        "zhuyin": "注音。音節之間用半形空格分隔",
+        "pinyin": "拼音（含聲調符號）",
+        "meaning": "意思。任何語言皆可",
+        "example": "例句（最多 1 個）",
+        "example_translation": "例句的翻譯",
+        "tags": "標籤。多個時用 ; 分隔"
+      },
+      "examples": {
+        "hanzi": "捷運",
+        "zhuyin": "ㄐㄧㄝˊ ㄩㄣˋ",
+        "pinyin": "jié yùn",
+        "meaning": "MRT",
+        "example": "我坐捷運。",
+        "example_translation": "I take the MRT.",
+        "tags": "交通;基本"
+      },
+      "notes": {
+        "header": "第 1 列請直接用英文填寫欄位名稱。欄位順序不拘，不用的欄位可以省略。",
+        "encoding": "文字編碼請用 UTF-8。Excel 請存成「CSV UTF-8（逗號分隔）」，Google 試算表請選「檔案 → 下載 → 逗號分隔值檔案（.csv）」。",
+        "duplicate": "繁體字與拼音都相同的單字，會視為與已登錄的單字重複。",
+        "json": "JSON 用於還原從本應用程式匯出的檔案（備份）。"
+      },
+      "template": "下載 CSV 範本"
+    }
   },
   "common": {
     "loading": "載入中…",

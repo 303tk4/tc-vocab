@@ -47,3 +47,11 @@ export function Dialog({ open, title, onClose, children, actions }: Props) {
     </dialog>
   )
 }
+
+/**
+ * 本文の中に置くボタン列。中身の状態に応じてボタンを変えたいときに使う。
+ * 本文をスクロールしても下端に見える
+ */
+export function DialogActions({ children }: { children: ReactNode }) {
+  return <div className={styles.bodyActions}>{children}</div>
+}

@@ -3,33 +3,20 @@ import { useDeferredValue, useId, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dialog } from '../components/Dialog'
 import { TagChips } from '../components/TagChips'
-import {
-  deleteAllData,
-  deleteWords,
-  deleteWordsByTag,
-  listTags,
-  listWords,
-  type ImportResult,
-} from '../db/repos/words'
+import { WordTagsDialog } from '../components/WordTagsDialog'
+import { setWordTags } from '../db/repos/tags'
+import { deleteWords, listTags, listWords, type ImportResult } from '../db/repos/words'
 import { addSampleWords } from '../services/samples'
 import type { Word } from '../types/word'
 import { ExportDialog } from './words/ExportDialog'
 import { ImportDialog } from './words/ImportDialog'
 import { createMatcher, sortWords } from './words/search'
-import { BulkTagDialog, TagManagerDialog, WordTagsDialog } from './words/TagDialogs'
+import { BulkTagDialog, TagManagerDialog } from './words/TagDialogs'
 import { WordList } from './words/WordList'
 import styles from './words/WordsPage.module.css'
 
 type DialogKind =
-  | 'import'
-  | 'export'
-  | 'deleteSelected'
-  | 'deleteByTag'
-  | 'deleteAll'
-  | 'addTag'
-  | 'removeTag'
-  | 'manageTags'
-  | null
+  'import' | 'export' | 'deleteSelected' | 'addTag' | 'removeTag' | 'manageTags' | null
 type Notice = { kind: 'success' | 'error'; text: string } | null
 
 export function WordsPage() {
@@ -45,7 +32,6 @@ export function WordsPage() {
   const [dialog, setDialog] = useState<DialogKind>(null)
   const [notice, setNotice] = useState<Notice>(null)
   const [busy, setBusy] = useState(false)
-  const [deleteTag, setDeleteTag] = useState('')
   /** タグを編集中の単語の id */
   const [editingId, setEditingId] = useState<string | null>(null)
 
@@ -66,8 +52,6 @@ export function WordsPage() {
   const selectedIds = selectedWords.map((w) => w.id)
   const editingWord = sorted.find((w) => w.id === editingId) ?? null
   const allShownSelected = shown.length > 0 && shown.every((w) => selected.has(w.id))
-  const effectiveDeleteTag = allTags.includes(deleteTag) ? deleteTag : (allTags[0] ?? '')
-  const deleteTagCount = sorted.filter((w) => w.tags.includes(effectiveDeleteTag)).length
 
   const toggleFilterTag = (tag: string) =>
     setFilterTags(
@@ -121,19 +105,6 @@ export function WordsPage() {
       await deleteWords(selectedIds)
       setSelected(new Set())
       return t('words.deleted', { count: selectedIds.length })
-    })
-
-  const confirmDeleteByTag = () =>
-    write(async () => {
-      const count = await deleteWordsByTag(effectiveDeleteTag)
-      return t('words.deleted', { count })
-    })
-
-  const confirmDeleteAll = () =>
-    write(async () => {
-      await deleteAllData()
-      setSelected(new Set())
-      return t('words.allDeleted')
     })
 
   const cancelButton = (
@@ -208,7 +179,11 @@ export function WordsPage() {
       {allWords === undefined ? (
         <p className="muted">{t('common.loading')}</p>
       ) : (
-        <section className="stack" aria-label={t('words.list')}>
+        <section
+          className={`stack ${selectedIds.length > 0 ? styles.withActionBar : ''}`}
+          aria-label={t('words.list')}
+        >
+          {/* 選択の操作。スクロールしても届くよう固定する（FR-WORDS-12） */}
           <div className={styles.listBar}>
             <label className={styles.checkbox}>
               <input
@@ -219,7 +194,12 @@ export function WordsPage() {
               />
               {t('words.selectAllShown', { count: shown.length })}
             </label>
-            <div className={styles.selectionActions}>
+            <div
+              className={styles.selectionActions}
+              data-active={selectedIds.length > 0}
+              role="group"
+              aria-label={t('words.selectionActions')}
+            >
               <button
                 type="button"
                 className="button"
@@ -259,30 +239,6 @@ export function WordsPage() {
         </section>
       )}
 
-      <section className={`panel stack ${styles.danger}`} aria-labelledby="bulk-title">
-        <h2 id="bulk-title" className="section-title">
-          {t('words.bulkTitle')}
-        </h2>
-        <div className={styles.toolbar}>
-          <button
-            type="button"
-            className="button"
-            disabled={allTags.length === 0}
-            onClick={() => setDialog('deleteByTag')}
-          >
-            {t('words.deleteByTag')}
-          </button>
-          <button
-            type="button"
-            className={`button ${styles.dangerButton}`}
-            disabled={!allWords?.length}
-            onClick={() => setDialog('deleteAll')}
-          >
-            {t('words.deleteAll')}
-          </button>
-        </div>
-      </section>
-
       <ImportDialog
         open={dialog === 'import'}
         onClose={() => setDialog(null)}
@@ -315,7 +271,13 @@ export function WordsPage() {
         allTags={allTags}
         busy={busy}
         onClose={() => setEditingId(null)}
-        run={write}
+        onSave={(tags) => {
+          if (!editingWord) return
+          void write(async () => {
+            await setWordTags(editingWord.id, tags)
+            return t('tags.saved', { hanzi: editingWord.hanzi })
+          })
+        }}
       />
       <TagManagerDialog
         open={dialog === 'manageTags'}
@@ -344,63 +306,6 @@ export function WordsPage() {
         }
       >
         <p>{t('words.confirmDeleteSelected', { count: selectedIds.length })}</p>
-      </Dialog>
-
-      <Dialog
-        open={dialog === 'deleteByTag'}
-        title={t('words.deleteByTag')}
-        onClose={() => setDialog(null)}
-        actions={
-          <>
-            {cancelButton}
-            <button
-              type="button"
-              className={`button ${styles.dangerButton}`}
-              disabled={busy || deleteTagCount === 0}
-              onClick={() => void confirmDeleteByTag()}
-            >
-              {t('common.delete')}
-            </button>
-          </>
-        }
-      >
-        <div className={styles.field}>
-          <label htmlFor={`${searchId}-tag`}>{t('words.tag')}</label>
-          <select
-            id={`${searchId}-tag`}
-            className={styles.input}
-            value={effectiveDeleteTag}
-            onChange={(e) => setDeleteTag(e.target.value)}
-          >
-            {allTags.map((tag) => (
-              <option key={tag} value={tag}>
-                {tag}
-              </option>
-            ))}
-          </select>
-        </div>
-        <p>{t('words.confirmDeleteByTag', { count: deleteTagCount })}</p>
-      </Dialog>
-
-      <Dialog
-        open={dialog === 'deleteAll'}
-        title={t('words.deleteAll')}
-        onClose={() => setDialog(null)}
-        actions={
-          <>
-            {cancelButton}
-            <button
-              type="button"
-              className={`button ${styles.dangerButton}`}
-              disabled={busy}
-              onClick={() => void confirmDeleteAll()}
-            >
-              {t('words.deleteAllConfirm')}
-            </button>
-          </>
-        }
-      >
-        <p>{t('words.confirmDeleteAll', { count: allWords?.length ?? 0 })}</p>
         <p className={styles.strong}>{t('words.cannotUndo')}</p>
       </Dialog>
     </div>

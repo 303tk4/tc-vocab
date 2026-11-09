@@ -1,77 +1,21 @@
-// タグの編集用ダイアログ（FR-WORDS-08〜11）
-import { useId, useMemo, useState, type ReactNode } from 'react'
+// タグの編集用ダイアログ（FR-WORDS-08・10・11）。1語の編集は components/WordTagsDialog.tsx
+import { useId, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Dialog } from '../../components/Dialog'
-import { CloseIcon } from '../../components/icons'
+import { Dialog, DialogActions } from '../../components/Dialog'
+import { TagField } from '../../components/TagField'
 import {
   addTagToWords,
   removeTagEverywhere,
   removeTagFromWords,
   renameTag,
-  setWordTags,
   summarizeAddTag,
 } from '../../db/repos/tags'
-import { LIMITS, tagError, type TagError } from '../../io/validate'
+import { LIMITS, tagError } from '../../io/validate'
 import type { Word } from '../../types/word'
 import styles from './WordsPage.module.css'
 
 /** 書き込みを行い、成功時の通知文を返す。失敗時の通知とダイアログを閉じるのは呼び出し元が行う */
 export type RunWrite = (action: () => Promise<string>) => Promise<void>
-
-interface TagFieldProps {
-  label: string
-  value: string
-  onChange(value: string): void
-  /** 入力候補（登録済みのタグ） */
-  suggestions: readonly string[]
-  /** 表示するエラー。入力が空のうちは出さない */
-  error?: TagError | 'same' | 'tooMany' | null
-  onEnter?(): void
-  /** 入力欄の右に置くボタン */
-  action?: ReactNode
-}
-
-/** 登録済みのタグを候補に出すタグ名の入力欄 */
-function TagField({ label, value, onChange, suggestions, error, onEnter, action }: TagFieldProps) {
-  const { t } = useTranslation()
-  const id = useId()
-  const shownError = value.trim() === '' && error === 'empty' ? null : error
-  return (
-    <div className={styles.field}>
-      <label htmlFor={id}>{label}</label>
-      <div className={styles.inline}>
-        <input
-          id={id}
-          className={styles.input}
-          value={value}
-          list={`${id}-list`}
-          autoComplete="off"
-          placeholder={t('tags.tagPlaceholder')}
-          aria-invalid={!!shownError}
-          aria-describedby={shownError ? `${id}-error` : undefined}
-          onChange={(e) => onChange(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.nativeEvent.isComposing && onEnter) {
-              e.preventDefault()
-              onEnter()
-            }
-          }}
-        />
-        {action}
-      </div>
-      <datalist id={`${id}-list`}>
-        {suggestions.map((tag) => (
-          <option key={tag} value={tag} />
-        ))}
-      </datalist>
-      {shownError && (
-        <p id={`${id}-error`} className={styles.error}>
-          {t(`tags.errors.${shownError}`, { max: LIMITS.tags })}
-        </p>
-      )}
-    </div>
-  )
-}
 
 function CancelButton({ busy, onClose }: { busy: boolean; onClose(): void }) {
   const { t } = useTranslation()
@@ -225,117 +169,6 @@ function BulkRemove({ words, busy, onClose, run }: BulkBodyProps) {
           onClick={() => void submit()}
         >
           {t('tags.remove')}
-        </button>
-      </DialogActions>
-    </>
-  )
-}
-
-interface WordTagsProps {
-  word: Word | null
-  allTags: readonly string[]
-  busy: boolean
-  onClose(): void
-  run: RunWrite
-}
-
-/** 1語のタグを編集する（FR-WORDS-09） */
-export function WordTagsDialog({ word, allTags, busy, onClose, run }: WordTagsProps) {
-  const { t } = useTranslation()
-  return (
-    <Dialog
-      open={word !== null}
-      title={word ? t('tags.editTitle', { hanzi: word.hanzi }) : ''}
-      onClose={onClose}
-    >
-      {word && (
-        <WordTagsBody
-          key={word.id}
-          word={word}
-          allTags={allTags}
-          busy={busy}
-          onClose={onClose}
-          run={run}
-        />
-      )}
-    </Dialog>
-  )
-}
-
-function WordTagsBody({
-  word,
-  allTags,
-  busy,
-  onClose,
-  run,
-}: Omit<WordTagsProps, 'word'> & { word: Word }) {
-  const { t } = useTranslation()
-  const [tags, setTags] = useState<string[]>(word.tags)
-  const [input, setInput] = useState('')
-  const name = input.trim()
-  const full = tags.length >= LIMITS.tags
-  const error = full && name !== '' ? 'tooMany' : tagError(input)
-  const canAdd = !error && !tags.includes(name)
-  const changed = tags.join('\n') !== word.tags.join('\n')
-
-  const add = () => {
-    if (!canAdd) return
-    setTags([...tags, name])
-    setInput('')
-  }
-
-  const save = () =>
-    run(async () => {
-      await setWordTags(word.id, tags)
-      return t('tags.saved', { hanzi: word.hanzi })
-    })
-
-  return (
-    <>
-      <section aria-label={t('tags.currentTags')}>
-        <h3 className={styles.subTitle}>{t('tags.currentTags')}</h3>
-        {tags.length === 0 ? (
-          <p className="muted">{t('tags.noTags')}</p>
-        ) : (
-          <ul className={styles.chips}>
-            {tags.map((tag) => (
-              <li key={tag} className={styles.chip}>
-                <span>{tag}</span>
-                <button
-                  type="button"
-                  className={styles.chipRemove}
-                  aria-label={t('tags.removeTag', { tag })}
-                  onClick={() => setTags(tags.filter((x) => x !== tag))}
-                >
-                  <CloseIcon />
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-      <TagField
-        label={t('tags.newTag')}
-        value={input}
-        onChange={setInput}
-        suggestions={allTags.filter((x) => !tags.includes(x))}
-        error={error}
-        onEnter={add}
-        action={
-          <button type="button" className="button" disabled={!canAdd} onClick={add}>
-            {t('tags.add')}
-          </button>
-        }
-      />
-      <DialogActions>
-        <CancelButton busy={busy} onClose={onClose} />
-        <button
-          type="button"
-          className="button button--primary"
-          disabled={busy || !changed}
-          onClick={() => void save()}
-        >
-          {t('tags.save')}
         </button>
       </DialogActions>
     </>
@@ -513,9 +346,6 @@ function RenameTag(props: {
 }
 
 /** ダイアログ本文の末尾に置くボタン列 */
-function DialogActions({ children }: { children: ReactNode }) {
-  return <div className={styles.dialogActions}>{children}</div>
-}
 
 function countTags(words: readonly Word[]): Map<string, number> {
   const counts = new Map<string, number>()

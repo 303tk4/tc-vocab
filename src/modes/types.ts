@@ -24,6 +24,15 @@ export interface CoreServices {
   canSpeak: boolean
   /** 共通設定（参照のみ） */
   settings: AppSettings
+  /** 単語のタグの読み書き（FR-PLUG-04・FR-FC-15） */
+  tags: TagService
+}
+
+export interface TagService {
+  /** 登録済みの全タグ（入力候補用） */
+  list(): Promise<string[]>
+  /** 1語のタグを置き換え、保存後のタグを返す */
+  setWordTags(wordId: string, tags: string[]): Promise<string[]>
 }
 
 export interface SessionProps<O> {

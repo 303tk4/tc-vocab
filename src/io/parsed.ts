@@ -17,6 +17,10 @@ export type FatalCode =
   | 'tooLarge'
   | 'unsupportedType'
   | 'readFailed'
+  | 'empty'
+  | 'spreadsheet'
+  | 'invalidEncoding'
+  | 'notText'
 
 export class ImportFileError extends Error {
   readonly code: FatalCode
@@ -41,4 +45,6 @@ export interface ParsedFile {
   kind: 'json' | 'csv'
   rows: ParsedRow[]
   progress: Progress[]
+  /** CSV で取り込まない列の名前（未知の列名、重複した列名） */
+  ignoredColumns?: string[]
 }

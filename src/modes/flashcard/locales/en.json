@@ -13,13 +13,14 @@
   "flipHintTouch": "Tap to show the answer",
   "flipHintKey": "Click or press Space to show the answer",
   "swipeHint": "← Again    Good →",
-  "keyHint": "1–4: rate   S: speak   Esc: stop",
+  "keyHint": "1–5: rate   S: speak   T: tags   Esc: stop",
   "ratingsLabel": "Rate how well you remembered",
   "ratings": {
     "again": "Again",
     "hard": "Hard",
     "good": "Good",
-    "easy": "Easy"
+    "easy": "Easy",
+    "perfect": "Perfect"
   },
   "intervals": {
     "minutes": "{{value}} min",
@@ -31,6 +32,8 @@
   "speakExample": "Speak the example",
   "examples": "Examples",
   "tags": "Tags",
+  "editTags": "Edit tags",
+  "tagSaveFailed": "Could not save the tags. Please try again.",
   "empty": {
     "title": "No cards to study today",
     "nextDue": "Next review: {{date}}",
@@ -44,7 +47,8 @@
     "again": "Again",
     "hard": "Hard",
     "good": "Good",
-    "easy": "Easy"
+    "easy": "Easy",
+    "perfect": "Perfect"
   },
   "result": {
     "ratings": "Ratings",

@@ -70,17 +70,11 @@
     "confirmDeleteSelected": "選択した {{count}} 語を削除しますか？ 学習進捗も削除されます。",
     "empty": "単語がありません。インポートするか、サンプル単語を追加してください。",
     "noMatch": "条件に合う単語がありません。",
-    "bulkTitle": "一括削除",
-    "deleteByTag": "タグを指定して削除",
     "tag": "タグ",
-    "confirmDeleteByTag": "このタグが付いた {{count}} 語を削除します。学習進捗も削除されます。",
-    "deleteAll": "全データを削除",
-    "deleteAllConfirm": "すべて削除する",
-    "confirmDeleteAll": "すべての単語（{{count}} 語）と、学習進捗・学習履歴を削除します。表示などの設定は残ります。",
     "cannotUndo": "この操作は取り消せません。必要ならエクスポートしておいてください。",
     "deleted": "{{count}} 語を削除しました。",
-    "allDeleted": "全データを削除しました。",
-    "writeFailed": "保存に失敗しました。データは変更されていません。"
+    "writeFailed": "保存に失敗しました。データは変更されていません。",
+    "selectionActions": "選択した単語の操作"
   },
   "tags": {
     "manage": "タグの管理",
@@ -130,7 +124,7 @@
     "importTitle": "インポート",
     "dropHere": "JSON または CSV ファイルをここにドロップ",
     "chooseFile": "ファイルを選択",
-    "fileHint": "対応形式：.json / .csv（20MB まで）",
+    "fileHint": "対応形式：.csv / .json（20MB まで）",
     "countNew": "新規",
     "countDuplicate": "重複",
     "countError": "エラー",
@@ -175,10 +169,14 @@
       "invalidJson": "JSON として読み込めませんでした。",
       "invalidFormat": "tc-vocab の JSON 形式ではありません。",
       "unsupportedVersion": "対応していないバージョンの JSON です。",
-      "missingColumns": "必須の列（{{columns}}）がありません。1行目に列名を書いてください。",
+      "missingColumns": "必須の列（{{columns}}）がありません。1行目に英語の列名（hanzi, meaning など）を書いてください。見つかった列：{{found}}",
       "tooLarge": "ファイルが大きすぎます（20MB まで）。",
-      "unsupportedType": "拡張子が .json または .csv のファイルを選んでください。",
-      "readFailed": "ファイルを読み込めませんでした。"
+      "unsupportedType": "拡張子が .csv または .json のファイルを選んでください。",
+      "readFailed": "ファイルを読み込めませんでした。",
+      "empty": "ファイルが空です。",
+      "spreadsheet": "Excel などの表計算ソフトのファイルは、そのままでは読み込めません。「CSV UTF-8（コンマ区切り）」形式で保存してから選んでください。",
+      "invalidEncoding": "文字コードが UTF-8 ではないため読み込めません（Shift_JIS や Big5 など）。Excel では「CSV UTF-8（コンマ区切り）」形式で保存し直してください。",
+      "notText": "テキストのファイルではないため読み込めません。"
     },
     "exportTitle": "エクスポート",
     "format": "形式",
@@ -191,7 +189,41 @@
     "csvExampleLoss": "{{count}} 語は例文が2件以上あります。CSV には1件目の例文だけを出力します。",
     "download": "ダウンロード",
     "exported": "{{count}} 語をエクスポートしました。",
-    "exportFailed": "エクスポートに失敗しました。"
+    "exportFailed": "エクスポートに失敗しました。",
+    "ignoredColumns": "次の列は取り込みません：{{columns}}",
+    "guide": {
+      "title": "CSV ファイルの作り方",
+      "intro": "表計算ソフト（Excel、Google スプレッドシート、Numbers など）で次のような表を作り、CSV 形式で保存します。",
+      "column": "列名（1行目）",
+      "content": "内容",
+      "example": "例：",
+      "required": "必須",
+      "columns": {
+        "hanzi": "単語（繁体字）",
+        "zhuyin": "注音。音節は半角スペースで区切る",
+        "pinyin": "拼音（声調記号つき）",
+        "meaning": "意味。言語は自由",
+        "example": "例文（1つまで）",
+        "example_translation": "例文の訳",
+        "tags": "タグ。複数は ; で区切る"
+      },
+      "examples": {
+        "hanzi": "捷運",
+        "zhuyin": "ㄐㄧㄝˊ ㄩㄣˋ",
+        "pinyin": "jié yùn",
+        "meaning": "MRT（都市鉄道）",
+        "example": "我坐捷運。",
+        "example_translation": "MRT に乗ります。",
+        "tags": "交通;基本"
+      },
+      "notes": {
+        "header": "1行目には列名を英語のまま書きます。列の順番は自由で、使わない列は省略できます。",
+        "encoding": "文字コードは UTF-8 にします。Excel では「CSV UTF-8（コンマ区切り）」、Google スプレッドシートでは「ファイル → ダウンロード → カンマ区切り形式（.csv）」で保存します。",
+        "duplicate": "繁体字と拼音がどちらも同じ単語は、登録済みの単語と重複とみなします。",
+        "json": "JSON は、このアプリでエクスポートしたファイル（バックアップ）を戻すときに使います。"
+      },
+      "template": "見本の CSV をダウンロード"
+    }
   },
   "common": {
     "loading": "読み込み中…",

@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 import { makeWord } from '../test/fixtures'
 import type { Progress } from '../types/word'
 import { planImport, previewImport } from './importer'
-import { fileKind } from './readFile'
 import type { ParsedFile } from './parsed'
 import type { WordDraft } from './validate'
 
@@ -28,14 +27,6 @@ const ids = () => {
   let n = 0
   return () => `new${++n}`
 }
-
-describe('fileKind', () => {
-  it('拡張子で形式を判定する', () => {
-    expect(fileKind('a.JSON')).toBe('json')
-    expect(fileKind('b.csv')).toBe('csv')
-    expect(fileKind('c.txt')).toBeNull()
-  })
-})
 
 describe('previewImport', () => {
   it('新規・重複（登録済みとファイル内）・エラーを数える', () => {

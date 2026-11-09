@@ -13,6 +13,7 @@ import {
 import { ImportFileError, type ParsedFile } from '../../io/parsed'
 import { readImportFile } from '../../io/readFile'
 import { tagError, type ValidationError } from '../../io/validate'
+import { CsvGuide } from './CsvGuide'
 import styles from './WordsPage.module.css'
 
 /** 一覧に表示する件数の上限（多すぎると画面が重くなるため） */
@@ -123,6 +124,11 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
             <dd>{preview.counts.error}</dd>
           </div>
         </dl>
+        {file.ignoredColumns && file.ignoredColumns.length > 0 && (
+          <p className={styles.warning}>
+            {t('io.ignoredColumns', { columns: file.ignoredColumns.join(', ') })}
+          </p>
+        )}
         {file.progress.length > 0 && (
           <p className="muted">{t('io.progressCount', { count: file.progress.length })}</p>
         )}
@@ -214,7 +220,7 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
             <input
               type="file"
               className="visually-hidden"
-              accept=".json,.csv,application/json,text/csv"
+              accept=".csv,.json,text/csv,application/json"
               disabled={state.step === 'reading'}
               onChange={(e) => {
                 void handleFile(e.target.files?.[0])
@@ -230,6 +236,7 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
             {state.error}
           </p>
         )}
+        <CsvGuide />
       </>
     )
   }

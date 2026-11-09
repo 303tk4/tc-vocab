@@ -70,12 +70,17 @@ export function removeTagFromWords(
   })
 }
 
-/** 1語のタグをまとめて置き換える */
-export async function setWordTags(id: string, tags: readonly string[], now = Date.now()) {
+/** 1語のタグをまとめて置き換え、保存したタグを返す */
+export async function setWordTags(
+  id: string,
+  tags: readonly string[],
+  now = Date.now(),
+): Promise<string[]> {
   const next = normalizeTags(tags)
   if (next.length > LIMITS.tags || next.some((t) => tagError(t))) throw new InvalidTagError()
   const changed = await db.words.update(id, { tags: next, updatedAt: now })
   if (changed === 0) throw new Error('word not found')
+  return next
 }
 
 /**
