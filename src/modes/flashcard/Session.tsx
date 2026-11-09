@@ -1,11 +1,12 @@
 // 暗記カードの学習セッション（仕様書 8章）
 import { useEffect, useEffectEvent, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SpeakerIcon, TagIcon } from '../../components/icons'
+import { PencilIcon, SpeakerIcon, TagIcon } from '../../components/icons'
+import { WordEditDialog } from '../../components/WordEditDialog'
 import { WordTagsDialog } from '../../components/WordTagsDialog'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useSwipe } from '../../hooks/useSwipe'
-import type { Progress } from '../../types/word'
+import type { Progress, Word } from '../../types/word'
 import type { SessionProps } from '../types'
 import type { FlashcardOptions } from './options'
 import {
@@ -163,6 +164,8 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
   const [busy, setBusy] = useState(false)
   const [saveFailed, setSaveFailed] = useState(false)
   const [tagEditing, setTagEditing] = useState<TagEditing | null>(null)
+  /** 単語を編集中なら、タグの入力候補（FR-FC-16） */
+  const [wordEditing, setWordEditing] = useState<{ allTags: string[] } | null>(null)
 
   const frontRef = useRef<HTMLButtonElement>(null)
   const backRef = useRef<HTMLDivElement>(null)
@@ -255,6 +258,22 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
     }
   }
 
+  // その場で単語を編集する（FR-FC-16）。学習進捗とセッションの出題対象は変えない
+  const openWordEdit = async () => {
+    if (!flipped || busy || tagEditing || wordEditing) return
+    setWordEditing({ allTags: [] })
+    try {
+      const allTags = await services.tags.list()
+      setWordEditing((e) => e && { allTags })
+    } catch (error) {
+      console.error('タグの候補を読み込めませんでした', error)
+    }
+  }
+
+  /** 保存した内容を、同じ単語のカード（再出題分を含む）すべてに反映する */
+  const applySavedWord = (saved: Word) =>
+    setCards((list) => list.map((c) => (c.word.id === saved.id ? { ...c, word: saved } : c)))
+
   const saveTags = async (tags: string[]) => {
     setTagEditing((e) => e && { ...e, busy: true, failed: false })
     try {
@@ -281,7 +300,7 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
   const onKeyDown = useEffectEvent((e: KeyboardEvent) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return
     // タグの編集中はダイアログの操作を優先する
-    if (tagEditing) return
+    if (tagEditing || wordEditing) return
     const target = e.target instanceof HTMLElement ? e.target : null
     if (target?.closest('input, textarea, select, [contenteditable="true"]')) return
     if (e.key === 'Escape') {
@@ -307,6 +326,10 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
       if (!flipped || e.repeat) return
       e.preventDefault()
       void openTags()
+    } else if (e.key === 'e' || e.key === 'E') {
+      if (!flipped || e.repeat) return
+      e.preventDefault()
+      void openWordEdit()
     }
   })
   useEffect(() => {
@@ -385,6 +408,7 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
             canSpeak={services.canSpeak}
             speak={services.speak}
             onEditTags={() => void openTags()}
+            onEditWord={() => void openWordEdit()}
           />
         </div>
       )}
@@ -428,6 +452,15 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
         onClose={() => setTagEditing(null)}
         onSave={(tags) => void saveTags(tags)}
       />
+      <WordEditDialog
+        target={wordEditing ? { kind: 'edit', word } : null}
+        allTags={wordEditing?.allTags ?? []}
+        save={(content, id) => services.words.update(id ?? word.id, content)}
+        findDuplicate={services.words.findDuplicate}
+        canOpenExisting={false}
+        onClose={() => setWordEditing(null)}
+        onSaved={applySavedWord}
+      />
     </div>
   )
 }
@@ -439,6 +472,7 @@ function Back(props: {
   canSpeak: boolean
   speak(text: string): void
   onEditTags(): void
+  onEditWord(): void
 }) {
   const { t } = useTranslation('mode.flashcard')
   const { word } = props.card
@@ -498,11 +532,18 @@ function Back(props: {
             ))}
           </ul>
         )}
-        {/* タグの編集（FR-FC-15） */}
-        <button type="button" className={`button ${styles.editTags}`} onClick={props.onEditTags}>
-          <TagIcon />
-          {t('editTags')}
-        </button>
+        <div className={styles.editButtons}>
+          {/* 単語の編集（FR-FC-16） */}
+          <button type="button" className={`button ${styles.editTags}`} onClick={props.onEditWord}>
+            <PencilIcon />
+            {t('editWord')}
+          </button>
+          {/* タグの編集（FR-FC-15） */}
+          <button type="button" className={`button ${styles.editTags}`} onClick={props.onEditTags}>
+            <TagIcon />
+            {t('editTags')}
+          </button>
+        </div>
       </section>
     </div>
   )

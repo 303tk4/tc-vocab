@@ -6,7 +6,11 @@ import type { Progress } from '../../types/word'
 import { requestPersistentStorage } from '../../services/storage-persist'
 import { db } from '../schema'
 import {
+  addWord,
   deleteAllData,
+  findDuplicateWord,
+  updateWord,
+  WordNotFoundError,
   deleteWords,
   importWords,
   listProgressForWords,
@@ -175,5 +179,57 @@ describe('保護の要求（FR-PWA-04）', () => {
     const result = await importWords(parseJson(json), { strategy: 'skip' })
     expect(result.added).toBe(0)
     expect(request).not.toHaveBeenCalled()
+  })
+})
+
+describe('addWord・updateWord（FR-WORDS-15・16）', () => {
+  const content = {
+    hanzi: '捷運',
+    zhuyin: 'ㄐㄧㄝˊ ㄩㄣˋ',
+    pinyin: 'jié yùn',
+    meaning: 'MRT',
+    examples: [{ text: '坐捷運。' }],
+    tags: ['交通'],
+  }
+
+  it('追加すると id と日時を付けて保存し、保存の保護を要求する', async () => {
+    vi.mocked(requestPersistentStorage).mockClear()
+    const word = await addWord(content, 1000)
+    expect(word).toMatchObject({ ...content, createdAt: 1000, updatedAt: 1000 })
+    expect(word.id).toBeTruthy()
+    expect(await db.words.get(word.id)).toEqual(word)
+    expect(requestPersistentStorage).toHaveBeenCalled()
+  })
+
+  it('編集では updatedAt だけを更新し、作成日時と学習進捗は変えない', async () => {
+    await seed()
+    const before = await db.progress.toArray()
+    const word = await updateWord(
+      'jieyun',
+      { ...content, pinyin: 'jié yùn', meaning: '都市鉄道', tags: [] },
+      2000,
+    )
+    expect(word).toMatchObject({
+      id: 'jieyun',
+      meaning: '都市鉄道',
+      tags: [],
+      createdAt: jieyun.createdAt,
+      updatedAt: 2000,
+    })
+    expect(await db.words.get('jieyun')).toEqual(word)
+    expect(await db.progress.toArray()).toEqual(before)
+  })
+
+  it('存在しない単語の編集は失敗する', async () => {
+    await expect(updateWord('none', content)).rejects.toBeInstanceOf(WordNotFoundError)
+  })
+
+  it('重複する単語を探す。編集中の単語自身は除く（FR-WORDS-17）', async () => {
+    await seed()
+    expect((await findDuplicateWord({ hanzi: '捷運', pinyin: 'jié yùn' }))?.id).toBe('jieyun')
+    // どちらかの拼音が空なら繁体字だけで判定する（仕様書 6.1）
+    expect((await findDuplicateWord({ hanzi: '捷運', pinyin: '' }))?.id).toBe('jieyun')
+    expect(await findDuplicateWord({ hanzi: '捷運', pinyin: 'jiē yún' })).toBeUndefined()
+    expect(await findDuplicateWord({ hanzi: '捷運', pinyin: 'jié yùn' }, 'jieyun')).toBeUndefined()
   })
 })

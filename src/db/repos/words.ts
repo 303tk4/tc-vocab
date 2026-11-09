@@ -1,8 +1,14 @@
-import { byRegistration, findDuplicateGroups, mergeWords, pickProgress } from '../../io/duplicates'
+import {
+  byRegistration,
+  DuplicateIndex,
+  findDuplicateGroups,
+  mergeWords,
+  pickProgress,
+} from '../../io/duplicates'
 import { planImport, type ImportOptions, type ImportPlan } from '../../io/importer'
 import type { ParsedFile } from '../../io/parsed'
 import { requestPersistentStorage } from '../../services/storage-persist'
-import type { Progress, Word } from '../../types/word'
+import type { Progress, Word, WordContent } from '../../types/word'
 import { db } from '../schema'
 
 export function countWords(): Promise<number> {
@@ -133,4 +139,58 @@ export function mergeDuplicateGroups(groups: string[][], now = Date.now()): Prom
     }
     return summary
   })
+}
+
+function contentOf(draft: WordContent): WordContent {
+  const { hanzi, zhuyin, pinyin, meaning, examples, tags } = draft
+  return { hanzi, zhuyin, pinyin, meaning, examples, tags }
+}
+
+/** 単語を1語追加する（FR-WORDS-15） */
+export async function addWord(draft: WordContent, now = Date.now()): Promise<Word> {
+  const word: Word = {
+    id: crypto.randomUUID(),
+    ...contentOf(draft),
+    createdAt: now,
+    updatedAt: now,
+  }
+  await db.words.add(word)
+  // 守るべきデータができた時点で、自動削除からの保護を要求する（FR-PWA-04）
+  void requestPersistentStorage()
+  return word
+}
+
+export class WordNotFoundError extends Error {
+  constructor() {
+    super('word not found')
+    this.name = 'WordNotFoundError'
+  }
+}
+
+/**
+ * 単語の内容を書き換える（FR-WORDS-16・FR-FC-16）。
+ * id・作成日時はそのままで `updatedAt` だけを更新し、学習進捗には触れない
+ */
+export function updateWord(id: string, draft: WordContent, now = Date.now()): Promise<Word> {
+  return db.transaction('rw', db.words, async () => {
+    const current = await db.words.get(id)
+    if (!current) throw new WordNotFoundError()
+    const word: Word = { ...current, ...contentOf(draft), updatedAt: now }
+    await db.words.put(word)
+    return word
+  })
+}
+
+/** 重複する登録済みの単語（仕様書 6.1。FR-WORDS-17）。excludeId は編集中の単語 */
+export async function findDuplicateWord(
+  draft: Pick<Word, 'hanzi' | 'pinyin'>,
+  excludeId?: string,
+): Promise<Word | undefined> {
+  const candidates = await db.words.where('hanzi').equals(draft.hanzi.trim()).toArray()
+  return new DuplicateIndex(candidates.filter((w) => w.id !== excludeId)).find(draft)
+}
+
+/** 1語を読む（存在しなければ undefined） */
+export function getWord(id: string): Promise<Word | undefined> {
+  return db.words.get(id)
 }

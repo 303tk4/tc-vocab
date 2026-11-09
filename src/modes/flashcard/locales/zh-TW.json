@@ -13,7 +13,7 @@
   "flipHintTouch": "點一下顯示答案",
   "flipHintKey": "點擊或按 Space 顯示答案",
   "swipeHint": "← 再一次　　普通 →",
-  "keyHint": "1～5：評估　S：朗讀　T：標籤　Esc：中斷",
+  "keyHint": "1～5：評估　S：朗讀　T：標籤　E：編輯　Esc：中斷",
   "ratingsLabel": "記憶程度評估",
   "ratings": {
     "again": "再一次",
@@ -65,5 +65,6 @@
     "showPinyin": "顯示拼音",
     "autoSpeak": "翻面時自動朗讀",
     "saveFailed": "無法儲存設定。"
-  }
+  },
+  "editWord": "編輯單字"
 }

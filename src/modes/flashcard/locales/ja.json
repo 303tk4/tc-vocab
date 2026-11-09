@@ -13,7 +13,7 @@
   "flipHintTouch": "タップして答えを表示",
   "flipHintKey": "クリックまたは Space で答えを表示",
   "swipeHint": "← もう一度　　普通 →",
-  "keyHint": "1〜5：評価　S：読み上げ　T：タグ　Esc：中断",
+  "keyHint": "1〜5：評価　S：読み上げ　T：タグ　E：編集　Esc：中断",
   "ratingsLabel": "覚え具合の評価",
   "ratings": {
     "again": "もう一度",
@@ -65,5 +65,6 @@
     "showPinyin": "拼音を表示",
     "autoSpeak": "裏返したときに自動で読み上げる",
     "saveFailed": "設定を保存できませんでした。"
-  }
+  },
+  "editWord": "単語を編集"
 }

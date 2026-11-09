@@ -3,7 +3,7 @@ import type { ComponentType, LazyExoticComponent } from 'react'
 import type { ProgressStore } from '../db/repos/progress'
 import type { ModeSettingsStore } from '../db/repos/settings'
 import type { AppSettings, UiLanguage } from '../settings/types'
-import type { Word } from '../types/word'
+import type { Word, WordContent } from '../types/word'
 
 type Lazy<P> = LazyExoticComponent<ComponentType<P>>
 
@@ -26,6 +26,8 @@ export interface CoreServices {
   settings: AppSettings
   /** 単語のタグの読み書き（FR-PLUG-04・FR-FC-15） */
   tags: TagService
+  /** 単語の内容の書き換え（FR-FC-16） */
+  words: WordService
 }
 
 export interface TagService {
@@ -33,6 +35,13 @@ export interface TagService {
   list(): Promise<string[]>
   /** 1語のタグを置き換え、保存後のタグを返す */
   setWordTags(wordId: string, tags: string[]): Promise<string[]>
+}
+
+export interface WordService {
+  /** 1語の内容を書き換え、保存後の単語を返す。学習進捗は変えない */
+  update(wordId: string, content: WordContent): Promise<Word>
+  /** 重複する登録済みの単語（仕様書 6.1）。excludeId は編集中の単語 */
+  findDuplicate(word: Pick<Word, 'hanzi' | 'pinyin'>, excludeId?: string): Promise<Word | undefined>
 }
 
 export interface SessionProps<O> {

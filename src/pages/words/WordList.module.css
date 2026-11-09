@@ -105,3 +105,15 @@
   color: var(--color-muted);
   font-size: 0.8125rem;
 }
+
+/* 単語の編集とタグの編集のボタン（FR-WORDS-16・09）。スマホでは縦に並べて行の幅を確保する */
+.buttons {
+  display: flex;
+  flex: none;
+}
+
+@media (max-width: 599px) {
+  .buttons {
+    flex-direction: column;
+  }
+}

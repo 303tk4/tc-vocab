@@ -528,3 +528,147 @@ describe('重複の扱い（FR-IO-03・FR-WORDS-13）', () => {
     await waitFor(async () => expect((await db.words.get('tea'))?.meaning).toBe('tea'))
   })
 })
+
+describe('単語の追加・編集（FR-WORDS-15〜18）', () => {
+  it('単語を追加し、拼音から注音を自動で入れ、「保存して次へ」で続けて入力できる', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Add a word' }))
+    const dialog = await screen.findByRole('dialog', { name: 'Add a word' })
+    await user.type(within(dialog).getByRole('textbox', { name: /Traditional/ }), '捷運')
+    await user.type(within(dialog).getByRole('textbox', { name: /Meaning/ }), 'MRT')
+    await user.type(within(dialog).getByRole('textbox', { name: 'Pinyin' }), 'jie2yun4')
+    await user.tab()
+    // 数字の声調を直し、注音を埋める（FR-WORDS-18）
+    expect(within(dialog).getByRole('textbox', { name: 'Pinyin' })).toHaveValue('jié yùn')
+    expect(within(dialog).getByRole('textbox', { name: 'Zhuyin' })).toHaveValue('ㄐㄧㄝˊ ㄩㄣˋ')
+    await user.click(within(dialog).getByRole('button', { name: 'Add an example' }))
+    await user.type(
+      within(dialog).getByRole('textbox', { name: 'Example (traditional characters)' }),
+      '坐捷運。',
+    )
+    await user.type(within(dialog).getByRole('combobox', { name: 'Add a tag' }), '交通{Enter}')
+    await user.click(within(dialog).getByRole('button', { name: 'Save and add another' }))
+
+    expect(await within(dialog).findByText(/Added “捷運”\. You can enter/)).toBeInTheDocument()
+    expect(within(dialog).getByRole('textbox', { name: /Traditional/ })).toHaveValue('')
+    // タグは残す
+    expect(within(dialog).getByText('交通')).toBeInTheDocument()
+    const [word] = await db.words.toArray()
+    expect(word).toMatchObject({
+      hanzi: '捷運',
+      zhuyin: 'ㄐㄧㄝˊ ㄩㄣˋ',
+      pinyin: 'jié yùn',
+      meaning: 'MRT',
+      examples: [{ text: '坐捷運。' }],
+      tags: ['交通'],
+    })
+    await user.click(within(dialog).getByRole('button', { name: 'Cancel' }))
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+  })
+
+  it('必須の項目が空なら項目の下に示し、保存しない', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Add a word' }))
+    const dialog = await screen.findByRole('dialog')
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+    expect(within(dialog).getAllByText('This field is required.')).toHaveLength(2)
+    expect(await db.words.count()).toBe(0)
+  })
+
+  it('重複を保存前に知らせ、既存の単語を開いて、「← 戻る」で入力中の内容に戻る（FR-WORDS-17）', async () => {
+    await db.words.bulkPut([jieyun])
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await enabledButton('Add a word'))
+    const dialog = await screen.findByRole('dialog')
+    await user.type(within(dialog).getByRole('textbox', { name: /Traditional/ }), '捷運')
+    await user.type(within(dialog).getByRole('textbox', { name: /Meaning/ }), 'metro')
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+    expect(await within(dialog).findByText('This word is already registered')).toBeInTheDocument()
+    expect(within(dialog).getByText(jieyun.meaning)).toBeInTheDocument()
+
+    await user.click(within(dialog).getByRole('button', { name: 'Open the existing word' }))
+    expect(await screen.findByRole('dialog', { name: 'Edit word: 捷運' })).toBeInTheDocument()
+    expect(within(dialog).getByRole('textbox', { name: /Meaning/ })).toHaveValue(jieyun.meaning)
+
+    await user.click(
+      within(dialog).getByRole('button', { name: 'Back to the word you were entering' }),
+    )
+    expect(await screen.findByRole('dialog', { name: 'Add a word' })).toBeInTheDocument()
+    expect(within(dialog).getByRole('textbox', { name: /Meaning/ })).toHaveValue('metro')
+
+    // このまま保存すると重複したまま追加する
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+    await user.click(await within(dialog).findByRole('button', { name: 'Save anyway' }))
+    await waitFor(async () => expect(await db.words.count()).toBe(2))
+  })
+
+  it('一覧から編集すると updatedAt だけを更新し、学習進捗は変えない（FR-WORDS-16）', async () => {
+    const progress = {
+      modeId: 'flashcard',
+      wordId: 'jieyun',
+      due: 5,
+      state: { ease: 2.5 },
+      updatedAt: 1,
+    }
+    await db.words.bulkPut([jieyun])
+    await db.progress.put(progress)
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Edit 捷運' }))
+    const dialog = await screen.findByRole('dialog', { name: 'Edit word: 捷運' })
+    const meaning = within(dialog).getByRole('textbox', { name: /Meaning/ })
+    await user.clear(meaning)
+    await user.type(meaning, 'metro')
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+    expect(await screen.findByText('Saved “捷運”.')).toBeInTheDocument()
+    const word = await db.words.get('jieyun')
+    expect(word).toMatchObject({ meaning: 'metro', createdAt: jieyun.createdAt })
+    expect(word!.updatedAt).toBeGreaterThan(jieyun.updatedAt)
+    expect(await db.progress.toArray()).toEqual([progress])
+  })
+
+  it('要確認:読み の単語で読みを直し、候補を使ってからタグを外して保存できる（M4.6）', async () => {
+    await db.words.bulkPut([
+      makeWord({ id: 'x', hanzi: '行', zhuyin: 'ㄏㄤˊ', pinyin: 'háng', tags: ['要確認:読み'] }),
+    ])
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Edit 行' }))
+    const dialog = await screen.findByRole('dialog')
+    const zhuyin = within(dialog).getByRole('textbox', { name: 'Zhuyin' })
+    await user.clear(zhuyin)
+    await user.type(zhuyin, 'ㄒㄧㄥˊ')
+    await user.tab()
+    // 注音と拼音が食い違うので、拼音の候補を示す
+    expect(within(dialog).getByText(/do not match/)).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: /Use as pinyin/ }))
+    expect(within(dialog).getByRole('textbox', { name: 'Pinyin' })).toHaveValue('xíng')
+    await user.click(within(dialog).getByRole('button', { name: 'Remove the “要確認:読み” tag' }))
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+    await waitFor(async () =>
+      expect(await db.words.get('x')).toMatchObject({
+        zhuyin: 'ㄒㄧㄥˊ',
+        pinyin: 'xíng',
+        tags: [],
+      }),
+    )
+  })
+
+  it('入力を変えたまま閉じようとすると、破棄してよいか確かめる', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Add a word' }))
+    const dialog = await screen.findByRole('dialog')
+    await user.type(within(dialog).getByRole('textbox', { name: /Traditional/ }), '茶')
+    await user.click(within(dialog).getByRole('button', { name: 'Cancel' }))
+    expect(within(dialog).getByText(/not been saved/)).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Back to editing' }))
+    expect(within(dialog).getByRole('textbox', { name: /Traditional/ })).toHaveValue('茶')
+    await user.click(within(dialog).getByRole('button', { name: 'Cancel' }))
+    await user.click(within(dialog).getByRole('button', { name: 'Discard' }))
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+  })
+})

@@ -9,7 +9,8 @@ export function makeWord(overrides: Partial<Word> = {}): Word {
     id: `w${seq}`,
     hanzi: `字${seq}`,
     zhuyin: '',
-    pinyin: `zi${seq}`,
+    // 数字の声調は取り込みで声調記号に直るため（仕様書 16.4）、数字を含めない
+    pinyin: `zì`,
     meaning: `意味${seq}`,
     examples: [],
     tags: [],

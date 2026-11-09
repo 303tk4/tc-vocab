@@ -24,6 +24,12 @@ export interface Word {
   updatedAt: number
 }
 
+/** 単語の内容（id と日時を除く）。単語の追加・編集で使う（FR-WORDS-15・16） */
+export type WordContent = Pick<
+  Word,
+  'hanzi' | 'zhuyin' | 'pinyin' | 'meaning' | 'examples' | 'tags'
+>
+
 export interface Progress<S = unknown> {
   modeId: string
   wordId: string

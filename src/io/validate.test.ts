@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { normalizeWord, tagError } from './validate'
 
 describe('normalizeWord', () => {
+  it('拼音の数字の声調を声調記号に直す（仕様書 16.4）', () => {
+    const r = normalizeWord({ hanzi: '捷運', pinyin: 'jie2yun4', meaning: 'MRT' })
+    expect(r.ok && r.word.pinyin).toBe('jié yùn')
+  })
   it('前後の空白を除き、省略可能な項目を補う', () => {
     expect(normalizeWord({ hanzi: ' 捷運 ', meaning: ' MRT ' })).toEqual({
       ok: true,

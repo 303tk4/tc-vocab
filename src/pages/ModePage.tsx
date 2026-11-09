@@ -8,7 +8,7 @@ import { TagChips } from '../components/TagChips'
 import { addSessionRecord, createProgressStore } from '../db/repos/progress'
 import { createModeSettingsStore, getSetting, setSetting } from '../db/repos/settings'
 import { setWordTags } from '../db/repos/tags'
-import { listTags, listWords } from '../db/repos/words'
+import { findDuplicateWord, listTags, listWords, updateWord } from '../db/repos/words'
 import { modeNamespace } from '../i18n'
 import { getMode } from '../modes/registry'
 import type { AnyStudyMode, CoreServices, SessionResult } from '../modes/types'
@@ -56,7 +56,13 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
   const progress = useMemo(() => createProgressStore(mode.id), [mode.id])
   const modeSettings = useMemo(() => createModeSettingsStore(mode.id), [mode.id])
   const services = useMemo<CoreServices>(
-    () => ({ speak, canSpeak, settings, tags: { list: listTags, setWordTags } }),
+    () => ({
+      speak,
+      canSpeak,
+      settings,
+      tags: { list: listTags, setWordTags },
+      words: { update: updateWord, findDuplicate: findDuplicateWord },
+    }),
     [settings],
   )
 

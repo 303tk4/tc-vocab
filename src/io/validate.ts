@@ -1,5 +1,6 @@
 // 単語データの検証と正規化（仕様書 6.1）
 import type { Example, Word } from '../types/word'
+import { normalizePinyin } from './reading'
 
 export const LIMITS = {
   hanzi: 50,
@@ -81,7 +82,8 @@ export function normalizeWord(raw: unknown): NormalizeResult {
       errors.push({ code: 'invalidType', field })
       return ''
     }
-    const trimmed = value.trim()
+    // 拼音の数字の声調は声調記号に直す（仕様書 16.4 段階1）
+    const trimmed = field === 'pinyin' ? normalizePinyin(value) : value.trim()
     if (required && trimmed === '') errors.push({ code: 'required', field })
     else if (charLength(trimmed) > LIMITS[field])
       errors.push({ code: 'tooLong', field, max: LIMITS[field] })

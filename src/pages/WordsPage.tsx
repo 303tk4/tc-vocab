@@ -7,9 +7,18 @@ import { Dialog } from '../components/Dialog'
 import { ReviewReadingNote } from '../components/ReviewReadingNote'
 import { REVIEW_READING_TAG } from '../io/reviewReading'
 import { TagChips } from '../components/TagChips'
+import { WordEditDialog, type WordEditTarget } from '../components/WordEditDialog'
 import { WordTagsDialog } from '../components/WordTagsDialog'
 import { setWordTags } from '../db/repos/tags'
-import { deleteWords, listTags, listWords, type ImportResult } from '../db/repos/words'
+import {
+  addWord,
+  deleteWords,
+  findDuplicateWord,
+  listTags,
+  listWords,
+  updateWord,
+  type ImportResult,
+} from '../db/repos/words'
 import type { Word } from '../types/word'
 import { findDuplicateGroups } from '../io/duplicates'
 import { DuplicatesDialog } from './words/DuplicatesDialog'
@@ -64,6 +73,8 @@ export function WordsPage() {
   const [busy, setBusy] = useState(false)
   /** タグを編集中の単語の id */
   const [editingId, setEditingId] = useState<string | null>(null)
+  /** 単語の追加・編集（FR-WORDS-15・16） */
+  const [wordEdit, setWordEdit] = useState<WordEditTarget | null>(null)
 
   const sorted = useMemo(() => sortWords(allWords ?? []), [allWords])
   // 重複している組の数（FR-WORDS-13）。重複があっても統合は促さない
@@ -160,6 +171,14 @@ export function WordsPage() {
       </div>
 
       <div className={styles.toolbar}>
+        {/* 単語を1語ずつ追加する（FR-WORDS-15） */}
+        <button
+          type="button"
+          className="button button--primary"
+          onClick={() => setWordEdit({ kind: 'add' })}
+        >
+          {t('words.add')}
+        </button>
         <button type="button" className="button" onClick={() => setDialog('import')}>
           {t('words.import')}
         </button>
@@ -283,6 +302,7 @@ export function WordsPage() {
               selected={selected}
               onToggle={toggleWord}
               onEditTags={(w) => setEditingId(w.id)}
+              onEdit={(word) => setWordEdit({ kind: 'edit', word })}
             />
           )}
         </section>
@@ -338,6 +358,21 @@ export function WordsPage() {
             return t('tags.saved', { hanzi: editingWord.hanzi })
           })
         }}
+      />
+      <WordEditDialog
+        target={wordEdit}
+        allTags={allTags}
+        save={(content, id) => (id ? updateWord(id, content) : addWord(content))}
+        findDuplicate={findDuplicateWord}
+        onClose={() => setWordEdit(null)}
+        onSaved={(word, kind) =>
+          setNotice({
+            kind: 'success',
+            text: t(kind === 'added' ? 'wordEdit.added' : 'wordEdit.updated', {
+              hanzi: word.hanzi,
+            }),
+          })
+        }
       />
       <DuplicatesDialog
         open={dialog === 'duplicates'}

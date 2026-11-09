@@ -5,7 +5,7 @@ import { createProgressStore } from '../../db/repos/progress'
 import { createModeSettingsStore } from '../../db/repos/settings'
 import i18n from '../../i18n'
 import { makeWord } from '../../test/fixtures'
-import type { Word } from '../../types/word'
+import type { Word, WordContent } from '../../types/word'
 import type { SessionProps } from '../types'
 import type { FlashcardOptions } from './options'
 import Session from './Session'
@@ -26,6 +26,12 @@ function renderSession(words: Word[], overrides: Partial<SessionProps<FlashcardO
       tags: {
         list: vi.fn().mockResolvedValue(['交通', '重点']),
         setWordTags: vi.fn((_id: string, tags: string[]) => Promise.resolve(tags)),
+      },
+      words: {
+        update: vi.fn((id: string, content: WordContent) =>
+          Promise.resolve({ ...makeWord({ id }), ...content }),
+        ),
+        findDuplicate: vi.fn().mockResolvedValue(undefined),
       },
     },
     onFinish: vi.fn(),
@@ -175,5 +181,54 @@ describe('暗記カードのセッション', () => {
     await user.type(within(dialog).getByRole('combobox'), 'x{Enter}')
     await user.click(within(dialog).getByRole('button', { name: 'Save' }))
     expect(await within(dialog).findByRole('alert')).toHaveTextContent('Could not save the tags')
+  })
+
+  it('裏面の「単語を編集」（E キー）で内容を直すと、表示に反映し、学習進捗は変えない（FR-FC-16）', async () => {
+    const user = userEvent.setup()
+    const props = renderSession([
+      makeWord({ id: 'w', hanzi: '行', zhuyin: 'ㄏㄤˊ', pinyin: 'háng', meaning: 'row' }),
+    ])
+    await screen.findByText('Card 1 of 1')
+    await user.keyboard(' ')
+    await user.keyboard('e')
+    const dialog = await screen.findByRole('dialog', { name: /行/ })
+    const zhuyin = within(dialog).getByRole('textbox', { name: 'Zhuyin' })
+    await user.clear(zhuyin)
+    await user.type(zhuyin, 'ㄒㄧㄥˊ')
+    await user.clear(within(dialog).getByRole('textbox', { name: 'Pinyin' }))
+    // 注音から拼音を自動で入れる（FR-WORDS-18）
+    await user.click(within(dialog).getByRole('textbox', { name: /Meaning/ }))
+    expect(within(dialog).getByRole('textbox', { name: 'Pinyin' })).toHaveValue('xíng')
+    // 入力中に数字を打っても評価しない
+    await user.keyboard('3')
+    expect(props.onFinish).not.toHaveBeenCalled()
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+    expect(props.services.words.update).toHaveBeenCalledWith(
+      'w',
+      expect.objectContaining({ zhuyin: 'ㄒㄧㄥˊ', pinyin: 'xíng', meaning: 'row3' }),
+    )
+    expect(screen.getByText('xíng')).toBeInTheDocument()
+    expect(await props.progress.list()).toEqual([])
+  })
+
+  it('学習中の重複の確認では「既存の単語を開く」を出さない（FR-FC-16）', async () => {
+    const user = userEvent.setup()
+    const props = renderSession([makeWord({ id: 'w', hanzi: '行', pinyin: 'háng' })])
+    vi.mocked(props.services.words.findDuplicate).mockResolvedValue(
+      makeWord({ id: 'other', hanzi: '行', pinyin: 'xíng' }),
+    )
+    await screen.findByText('Card 1 of 1')
+    await user.keyboard(' ')
+    await user.click(screen.getByRole('button', { name: 'Edit word' }))
+    const dialog = await screen.findByRole('dialog')
+    const pinyin = within(dialog).getByRole('textbox', { name: 'Pinyin' })
+    await user.clear(pinyin)
+    await user.type(pinyin, 'xíng')
+    await user.click(within(dialog).getByRole('button', { name: 'Save' }))
+    expect(await within(dialog).findByText('This word is already registered')).toBeInTheDocument()
+    expect(within(dialog).queryByRole('button', { name: 'Open the existing word' })).toBeNull()
+    await user.click(within(dialog).getByRole('button', { name: 'Save anyway' }))
+    await waitFor(() => expect(props.services.words.update).toHaveBeenCalled())
   })
 })
