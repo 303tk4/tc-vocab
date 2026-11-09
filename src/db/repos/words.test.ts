@@ -3,6 +3,7 @@ import { buildCsv, parseCsv } from '../../io/csv'
 import { buildJson, parseJson } from '../../io/json'
 import { jieyun, makeWord, tricky } from '../../test/fixtures'
 import type { Progress } from '../../types/word'
+import { requestPersistentStorage } from '../../services/storage-persist'
 import { db } from '../schema'
 import {
   deleteAllData,
@@ -12,6 +13,10 @@ import {
   listWords,
   mergeDuplicateGroups,
 } from './words'
+
+vi.mock('../../services/storage-persist', () => ({
+  requestPersistentStorage: vi.fn(() => Promise.resolve(true)),
+}))
 
 const progress: Progress[] = [
   { modeId: 'flashcard', wordId: 'jieyun', due: 5, state: { ease: 2.5 }, updatedAt: 1 },
@@ -154,5 +159,21 @@ describe('重複単語の統合（FR-WORDS-13）', () => {
     const result = await importWords(parseJson(json), { strategy: 'merge' })
     expect(result).toMatchObject({ merged: 1, added: 0 })
     expect(await db.progress.toArray()).toEqual([progress('tea', 10)])
+  })
+})
+
+describe('保護の要求（FR-PWA-04）', () => {
+  it('単語を追加したときに要求し、何も追加しなかったときは要求しない', async () => {
+    const request = vi.mocked(requestPersistentStorage)
+    request.mockClear()
+    const json = buildJson([jieyun])
+
+    await importWords(parseJson(json), { strategy: 'skip' })
+    expect(request).toHaveBeenCalledOnce()
+
+    request.mockClear()
+    const result = await importWords(parseJson(json), { strategy: 'skip' })
+    expect(result.added).toBe(0)
+    expect(request).not.toHaveBeenCalled()
   })
 })

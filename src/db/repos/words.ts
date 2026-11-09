@@ -1,6 +1,7 @@
 import { byRegistration, findDuplicateGroups, mergeWords, pickProgress } from '../../io/duplicates'
 import { planImport, type ImportOptions, type ImportPlan } from '../../io/importer'
 import type { ParsedFile } from '../../io/parsed'
+import { requestPersistentStorage } from '../../services/storage-persist'
 import type { Progress, Word } from '../../types/word'
 import { db } from '../schema'
 
@@ -34,7 +35,14 @@ export type ImportResult = Pick<
  * 解析済みファイルを取り込む。重複の判定から書き込みまでを1つのトランザクションで行い、
  * 途中で失敗した場合は何も取り込まない（FR-IO-06）
  */
-export function importWords(file: ParsedFile, options: ImportOptions): Promise<ImportResult> {
+export async function importWords(file: ParsedFile, options: ImportOptions): Promise<ImportResult> {
+  const result = await importInTransaction(file, options)
+  // 守るべきデータができた時点で、自動削除からの保護を要求する（FR-PWA-04）
+  if (result.added + result.duplicatesAdded > 0) void requestPersistentStorage()
+  return result
+}
+
+function importInTransaction(file: ParsedFile, options: ImportOptions): Promise<ImportResult> {
   return db.transaction('rw', db.words, db.progress, async () => {
     const existing = await db.words.toArray()
     const plan = planImport(file, existing, options)

@@ -9,7 +9,7 @@
 
 - **実装は SPEC.md に従う。** 仕様にない機能の追加や、仕様と異なる実装をする場合は、先に SPEC.md の変更案をユーザーに示し、承認を得る。
 - **SPEC.md を変更したら**、表紙の「版」を上げ、17章「改訂履歴」に1行追加する。要件 ID（例：`FR-WORDS-08`）は既存の番号を変えずに追番する。
-- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5 …）の単位で進める。完了済みは M0〜M3.5、次は M4（PWA）。各マイルストーンはユーザーの指示があってから始める。
+- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5 …）の単位で進める。完了済みは M0〜M4、次は M5（仕上げ）。各マイルストーンはユーザーの指示があってから始める。
 - コード中のコメント、テスト名、コミットメッセージは日本語で書く。コメントでは、関係する要件 ID や仕様書の節番号を示す（例：`// 取り込みの計画（仕様書 9.3）`）。
 
 ## 技術スタック
@@ -27,7 +27,7 @@
 | テスト         | Vitest + Testing Library（jsdom、`fake-indexeddb`）。E2E（Playwright）は M5 で導入              |
 | リント・整形   | ESLint（typescript-eslint）+ Prettier                                                           |
 | CI / デプロイ  | GitHub Actions（`.github/workflows/deploy.yml`）→ GitHub Pages                                  |
-| PWA            | vite-plugin-pwa（M4 で導入）                                                                    |
+| PWA            | vite-plugin-pwa（Workbox）                                                                      |
 
 依存パッケージを追加するときは、SPEC.md 3.2 の表にも追記する。
 
@@ -61,7 +61,7 @@ npm run lint && npm run format:check && npm test && npm run build
 ```
 src/
 ├─ main.tsx, App.tsx      # エントリーポイントとルート定義（ページは必要に応じて React.lazy）
-├─ app/                   # レイアウト
+├─ app/                   # レイアウト、更新の通知（PWA）
 ├─ pages/                 # 画面（HomePage, ModePage, SettingsPage, WordsPage）
 │  └─ words/              # 単語データ画面だけで使う部品（一覧、ダイアログ、検索）
 ├─ modes/                 # 学習モード（プラグイン）。types.ts・registry.ts と、モードごとのフォルダ

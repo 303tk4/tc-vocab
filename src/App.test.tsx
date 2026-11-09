@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { AppRoutes } from './App'
 import { getSetting } from './db/repos/settings'
 import i18n from './i18n'
@@ -32,6 +32,8 @@ describe('ホーム', () => {
     expect(await screen.findByText('No words yet')).toBeInTheDocument()
     expect(screen.getByText('Minimum words required: 1')).toBeInTheDocument()
     expect(screen.queryByRole('link', { name: /Flashcards/ })).not.toBeInTheDocument()
+    // データが残りにくい環境への注意（FR-PWA-04）
+    expect(screen.getByText(/private browsing/)).toBeInTheDocument()
   })
 })
 
@@ -57,6 +59,37 @@ describe('設定', () => {
     renderApp('/settings')
     await waitFor(() => expect(screen.getByRole('radio', { name: 'ダーク' })).toBeChecked())
     expect(screen.getByRole('radio', { name: '特大' })).toBeChecked()
+  })
+})
+
+describe('データの保存の状態（FR-PWA-04）', () => {
+  afterEach(() => {
+    Reflect.deleteProperty(navigator, 'storage')
+  })
+
+  it('保護されていなければ、その旨と案内を表示する', async () => {
+    Object.defineProperty(navigator, 'storage', {
+      value: { persisted: () => Promise.resolve(false) },
+      configurable: true,
+    })
+    renderApp('/settings')
+    expect(await screen.findByText(/Your data is not protected/)).toBeInTheDocument()
+    expect(screen.getByText(/home screen makes protection more likely/)).toBeInTheDocument()
+  })
+
+  it('保護されていれば、その旨だけを表示する', async () => {
+    Object.defineProperty(navigator, 'storage', {
+      value: { persisted: () => Promise.resolve(true) },
+      configurable: true,
+    })
+    renderApp('/settings')
+    expect(await screen.findByText(/Your data is protected/)).toBeInTheDocument()
+    expect(screen.queryByText(/home screen makes protection more likely/)).not.toBeInTheDocument()
+  })
+
+  it('確認できないブラウザでは、その旨を表示する', async () => {
+    renderApp('/settings')
+    expect(await screen.findByText(/cannot tell whether/)).toBeInTheDocument()
   })
 })
 

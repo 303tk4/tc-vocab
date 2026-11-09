@@ -1,0 +1,57 @@
+/* 更新の通知（FR-PWA-03）。画面下部に固定する */
+.bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  padding: var(--space-3) max(16px, env(safe-area-inset-right))
+    calc(var(--space-3) + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 10%);
+}
+
+.spacer {
+  height: calc(5rem + env(safe-area-inset-bottom));
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+}
+
+.body {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* スマホではボタンを横いっぱいに並べる */
+@media (max-width: 599px) {
+  .spacer {
+    height: calc(8.5rem + env(safe-area-inset-bottom));
+  }
+  .actions {
+    width: 100%;
+  }
+  .actions > * {
+    flex: 1;
+  }
+}

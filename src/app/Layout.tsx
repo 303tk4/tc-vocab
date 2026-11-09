@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, NavLink, Outlet } from 'react-router'
 import { BookIcon, GearIcon } from '../components/icons'
 import styles from './Layout.module.css'
+import { UpdatePrompt } from './UpdatePrompt'
 
 export function Layout() {
   const { t } = useTranslation()
@@ -33,6 +34,7 @@ export function Layout() {
       <main className={styles.main}>
         <Outlet />
       </main>
+      <UpdatePrompt />
     </div>
   )
 }

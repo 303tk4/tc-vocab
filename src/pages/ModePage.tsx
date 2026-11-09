@@ -2,6 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router'
+import { setStudying } from '../app/studyActivity'
 import { BackIcon } from '../components/icons'
 import { TagChips } from '../components/TagChips'
 import { addSessionRecord, createProgressStore } from '../db/repos/progress'
@@ -65,6 +66,13 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
   const [sessionWords, setSessionWords] = useState<Word[]>([])
   const [result, setResult] = useState<SessionResult | null>(null)
   const startedAt = useRef(0)
+
+  // 学習セッション中は更新の通知を保留する（FR-PWA-03）
+  useEffect(() => {
+    if (phase !== 'session') return
+    setStudying(true)
+    return () => setStudying(false)
+  }, [phase])
 
   // 前回の準備画面の条件を復元する（FR-MODE-02）
   useEffect(() => {

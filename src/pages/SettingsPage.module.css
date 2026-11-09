@@ -1,0 +1,9 @@
+/* データの保存の状態（FR-PWA-04） */
+.storage p {
+  margin: 0;
+}
+
+.storage .hint {
+  margin-top: var(--space-2);
+  font-size: 0.875rem;
+}

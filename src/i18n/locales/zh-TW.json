@@ -19,7 +19,8 @@
     "addSamples": "加入範例單字",
     "addingSamples": "加入中…",
     "samplesFailed": "無法加入範例單字，請檢查網路連線。",
-    "badge": "待複習 {{count}}"
+    "badge": "待複習 {{count}}",
+    "emptyNote": "使用無痕模式等情況下，關閉瀏覽器後單字可能會消失。加入主畫面後較不容易消失。"
   },
   "mode": {
     "notFound": "找不到指定的學習模式。",
@@ -59,7 +60,14 @@
     },
     "modeSettings": "學習模式設定",
     "data": "資料",
-    "dataLink": "管理單字資料（匯入・匯出）"
+    "dataLink": "管理單字資料（匯入・匯出）",
+    "storage": "資料儲存",
+    "storageStates": {
+      "persisted": "資料已受到保護，瀏覽器不會自動刪除。",
+      "not-persisted": "資料未受到保護。儲存空間不足時，瀏覽器可能會刪除單字。",
+      "unsupported": "此瀏覽器無法確認資料是否受到保護。"
+    },
+    "storageHint": "加入主畫面後較容易受到保護。重要的單字建議從「單字資料」頁面匯出備份。"
   },
   "words": {
     "title": "單字資料",
@@ -327,5 +335,11 @@
     "mergeNow": "合併 {{count}} 組",
     "done": "已合併 {{merged}} 組（將 {{removed}} 個單字合併）。",
     "doneSkipped": "有 {{count}} 組因內容已變更或超過上限而未合併。"
+  },
+  "update": {
+    "title": "有新版本",
+    "body": "重新載入即可使用新版本。",
+    "reload": "重新載入",
+    "later": "稍後"
   }
 }

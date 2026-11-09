@@ -19,7 +19,8 @@
     "addSamples": "Add sample words",
     "addingSamples": "Adding…",
     "samplesFailed": "Could not add the sample words. Check your connection.",
-    "badge": "{{count}} due"
+    "badge": "{{count}} due",
+    "emptyNote": "In private browsing and similar modes, your words may be deleted when you close the browser. Adding the app to your home screen makes this less likely."
   },
   "mode": {
     "notFound": "The requested study mode was not found.",
@@ -59,7 +60,14 @@
     },
     "modeSettings": "Study mode settings",
     "data": "Data",
-    "dataLink": "Manage word data (import / export)"
+    "dataLink": "Manage word data (import / export)",
+    "storage": "Data storage",
+    "storageStates": {
+      "persisted": "Your data is protected from automatic deletion by the browser.",
+      "not-persisted": "Your data is not protected. The browser may delete your words, for example when storage space runs low.",
+      "unsupported": "This browser cannot tell whether your data is protected."
+    },
+    "storageHint": "Adding the app to your home screen makes protection more likely. To be safe, export important words from the Word data page."
   },
   "words": {
     "title": "Word data",
@@ -327,5 +335,11 @@
     "mergeNow": "Merge {{count}} groups",
     "done": "Merged {{merged}} groups ({{removed}} words were combined).",
     "doneSkipped": "{{count}} groups were not merged because they had changed or would exceed the limits."
+  },
+  "update": {
+    "title": "Update available",
+    "body": "Reload to use the new version.",
+    "reload": "Reload",
+    "later": "Later"
   }
 }
