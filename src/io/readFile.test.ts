@@ -32,7 +32,9 @@ describe('fileKind（FR-IO-01）', () => {
     expect(fileKind('b.csv')).toBe('csv')
     expect(fileKind('c.xlsx')).toBe('spreadsheet')
     expect(fileKind('d.numbers')).toBe('spreadsheet')
-    expect(fileKind('e.txt')).toBeNull()
+    expect(fileKind('e.txt')).toBe('csv')
+    expect(fileKind('f.tsv')).toBe('csv')
+    expect(fileKind('g.pdf')).toBeNull()
   })
 })
 
@@ -66,20 +68,36 @@ describe('readImportFile：想定外のファイル（FR-IO-08）', () => {
     expect(await failure('empty.csv', '')).toBe('empty')
     expect(await failure('blank.csv', '  \n\n')).toBe('empty')
     expect(await failure('binary.csv', new Uint8Array([0x68, 0x00, 0x69]))).toBe('notText')
-    expect(await failure('notes.txt', 'hanzi,meaning')).toBe('unsupportedType')
+    expect(await failure('notes.pdf', 'hanzi,meaning')).toBe('unsupportedType')
   })
 
-  it('必須の列が無い場合は、見つかった列名を添えて知らせる', async () => {
+  it('日本語や中国語の列名は、列名の誤りとして直し方を示す', async () => {
     try {
-      await readImportFile(new File(['繁体字,意味\n水,みず\n'], 'ja.csv'))
+      await readImportFile(new File(['繁体字,意味,標籤\n水,みず,a\n'], 'ja.csv'))
       expect.unreachable()
     } catch (e) {
       expect(e).toBeInstanceOf(ImportFileError)
+      expect((e as ImportFileError).code).toBe('wrongColumnNames')
       expect((e as ImportFileError).params).toEqual({
         columns: 'hanzi, meaning',
-        found: '繁体字, 意味',
+        found: '繁体字, 意味, 標籤',
+        hints: '繁体字 → hanzi, 意味 → meaning, 標籤 → tags',
       })
     }
+  })
+
+  it('列名の推測ができないときは、必須の列が無いことを示す', async () => {
+    try {
+      await readImportFile(new File(['foo,bar\n1,2\n'], 'x.csv'))
+      expect.unreachable()
+    } catch (e) {
+      expect((e as ImportFileError).code).toBe('missingColumns')
+    }
+  })
+
+  it('Unicode テキスト（UTF-16・.txt）をそのまま選べる', async () => {
+    const parsed = await readImportFile(new File([utf16le('hanzi\tmeaning\n水\twater\n')], 'u.txt'))
+    expect(parsed.rows.map((r) => r.word?.meaning)).toEqual(['water'])
   })
 
   it('UTF-16 のタブ区切り（Excel の「Unicode テキスト」）も読める', async () => {

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { makeWord } from '../test/fixtures'
 import type { Progress } from '../types/word'
-import { planImport, previewImport } from './importer'
+import { planImport, previewImport, strategiesFor } from './importer'
 import type { ParsedFile } from './parsed'
 import type { WordDraft } from './validate'
 
@@ -67,9 +67,9 @@ describe('planImport', () => {
     })
   })
 
-  it('両方残す：重複も新しい単語として追加する', () => {
+  it('両方残す：重複も新しい単語として追加し、その数を数える', () => {
     const plan = planImport(input, existing, { strategy: 'keepBoth', now: NOW, newId: ids() })
-    expect(plan).toMatchObject({ added: 2, updated: 0, skipped: 0 })
+    expect(plan).toMatchObject({ added: 2, updated: 0, skipped: 0, duplicatesAdded: 1 })
     expect(plan.words.map((w) => w.id)).toEqual(['new1', 'new2'])
   })
 
@@ -126,5 +126,55 @@ describe('planImport', () => {
     expect(
       planImport(source, existing, { strategy: 'overwrite' }).progress.map((p) => p.wordId),
     ).toEqual(['tea'])
+  })
+
+  it('統合：既存の id・読みを残し、意味・例文・タグを両方残す（仕様書 4.5）', () => {
+    const old = makeWord({
+      id: 'w',
+      hanzi: '水',
+      zhuyin: '',
+      pinyin: 'shuǐ',
+      meaning: '水',
+      tags: ['旧'],
+      createdAt: 5,
+    })
+    const plan = planImport(
+      file([draft('水', '', { zhuyin: 'ㄕㄨㄟˇ', meaning: 'water', tags: ['新'] })]),
+      [old],
+      { strategy: 'merge', now: NOW, newId: ids() },
+    )
+    expect(plan).toMatchObject({ added: 0, updated: 0, merged: 1, keepExistingProgress: ['w'] })
+    expect(plan.words).toEqual([
+      {
+        ...old,
+        zhuyin: 'ㄕㄨㄟˇ',
+        meaning: '水 / water',
+        tags: ['旧', '新'],
+        updatedAt: NOW,
+      },
+    ])
+  })
+
+  it('統合すると上限を超える単語は、別の単語として追加する', () => {
+    const old = makeWord({ hanzi: '水', pinyin: '', meaning: 'a'.repeat(300) })
+    const plan = planImport(file([draft('水', '', { meaning: 'b'.repeat(300) })]), [old], {
+      strategy: 'merge',
+      now: NOW,
+      newId: ids(),
+    })
+    expect(plan).toMatchObject({ added: 1, merged: 0, mergeOverflow: 1, duplicatesAdded: 1 })
+  })
+})
+
+describe('拼音が空の単語の重複（仕様書 6.1）', () => {
+  it('拼音を入力していない行も、繁体字が同じなら重複として扱う', () => {
+    const existing = [makeWord({ hanzi: '水', pinyin: 'shuǐ' })]
+    const preview = previewImport(file([draft('水', ''), draft('火', '')]), existing)
+    expect(preview.counts).toEqual({ new: 1, duplicate: 1, error: 0 })
+  })
+
+  it('選べる扱い：上書きは JSON だけ', () => {
+    expect(strategiesFor('csv')).toEqual(['skip', 'keepBoth', 'merge'])
+    expect(strategiesFor('json')).toContain('overwrite')
   })
 })

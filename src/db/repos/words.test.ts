@@ -4,7 +4,14 @@ import { buildJson, parseJson } from '../../io/json'
 import { jieyun, makeWord, tricky } from '../../test/fixtures'
 import type { Progress } from '../../types/word'
 import { db } from '../schema'
-import { deleteAllData, deleteWords, importWords, listProgressForWords, listWords } from './words'
+import {
+  deleteAllData,
+  deleteWords,
+  importWords,
+  listProgressForWords,
+  listWords,
+  mergeDuplicateGroups,
+} from './words'
 
 const progress: Progress[] = [
   { modeId: 'flashcard', wordId: 'jieyun', due: 5, state: { ease: 2.5 }, updatedAt: 1 },
@@ -28,7 +35,7 @@ describe('JSON の往復（仕様書 9.5）', () => {
     await deleteAllData()
     const result = await importWords(parseJson(json), { strategy: 'skip' })
 
-    expect(result).toEqual({ added: 2, updated: 0, skipped: 0 })
+    expect(result).toMatchObject({ added: 2, updated: 0, skipped: 0 })
     expect(byId(await listWords())).toEqual(byId([jieyun, tricky]))
     expect(await db.progress.toArray()).toEqual(expect.arrayContaining(progress))
     expect(await db.progress.count()).toBe(2)
@@ -37,7 +44,7 @@ describe('JSON の往復（仕様書 9.5）', () => {
   it('同じファイルをもう一度取り込むと、スキップで何も変わらない', async () => {
     await seed()
     const json = buildJson(await listWords())
-    expect(await importWords(parseJson(json), { strategy: 'skip' })).toEqual({
+    expect(await importWords(parseJson(json), { strategy: 'skip' })).toMatchObject({
       added: 0,
       updated: 0,
       skipped: 2,
@@ -99,5 +106,53 @@ describe('削除', () => {
     expect(await db.progress.count()).toBe(0)
     expect(await db.sessions.count()).toBe(0)
     expect(await db.settings.count()).toBe(1)
+  })
+})
+
+describe('重複単語の統合（FR-WORDS-13）', () => {
+  const progress = (wordId: string, updatedAt: number): Progress => ({
+    modeId: 'flashcard',
+    wordId,
+    due: updatedAt,
+    state: { n: updatedAt },
+    updatedAt,
+  })
+
+  it('先に登録した単語を残し、最後に学習した進捗を付け替える', async () => {
+    const older = makeWord({ id: 'old', hanzi: '水', pinyin: 'shuǐ', meaning: '水', createdAt: 1 })
+    const newer = makeWord({ id: 'new', hanzi: '水', pinyin: '', meaning: 'water', createdAt: 2 })
+    await db.words.bulkPut([older, newer])
+    await db.progress.bulkPut([progress('old', 10), progress('new', 20)])
+
+    expect(await mergeDuplicateGroups([['new', 'old']], 99)).toEqual({
+      merged: 1,
+      removed: 1,
+      skipped: 0,
+    })
+    expect(await db.words.toArray()).toEqual([{ ...older, meaning: '水 / water', updatedAt: 99 }])
+    expect(await db.progress.toArray()).toEqual([{ ...progress('new', 20), wordId: 'old' }])
+  })
+
+  it('重複ではなくなった組は統合しない', async () => {
+    await db.words.bulkPut([
+      makeWord({ id: 'a', hanzi: '行', pinyin: 'xíng' }),
+      makeWord({ id: 'b', hanzi: '行', pinyin: 'háng' }),
+    ])
+    expect(await mergeDuplicateGroups([['a', 'b']])).toMatchObject({ merged: 0, skipped: 1 })
+    expect(await db.words.count()).toBe(2)
+  })
+
+  it('取り込みの統合では、既存の単語の学習進捗を優先する', async () => {
+    await db.words.put(makeWord({ id: 'tea', hanzi: '茶', pinyin: 'chá' }))
+    await db.progress.put(progress('tea', 10))
+    const json = JSON.stringify({
+      format: 'tc-vocab',
+      version: 1,
+      words: [{ id: 'f', hanzi: '茶', pinyin: 'chá', meaning: 'tea' }],
+      progress: [progress('f', 50)],
+    })
+    const result = await importWords(parseJson(json), { strategy: 'merge' })
+    expect(result).toMatchObject({ merged: 1, added: 0 })
+    expect(await db.progress.toArray()).toEqual([progress('tea', 10)])
   })
 })

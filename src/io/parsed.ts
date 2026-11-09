@@ -14,6 +14,7 @@ export type FatalCode =
   | 'invalidFormat'
   | 'unsupportedVersion'
   | 'missingColumns'
+  | 'wrongColumnNames'
   | 'tooLarge'
   | 'unsupportedType'
   | 'readFailed'
@@ -47,4 +48,6 @@ export interface ParsedFile {
   progress: Progress[]
   /** CSV で取り込まない列の名前（未知の列名、重複した列名） */
   ignoredColumns?: string[]
+  /** 正しくない列名の直し方（例：「タグ → tags」） */
+  columnHints?: string[]
 }

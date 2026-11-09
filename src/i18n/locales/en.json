@@ -136,9 +136,10 @@
     "more": "and {{count}} more",
     "duplicates": "Duplicate words",
     "strategies": {
-      "skip": "Skip",
-      "overwrite": "Overwrite",
-      "keepBoth": "Keep both"
+      "skip": "Do not import duplicates",
+      "keepBoth": "Import duplicates too",
+      "merge": "Merge into existing words",
+      "overwrite": "Overwrite (for restoring a backup)"
     },
     "extraTag": "Tag to add to imported words (optional)",
     "extraTagPlaceholder": "e.g. imported-2026-11",
@@ -146,7 +147,7 @@
     "chooseAnother": "Another file",
     "run": "Import ({{count}})",
     "importing": "Importing…",
-    "imported": "Import complete. Added: {{added}}, updated: {{updated}}, skipped: {{skipped}}.",
+    "imported": "Imported: {{added}} added, {{merged}} merged, {{updated}} updated, {{skipped}} skipped.",
     "fields": {
       "word": "Word",
       "hanzi": "Hanzi",
@@ -174,9 +175,10 @@
       "unsupportedType": "Choose a file with the .csv or .json extension.",
       "readFailed": "The file could not be read.",
       "empty": "The file is empty.",
-      "spreadsheet": "Spreadsheet files such as Excel workbooks cannot be read directly. Save the sheet as “CSV UTF-8 (Comma delimited)” and choose that file.",
-      "invalidEncoding": "The file is not encoded in UTF-8 (for example Shift_JIS or Big5), so it cannot be read. In Excel, save it again as “CSV UTF-8 (Comma delimited)”.",
-      "notText": "This is not a text file, so it cannot be read."
+      "spreadsheet": "Spreadsheet files such as Excel workbooks cannot be read directly. Save the sheet as \"CSV UTF-8 (Comma delimited)\" and choose that file.",
+      "invalidEncoding": "The file is not encoded in UTF-8 (for example Shift_JIS or Big5), so it cannot be read. In Excel, save it again as \"CSV UTF-8 (Comma delimited)\".",
+      "notText": "This is not a text file, so it cannot be read.",
+      "wrongColumnNames": "The column names are not correct. Write the column names in the first row in English, exactly as in the guide table, not in Japanese or Chinese ({{hints}})."
     },
     "exportTitle": "Export",
     "format": "Format",
@@ -217,18 +219,104 @@
         "tags": "交通;基本"
       },
       "notes": {
-        "header": "Write the column names in English in the first row. The order is free, and you can leave out columns you do not use.",
-        "encoding": "Use UTF-8. In Excel choose “CSV UTF-8 (Comma delimited)”; in Google Sheets choose “File → Download → Comma-separated values (.csv)”.",
-        "duplicate": "A word whose characters and pinyin both match a saved word is treated as a duplicate.",
+        "encoding": "Use UTF-8. See \"How to save as a UTF-8 CSV\" below.",
+        "duplicate": "A word with the same characters, and the same pinyin (or no pinyin on either side), is treated as a duplicate of a saved word.",
         "json": "JSON is for restoring files (backups) exported from this app."
       },
-      "template": "Download a sample CSV"
-    }
+      "headerWarning": "Spell the column names in the first row exactly like the English names in the table below (upper or lower case does not matter). Column names in Japanese or Chinese, such as \"繁體字\", cannot be read. If unsure, start from the \"Template with column names only\".",
+      "headerTemplate": "Template with column names only",
+      "sampleTemplate": "Template with examples",
+      "templateHint": "Open the template in a spreadsheet app, enter words from row 2, and save. You can delete the example words.",
+      "save": {
+        "title": "How to save as a UTF-8 CSV (Excel and others)",
+        "lead": "Always save the CSV in UTF-8 so the characters are not garbled. Excel's \"CSV (Comma delimited)\" is not UTF-8 and cannot be read.",
+        "excelWindows": {
+          "title": "Excel (Windows)",
+          "steps": [
+            "Choose File → Save As (or Save a Copy when AutoSave is on).",
+            "In \"Save as type\", choose \"CSV UTF-8 (Comma delimited) (*.csv)\". Do not choose the similar \"CSV (Comma delimited) (*.csv)\".",
+            "Click Save. If you see \"Some features might be lost\", click Yes."
+          ]
+        },
+        "excelMac": {
+          "title": "Excel (Mac)",
+          "steps": [
+            "Choose File → Save As.",
+            "In \"File Format\", choose \"CSV UTF-8 (Comma delimited) (.csv)\".",
+            "Click Save."
+          ]
+        },
+        "googleSheets": {
+          "title": "Google Sheets",
+          "steps": ["Choose File → Download → Comma-separated values (.csv). It is always UTF-8."]
+        },
+        "numbers": {
+          "title": "Numbers (Mac, iPhone, iPad)",
+          "steps": [
+            "Choose File → Export To → CSV…",
+            "Under Advanced Options, set Text Encoding to \"Unicode (UTF-8)\" and export."
+          ]
+        },
+        "oldExcel": "In older Excel versions without \"CSV UTF-8\", save as \"Unicode Text (*.txt)\" and choose that file as it is.",
+        "sheets": "Only the sheet that is open is saved to the CSV. Open the sheet with your word table before saving."
+      }
+    },
+    "columnHints": "Rename these columns to import them: {{hints}}",
+    "duplicateFound": "{{count}} words are the same as words you already have",
+    "strategyNotes": {
+      "skip": "Your existing words stay as they are.",
+      "keepBoth": "They are added as separate words. You can combine them later with \"Organize duplicates\".",
+      "merge": "Meanings, examples and tags from both are kept, so nothing is lost. The existing word's pronunciation and study progress take priority.",
+      "overwrite": "Replaces the existing word with the content of the file."
+    },
+    "duplicatesAddedNote": "{{count}} words that duplicate existing words were also added. You can combine them with \"Organize duplicates\".",
+    "mergeOverflowNote": "{{count}} words would exceed the limits (meaning, examples or tags) if merged, so they were added as separate words.",
+    "overwriteConfirm": "{{count}} saved words will be overwritten with the content of the file.",
+    "overwriteDetail": "The meanings, examples, tags and other content of those words will be replaced. If the file contains study progress, that progress is replaced too.",
+    "overwriteRun": "Overwrite and import ({{count}})",
+    "back": "Back"
   },
   "common": {
     "loading": "Loading…",
     "cancel": "Cancel",
     "delete": "Delete",
     "close": "Close"
+  },
+  "dup": {
+    "open": "Organize duplicates ({{count}})",
+    "title": "Organize duplicates",
+    "intro": "These are groups of words with the same characters and the same pinyin (or no pinyin on one side). The selected groups are merged into one word each. Keeping duplicates does not cause any problems for studying.",
+    "none": "There are no duplicate words.",
+    "rules": {
+      "title": "How words are merged",
+      "readingLabel": "Pronunciation (zhuyin, pinyin):",
+      "reading": "The word registered first keeps its pronunciation. If it is empty, the other word's value is used.",
+      "progressLabel": "Study progress:",
+      "progress": "For each study mode, the record you studied most recently is kept. The other record is deleted.",
+      "contentLabel": "Meaning, examples, tags:",
+      "content": "Both are kept (identical ones are combined)."
+    },
+    "selectAll": "Select all {{count}} groups that can be merged",
+    "wordCount": "{{count}} words",
+    "keep": "Kept",
+    "registered": "Added {{date}}",
+    "studied": "Last studied {{date}}",
+    "notStudied": "Not studied",
+    "after": "After merging:",
+    "examples": "{{count}} examples",
+    "more": "{{count}} more groups (not shown, but included in the selection)",
+    "manualTitle": "Groups that need manual cleanup ({{count}})",
+    "overflow": {
+      "meaning": "The combined meaning would be longer than 500 characters",
+      "examples": "There would be more than 10 examples",
+      "tags": "There would be more than 20 tags"
+    },
+    "mergeSelected": "Merge {{count}} selected groups",
+    "confirm": "{{groups}} groups ({{words}} words) will be merged into {{groups}} words.",
+    "cannotUndo": "Merging cannot be undone. Export your data first if you need it.",
+    "back": "Back",
+    "mergeNow": "Merge {{count}} groups",
+    "done": "Merged {{merged}} groups ({{removed}} words were combined).",
+    "doneSkipped": "{{count}} groups were not merged because they had changed or would exceed the limits."
   }
 }

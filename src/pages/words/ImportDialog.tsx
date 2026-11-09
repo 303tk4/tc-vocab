@@ -1,12 +1,11 @@
 import { useId, useState, type DragEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dialog } from '../../components/Dialog'
-import { SegmentedControl } from '../../components/SegmentedControl'
 import { importWords, listWords, type ImportResult } from '../../db/repos/words'
 import {
-  DUPLICATE_STRATEGIES,
   isValidExtraTag,
   previewImport,
+  strategiesFor,
   type DuplicateStrategy,
   type ImportPreview,
 } from '../../io/importer'
@@ -26,7 +25,7 @@ interface Props {
 }
 
 type State =
-  | { step: 'pick'; error?: string }
+  | { step: 'pick'; error?: string; errorCode?: string }
   | { step: 'reading' }
   | { step: 'preview'; fileName: string; file: ParsedFile; preview: ImportPreview }
 
@@ -38,9 +37,12 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
   const [busy, setBusy] = useState(false)
   const [runError, setRunError] = useState('')
   const [dragging, setDragging] = useState(false)
+  /** 上書きの確認を表示中（FR-IO-03。誤操作を防ぐ） */
+  const [confirmingOverwrite, setConfirmingOverwrite] = useState(false)
   const inputId = useId()
 
   const reset = () => {
+    setConfirmingOverwrite(false)
     setState({ step: 'pick' })
     setStrategy('skip')
     setExtraTag('')
@@ -65,7 +67,11 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
     } catch (e) {
       const message =
         e instanceof ImportFileError ? t(`io.fatal.${e.code}`, e.params) : t('io.fatal.readFailed')
-      setState({ step: 'pick', error: message })
+      setState({
+        step: 'pick',
+        error: message,
+        errorCode: e instanceof ImportFileError ? e.code : undefined,
+      })
     }
   }
 
@@ -82,8 +88,16 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
       ? state.preview.counts.new + (strategy === 'skip' ? 0 : state.preview.counts.duplicate)
       : 0
 
+  const overwriteCount =
+    state.step === 'preview' && strategy === 'overwrite' ? state.preview.counts.duplicate : 0
+
   const run = async () => {
     if (state.step !== 'preview' || importable === 0 || !tagValid) return
+    // 上書きは元に戻せないため、先に確認する（FR-IO-03）
+    if (overwriteCount > 0 && !confirmingOverwrite) {
+      setConfirmingOverwrite(true)
+      return
+    }
     setBusy(true)
     setRunError('')
     try {
@@ -103,7 +117,23 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
     kind === 'json' ? t('io.positionJson', { index: n }) : t('io.positionCsv', { line: n })
 
   let body
-  if (state.step === 'preview') {
+  if (state.step === 'preview' && confirmingOverwrite) {
+    body = (
+      <>
+        <p className={styles.fileName}>{state.fileName}</p>
+        <div className={styles.warning} role="alert">
+          <p className={styles.strong}>{t('io.overwriteConfirm', { count: overwriteCount })}</p>
+          <p>{t('io.overwriteDetail')}</p>
+        </div>
+        <p className={styles.strong}>{t('words.cannotUndo')}</p>
+        {runError && (
+          <p className={styles.error} role="alert">
+            {runError}
+          </p>
+        )}
+      </>
+    )
+  } else if (state.step === 'preview') {
     const { preview, file } = state
     const errors = preview.rows.filter((r) => r.status === 'error')
     const duplicates = preview.rows.filter((r) => r.status === 'duplicate')
@@ -125,9 +155,12 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
           </div>
         </dl>
         {file.ignoredColumns && file.ignoredColumns.length > 0 && (
-          <p className={styles.warning}>
-            {t('io.ignoredColumns', { columns: file.ignoredColumns.join(', ') })}
-          </p>
+          <div className={styles.warning}>
+            <p>{t('io.ignoredColumns', { columns: file.ignoredColumns.join(', ') })}</p>
+            {file.columnHints && file.columnHints.length > 0 && (
+              <p>{t('io.columnHints', { hints: file.columnHints.join(', ') })}</p>
+            )}
+          </div>
         )}
         {file.progress.length > 0 && (
           <p className="muted">{t('io.progressCount', { count: file.progress.length })}</p>
@@ -151,7 +184,10 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
         )}
 
         {duplicates.length > 0 && (
-          <>
+          <section className={styles.duplicateBox} aria-labelledby={`${inputId}-dup`}>
+            <h3 id={`${inputId}-dup`} className={styles.duplicateTitle}>
+              {t('io.duplicateFound', { count: duplicates.length })}
+            </h3>
             <details className={styles.details}>
               <summary>{t('io.duplicatesTitle')}</summary>
               <ul className={styles.issueList}>
@@ -168,16 +204,26 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
                 <p className="muted">{t('io.more', { count: duplicates.length - LIST_LIMIT })}</p>
               )}
             </details>
-            <SegmentedControl<DuplicateStrategy>
-              label={t('io.duplicates')}
-              value={strategy}
-              options={DUPLICATE_STRATEGIES.map((s) => ({
-                value: s,
-                label: t(`io.strategies.${s}`),
-              }))}
-              onChange={setStrategy}
-            />
-          </>
+            {/* 重複した単語の扱い（FR-IO-03）。選択肢ごとに短い説明を添える */}
+            <fieldset className={styles.choices}>
+              <legend>{t('io.duplicates')}</legend>
+              {strategiesFor(file.kind).map((s) => (
+                <label key={s} className={styles.choice}>
+                  <input
+                    type="radio"
+                    name={`${inputId}-strategy`}
+                    value={s}
+                    checked={strategy === s}
+                    onChange={() => setStrategy(s)}
+                  />
+                  <span>
+                    <span className={styles.choiceName}>{t(`io.strategies.${s}`)}</span>
+                    <span className={styles.choiceNote}>{t(`io.strategyNotes.${s}`)}</span>
+                  </span>
+                </label>
+              ))}
+            </fieldset>
+          </section>
         )}
 
         <div className={styles.field}>
@@ -220,7 +266,7 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
             <input
               type="file"
               className="visually-hidden"
-              accept=".csv,.json,text/csv,application/json"
+              accept=".csv,.json,.tsv,.txt,text/csv,application/json,text/tab-separated-values,text/plain"
               disabled={state.step === 'reading'}
               onChange={(e) => {
                 void handleFile(e.target.files?.[0])
@@ -236,7 +282,13 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
             {state.error}
           </p>
         )}
-        <CsvGuide />
+        {/* 文字コードの誤りや Excel のファイルのときは、保存方法の案内を開く（FR-IO-09） */}
+        <CsvGuide
+          saveGuideOpen={
+            state.step === 'pick' &&
+            (state.errorCode === 'invalidEncoding' || state.errorCode === 'spreadsheet')
+          }
+        />
       </>
     )
   }
@@ -247,7 +299,26 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
       title={t('io.importTitle')}
       onClose={close}
       actions={
-        state.step === 'preview' ? (
+        state.step === 'preview' && confirmingOverwrite ? (
+          <>
+            <button
+              type="button"
+              className="button"
+              disabled={busy}
+              onClick={() => setConfirmingOverwrite(false)}
+            >
+              {t('io.back')}
+            </button>
+            <button
+              type="button"
+              className={`button ${styles.dangerButton}`}
+              disabled={busy}
+              onClick={() => void run()}
+            >
+              {busy ? t('io.importing') : t('io.overwriteRun', { count: importable })}
+            </button>
+          </>
+        ) : state.step === 'preview' ? (
           <>
             <button type="button" className="button" disabled={busy} onClick={reset}>
               {t('io.chooseAnother')}

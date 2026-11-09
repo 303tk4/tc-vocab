@@ -101,7 +101,9 @@ describe('単語データ画面', () => {
     await user.type(within(dialog).getByLabelText(/Tag to add/), 'imported')
     await user.click(within(dialog).getByRole('button', { name: 'Import (1)' }))
 
-    expect(await screen.findByRole('status')).toHaveTextContent('Added: 1, updated: 0, skipped: 1.')
+    expect(await screen.findByRole('status')).toHaveTextContent(
+      'Imported: 1 added, 0 merged, 0 updated, 1 skipped.',
+    )
     const tea = await db.words.where('hanzi').equals('茶').first()
     expect(tea?.tags).toEqual(['imported'])
   })
@@ -111,7 +113,7 @@ describe('単語データ画面', () => {
     renderApp()
     await user.click(await screen.findByRole('button', { name: 'Import' }))
     const dialog = screen.getByRole('dialog', { name: 'Import' })
-    await user.upload(within(dialog).getByLabelText('Choose a file'), new File(['x'], 'a.txt'))
+    await user.upload(within(dialog).getByLabelText('Choose a file'), new File(['x'], 'a.pdf'))
     expect(await within(dialog).findByRole('alert')).toHaveTextContent('.csv or .json')
   })
 
@@ -135,8 +137,16 @@ describe('単語データ画面', () => {
       'tags',
     ])
     expect(
-      within(dialog).getByRole('button', { name: 'Download a sample CSV' }),
+      within(dialog).getByText(/Spell the column names in the first row exactly/),
     ).toBeInTheDocument()
+    for (const name of ['Template with column names only', 'Template with examples']) {
+      expect(within(dialog).getByRole('button', { name })).toBeInTheDocument()
+    }
+    const saveGuide = () =>
+      within(dialog)
+        .getByText(/How to save as a UTF-8 CSV/, { selector: 'summary' })
+        .closest('details') as HTMLDetailsElement
+    expect(saveGuide().open).toBe(false)
 
     // Shift_JIS の「水」
     const sjis = new Uint8Array([
@@ -149,6 +159,15 @@ describe('単語データ画面', () => {
     ])
     await user.upload(within(dialog).getByLabelText('Choose a file'), new File([sjis], 's.csv'))
     expect(await within(dialog).findByRole('alert')).toHaveTextContent('not encoded in UTF-8')
+    // 文字コードの誤りでは、保存方法の案内を開く
+    expect(saveGuide().open).toBe(true)
+
+    const ja = '繁體字,意思\n茶,tea\n'
+    await user.upload(within(dialog).getByLabelText('Choose a file'), new File([ja], 'ja.csv'))
+    expect(await within(dialog).findByRole('alert')).toHaveTextContent(
+      'The column names are not correct',
+    )
+    expect(within(dialog).getByRole('alert')).toHaveTextContent('繁體字 → hanzi, 意思 → meaning')
 
     const csv = 'hanzi,meaning,level\n茶,tea,1\n'
     await user.upload(within(dialog).getByLabelText('Choose a file'), new File([csv], 'w.csv'))
@@ -250,5 +269,82 @@ describe('タグの編集（FR-WORDS-08〜11）', () => {
     await user.click(within(dialog).getByRole('button', { name: 'Remove' }))
     await waitFor(async () => expect((await db.words.get('a'))?.tags).toEqual([]))
     expect(await db.words.count()).toBe(2)
+  })
+})
+
+describe('重複の扱い（FR-IO-03・FR-WORDS-13）', () => {
+  it('取り込みで重複の扱いを選べ、統合の説明を示す', async () => {
+    await db.words.put(makeWord({ id: 'tea', hanzi: '茶', pinyin: 'chá', meaning: 'お茶' }))
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Import' }))
+    const dialog = screen.getByRole('dialog', { name: 'Import' })
+    await user.upload(
+      within(dialog).getByLabelText('Choose a file'),
+      new File(['hanzi,meaning,tags\n茶,tea,飲み物\n'], 'w.csv'),
+    )
+    expect(
+      await within(dialog).findByText('1 words are the same as words you already have'),
+    ).toBeInTheDocument()
+    // CSV では上書きを選べない
+    expect(within(dialog).queryByRole('radio', { name: /Overwrite/ })).not.toBeInTheDocument()
+    const merge = within(dialog).getByRole('radio', { name: /Merge into existing words/ })
+    expect(merge.closest('label')).toHaveTextContent(
+      "The existing word's pronunciation and study progress take priority.",
+    )
+    await user.click(merge)
+    await user.click(within(dialog).getByRole('button', { name: 'Import (1)' }))
+    await waitFor(async () => expect((await db.words.get('tea'))?.meaning).toBe('お茶 / tea'))
+    expect((await db.words.get('tea'))?.tags).toEqual(['飲み物'])
+    expect(await db.words.count()).toBe(1)
+  })
+
+  it('重複単語の整理で、規則を示してから統合する', async () => {
+    await db.words.bulkPut([
+      makeWord({ id: 'old', hanzi: '水', pinyin: 'shuǐ', meaning: '水', createdAt: 1 }),
+      makeWord({ id: 'new', hanzi: '水', pinyin: '', meaning: 'water', createdAt: 2 }),
+    ])
+    await db.progress.put({ modeId: 'flashcard', wordId: 'new', due: 5, state: {}, updatedAt: 9 })
+    const user = userEvent.setup()
+    renderApp()
+
+    await user.click(await enabledButton('Organize duplicates (1)'))
+    const dialog = screen.getByRole('dialog', { name: 'Organize duplicates' })
+    expect(
+      within(dialog).getByText(/The word registered first keeps its pronunciation/),
+    ).toBeInTheDocument()
+    expect(
+      within(dialog).getByText(/the record you studied most recently is kept/),
+    ).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Merge 1 selected groups' }))
+    expect(within(dialog).getByText(/cannot be undone/)).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Merge 1 groups' }))
+
+    expect(await screen.findByRole('status')).toHaveTextContent('Merged 1 groups')
+    expect(await db.words.toArray()).toMatchObject([{ id: 'old', meaning: '水 / water' }])
+    expect(await db.progress.toArray()).toMatchObject([{ wordId: 'old', due: 5 }])
+  })
+
+  it('上書きは確認してから行い、戻ることもできる（FR-IO-03）', async () => {
+    await db.words.put(makeWord({ id: 'tea', hanzi: '茶', pinyin: 'chá', meaning: 'お茶' }))
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Import' }))
+    const dialog = screen.getByRole('dialog', { name: 'Import' })
+    const json = JSON.stringify({
+      format: 'tc-vocab',
+      version: 1,
+      words: [{ hanzi: '茶', pinyin: 'chá', meaning: 'tea' }],
+    })
+    await user.upload(within(dialog).getByLabelText('Choose a file'), new File([json], 'b.json'))
+    await user.click(await within(dialog).findByRole('radio', { name: /Overwrite/ }))
+    await user.click(within(dialog).getByRole('button', { name: 'Import (1)' }))
+
+    expect(within(dialog).getByRole('alert')).toHaveTextContent('1 saved words will be overwritten')
+    expect((await db.words.get('tea'))?.meaning).toBe('お茶')
+    await user.click(within(dialog).getByRole('button', { name: 'Back' }))
+    await user.click(within(dialog).getByRole('button', { name: 'Import (1)' }))
+    await user.click(within(dialog).getByRole('button', { name: 'Overwrite and import (1)' }))
+    await waitFor(async () => expect((await db.words.get('tea'))?.meaning).toBe('tea'))
   })
 })

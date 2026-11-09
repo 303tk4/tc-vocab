@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { jieyun, makeWord, tricky } from '../test/fixtures'
-import { buildCsv, buildCsvTemplate, countExampleLoss, detectDelimiter, parseCsv } from './csv'
+import {
+  buildCsv,
+  buildCsvHeaderTemplate,
+  buildCsvTemplate,
+  countExampleLoss,
+  detectDelimiter,
+  parseCsv,
+  suggestColumn,
+} from './csv'
 import { BOM, ImportFileError } from './parsed'
 
 describe('buildCsv', () => {
@@ -100,5 +108,33 @@ describe('区切り文字と列の扱い（仕様書 9.2）', () => {
     expect(parsed.rows.map((r) => r.word?.hanzi)).toEqual(['捷運', '好吃'])
     expect(parsed.rows.every((r) => r.errors.length === 0)).toBe(true)
     expect(parsed.ignoredColumns).toEqual([])
+  })
+})
+
+describe('列名の誤り（仕様書 9.2・FR-IO-08）', () => {
+  it('日本語・中国語・英語の言い換えから、意図していそうな列を推測する', () => {
+    expect(suggestColumn('繁体字')).toBe('hanzi')
+    expect(suggestColumn(' 拼音 ')).toBe('pinyin')
+    expect(suggestColumn('例句翻譯')).toBe('example_translation')
+    expect(suggestColumn('Example Translation')).toBe('example_translation')
+    expect(suggestColumn('タグ')).toBe('tags')
+    expect(suggestColumn('memo')).toBeNull()
+  })
+
+  it('全角の英字の列名は半角として読む', () => {
+    const { rows } = parseCsv('ｈａｎｚｉ,ＭＥＡＮＩＮＧ\n水,water\n')
+    expect(rows[0].word?.meaning).toBe('water')
+  })
+
+  it('必須の列がそろっていれば取り込み、他の列の直し方を添える', () => {
+    const parsed = parseCsv('hanzi,meaning,タグ\n水,water,a\n')
+    expect(parsed.ignoredColumns).toEqual(['タグ'])
+    expect(parsed.columnHints).toEqual(['タグ → tags'])
+  })
+
+  it('列名だけのテンプレートは、取り込むと0件になる', () => {
+    const text = buildCsvHeaderTemplate()
+    expect(text).toBe('\ufeffhanzi,zhuyin,pinyin,meaning,example,example_translation,tags\r\n')
+    expect(parseCsv(text).rows).toEqual([])
   })
 })

@@ -13,7 +13,8 @@ const SPREADSHEET_EXTENSIONS = ['.xlsx', '.xls', '.xlsm', '.ods', '.numbers']
 export function fileKind(name: string): 'json' | 'csv' | 'spreadsheet' | null {
   const lower = name.toLowerCase()
   if (lower.endsWith('.json')) return 'json'
-  if (lower.endsWith('.csv')) return 'csv'
+  // .tsv と .txt は、Excel の「Unicode テキスト」などのタブ区切りを想定して CSV として読む
+  if (['.csv', '.tsv', '.txt'].some((ext) => lower.endsWith(ext))) return 'csv'
   if (SPREADSHEET_EXTENSIONS.some((ext) => lower.endsWith(ext))) return 'spreadsheet'
   return null
 }

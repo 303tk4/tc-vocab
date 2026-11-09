@@ -8,6 +8,8 @@ import { setWordTags } from '../db/repos/tags'
 import { deleteWords, listTags, listWords, type ImportResult } from '../db/repos/words'
 import { addSampleWords } from '../services/samples'
 import type { Word } from '../types/word'
+import { findDuplicateGroups } from '../io/duplicates'
+import { DuplicatesDialog } from './words/DuplicatesDialog'
 import { ExportDialog } from './words/ExportDialog'
 import { ImportDialog } from './words/ImportDialog'
 import { createMatcher, sortWords } from './words/search'
@@ -16,7 +18,14 @@ import { WordList } from './words/WordList'
 import styles from './words/WordsPage.module.css'
 
 type DialogKind =
-  'import' | 'export' | 'deleteSelected' | 'addTag' | 'removeTag' | 'manageTags' | null
+  | 'import'
+  | 'export'
+  | 'deleteSelected'
+  | 'addTag'
+  | 'removeTag'
+  | 'manageTags'
+  | 'duplicates'
+  | null
 type Notice = { kind: 'success' | 'error'; text: string } | null
 
 export function WordsPage() {
@@ -36,6 +45,8 @@ export function WordsPage() {
   const [editingId, setEditingId] = useState<string | null>(null)
 
   const sorted = useMemo(() => sortWords(allWords ?? []), [allWords])
+  // 重複している組の数（FR-WORDS-13）。重複があっても統合は促さない
+  const duplicateGroupCount = useMemo(() => findDuplicateGroups(sorted).length, [sorted])
   const activeFilterTags = filterTags.filter((tag) => allTags.includes(tag))
   // 配列の中身で比較するため、文字列にして依存配列に入れる
   const filterKey = activeFilterTags.join('\n')
@@ -92,7 +103,15 @@ export function WordsPage() {
     }
   }
 
-  const importedText = (r: ImportResult) => t('io.imported', { ...r })
+  // 取り込みの結果。重複も追加した場合は「重複単語の整理」を案内する（FR-IO-03）
+  const importedText = (r: ImportResult) =>
+    [
+      t('io.imported', { ...r }),
+      r.duplicatesAdded > 0 ? t('io.duplicatesAddedNote', { count: r.duplicatesAdded }) : '',
+      r.mergeOverflow > 0 ? t('io.mergeOverflowNote', { count: r.mergeOverflow }) : '',
+    ]
+      .filter(Boolean)
+      .join(' ')
 
   const addSamples = () =>
     write(async () => {
@@ -139,6 +158,14 @@ export function WordsPage() {
           onClick={() => setDialog('manageTags')}
         >
           {t('tags.manage')}
+        </button>
+        <button
+          type="button"
+          className="button"
+          disabled={duplicateGroupCount === 0}
+          onClick={() => setDialog('duplicates')}
+        >
+          {t('dup.open', { count: duplicateGroupCount })}
         </button>
         <button type="button" className="button" disabled={busy} onClick={() => void addSamples()}>
           {t('words.addSamples')}
@@ -278,6 +305,13 @@ export function WordsPage() {
             return t('tags.saved', { hanzi: editingWord.hanzi })
           })
         }}
+      />
+      <DuplicatesDialog
+        open={dialog === 'duplicates'}
+        words={sorted}
+        busy={busy}
+        onClose={() => setDialog(null)}
+        run={write}
       />
       <TagManagerDialog
         open={dialog === 'manageTags'}

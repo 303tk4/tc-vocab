@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import text from '../../public/samples/starter.json?raw'
 import { db } from '../db/schema'
 import { parseJson } from '../io/json'
-import { duplicateKey } from '../io/validate'
+import { findDuplicateGroups } from '../io/duplicates'
 import { addSampleWords, SAMPLE_TAG, SAMPLES_URL } from './samples'
 
 const file = parseJson(text)
@@ -26,7 +26,8 @@ describe('サンプル単語のデータ（仕様書 11章）', () => {
   })
 
   it('重複が無い', () => {
-    expect(new Set(words.map(duplicateKey)).size).toBe(words.length)
+    const asWords = words.map((w, i) => ({ ...w, id: `s${i}`, createdAt: i, updatedAt: i }))
+    expect(findDuplicateGroups(asWords)).toEqual([])
   })
 
   it('字数・注音の音節数・拼音の音節数が一致する', () => {
@@ -47,11 +48,11 @@ describe('addSampleWords', () => {
     const fetchMock = vi.fn(async () => new Response(text))
     vi.stubGlobal('fetch', fetchMock)
 
-    expect(await addSampleWords()).toEqual({ added: words.length, updated: 0, skipped: 0 })
+    expect(await addSampleWords()).toMatchObject({ added: words.length, updated: 0, skipped: 0 })
     expect(fetchMock).toHaveBeenCalledWith(SAMPLES_URL)
     expect(await db.words.where('tags').equals(SAMPLE_TAG).count()).toBe(words.length)
 
-    expect(await addSampleWords()).toEqual({ added: 0, updated: 0, skipped: words.length })
+    expect(await addSampleWords()).toMatchObject({ added: 0, updated: 0, skipped: words.length })
   })
 
   it('取得に失敗したらエラーにする', async () => {

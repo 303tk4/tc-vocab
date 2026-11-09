@@ -1,3 +1,4 @@
+import { byRegistration, findDuplicateGroups, mergeWords, pickProgress } from '../../io/duplicates'
 import { planImport, type ImportOptions, type ImportPlan } from '../../io/importer'
 import type { ParsedFile } from '../../io/parsed'
 import type { Progress, Word } from '../../types/word'
@@ -24,7 +25,10 @@ export function listProgressForWords(wordIds: string[]): Promise<Progress[]> {
   return db.progress.where('wordId').anyOf(wordIds).toArray()
 }
 
-export type ImportResult = Pick<ImportPlan, 'added' | 'updated' | 'skipped'>
+export type ImportResult = Pick<
+  ImportPlan,
+  'added' | 'updated' | 'skipped' | 'merged' | 'duplicatesAdded' | 'mergeOverflow'
+>
 
 /**
  * 解析済みファイルを取り込む。重複の判定から書き込みまでを1つのトランザクションで行い、
@@ -35,8 +39,24 @@ export function importWords(file: ParsedFile, options: ImportOptions): Promise<I
     const existing = await db.words.toArray()
     const plan = planImport(file, existing, options)
     await db.words.bulkPut(plan.words)
-    if (plan.progress.length > 0) await db.progress.bulkPut(plan.progress)
-    return { added: plan.added, updated: plan.updated, skipped: plan.skipped }
+    if (plan.progress.length > 0) {
+      // 統合した既存の単語は、既存の学習進捗を優先する（仕様書 4.5）
+      const keep = new Set(plan.keepExistingProgress)
+      const existingKeys = new Set(
+        keep.size === 0
+          ? []
+          : (
+              await db.progress
+                .where('wordId')
+                .anyOf([...keep])
+                .toArray()
+            ).map((p) => `${p.modeId}:${p.wordId}`),
+      )
+      const progress = plan.progress.filter((p) => !existingKeys.has(`${p.modeId}:${p.wordId}`))
+      if (progress.length > 0) await db.progress.bulkPut(progress)
+    }
+    const { added, updated, skipped, merged, duplicatesAdded, mergeOverflow } = plan
+    return { added, updated, skipped, merged, duplicatesAdded, mergeOverflow }
   })
 }
 
@@ -52,5 +72,49 @@ export function deleteWords(ids: string[]): Promise<void> {
 export function deleteAllData(): Promise<void> {
   return db.transaction('rw', db.words, db.progress, db.sessions, async () => {
     await Promise.all([db.words.clear(), db.progress.clear(), db.sessions.clear()])
+  })
+}
+
+export interface MergeSummary {
+  /** 統合した組の数 */
+  merged: number
+  /** 統合で取り除いた単語の数 */
+  removed: number
+  /** 上限を超える、または重複ではなくなっていたため統合しなかった組の数 */
+  skipped: number
+}
+
+/**
+ * 重複単語の組を統合する（FR-WORDS-13、仕様書 4.5 の統合の規則）。
+ * 先に登録した単語を残し、学習進捗はモードごとに最後に学習した記録を付け替える。
+ * すべての組を1つのトランザクションで書き込む（NFR-07）
+ */
+export function mergeDuplicateGroups(groups: string[][], now = Date.now()): Promise<MergeSummary> {
+  return db.transaction('rw', db.words, db.progress, async () => {
+    const summary: MergeSummary = { merged: 0, removed: 0, skipped: 0 }
+    for (const ids of groups) {
+      const words = (await db.words.bulkGet(ids)).filter((w): w is Word => !!w)
+      // 画面を開いた後に内容が変わっていないか、組を作り直して確かめる
+      const [group] = findDuplicateGroups(words)
+      if (!group || group.length !== words.length) {
+        summary.skipped++
+        continue
+      }
+      const result = mergeWords([...group].sort(byRegistration), now)
+      if (!result.ok) {
+        summary.skipped++
+        continue
+      }
+      const survivor = result.word
+      const others = group.map((w) => w.id).filter((id) => id !== survivor.id)
+      const records = await db.progress.where('wordId').anyOf(ids).toArray()
+      await db.progress.where('wordId').anyOf(ids).delete()
+      await db.progress.bulkPut(pickProgress(records, survivor.id))
+      await db.words.bulkDelete(others)
+      await db.words.put(survivor)
+      summary.merged++
+      summary.removed += others.length
+    }
+    return summary
   })
 }

@@ -150,8 +150,3 @@ export function normalizeWord(raw: unknown): NormalizeResult {
   if (isTimestamp(raw.updatedAt)) word.updatedAt = raw.updatedAt
   return { ok: true, word }
 }
-
-/** 重複判定のキー。繁体字と拼音（小文字）が両方一致すれば重複とみなす */
-export function duplicateKey(word: Pick<Word, 'hanzi' | 'pinyin'>): string {
-  return `${word.hanzi.trim()}\u0000${word.pinyin.trim().toLowerCase()}`
-}

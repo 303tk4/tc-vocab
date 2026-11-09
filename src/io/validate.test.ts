@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { duplicateKey, normalizeWord, tagError } from './validate'
+import { normalizeWord, tagError } from './validate'
 
 describe('normalizeWord', () => {
   it('前後の空白を除き、省略可能な項目を補う', () => {
@@ -66,19 +66,5 @@ describe('tagError', () => {
     expect(tagError('  ')).toBe('empty')
     expect(tagError('a'.repeat(51))).toBe('tooLong')
     expect(tagError('a;b')).toBe('invalidChar')
-  })
-})
-
-describe('duplicateKey', () => {
-  it('繁体字と拼音（大文字小文字・前後の空白を無視）が一致すれば同じキー', () => {
-    expect(duplicateKey({ hanzi: '行', pinyin: ' Xíng ' })).toBe(
-      duplicateKey({ hanzi: '行', pinyin: 'xíng' }),
-    )
-  })
-
-  it('同じ字でも読みが違えば別のキー', () => {
-    expect(duplicateKey({ hanzi: '行', pinyin: 'xíng' })).not.toBe(
-      duplicateKey({ hanzi: '行', pinyin: 'háng' }),
-    )
   })
 })

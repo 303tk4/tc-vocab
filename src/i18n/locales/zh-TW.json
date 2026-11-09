@@ -136,9 +136,10 @@
     "more": "另有 {{count}} 筆",
     "duplicates": "重複單字的處理方式",
     "strategies": {
-      "skip": "略過",
-      "overwrite": "覆寫",
-      "keepBoth": "兩者皆保留"
+      "skip": "不匯入重複的單字",
+      "keepBoth": "重複的單字也匯入",
+      "merge": "與既有單字合併",
+      "overwrite": "覆寫（用於還原備份）"
     },
     "extraTag": "為匯入的單字加上標籤（選填）",
     "extraTagPlaceholder": "例：imported-2026-11",
@@ -146,7 +147,7 @@
     "chooseAnother": "換一個檔案",
     "run": "匯入（{{count}}）",
     "importing": "匯入中…",
-    "imported": "匯入完成：新增 {{added}} 個、更新 {{updated}} 個、略過 {{skipped}} 個。",
+    "imported": "已匯入：新增 {{added}} 個、合併 {{merged}} 個、更新 {{updated}} 個、略過 {{skipped}} 個。",
     "fields": {
       "word": "單字",
       "hanzi": "繁體字",
@@ -176,7 +177,8 @@
       "empty": "檔案是空的。",
       "spreadsheet": "無法直接讀取 Excel 等試算表軟體的檔案。請另存為「CSV UTF-8（逗號分隔）」格式後再選擇。",
       "invalidEncoding": "檔案的文字編碼不是 UTF-8（例如 Big5 或 Shift_JIS），因此無法讀取。在 Excel 中請另存為「CSV UTF-8（逗號分隔）」格式。",
-      "notText": "這不是文字檔，無法讀取。"
+      "notText": "這不是文字檔，無法讀取。",
+      "wrongColumnNames": "欄位名稱不正確。第 1 列的欄位名稱請不要用中文或日文，而是使用說明表格中的英文名稱（{{hints}}）。"
     },
     "exportTitle": "匯出",
     "format": "格式",
@@ -217,18 +219,104 @@
         "tags": "交通;基本"
       },
       "notes": {
-        "header": "第 1 列請直接用英文填寫欄位名稱。欄位順序不拘，不用的欄位可以省略。",
-        "encoding": "文字編碼請用 UTF-8。Excel 請存成「CSV UTF-8（逗號分隔）」，Google 試算表請選「檔案 → 下載 → 逗號分隔值檔案（.csv）」。",
-        "duplicate": "繁體字與拼音都相同的單字，會視為與已登錄的單字重複。",
+        "encoding": "文字編碼請用 UTF-8。儲存方式請參考下方的「以 UTF-8 CSV 格式儲存的方法」。",
+        "duplicate": "繁體字相同，且拼音也相同（或其中一方空白）的單字，會視為與已登錄的單字重複。",
         "json": "JSON 用於還原從本應用程式匯出的檔案（備份）。"
       },
-      "template": "下載 CSV 範本"
-    }
+      "headerWarning": "第 1 列的欄位名稱，請使用與下表英文名稱相同的拼法（不分大小寫）。「繁體字」「意思」等中文或日文的欄位名稱無法讀取。不確定時，使用「只有欄位名稱的範本」最保險。",
+      "headerTemplate": "只有欄位名稱的範本",
+      "sampleTemplate": "含範例的範本",
+      "templateHint": "請用試算表軟體開啟範本，從第 2 列開始輸入單字後儲存。範例單字可以刪除。",
+      "save": {
+        "title": "以 UTF-8 CSV 格式儲存的方法（Excel 等）",
+        "lead": "為避免亂碼，請務必以「UTF-8」的 CSV 格式儲存。Excel 的「CSV（逗號分隔）」不是 UTF-8，無法讀取。",
+        "excelWindows": {
+          "title": "Excel（Windows）",
+          "steps": [
+            "選擇「檔案」→「另存新檔」（開啟自動儲存時為「儲存複本」）。",
+            "在「存檔類型」選擇「CSV UTF-8 (逗號分隔) (*.csv)」。請勿選擇相似的「CSV (逗號分隔) (*.csv)」。",
+            "按「儲存」。若出現「可能會遺失部分功能」的訊息，請按「是」。"
+          ]
+        },
+        "excelMac": {
+          "title": "Excel（Mac）",
+          "steps": [
+            "選擇「檔案」→「另存新檔」。",
+            "在「檔案格式」選擇「CSV UTF-8 (逗號分隔) (.csv)」。",
+            "按「儲存」。"
+          ]
+        },
+        "googleSheets": {
+          "title": "Google 試算表",
+          "steps": ["選擇「檔案」→「下載」→「逗號分隔值檔案（.csv）」。會自動存成 UTF-8。"]
+        },
+        "numbers": {
+          "title": "Numbers（Mac・iPhone・iPad）",
+          "steps": [
+            "選擇「檔案」→「輸出至」→「CSV⋯」。",
+            "在「進階選項」將「文字編碼」設為「Unicode (UTF-8)」後輸出。"
+          ]
+        },
+        "oldExcel": "在找不到「CSV UTF-8」的舊版 Excel 中，以「Unicode 文字 (*.txt)」儲存後，可以直接選擇該檔案。",
+        "sheets": "CSV 只會儲存目前開啟的一張工作表。請在開啟單字表格所在的工作表時儲存。"
+      }
+    },
+    "columnHints": "將欄位名稱改成以下名稱即可匯入：{{hints}}",
+    "duplicateFound": "有 {{count}} 個單字與已登錄的單字相同",
+    "strategyNotes": {
+      "skip": "已登錄的單字保持不變。",
+      "keepBoth": "當作另一個單字新增。之後可以用「整理重複單字」合併。",
+      "merge": "意思、例句、標籤兩邊都會保留，不必擔心。發音與學習進度以既有單字為優先。",
+      "overwrite": "以檔案內容取代已登錄單字的內容。"
+    },
+    "duplicatesAddedNote": "與已登錄單字重複的 {{count}} 個單字也已新增。可以用「整理重複單字」合併。",
+    "mergeOverflowNote": "{{count}} 個單字合併後會超過上限（意思、例句、標籤的數量），因此當作另一個單字新增。",
+    "overwriteConfirm": "將以檔案內容覆寫 {{count}} 個已登錄的單字。",
+    "overwriteDetail": "被覆寫單字的意思、例句、標籤等，會被替換成檔案的內容。若檔案含有學習進度，學習進度也會被替換。",
+    "overwriteRun": "覆寫並匯入（{{count}}）",
+    "back": "返回"
   },
   "common": {
     "loading": "載入中…",
     "cancel": "取消",
     "delete": "刪除",
     "close": "關閉"
+  },
+  "dup": {
+    "open": "整理重複單字（{{count}}）",
+    "title": "整理重複單字",
+    "intro": "這些是繁體字相同，且拼音也相同（或其中一方空白）的單字組。可以將選取的組合併成一個單字。保留重複也不影響學習。",
+    "none": "沒有重複的單字。",
+    "rules": {
+      "title": "合併方式",
+      "readingLabel": "發音（注音、拼音）：",
+      "reading": "保留先登錄的單字的發音。若為空白，使用另一方的值。",
+      "progressLabel": "學習進度：",
+      "progress": "每個學習模式保留最後學習的那一方的紀錄。另一方的紀錄會被刪除。",
+      "contentLabel": "意思、例句、標籤：",
+      "content": "兩邊都保留（相同的內容合併為一個）。"
+    },
+    "selectAll": "全選可合併的 {{count}} 組",
+    "wordCount": "{{count}} 個",
+    "keep": "保留",
+    "registered": "登錄 {{date}}",
+    "studied": "最後學習 {{date}}",
+    "notStudied": "沒有學習紀錄",
+    "after": "合併後：",
+    "examples": "例句 {{count}} 個",
+    "more": "另有 {{count}} 組（未顯示，但包含在選取範圍內）",
+    "manualTitle": "需要手動整理的組（{{count}}）",
+    "overflow": {
+      "meaning": "合併後的意思超過 500 字",
+      "examples": "例句超過 10 個",
+      "tags": "標籤超過 20 個"
+    },
+    "mergeSelected": "合併選取的 {{count}} 組",
+    "confirm": "將 {{groups}} 組（{{words}} 個單字）合併成 {{groups}} 個單字。",
+    "cannotUndo": "合併後無法復原。如有需要，請先匯出。",
+    "back": "返回",
+    "mergeNow": "合併 {{count}} 組",
+    "done": "已合併 {{merged}} 組（將 {{removed}} 個單字合併）。",
+    "doneSkipped": "有 {{count}} 組因內容已變更或超過上限而未合併。"
   }
 }
