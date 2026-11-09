@@ -1,0 +1,11 @@
+/* ホーム画面への追加の手助け（FR-PWA-05）。文字の大きさと色は置く場所に合わせる */
+.help {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.help .text {
+  margin: 0;
+}

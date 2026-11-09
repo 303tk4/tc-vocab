@@ -75,16 +75,18 @@ describe('データの保存の状態（FR-PWA-04）', () => {
     renderApp('/settings')
     expect(await screen.findByText(/Your data is not protected/)).toBeInTheDocument()
     expect(screen.getByText(/makes protection more likely/)).toBeInTheDocument()
+    expect(screen.getByText(/export important words/)).toBeInTheDocument()
   })
 
-  it('保護されていれば、その旨だけを表示する', async () => {
+  it('保護されていれば、書き出しの勧めは出さない（ホーム画面への追加の案内は出す。FR-PWA-05）', async () => {
     Object.defineProperty(navigator, 'storage', {
       value: { persisted: () => Promise.resolve(true) },
       configurable: true,
     })
     renderApp('/settings')
     expect(await screen.findByText(/Your data is protected/)).toBeInTheDocument()
-    expect(screen.queryByText(/makes protection more likely/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/export important words/)).not.toBeInTheDocument()
+    expect(screen.getByText(/makes protection more likely/)).toBeInTheDocument()
   })
 
   it('確認できないブラウザでは、その旨を表示する', async () => {
