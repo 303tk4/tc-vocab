@@ -2,13 +2,14 @@ import { Suspense, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import { BackLink } from '../components/BackLink'
-import { ChevronRightIcon } from '../components/icons'
+import { ChevronRightIcon, ExternalLinkIcon } from '../components/icons'
 import { InstallHelp } from '../components/InstallHelp'
 import { SegmentedControl } from '../components/SegmentedControl'
 import { createModeSettingsStore } from '../db/repos/settings'
 import { LANGUAGE_NAMES, modeNamespace } from '../i18n'
 import { modes } from '../modes/registry'
 import type { AnyStudyMode } from '../modes/types'
+import { buildFeedbackUrl, FEEDBACK_FORM } from '../services/feedback'
 import { getPersistState, type PersistState } from '../services/storage-persist'
 import { useSettings } from '../settings/context'
 import { ACCENT_SWATCHES, ACCENTS } from '../settings/accents'
@@ -16,6 +17,7 @@ import { resolveTheme } from '../settings/boot'
 import { FONT_SCALES, THEMES, UI_LANGUAGES } from '../settings/types'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import styles from './SettingsPage.module.css'
+import { useOnline } from '../hooks/useOnline'
 import { usePageTitle } from '../hooks/usePageTitle'
 
 export function SettingsPage() {
@@ -87,7 +89,58 @@ export function SettingsPage() {
           <ChevronRightIcon />
         </Link>
       </section>
+
+      <About />
     </div>
+  )
+}
+
+/** このアプリについて：版の表示（FR-SET-06）と開発者へのフィードバック（FR-SET-05）。仕様書 10.3 */
+function About() {
+  const { t, i18n } = useTranslation()
+  const online = useOnline()
+  const feedbackUrl = buildFeedbackUrl(FEEDBACK_FORM, {
+    version: __APP_VERSION__,
+    language: i18n.language,
+  })
+
+  return (
+    <section className="stack" aria-labelledby="about-title">
+      <h2 id="about-title" className="section-title">
+        {t('settings.about')}
+      </h2>
+      <div className={`panel stack ${styles.about}`}>
+        <p className={styles.version}>{t('settings.version', { version: __APP_VERSION__ })}</p>
+        {feedbackUrl && (
+          <div className={styles.feedback}>
+            <h3 className="section-title">{t('settings.feedback')}</h3>
+            <p>{t('settings.feedbackBody')}</p>
+            {online ? (
+              <a
+                href={feedbackUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button button--block-sm"
+              >
+                {t('settings.feedbackLink')}
+                <span className="visually-hidden">{t('settings.newTab')}</span>
+                <ExternalLinkIcon />
+              </a>
+            ) : (
+              <>
+                {/* オフラインではフォームを開けないため、押せない状態にする */}
+                <button type="button" className="button button--block-sm" disabled>
+                  {t('settings.feedbackLink')}
+                  <ExternalLinkIcon />
+                </button>
+                <p className={`muted ${styles.hint}`}>{t('settings.feedbackOffline')}</p>
+              </>
+            )}
+            <p className={`muted ${styles.hint}`}>{t('settings.feedbackNote')}</p>
+          </div>
+        )}
+      </div>
+    </section>
   )
 }
 

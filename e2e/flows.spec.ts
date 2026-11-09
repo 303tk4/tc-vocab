@@ -140,3 +140,27 @@ test('設定は再読み込みのあとも保たれる（仕様書 10.1）', asy
   await expect(root).toHaveAttribute('data-theme', 'dark')
   await expect(root).toHaveAttribute('data-font-scale', 'xl')
 })
+
+test('設定画面で版を確かめ、フィードバックのフォームを開くリンクがある（仕様書 10.3）', async ({
+  page,
+  context,
+}) => {
+  const { version } = JSON.parse(await readFile('package.json', 'utf8')) as { version: string }
+  await page.goto('./#/settings')
+  await expect(page.getByRole('heading', { name: 'このアプリについて' })).toBeVisible()
+  await expect(page.getByText(`版：${version}`)).toBeVisible()
+
+  // 新しいタブで開く外部のリンク。フォームのサイトには接続しない
+  const link = page.getByRole('link', { name: /^意見を送るフォームを開く/ })
+  await expect(link).toHaveAttribute('href', /^https:\/\/docs\.google\.com\/forms\//)
+  await expect(link).toHaveAttribute('target', '_blank')
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+  await expect(link).toHaveAccessibleName(/^意見を送るフォームを開く ?（新しいタブで開きます）$/)
+
+  // オフラインでは押せない状態になり、戻ると押せる
+  await context.setOffline(true)
+  await expect(page.getByRole('button', { name: '意見を送るフォームを開く' })).toBeDisabled()
+  await expect(page.getByText('インターネットに接続すると開けます。')).toBeVisible()
+  await context.setOffline(false)
+  await expect(link).toBeVisible()
+})
