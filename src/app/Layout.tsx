@@ -13,7 +13,11 @@ export function Layout() {
     <div className={styles.shell}>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <Link to="/" className={styles.brand} aria-label={t('nav.home')}>
+          <Link
+            to="/"
+            className={styles.brand}
+            aria-label={t('nav.brandHome', { name: t('app.name') })}
+          >
             <span className={styles.logo} lang="zh-TW">
               {t('app.name')}
             </span>

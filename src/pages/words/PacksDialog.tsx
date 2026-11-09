@@ -1,6 +1,8 @@
 import { useEffect, useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dialog } from '../../components/Dialog'
+import { ReviewReadingNote } from '../../components/ReviewReadingNote'
+import { countReviewReading } from '../../io/reviewReading'
 import { getInstalledPacks } from '../../db/repos/packs'
 import { listWords, type ImportResult } from '../../db/repos/words'
 import {
@@ -141,6 +143,7 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
   if (state.step === 'preview') {
     const { item, preview } = state
     const examples = preview.rows.filter((r) => r.word).slice(0, EXAMPLE_COUNT)
+    const reviewCount = countReviewReading(preview.rows.map((r) => r.word))
     const strategies = item.kind === 'samples' ? SAMPLE_STRATEGIES : PACK_STRATEGIES
     body = (
       <>
@@ -229,6 +232,7 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
           </section>
         )}
 
+        {reviewCount > 0 && <ReviewReadingNote count={reviewCount} />}
         {actionable === 0 && <p>{t('packs.nothing')}</p>}
         {runError && (
           <p className={styles.error} role="alert">

@@ -7,14 +7,15 @@
     "home": "Home",
     "words": "Word data",
     "settings": "Settings",
-    "back": "Back"
+    "back": "Back",
+    "brandHome": "{{name}} (go to Home)"
   },
   "home": {
     "title": "Study modes",
     "wordCount": "Words: {{count}}",
     "emptyTitle": "Add words to get started",
     "emptyBody": "Free word packs such as TOCFL vocabulary are available. Pick one and add it to start studying right away.",
-    "emptyAction": "Import a file",
+    "emptyAction": "Add words from a file",
     "needWords": "Minimum words required: {{count}}",
     "addSamples": "Add sample words (about 50)",
     "addingSamples": "Adding…",
@@ -73,19 +74,19 @@
   },
   "words": {
     "title": "Word data",
-    "import": "Import",
+    "import": "Add words from a file",
     "export": "Export",
     "filter": "Search and filter",
     "search": "Search",
     "searchPlaceholder": "Hanzi, Zhuyin, Pinyin, meaning",
-    "filterTags": "Filter by tag",
+    "filterTags": "Filter by tag (multiple choice: shows words with any of the selected tags)",
     "list": "Word list",
     "selectAllShown": "Select all shown ({{count}})",
     "selectWord": "Select {{hanzi}}",
     "deleteSelected": "Delete selected ({{count}})",
     "deleteSelectedTitle": "Delete selected words",
     "confirmDeleteSelected": "Delete the selected words ({{count}})? Their study progress will also be deleted.",
-    "empty": "No words. Import some or add the sample words.",
+    "empty": "No words yet. Choose a word pack, or add words from a file.",
     "noMatch": "No words match the current filter.",
     "tag": "Tag",
     "cannotUndo": "This cannot be undone. Export your data first if you need it.",
@@ -140,7 +141,7 @@
     }
   },
   "io": {
-    "importTitle": "Import",
+    "importTitle": "Add words from a file",
     "dropHere": "Drop a JSON or CSV file here",
     "chooseFile": "Choose a file",
     "fileHint": "Supported: .csv / .json (up to 20 MB)",
@@ -227,7 +228,7 @@
         "meaning": "Meaning, in any language",
         "example": "Example sentence (one only)",
         "example_translation": "Translation of the example",
-        "tags": "Tags, separated by ;"
+        "tags": "Tags. A word can have several tags (separate them with ;)"
       },
       "examples": {
         "hanzi": "捷運",
@@ -279,6 +280,12 @@
         },
         "oldExcel": "In older Excel versions without \"CSV UTF-8\", save as \"Unicode Text (*.txt)\" and choose that file as it is.",
         "sheets": "Only the sheet that is open is saved to the CSV. Open the sheet with your word table before saving."
+      },
+      "dup": {
+        "title": "When a word is already registered",
+        "rule": "A word with the same Traditional Chinese and the same pinyin (or with either pinyin empty) is treated as a duplicate of a registered word.",
+        "preview": "After you choose a file, the numbers of new and duplicate words are shown before anything is added, and you can choose what to do with duplicates. If you change nothing, registered words stay as they are and duplicates are not added.",
+        "overwrite": "For JSON files (backups from this app), you can also choose to overwrite."
       }
     },
     "columnHints": "Rename these columns to import them: {{hints}}",
@@ -297,7 +304,8 @@
     "overwriteRun": "Overwrite and import ({{count}})",
     "back": "Back",
     "taggedNote": "Added tags to {{count}} existing words.",
-    "tagOverflowNote": "{{count}} words already have the maximum of 20 tags and were not changed."
+    "tagOverflowNote": "{{count}} words already have the maximum of 20 tags and were not changed.",
+    "lead": "You can add your own words from a CSV or JSON file. To make a CSV file in Excel or a similar app, see the guide below."
   },
   "common": {
     "loading": "Loading…",
@@ -376,5 +384,11 @@
     "tags": "Tags",
     "sourceAndLicense": "Sources and license",
     "source": "Source: {{source}}"
+  },
+  "reviewReading": {
+    "title": "About the “{{tag}}” tag",
+    "titleCount": "{{count}} of these words have the “{{tag}}” tag",
+    "body": "This tag marks words whose reading (Zhuyin and pinyin) could not be confirmed with the dictionary. Check them in a dictionary, and remove the tag if the reading is correct.",
+    "fix": "To correct a reading for now, use “Export” to save a JSON file, fix it, and load it with “Add words from a file”, choosing “Overwrite”. A screen for editing words in the app will be added later."
   }
 }

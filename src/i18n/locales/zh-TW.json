@@ -7,14 +7,15 @@
     "home": "首頁",
     "words": "單字資料",
     "settings": "設定",
-    "back": "返回"
+    "back": "返回",
+    "brandHome": "{{name}}（回到首頁）"
   },
   "home": {
     "title": "學習模式",
     "wordCount": "已登錄單字：{{count}} 個",
     "emptyTitle": "新增單字，開始學習吧",
     "emptyBody": "我們提供 TOCFL 等免費的「單字包」。選擇並新增後，就能馬上開始學習。",
-    "emptyAction": "匯入檔案",
+    "emptyAction": "從檔案新增單字",
     "needWords": "需要至少 {{count}} 個單字",
     "addSamples": "新增範例單字（約50個）",
     "addingSamples": "加入中…",
@@ -73,19 +74,19 @@
   },
   "words": {
     "title": "單字資料",
-    "import": "匯入",
+    "import": "從檔案新增單字",
     "export": "匯出",
     "filter": "搜尋與篩選",
     "search": "搜尋",
     "searchPlaceholder": "繁體字、注音、拼音、意思",
-    "filterTags": "依標籤篩選",
+    "filterTags": "依標籤篩選（可複選：顯示含有任一所選標籤的單字）",
     "list": "單字列表",
     "selectAllShown": "全選顯示中的 {{count}} 個單字",
     "selectWord": "選取「{{hanzi}}」",
     "deleteSelected": "刪除選取的單字（{{count}}）",
     "deleteSelectedTitle": "刪除選取的單字",
     "confirmDeleteSelected": "要刪除選取的 {{count}} 個單字嗎？學習進度也會一併刪除。",
-    "empty": "沒有單字。請匯入單字或加入範例單字。",
+    "empty": "沒有單字。請選擇「單字包」，或用「從檔案新增單字」新增。",
     "noMatch": "沒有符合條件的單字。",
     "tag": "標籤",
     "cannotUndo": "此操作無法復原。如有需要，請先匯出。",
@@ -140,7 +141,7 @@
     }
   },
   "io": {
-    "importTitle": "匯入",
+    "importTitle": "從檔案新增單字",
     "dropHere": "將 JSON 或 CSV 檔案拖放到這裡",
     "chooseFile": "選擇檔案",
     "fileHint": "支援格式：.csv / .json（最大 20MB）",
@@ -227,7 +228,7 @@
         "meaning": "意思。任何語言皆可",
         "example": "例句（最多 1 個）",
         "example_translation": "例句的翻譯",
-        "tags": "標籤。多個時用 ; 分隔"
+        "tags": "標籤。一個單字可以加上多個標籤（用 ; 分隔）"
       },
       "examples": {
         "hanzi": "捷運",
@@ -279,6 +280,12 @@
         },
         "oldExcel": "在找不到「CSV UTF-8」的舊版 Excel 中，以「Unicode 文字 (*.txt)」儲存後，可以直接選擇該檔案。",
         "sheets": "CSV 只會儲存目前開啟的一張工作表。請在開啟單字表格所在的工作表時儲存。"
+      },
+      "dup": {
+        "title": "與已登錄的單字重複時",
+        "rule": "繁體字相同，且拼音也相同（或其中一方空白）的單字，會視為與已登錄的單字重複。",
+        "preview": "選擇檔案後，匯入前會顯示「新增」「重複」的數量，並可從下列方式選擇重複單字的處理。若不變更，已登錄的單字維持原樣，重複的部分不會匯入。",
+        "overwrite": "JSON 檔案（本 App 的備份）也可以選擇「覆寫」。"
       }
     },
     "columnHints": "將欄位名稱改成以下名稱即可匯入：{{hints}}",
@@ -297,7 +304,8 @@
     "overwriteRun": "覆寫並匯入（{{count}}）",
     "back": "返回",
     "taggedNote": "已為 {{count}} 個已登錄的單字加上標籤。",
-    "tagOverflowNote": "{{count}} 個單字的標籤已達上限（20個），未做變更。"
+    "tagOverflowNote": "{{count}} 個單字的標籤已達上限（20個），未做變更。",
+    "lead": "可以從 CSV 或 JSON 檔案新增自己準備的單字。用 Excel 等製作 CSV 檔案的方法，請參考下方說明。"
   },
   "common": {
     "loading": "載入中…",
@@ -376,5 +384,11 @@
     "tags": "標籤",
     "sourceAndLicense": "出處與授權",
     "source": "出處：{{source}}"
+  },
+  "reviewReading": {
+    "title": "關於「{{tag}}」標籤",
+    "titleCount": "其中 {{count}} 個單字加有「{{tag}}」標籤",
+    "body": "這個標籤加在無法用辭典確定讀音（注音・拼音）的單字上。請查辭典確認，若讀音正確，請移除這個標籤。",
+    "fix": "若要修正讀音，目前需用「匯出」存成 JSON 檔案後修改，再用「從檔案新增單字」選擇「覆寫」讀入。在 App 內編輯單字的畫面之後會新增。"
   }
 }

@@ -1,0 +1,20 @@
+/* 「← 戻る」（FR-NAV-01）。押せる範囲は 44px 以上 */
+.link {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  margin-left: calc(-1 * var(--space-2));
+  padding: 0 var(--space-3) 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent-strong);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .link:hover {
+    background: var(--color-surface-2);
+  }
+}

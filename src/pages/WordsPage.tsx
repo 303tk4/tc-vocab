@@ -2,7 +2,10 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { useDeferredValue, useEffect, useId, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
+import { BackLink } from '../components/BackLink'
 import { Dialog } from '../components/Dialog'
+import { ReviewReadingNote } from '../components/ReviewReadingNote'
+import { REVIEW_READING_TAG } from '../io/reviewReading'
 import { TagChips } from '../components/TagChips'
 import { WordTagsDialog } from '../components/WordTagsDialog'
 import { setWordTags } from '../db/repos/tags'
@@ -149,7 +152,10 @@ export function WordsPage() {
   return (
     <div className="stack">
       <div className={styles.heading}>
-        <h1 className="page-title">{t('words.title')}</h1>
+        <div className="title-row">
+          <BackLink />
+          <h1 className="page-title">{t('words.title')}</h1>
+        </div>
         {allWords && <p className="muted">{t('home.wordCount', { count: allWords.length })}</p>}
       </div>
 
@@ -216,6 +222,7 @@ export function WordsPage() {
             onToggle={toggleFilterTag}
           />
         )}
+        {allTags.includes(REVIEW_READING_TAG) && <ReviewReadingNote />}
       </section>
 
       {allWords === undefined ? (

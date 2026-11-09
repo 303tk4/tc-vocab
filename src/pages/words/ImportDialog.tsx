@@ -12,6 +12,8 @@ import {
 import { ImportFileError, type ParsedFile } from '../../io/parsed'
 import { readImportFile } from '../../io/readFile'
 import { tagError, type ValidationError } from '../../io/validate'
+import { ReviewReadingNote } from '../../components/ReviewReadingNote'
+import { countReviewReading } from '../../io/reviewReading'
 import { CsvGuide } from './CsvGuide'
 import styles from './WordsPage.module.css'
 
@@ -28,6 +30,26 @@ type State =
   | { step: 'pick'; error?: string; errorCode?: string }
   | { step: 'reading' }
   | { step: 'preview'; fileName: string; file: ParsedFile; preview: ImportPreview }
+
+/** 既にある単語と重複したときの説明（FR-IO-09・FR-IO-03） */
+function DuplicateGuide() {
+  const { t } = useTranslation()
+  return (
+    <details className={styles.guide}>
+      <summary>{t('io.guide.dup.title')}</summary>
+      <p>{t('io.guide.dup.rule')}</p>
+      <p>{t('io.guide.dup.preview')}</p>
+      <ul className={styles.guideNotes}>
+        {strategiesFor('csv').map((s) => (
+          <li key={s}>
+            <strong>{t(`io.strategies.${s}`)}</strong>：{t(`io.strategyNotes.${s}`)}
+          </li>
+        ))}
+      </ul>
+      <p className="muted">{t('io.guide.dup.overwrite')}</p>
+    </details>
+  )
+}
 
 export function ImportDialog({ open, onClose, onImported }: Props) {
   const { t } = useTranslation()
@@ -137,6 +159,7 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
     const { preview, file } = state
     const errors = preview.rows.filter((r) => r.status === 'error')
     const duplicates = preview.rows.filter((r) => r.status === 'duplicate')
+    const reviewCount = countReviewReading(preview.rows.map((r) => r.word))
     body = (
       <>
         <p className={styles.fileName}>{state.fileName}</p>
@@ -239,6 +262,7 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
           {tagProblem && <p className={styles.error}>{t(`tags.errors.${tagProblem}`)}</p>}
         </div>
 
+        {reviewCount > 0 && <ReviewReadingNote count={reviewCount} />}
         {importable === 0 && <p>{t('io.nothingToImport')}</p>}
         {runError && (
           <p className={styles.error} role="alert">
@@ -250,6 +274,7 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
   } else {
     body = (
       <>
+        <p>{t('io.lead')}</p>
         <div
           className={styles.dropzone}
           data-dragging={dragging}
@@ -289,6 +314,7 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
             (state.errorCode === 'invalidEncoding' || state.errorCode === 'spreadsheet')
           }
         />
+        <DuplicateGuide />
       </>
     )
   }

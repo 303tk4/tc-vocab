@@ -1,0 +1,20 @@
+/* `要確認:読み` タグの説明（FR-WORDS-14） */
+.note {
+  padding: var(--space-2) var(--space-3);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  font-size: 0.875rem;
+}
+
+.note > p {
+  margin: 0;
+}
+
+.note > p + p {
+  margin-top: var(--space-1);
+}
+
+.title {
+  font-weight: 700;
+}

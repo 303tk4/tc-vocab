@@ -89,8 +89,8 @@ describe('単語データ画面', () => {
     const user = userEvent.setup()
     renderApp()
 
-    await user.click(await screen.findByRole('button', { name: 'Import' }))
-    const dialog = screen.getByRole('dialog', { name: 'Import' })
+    await user.click(await screen.findByRole('button', { name: 'Add words from a file' }))
+    const dialog = screen.getByRole('dialog', { name: 'Add words from a file' })
     const csv = 'hanzi,pinyin,meaning\n捷運,jié yùn,MRT\n茶,chá,tea\n,x,no hanzi\n'
     await user.upload(
       within(dialog).getByLabelText('Choose a file'),
@@ -112,8 +112,8 @@ describe('単語データ画面', () => {
   it('対応していない拡張子のファイルは理由を示す', async () => {
     const user = userEvent.setup({ applyAccept: false })
     renderApp()
-    await user.click(await screen.findByRole('button', { name: 'Import' }))
-    const dialog = screen.getByRole('dialog', { name: 'Import' })
+    await user.click(await screen.findByRole('button', { name: 'Add words from a file' }))
+    const dialog = screen.getByRole('dialog', { name: 'Add words from a file' })
     await user.upload(within(dialog).getByLabelText('Choose a file'), new File(['x'], 'a.pdf'))
     expect(await within(dialog).findByRole('alert')).toHaveTextContent('.csv or .json')
   })
@@ -121,8 +121,8 @@ describe('単語データ画面', () => {
   it('CSV の列の案内を表示し、文字コードの誤りや取り込まない列を知らせる（FR-IO-08・09）', async () => {
     const user = userEvent.setup()
     renderApp()
-    await user.click(await screen.findByRole('button', { name: 'Import' }))
-    const dialog = screen.getByRole('dialog', { name: 'Import' })
+    await user.click(await screen.findByRole('button', { name: 'Add words from a file' }))
+    const dialog = screen.getByRole('dialog', { name: 'Add words from a file' })
     const table = within(dialog).getByRole('table')
     expect(
       within(table)
@@ -237,7 +237,13 @@ describe('単語パッケージ（仕様書 16.5）', () => {
   })
   const packFile = buildJson([
     { ...jieyun, id: 'p1', meaning: 'パッケージの意味', tags: ['TOCFL', 'TOCFL:入門'] },
-    makeWord({ id: 'p2', hanzi: '茶', pinyin: 'chá', meaning: 'お茶', tags: ['TOCFL'] }),
+    makeWord({
+      id: 'p2',
+      hanzi: '茶',
+      pinyin: 'chá',
+      meaning: 'お茶',
+      tags: ['TOCFL', '要確認:読み'],
+    }),
   ])
 
   /** 同じサイトの packs/ と samples/ だけを返す fetch */
@@ -281,6 +287,10 @@ describe('単語パッケージ（仕様書 16.5）', () => {
       within(table).getByRole('columnheader', { name: 'TBCL (listening)' }),
     ).toBeInTheDocument()
     expect(within(dialog).getByText('Source: TOCFL Q&A')).toBeInTheDocument()
+    // 要確認:読み の件数と説明（FR-WORDS-14）
+    expect(
+      within(dialog).getByText('1 of these words have the “要確認:読み” tag'),
+    ).toBeInTheDocument()
     expect(within(dialog).getByRole('radio', { name: /Add tags only/ })).toBeChecked()
     await user.click(within(dialog).getByRole('button', { name: 'Add (2)' }))
 
@@ -315,6 +325,50 @@ describe('単語パッケージ（仕様書 16.5）', () => {
     await user.click(within(dialog).getByRole('button', { name: /^Add \(\d+\)$/ }))
     await waitFor(async () => expect(await db.words.count()).toBeGreaterThan(40))
     expect((await db.words.toArray()).every((w) => w.tags.includes('サンプル'))).toBe(true)
+  })
+})
+
+describe('わかりやすさの改善（版 1.13）', () => {
+  it('「← 戻る」は、直接開いたときは1つ上の階層（ホーム）に戻る（FR-NAV-01）', async () => {
+    const user = userEvent.setup()
+    renderApp('/words')
+    await user.click(await screen.findByRole('link', { name: 'Back' }))
+    expect(await screen.findByText('Study modes')).toBeInTheDocument()
+  })
+
+  it('「← 戻る」は、画面を移ってきたときは1つ前の画面に戻る（FR-NAV-01）', async () => {
+    const user = userEvent.setup()
+    renderApp('/settings')
+    await user.click(await screen.findByRole('link', { name: /Manage word data/ }))
+    expect(await screen.findByRole('heading', { name: 'Word data' })).toBeInTheDocument()
+    await user.click(screen.getByRole('link', { name: 'Back' }))
+    expect(await screen.findByRole('heading', { name: 'Settings' })).toBeInTheDocument()
+  })
+
+  it('ファイルからの追加の画面に、上部の案内と重複の説明を示す（FR-IO-09）', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Add words from a file' }))
+    const dialog = screen.getByRole('dialog', { name: 'Add words from a file' })
+    expect(
+      within(dialog).getByText(/You can add your own words from a CSV or JSON file/),
+    ).toBeInTheDocument()
+    expect(within(dialog).getByText('When a word is already registered')).toBeInTheDocument()
+    expect(within(dialog).getByText(/A word can have several tags/)).toBeInTheDocument()
+  })
+
+  it('要確認:読み タグがあれば、絞り込みの下にその説明を示す（FR-WORDS-14）', async () => {
+    await db.words.bulkPut([jieyun, { ...tricky, tags: ['要確認:読み'] }])
+    renderApp()
+    expect(await screen.findByText('About the “要確認:読み” tag')).toBeInTheDocument()
+    expect(screen.getByText(/^Filter by tag \(multiple choice/)).toBeInTheDocument()
+  })
+
+  it('要確認:読み タグが無ければ説明を出さない', async () => {
+    await db.words.bulkPut([jieyun])
+    renderApp()
+    expect(await screen.findByText('捷運')).toBeInTheDocument()
+    expect(screen.queryByText('About the “要確認:読み” tag')).not.toBeInTheDocument()
   })
 })
 
@@ -403,8 +457,8 @@ describe('重複の扱い（FR-IO-03・FR-WORDS-13）', () => {
     await db.words.put(makeWord({ id: 'tea', hanzi: '茶', pinyin: 'chá', meaning: 'お茶' }))
     const user = userEvent.setup()
     renderApp()
-    await user.click(await screen.findByRole('button', { name: 'Import' }))
-    const dialog = screen.getByRole('dialog', { name: 'Import' })
+    await user.click(await screen.findByRole('button', { name: 'Add words from a file' }))
+    const dialog = screen.getByRole('dialog', { name: 'Add words from a file' })
     await user.upload(
       within(dialog).getByLabelText('Choose a file'),
       new File(['hanzi,meaning,tags\n茶,tea,飲み物\n'], 'w.csv'),
@@ -455,8 +509,8 @@ describe('重複の扱い（FR-IO-03・FR-WORDS-13）', () => {
     await db.words.put(makeWord({ id: 'tea', hanzi: '茶', pinyin: 'chá', meaning: 'お茶' }))
     const user = userEvent.setup()
     renderApp()
-    await user.click(await screen.findByRole('button', { name: 'Import' }))
-    const dialog = screen.getByRole('dialog', { name: 'Import' })
+    await user.click(await screen.findByRole('button', { name: 'Add words from a file' }))
+    const dialog = screen.getByRole('dialog', { name: 'Add words from a file' })
     const json = JSON.stringify({
       format: 'tc-vocab',
       version: 1,

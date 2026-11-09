@@ -3,7 +3,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router'
 import { setStudying } from '../app/studyActivity'
-import { BackIcon } from '../components/icons'
+import { BackLink } from '../components/BackLink'
 import { TagChips } from '../components/TagChips'
 import { addSessionRecord, createProgressStore } from '../db/repos/progress'
 import { createModeSettingsStore, getSetting, setSetting } from '../db/repos/settings'
@@ -135,12 +135,9 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
 
   return (
     <div className="stack">
-      <div className={styles.titleRow}>
-        {phase !== 'session' && (
-          <Link to="/" className={styles.back} aria-label={t('nav.back')}>
-            <BackIcon />
-          </Link>
-        )}
+      <div className="title-row">
+        {/* 学習セッション中は置かない（中断の操作で戻る。FR-NAV-01） */}
+        {phase !== 'session' && <BackLink />}
         <h1 className="page-title">{tm(mode.titleKey)}</h1>
       </div>
 

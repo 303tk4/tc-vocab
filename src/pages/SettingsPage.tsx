@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
+import { BackLink } from '../components/BackLink'
 import { ChevronRightIcon } from '../components/icons'
 import { SegmentedControl } from '../components/SegmentedControl'
 import { createModeSettingsStore } from '../db/repos/settings'
@@ -25,7 +26,10 @@ export function SettingsPage() {
 
   return (
     <div className="stack">
-      <h1 className="page-title">{t('settings.title')}</h1>
+      <div className="title-row">
+        <BackLink />
+        <h1 className="page-title">{t('settings.title')}</h1>
+      </div>
 
       <section className="panel stack">
         <SegmentedControl

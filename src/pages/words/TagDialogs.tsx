@@ -2,6 +2,8 @@
 import { useId, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dialog, DialogActions } from '../../components/Dialog'
+import { ReviewReadingNote } from '../../components/ReviewReadingNote'
+import { REVIEW_READING_TAG } from '../../io/reviewReading'
 import { TagField } from '../../components/TagField'
 import {
   addTagToWords,
@@ -215,6 +217,7 @@ export function TagManagerDialog({ open, words, busy, onClose, run }: ManagerPro
     <Dialog open={open} title={title} onClose={close}>
       {current.kind === 'list' && (
         <>
+          {counts.has(REVIEW_READING_TAG) && <ReviewReadingNote />}
           {tags.length === 0 ? (
             <p>{t('tags.none')}</p>
           ) : (
