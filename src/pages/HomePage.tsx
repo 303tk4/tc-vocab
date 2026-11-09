@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import { BookIcon, ChevronRightIcon } from '../components/icons'
+import { InstallHelp } from '../components/InstallHelp'
 import { createProgressStore } from '../db/repos/progress'
 import { countWords } from '../db/repos/words'
 import { modeNamespace } from '../i18n'
@@ -120,7 +121,8 @@ function EmptyState() {
       </div>
       {/* データが残りにくい環境への注意（FR-PWA-04） */}
       <p className={styles.note}>{t('home.emptyNote')}</p>
-      <p className={styles.note}>{t('home.emptyNoteFix')}</p>
+      {/* 対策の段落。環境に応じて追加のボタンや手順を示す（FR-PWA-05） */}
+      <InstallHelp className={styles.fix} fallback={t('home.emptyNoteFix')} />
     </section>
   )
 }

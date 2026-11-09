@@ -7,3 +7,8 @@
   margin-top: var(--space-2);
   font-size: 0.875rem;
 }
+
+/* ホーム画面への追加のボタン（FR-PWA-05）は通常の大きさにする */
+.storage .hint :global(.button) {
+  font-size: 1rem;
+}
