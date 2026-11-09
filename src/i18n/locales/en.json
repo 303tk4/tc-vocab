@@ -77,7 +77,15 @@
       "unsupported": "This browser cannot tell whether your data is protected."
     },
     "storageHint": "Adding this app to your phone’s home screen (on a computer, choosing “Install as app” from the browser menu) makes protection more likely.",
-    "exportHint": "To be safe, export important words from the Word data page."
+    "exportHint": "To be safe, export important words from the Word data page.",
+    "about": "About this app",
+    "version": "Version: {{version}}",
+    "feedback": "Feedback to the developer",
+    "feedbackBody": "Send us your comments, bug reports or requests. When reporting a bug, please include the version number above in the form.",
+    "feedbackLink": "Open the feedback form",
+    "newTab": " (opens in a new tab)",
+    "feedbackNote": "This opens an external site (Google Forms). What you write is sent to that site. Your words and study records are not sent.",
+    "feedbackOffline": "Available when you are online."
   },
   "words": {
     "title": "Word data",

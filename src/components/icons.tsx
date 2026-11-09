@@ -107,3 +107,12 @@ export function PlusIcon() {
     </Icon>
   )
 }
+
+/** 外部のページを新しいタブで開くリンクの印（仕様書 10.3） */
+export function ExternalLinkIcon() {
+  return (
+    <Icon>
+      <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+    </Icon>
+  )
+}

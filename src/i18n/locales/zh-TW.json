@@ -77,7 +77,15 @@
       "unsupported": "此瀏覽器無法確認資料是否受到保護。"
     },
     "storageHint": "在手機上把本 App 加入主畫面（電腦則從瀏覽器選單選擇「安裝為 App」），就比較容易受到保護。",
-    "exportHint": "重要的單字建議從「單字資料」頁面匯出備份。"
+    "exportHint": "重要的單字建議從「單字資料」頁面匯出備份。",
+    "about": "關於本 App",
+    "version": "版本：{{version}}",
+    "feedback": "意見回饋",
+    "feedbackBody": "歡迎提供感想、問題回報或建議。回報問題時，請在表單中一併填寫上方的版本號碼。",
+    "feedbackLink": "開啟意見回饋表單",
+    "newTab": "（在新分頁開啟）",
+    "feedbackNote": "將開啟外部網站（Google 表單）。您填寫的內容會傳送到該網站，單字與學習紀錄不會被傳送。",
+    "feedbackOffline": "連上網路後即可開啟。"
   },
   "words": {
     "title": "單字資料",

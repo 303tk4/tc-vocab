@@ -1,11 +1,20 @@
 /// <reference types="vitest/config" />
+import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// アプリの版（FR-SET-06）。package.json の version を正本とする（仕様書 12.2）
+const { version } = JSON.parse(
+  readFileSync(new URL('./package.json', import.meta.url), 'utf8'),
+) as {
+  version: string
+}
+
 // https://vite.dev/config/
 export default defineConfig({
+  define: { __APP_VERSION__: JSON.stringify(version) },
   // GitHub Pages の公開パス（https://<user>.github.io/tc-vocab/）。仕様書 12.2
   base: '/tc-vocab/',
   plugins: [
