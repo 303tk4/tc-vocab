@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
-import { ChevronRightIcon } from '../components/icons'
+import { BookIcon, ChevronRightIcon } from '../components/icons'
 import { createProgressStore } from '../db/repos/progress'
 import { countWords } from '../db/repos/words'
 import { modeNamespace } from '../i18n'
@@ -35,7 +35,35 @@ export function HomePage() {
           ))}
         </ul>
       </section>
+
+      {wordCount !== undefined && wordCount > 0 && <AddWordsHint />}
     </div>
+  )
+}
+
+/**
+ * 単語があるときの、単語の増やし方の案内（FR-HOME-06）。
+ * スマホのヘッダーでは「単語データ」がアイコンだけになるため、ホームから行けるようにする
+ */
+function AddWordsHint() {
+  const { t } = useTranslation()
+  return (
+    <section className={`panel ${styles.addHint}`} aria-labelledby="add-words-title">
+      <h2 id="add-words-title" className="section-title">
+        {t('home.addWordsTitle')}
+      </h2>
+      <p>{t('home.addWordsBody')}</p>
+      <p className={styles.addHintIcon}>
+        {t('home.addWordsIconBefore')}
+        <span className={styles.inlineIcon}>
+          <BookIcon />
+        </span>
+        {t('home.addWordsIconAfter')}
+      </p>
+      <Link to="/words" className="button button--block-sm">
+        {t('home.addWords')}
+      </Link>
+    </section>
   )
 }
 

@@ -4,6 +4,8 @@ import { MemoryRouter } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { AppRoutes } from './App'
 import { getSetting } from './db/repos/settings'
+import { db } from './db/schema'
+import { makeWord } from './test/fixtures'
 import i18n from './i18n'
 import { SettingsProvider } from './settings/SettingsProvider'
 
@@ -34,6 +36,23 @@ describe('ホーム', () => {
     expect(screen.queryByRole('link', { name: /Flashcards/ })).not.toBeInTheDocument()
     // データが残りにくい環境への注意（FR-PWA-04）
     expect(screen.getByText(/inside another app such as LINE/)).toBeInTheDocument()
+  })
+})
+
+describe('単語の増やし方の案内（FR-HOME-06）', () => {
+  it('単語があるときは、ホームに単語データ画面への案内を出す', async () => {
+    await db.words.put(makeWord({ id: 'a' }))
+    const user = userEvent.setup()
+    renderApp()
+    expect(await screen.findByRole('heading', { name: 'Adding more words' })).toBeInTheDocument()
+    await user.click(screen.getByRole('link', { name: 'Add words' }))
+    expect(await screen.findByRole('heading', { name: 'Word data' })).toBeInTheDocument()
+  })
+
+  it('単語が0件のときは出さない（最初の案内を出す）', async () => {
+    renderApp()
+    expect(await screen.findByText('Add words to get started')).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Adding more words' })).not.toBeInTheDocument()
   })
 })
 

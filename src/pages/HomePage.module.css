@@ -171,3 +171,24 @@ a.card:active {
   font-size: 0.8125rem;
   color: var(--color-muted);
 }
+
+/* 単語の増やし方の案内（FR-HOME-06） */
+.addHint p {
+  margin: 0 0 var(--space-3);
+}
+
+.addHintIcon {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.inlineIcon {
+  display: inline-flex;
+  vertical-align: -0.2em;
+  margin: 0 0.15em;
+}
+
+.inlineIcon :global(svg) {
+  width: 1.2em;
+  height: 1.2em;
+}

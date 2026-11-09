@@ -24,7 +24,12 @@
     "emptyNote": "在 LINE 等 App 內開啟，或用瀏覽器的無痕模式開啟時，關閉後單字可能會消失。",
     "choosePacks": "選擇單字包（免費）",
     "packsNote": "下載單字包需要連上網路。",
-    "emptyNoteFix": "建議用 Chrome 等瀏覽器以一般模式開啟。在手機上建議把本 App 加入主畫面（電腦則從瀏覽器選單選擇「安裝為 App」）。"
+    "emptyNoteFix": "建議用 Chrome 等瀏覽器以一般模式開啟。在手機上建議把本 App 加入主畫面（電腦則從瀏覽器選單選擇「安裝為 App」）。",
+    "addWordsTitle": "想增加單字時",
+    "addWordsBody": "隨時可以從準備好的單字集或自己的檔案新增單字。",
+    "addWordsIconBefore": "也可以從畫面上方的書本按鈕（",
+    "addWordsIconAfter": "「單字資料」）開啟。",
+    "addWords": "新增單字"
   },
   "mode": {
     "notFound": "找不到指定的學習模式。",

@@ -24,7 +24,12 @@
     "emptyNote": "If you open this app inside another app such as LINE, or in a private (incognito) window, your words may be deleted when you close it.",
     "choosePacks": "Choose a word pack (free)",
     "packsNote": "Downloading word packs requires an internet connection.",
-    "emptyNoteFix": "To avoid this, open it normally in a browser such as Chrome. On a phone, we recommend adding this app to your home screen (on a computer, choose “Install as app” from the browser menu)."
+    "emptyNoteFix": "To avoid this, open it normally in a browser such as Chrome. On a phone, we recommend adding this app to your home screen (on a computer, choose “Install as app” from the browser menu).",
+    "addWordsTitle": "Adding more words",
+    "addWordsBody": "You can add words at any time from the prepared word lists or from your own file.",
+    "addWordsIconBefore": "You can also open this from the book button (",
+    "addWordsIconAfter": " Word data) at the top of the screen.",
+    "addWords": "Add words"
   },
   "mode": {
     "notFound": "The requested study mode was not found.",
