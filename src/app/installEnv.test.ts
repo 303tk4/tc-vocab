@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { detectInstallEnv, externalBrowserUrl, type InstallEnv } from './installEnv'
+import {
+  canHideHomeInstallHint,
+  detectInstallEnv,
+  externalBrowserUrl,
+  showHomeInstallHint,
+  type InstallEnv,
+} from './installEnv'
 
 const UA = {
   iPhoneSafari:
@@ -62,6 +68,35 @@ describe('ホーム画面への追加の環境の判定（FR-PWA-05）', () => {
     expect(detect(UA.iPhoneSafari, 5, true)).toBe('installed')
     expect(detect(UA.windowsChrome, 0, true)).toBe('installed')
     expect(detect(UA.lineIOS, 5, true)).toBe('installed')
+  })
+})
+
+describe('単語があるときのホームの下部の案内（仕様書 12.1 の補足（版 1.19））', () => {
+  it('iPhone・iPad では「今後表示しない」が押されるまで示す', () => {
+    expect(showHomeInstallHint('ios', false, false)).toBe(true)
+    expect(showHomeInstallHint('ios', true, false)).toBe(false)
+    expect(canHideHomeInstallHint('ios')).toBe(true)
+  })
+
+  it('Android では、追加できると知らされていて「今後表示しない」が押されていないときだけ示す', () => {
+    expect(showHomeInstallHint('android', false, true)).toBe(true)
+    expect(showHomeInstallHint('android', true, true)).toBe(false)
+    // 追加済みなら知らせが来ないので、「今後表示しない」が押されていなくても示さない
+    expect(showHomeInstallHint('android', false, false)).toBe(false)
+    expect(canHideHomeInstallHint('android')).toBe(true)
+  })
+
+  it('アプリの中では、「今後表示しない」にかかわらず示し、そのボタンは置かない', () => {
+    expect(showHomeInstallHint('line', true, false)).toBe(true)
+    expect(showHomeInstallHint('in-app', false, false)).toBe(true)
+    expect(canHideHomeInstallHint('line')).toBe(false)
+    expect(canHideHomeInstallHint('in-app')).toBe(false)
+  })
+
+  it('パソコン・追加済み・判定できないときは、知らせがあっても示さない', () => {
+    for (const env of ['desktop', 'installed', 'unknown'] as const) {
+      expect(showHomeInstallHint(env, false, true)).toBe(false)
+    }
   })
 })
 

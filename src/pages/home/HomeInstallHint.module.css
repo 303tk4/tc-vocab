@@ -1,0 +1,18 @@
+/* ホームの下部の、ホーム画面への追加の案内（FR-PWA-05、版 1.19）。小さく示す */
+.hint {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.hint :global(.button) {
+  font-size: 1rem;
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger);
+}
