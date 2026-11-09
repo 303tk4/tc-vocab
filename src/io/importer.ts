@@ -13,9 +13,10 @@ export const DUPLICATE_STRATEGIES = ['skip', 'keepBoth', 'merge', 'overwrite'] a
 
 /**
  * 単語パッケージで選べる扱い（仕様書 16.5）。tagOnly：既存の単語にパッケージのタグだけを加える。
+ * overwrite：既存の単語を単語集の内容に戻す（編集してしまった単語を元に戻す用。学習進捗は残る）。
  * 「タグだけ付ける」はファイルのインポートでは選べない
  */
-export const PACK_STRATEGIES = ['tagOnly', 'skip', 'merge', 'keepBoth'] as const
+export const PACK_STRATEGIES = ['tagOnly', 'skip', 'merge', 'keepBoth', 'overwrite'] as const
 
 export type DuplicateStrategy =
   (typeof DUPLICATE_STRATEGIES)[number] | (typeof PACK_STRATEGIES)[number]

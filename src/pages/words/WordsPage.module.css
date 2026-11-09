@@ -674,3 +674,26 @@
 .levelTag {
   white-space: nowrap;
 }
+
+/* 「選ぶ」「もう一度追加する」と、その下の補足 */
+.packAction {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-1);
+  max-width: 12rem;
+}
+
+.packKeepNote {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+@media (max-width: 599px) {
+  .packAction {
+    max-width: none;
+  }
+}
