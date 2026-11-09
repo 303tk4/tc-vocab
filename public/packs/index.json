@@ -7,14 +7,14 @@
       "file": "tocfl-1.json",
       "version": 1,
       "name": {
-        "ja": "TOCFL 対応 入門・基礎（TBCL 第1〜3級）",
-        "zh-TW": "TOCFL 對應 入門・基礎（TBCL 第1〜3級）",
+        "ja": "TOCFL 入門級・基礎級 対応（TBCL 第1〜3級）",
+        "zh-TW": "TOCFL 入門級・基礎級 對應（TBCL 第1〜3級）",
         "en": "TOCFL Novice–Level 2 (TBCL levels 1–3)"
       },
       "description": {
-        "ja": "TOCFL（華語文能力測驗）の準備級〜基礎級（A2）の目安となる語彙です。TOCFL が出題の参考にしている國家教育研究院「臺灣華語文能力基準」詞語表の第1〜3級から作りました。意味は日本語で、AI による下書きです。注音は教育部《重編國語辭典修訂本》によります。",
-        "zh-TW": "適合準備 TOCFL（華語文能力測驗）準備級至基礎級（A2）的詞彙，取自 TOCFL 命題參考的國家教育研究院「臺灣華語文能力基準」詞語表第1〜3級。釋義為日文，由 AI 草擬。注音依據教育部《重編國語辭典修訂本》。",
-        "en": "Vocabulary for TOCFL (Test of Chinese as a Foreign Language) Novice to Level 2 (A2), taken from levels 1–3 of the NAER Taiwan Benchmarks for the Chinese Language (TBCL) word list, which TOCFL uses as a reference. Meanings are in Japanese and were drafted by AI. Zhuyin follows the MOE Revised Mandarin Chinese Dictionary."
+        "ja": "TOCFL（華語文能力測驗）の準備級〜基礎級（A2）の目安となる語彙です。TOCFL が出題の参考にしている國家教育研究院「臺灣華語文能力基準」詞語表の第1〜3級から作りました。意味は日本語で、AI による下書きです。注音は教育部《重編國語辭典修訂本》によります。読みが確定できなかった語には「要確認:読み」のタグを付けています。辞書で確かめ、必要なら読みを直してから、このタグを外してください。",
+        "zh-TW": "適合準備 TOCFL（華語文能力測驗）準備級至基礎級（A2）的詞彙，取自 TOCFL 命題參考的國家教育研究院「臺灣華語文能力基準」詞語表第1〜3級。釋義為日文，由 AI 草擬。注音依據教育部《重編國語辭典修訂本》。無法確定讀音的詞語標有「要確認:読み」標籤，請查閱辭典確認，必要時修正讀音後移除此標籤。",
+        "en": "Vocabulary for TOCFL (Test of Chinese as a Foreign Language) Novice to Level 2 (A2), taken from levels 1–3 of the NAER Taiwan Benchmarks for the Chinese Language (TBCL) word list, which TOCFL uses as a reference. Meanings are in Japanese and were drafted by AI. Zhuyin follows the MOE Revised Mandarin Chinese Dictionary. Words whose reading could not be confirmed are tagged \"要確認:読み\"; check them in a dictionary, correct the reading if needed, then remove the tag."
       },
       "wordCount": 1375,
       "size": 217312,
