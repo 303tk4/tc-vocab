@@ -8,24 +8,32 @@ interface Props {
   /** 環境を判定できないとき・ボタンから追加できないときの案内文（今の案内文） */
   fallback: string
   className?: string
-  /** テスト用：環境を指定する（省略時は端末から判定する） */
+  /** 環境を指定する（省略時は端末から判定する。テストや、判定済みの画面で使う） */
   env?: InstallEnv
+  /** 追加済みのアプリとして開いているときに、その旨を示す（設定画面。版 1.19） */
+  showInstalled?: boolean
 }
 
 /**
  * ホーム画面への追加の手助け（FR-PWA-05、仕様書 12.1）。
  * 環境に応じて、追加のボタン・iPhone の手順・ブラウザで開き直す案内のどれかを示す。
- * 追加済みのアプリとして開いているときは何も示さない
+ * 追加済みのアプリとして開いているときは、showInstalled のときだけその旨を示す
  */
-export function InstallHelp({ fallback, className, env: envProp }: Props) {
+export function InstallHelp({ fallback, className, env: envProp, showInstalled }: Props) {
   const { t } = useTranslation()
   const env = useMemo(() => envProp ?? detectCurrentInstallEnv(), [envProp])
   const { canPrompt, installed } = useInstallPrompt()
+  const rootClass = [styles.help, className].filter(Boolean).join(' ')
 
-  if (env === 'installed') return null
+  if (env === 'installed') {
+    return showInstalled ? (
+      <div className={rootClass}>
+        <p className={styles.text}>{t('install.installed')}</p>
+      </div>
+    ) : null
+  }
 
   const desktop = env === 'desktop'
-  const rootClass = [styles.help, className].filter(Boolean).join(' ')
 
   if (installed) {
     return (

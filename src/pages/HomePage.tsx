@@ -9,6 +9,7 @@ import { countWords } from '../db/repos/words'
 import { modeNamespace } from '../i18n'
 import { modes } from '../modes/registry'
 import type { AnyStudyMode } from '../modes/types'
+import { HomeInstallHint } from './home/HomeInstallHint'
 import styles from './HomePage.module.css'
 
 export function HomePage() {
@@ -36,6 +37,9 @@ export function HomePage() {
           ))}
         </ul>
       </section>
+
+      {/* 単語があるときの、ホーム画面への追加の案内（FR-PWA-05、版 1.19） */}
+      {wordCount !== undefined && wordCount > 0 && <HomeInstallHint />}
     </div>
   )
 }

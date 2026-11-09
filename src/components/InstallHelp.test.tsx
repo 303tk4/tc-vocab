@@ -31,6 +31,11 @@ describe('ホーム画面への追加の手助け（FR-PWA-05）', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
+  it('設定画面（showInstalled）では、追加済みのアプリとして開いていることを示す', () => {
+    render(<InstallHelp env="installed" fallback="今の案内文" showInstalled />)
+    expect(screen.getByText(/ホーム画面に追加したアプリ/)).toBeInTheDocument()
+  })
+
   it('Android でブラウザの知らせが無いうちは今の案内文を示し、知らせを受けたらボタンを示す', async () => {
     render(<InstallHelp env="android" fallback="今の案内文" />)
     expect(screen.getByText('今の案内文')).toBeInTheDocument()

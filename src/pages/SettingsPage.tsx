@@ -112,8 +112,12 @@ function StorageStatus() {
       ) : (
         <>
           <p data-state={state}>{t(`settings.storageStates.${state}`)}</p>
-          {/* ホーム画面への追加の手助け（FR-PWA-05）。追加済みのアプリでは何も示さない */}
-          <InstallHelp className={`muted ${styles.hint}`} fallback={t('settings.storageHint')} />
+          {/* ホーム画面への追加の手助け（FR-PWA-05）。追加済みのアプリでは、その旨を示す（版 1.19） */}
+          <InstallHelp
+            className={`muted ${styles.hint}`}
+            fallback={t('settings.storageHint')}
+            showInstalled
+          />
           {state !== 'persisted' && (
             <p className={`muted ${styles.hint}`}>{t('settings.exportHint')}</p>
           )}

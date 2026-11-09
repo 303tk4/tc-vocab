@@ -73,6 +73,28 @@ export function detectCurrentInstallEnv(): InstallEnv {
 }
 
 /**
+ * 単語が1語以上あるときに、ホームの下部で追加の案内を示すか（仕様書 12.1 の補足（版 1.19））。
+ * - iPhone・iPad：「今後表示しない」が押されるまで毎回示す
+ * - Android：ブラウザが追加できると知らせているとき（追加済みなら知らせが来ない）だけ、
+ *   「今後表示しない」が押されるまで示す。canPrompt には、追加し終えた直後（その旨を示す）も含める
+ * - LINE・ほかのアプリの中：毎回示す（「今後表示しない」は置かない）
+ * - パソコン・追加済み・判定できないとき：示さない
+ */
+export function showHomeInstallHint(env: InstallEnv, hidden: boolean, canPrompt: boolean): boolean {
+  if (env === 'ios') return !hidden
+  if (env === 'android') return canPrompt && !hidden
+  return env === 'line' || env === 'in-app'
+}
+
+/** ホームの下部の案内に「今後表示しない」を置くか */
+export function canHideHomeInstallHint(env: InstallEnv): boolean {
+  return env === 'ios' || env === 'android'
+}
+
+/** 「今後表示しない」を保存する設定のキー */
+export const INSTALL_HINT_HIDDEN_KEY = 'app.installHintHidden'
+
+/**
  * LINE で外のブラウザで開くための URL（openExternalBrowser=1 を付ける）。
  * HashRouter の「#/…」より前（検索部分）に付ける
  */

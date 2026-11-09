@@ -463,11 +463,15 @@
     "button": "Add to home screen",
     "promptDesktop": "Install this app on your computer. Opening it from the installed app makes your words less likely to be deleted.",
     "buttonDesktop": "Install as app",
-    "ios": "Add this app to your home screen: tap the Share button (a square with an up arrow), then choose “Add to Home Screen”. If you can’t find the Share button, tap “…” first. Opening it from the icon makes your words less likely to be deleted.",
+    "ios": "Safari on iPhone and iPad automatically deletes data from sites you haven’t opened for a while (about 7 days), so your words in this app may be deleted too. To avoid this, add this app to your home screen: tap the Share button (a square with an up arrow), then choose “Add to Home Screen”. If you can’t find the Share button, tap “…” first. Opening it from the icon makes your words less likely to be deleted.",
     "line": "This page is open inside LINE, so it can’t be added to your home screen. Please open it again in Safari or Chrome.",
     "lineLink": "Open in browser",
     "inApp": "This page is open inside another app, so it can’t be added to your home screen. Use “Open in browser” (or similar) from the app’s menu to open it in Safari or Chrome.",
     "done": "Added. Next time, open the app from the icon on your home screen.",
-    "doneDesktop": "Installed. Next time, open the installed app."
+    "doneDesktop": "Installed. Next time, open the installed app.",
+    "title": "Add to home screen",
+    "hide": "Don’t show again",
+    "hideFailed": "Couldn’t save. Please try again.",
+    "installed": "You are using the app added to your home screen (on a computer, the installed app)."
   }
 }
