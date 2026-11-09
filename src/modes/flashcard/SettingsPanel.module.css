@@ -21,7 +21,7 @@
 }
 
 .number[aria-invalid='true'] {
-  border-color: var(--color-accent);
+  border-color: var(--color-danger);
 }
 
 .hint,
@@ -35,7 +35,7 @@
 }
 
 .invalid {
-  color: var(--color-accent-strong);
+  color: var(--color-danger-strong);
   font-weight: 600;
 }
 

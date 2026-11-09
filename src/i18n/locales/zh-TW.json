@@ -48,6 +48,15 @@
       "dark": "深色",
       "system": "跟隨系統"
     },
+    "accent": "強調色",
+    "accents": {
+      "red": "紅",
+      "green": "綠",
+      "blue": "藍",
+      "purple": "紫",
+      "orange": "橘",
+      "mono": "黑白"
+    },
     "modeSettings": "學習模式設定",
     "data": "資料",
     "dataLink": "管理單字資料（匯入・匯出）"

@@ -8,7 +8,7 @@
     <meta name="color-scheme" content="light dark" />
     <title>學中文 | tc-vocab</title>
     <script>
-      // React の描画前にテーマ・表示サイズ・言語を適用して、ちらつきを防ぐ。
+      // React の描画前にテーマ・表示サイズ・アクセントカラー・言語を適用して、ちらつきを防ぐ。
       // src/settings/boot.ts と対応（キー名・値を変えるときは両方を直す）
       ;(function () {
         var s = {}
@@ -20,6 +20,9 @@
         var theme = s.theme === 'light' || s.theme === 'dark' ? s.theme : dark ? 'dark' : 'light'
         root.dataset.theme = theme
         root.dataset.fontScale = /^(sm|md|lg|xl)$/.test(s.fontScale) ? s.fontScale : 'md'
+        root.dataset.accent = /^(red|green|blue|purple|orange|mono)$/.test(s.accent)
+          ? s.accent
+          : 'red'
         if (/^(ja|zh-TW|en)$/.test(s.uiLanguage)) root.lang = s.uiLanguage
       })()
     </script>

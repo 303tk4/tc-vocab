@@ -104,7 +104,7 @@
 }
 
 .back[data-swipe='again'] {
-  border-color: var(--color-accent);
+  border-color: var(--color-danger);
 }
 
 .back[data-swipe='good'] {
@@ -124,7 +124,7 @@
 .back[data-swipe='again'] .swipeLabel {
   right: auto;
   left: var(--space-3);
-  color: var(--color-accent-strong);
+  color: var(--color-danger-strong);
 }
 
 .back[data-swipe='good'] .swipeLabel {
@@ -311,8 +311,8 @@
 }
 
 .again {
-  border-color: var(--color-accent);
-  color: var(--color-accent-strong);
+  border-color: var(--color-danger);
+  color: var(--color-danger-strong);
 }
 
 .good {
@@ -344,8 +344,8 @@
   margin: 0;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-sm);
-  background: var(--color-accent-soft);
-  color: var(--color-accent-strong);
+  background: var(--color-danger-soft);
+  color: var(--color-danger-strong);
   font-weight: 600;
 }
 

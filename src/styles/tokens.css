@@ -31,6 +31,10 @@
   --color-accent-strong: #8f1a24;
   --color-accent-soft: #f8e3e4;
   --color-on-accent: #ffffff;
+  /* 危険・注意（エラー、削除、もう一度）。アクセントカラーの設定によらず赤（仕様書 10.1） */
+  --color-danger: #b4232f;
+  --color-danger-strong: #8f1a24;
+  --color-danger-soft: #f8e3e4;
   --color-focus: #2f6fdb;
   /* 暗記カードの「普通」など、肯定的な操作の色 */
   --color-good: #24704a;
@@ -49,9 +53,77 @@
   --color-accent-strong: #f2939a;
   --color-accent-soft: #3e2326;
   --color-on-accent: #1a0d0e;
+  --color-danger: #e5636c;
+  --color-danger-strong: #f2939a;
+  --color-danger-soft: #3e2326;
   --color-focus: #7aa7f5;
   --color-good: #6fcf97;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 40%);
+}
+
+/*
+ * アクセントカラー（FR-SET-04）。<html data-accent="..."> で切り替える。
+ * 赤はテーマの既定値のため指定しない。値を変えたら tokens.test.ts のコントラストの検査を通すこと
+ */
+:root[data-theme='light'][data-accent='mono'] {
+  --color-accent: #1f1d1a;
+  --color-accent-strong: #1f1d1a;
+  --color-accent-soft: #e4ded4;
+  --color-on-accent: #ffffff;
+}
+:root[data-theme='dark'][data-accent='mono'] {
+  --color-accent: #ece8e2;
+  --color-accent-strong: #ffffff;
+  --color-accent-soft: #3a3732;
+  --color-on-accent: #171614;
+}
+:root[data-theme='light'][data-accent='green'] {
+  --color-accent: #1d6b40;
+  --color-accent-strong: #155232;
+  --color-accent-soft: #ddefe3;
+  --color-on-accent: #ffffff;
+}
+:root[data-theme='dark'][data-accent='green'] {
+  --color-accent: #5cc489;
+  --color-accent-strong: #8fdcb0;
+  --color-accent-soft: #1f3a2b;
+  --color-on-accent: #0b1a12;
+}
+:root[data-theme='light'][data-accent='blue'] {
+  --color-accent: #1f5fbf;
+  --color-accent-strong: #174a96;
+  --color-accent-soft: #e1eaf8;
+  --color-on-accent: #ffffff;
+}
+:root[data-theme='dark'][data-accent='blue'] {
+  --color-accent: #6ea2f0;
+  --color-accent-strong: #a3c4f7;
+  --color-accent-soft: #1f2d45;
+  --color-on-accent: #0b1220;
+}
+:root[data-theme='light'][data-accent='purple'] {
+  --color-accent: #6a3fb5;
+  --color-accent-strong: #52308f;
+  --color-accent-soft: #ece4f7;
+  --color-on-accent: #ffffff;
+}
+:root[data-theme='dark'][data-accent='purple'] {
+  --color-accent: #b39af0;
+  --color-accent-strong: #cdbdf6;
+  --color-accent-soft: #2f2645;
+  --color-on-accent: #160f24;
+}
+:root[data-theme='light'][data-accent='orange'] {
+  --color-accent: #b04a0c;
+  --color-accent-strong: #8a3a09;
+  --color-accent-soft: #fbe7d8;
+  --color-on-accent: #ffffff;
+}
+:root[data-theme='dark'][data-accent='orange'] {
+  --color-accent: #f0954f;
+  --color-accent-strong: #f6b783;
+  --color-accent-soft: #40291a;
+  --color-on-accent: #1d0f05;
 }
 
 /* 表示サイズ（FR-SET-02）。rem 基準なので全体が拡大縮小する */

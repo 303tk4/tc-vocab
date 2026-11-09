@@ -33,5 +33,6 @@ export function applyToDocument(settings: AppSettings, prefersDark: boolean): vo
   const root = document.documentElement
   root.dataset.theme = resolveTheme(settings.theme, prefersDark)
   root.dataset.fontScale = settings.fontScale
+  root.dataset.accent = settings.accent
   root.lang = settings.uiLanguage
 }

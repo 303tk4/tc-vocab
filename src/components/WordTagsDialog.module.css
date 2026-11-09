@@ -39,7 +39,7 @@
 }
 
 .chipRemove:hover {
-  color: var(--color-accent-strong);
+  color: var(--color-danger-strong);
 }
 
 .chipRemove :global(.icon) {
@@ -48,6 +48,6 @@
 }
 
 .error {
-  color: var(--color-accent-strong);
+  color: var(--color-danger-strong);
   font-weight: 600;
 }

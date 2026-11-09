@@ -48,6 +48,15 @@
       "dark": "ダーク",
       "system": "システムに従う"
     },
+    "accent": "アクセントカラー",
+    "accents": {
+      "red": "赤",
+      "green": "緑",
+      "blue": "青",
+      "purple": "紫",
+      "orange": "橙",
+      "mono": "白黒"
+    },
     "modeSettings": "学習モードの設定",
     "data": "データ",
     "dataLink": "単語データの管理（インポート・エクスポート）"

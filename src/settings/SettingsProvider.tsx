@@ -23,6 +23,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           uiLanguage: rows[SETTING_KEYS.uiLanguage],
           fontScale: rows[SETTING_KEYS.fontScale],
           theme: rows[SETTING_KEYS.theme],
+          accent: rows[SETTING_KEYS.accent],
         }
         setSettings((current) => sanitizeSettings(stored, current))
       })

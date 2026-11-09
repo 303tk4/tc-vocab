@@ -136,7 +136,7 @@ a.card:active {
 .reason {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-accent-strong);
+  color: var(--color-danger-strong);
 }
 
 .chevron {

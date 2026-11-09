@@ -8,11 +8,17 @@ import { LANGUAGE_NAMES, modeNamespace } from '../i18n'
 import { modes } from '../modes/registry'
 import type { AnyStudyMode } from '../modes/types'
 import { useSettings } from '../settings/context'
+import { ACCENT_SWATCHES, ACCENTS } from '../settings/accents'
+import { resolveTheme } from '../settings/boot'
 import { FONT_SCALES, THEMES, UI_LANGUAGES } from '../settings/types'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 
 export function SettingsPage() {
   const { t } = useTranslation()
   const { settings, update } = useSettings()
+  // 色見本は、いま表示しているテーマの色にする
+  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')
+  const shownTheme = resolveTheme(settings.theme, prefersDark)
   const modesWithPanel = modes.filter((m) => m.SettingsPanel)
 
   return (
@@ -41,6 +47,17 @@ export function SettingsPage() {
           value={settings.theme}
           options={THEMES.map((th) => ({ value: th, label: t(`settings.themes.${th}`) }))}
           onChange={(theme) => update({ theme })}
+        />
+        {/* アクセントカラー（FR-SET-04） */}
+        <SegmentedControl
+          label={t('settings.accent')}
+          value={settings.accent}
+          options={ACCENTS.map((accent) => ({
+            value: accent,
+            label: t(`settings.accents.${accent}`),
+            swatch: ACCENT_SWATCHES[accent][shownTheme],
+          }))}
+          onChange={(accent) => update({ accent })}
         />
       </section>
 

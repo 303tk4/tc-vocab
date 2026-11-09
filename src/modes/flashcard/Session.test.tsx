@@ -22,7 +22,7 @@ function renderSession(words: Word[], overrides: Partial<SessionProps<FlashcardO
     services: {
       speak: vi.fn(),
       canSpeak: true,
-      settings: { uiLanguage: 'en', fontScale: 'md', theme: 'system' },
+      settings: { uiLanguage: 'en', fontScale: 'md', theme: 'system', accent: 'red' },
       tags: {
         list: vi.fn().mockResolvedValue(['交通', '重点']),
         setWordTags: vi.fn((_id: string, tags: string[]) => Promise.resolve(tags)),

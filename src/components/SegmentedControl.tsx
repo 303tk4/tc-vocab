@@ -6,6 +6,8 @@ interface Option<T extends string> {
   label: string
   /** 選択肢自体の言語（例: 言語名を各言語で表示する場合） */
   lang?: string
+  /** ラベルの前に出す色見本（CSS の色） */
+  swatch?: string
 }
 
 interface Props<T extends string> {
@@ -31,7 +33,16 @@ export function SegmentedControl<T extends string>({ label, value, options, onCh
               checked={option.value === value}
               onChange={() => onChange(option.value)}
             />
-            <span>{option.label}</span>
+            <span>
+              {option.swatch && (
+                <span
+                  className={styles.swatch}
+                  style={{ background: option.swatch }}
+                  aria-hidden="true"
+                />
+              )}
+              {option.label}
+            </span>
           </label>
         ))}
       </div>

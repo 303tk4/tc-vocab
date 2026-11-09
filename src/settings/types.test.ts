@@ -19,19 +19,22 @@ describe('detectLanguage', () => {
 })
 
 describe('sanitizeSettings', () => {
-  const base: AppSettings = { uiLanguage: 'ja', fontScale: 'md', theme: 'system' }
+  const base: AppSettings = { uiLanguage: 'ja', fontScale: 'md', theme: 'system', accent: 'red' }
 
   it('正しい値はそのまま使う', () => {
-    expect(sanitizeSettings({ uiLanguage: 'en', fontScale: 'xl', theme: 'dark' }, base)).toEqual({
+    expect(
+      sanitizeSettings({ uiLanguage: 'en', fontScale: 'xl', theme: 'dark', accent: 'green' }, base),
+    ).toEqual({
       uiLanguage: 'en',
       fontScale: 'xl',
       theme: 'dark',
+      accent: 'green',
     })
   })
 
   it('不正な値や欠けた値は初期値で補う', () => {
-    expect(sanitizeSettings({ uiLanguage: 'fr', fontScale: 3, theme: undefined }, base)).toEqual(
-      base,
-    )
+    expect(
+      sanitizeSettings({ uiLanguage: 'fr', fontScale: 3, theme: undefined, accent: 'pink' }, base),
+    ).toEqual(base)
   })
 })

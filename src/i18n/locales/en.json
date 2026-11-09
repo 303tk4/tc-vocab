@@ -48,6 +48,15 @@
       "dark": "Dark",
       "system": "Use system setting"
     },
+    "accent": "Accent color",
+    "accents": {
+      "red": "Red",
+      "green": "Green",
+      "blue": "Blue",
+      "purple": "Purple",
+      "orange": "Orange",
+      "mono": "Black & white"
+    },
     "modeSettings": "Study mode settings",
     "data": "Data",
     "dataLink": "Manage word data (import / export)"
