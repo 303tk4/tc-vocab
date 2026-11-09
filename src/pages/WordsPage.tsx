@@ -29,6 +29,7 @@ import { createMatcher, sortWords } from './words/search'
 import { BulkTagDialog, TagManagerDialog } from './words/TagDialogs'
 import { WordList } from './words/WordList'
 import styles from './words/WordsPage.module.css'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 type DialogKind =
   | 'import'
@@ -48,6 +49,7 @@ const OPENABLE: readonly DialogKind[] = ['packs', 'import']
 export function WordsPage() {
   const { t } = useTranslation()
   const searchId = useId()
+  usePageTitle(t('words.title'))
   const allWords = useLiveQuery(listWords)
   const allTags = useLiveQuery(listTags, [], [] as string[])
 

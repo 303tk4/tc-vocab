@@ -42,11 +42,12 @@ export default function FlashcardSession(props: Props) {
   useEffect(() => {
     let cancelled = false
     void (async () => {
-      const [settings, map, rows] = await Promise.all([
-        loadSettings(modeSettings),
-        progress.getMany(words.map((w) => w.id)),
-        progress.list(),
-      ])
+      // 進捗はこのモードの全件を1回だけ読み、出題対象の単語の分を取り出す。
+      // 単語ごとに読む（getMany）より速い（1万語で確かめた。NFR-01）
+      const [settings, rows] = await Promise.all([loadSettings(modeSettings), progress.list()])
+      const ids = new Set(words.map((w) => w.id))
+      const map = new Map<string, Progress>()
+      for (const row of rows) if (ids.has(row.wordId)) map.set(row.wordId, row)
       const now = Date.now()
       const plan = planQueue({
         words,

@@ -8,7 +8,7 @@
     "words": "Word data",
     "settings": "Settings",
     "back": "Back",
-    "brandHome": "{{name}} (go to Home)"
+    "brandHomeSuffix": " (go to Home)"
   },
   "home": {
     "title": "Study modes",

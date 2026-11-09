@@ -1,7 +1,7 @@
 {
   "name": "tc-vocab",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "engines": {
     "node": ">=24"
@@ -9,13 +9,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "size": "node scripts/check-size.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "playwright test --project=chromium --project=mobile-webkit && playwright test --project=perf"
   },
   "dependencies": {
     "@tanstack/react-virtual": "^3.14.26",
@@ -29,7 +31,9 @@
     "react-router": "^8.5.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.0",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",

@@ -13,15 +13,13 @@ export function Layout() {
     <div className={styles.shell}>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <Link
-            to="/"
-            className={styles.brand}
-            aria-label={t('nav.brandHome', { name: t('app.name') })}
-          >
+          {/* 読み上げる名前は見えている文字から始める（WCAG 2.5.3、NFR-04） */}
+          <Link to="/" className={styles.brand}>
             <span className={styles.logo} lang="zh-TW">
               {t('app.name')}
             </span>
             <span className={styles.tagline}>{t('app.tagline')}</span>
+            <span className="visually-hidden">{t('nav.brandHomeSuffix')}</span>
           </Link>
           <nav className={styles.nav}>
             <NavLink to="/words" className={navClass}>

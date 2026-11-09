@@ -16,6 +16,7 @@ import { canSpeak, speak } from '../services/speech'
 import { useSettings } from '../settings/context'
 import type { Word } from '../types/word'
 import styles from './ModePage.module.css'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 export function ModePage() {
   const { modeId = '' } = useParams()
@@ -50,6 +51,7 @@ function hasValue(value: unknown): boolean {
 function ModeRunner({ mode }: { mode: AnyStudyMode }) {
   const { t } = useTranslation()
   const { t: tm } = useTranslation(modeNamespace(mode.id))
+  usePageTitle(tm(mode.titleKey))
   const navigate = useNavigate()
   const { settings } = useSettings()
 
