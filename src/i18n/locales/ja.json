@@ -377,7 +377,7 @@
     "installed": "追加済み",
     "updateAvailable": "更新あり",
     "choose": "選ぶ",
-    "chooseNamed": "{{name}}を選ぶ",
+    "chooseNamed": "{{action}}（{{name}}）",
     "packFailed": "この単語集を読み込めませんでした。通信状態を確認してください。",
     "examples": "見本",
     "back": "一覧に戻る",
@@ -388,7 +388,16 @@
     "inPack": "収録",
     "tags": "タグ",
     "sourceAndLicense": "出典とライセンス",
-    "source": "出典：{{source}}"
+    "source": "出典：{{source}}",
+    "chooseAgain": "もう一度追加する",
+    "chooseUpdate": "更新する",
+    "partial": "追加済み（{{total}} 語のうち {{present}} 語が登録中）",
+    "overwrite": "単語集の内容に戻す",
+    "overwriteNote": "登録済みの単語の意味・読み・例文・タグを、単語集の元の内容に戻します。学習の進捗は残ります。",
+    "overwriteConfirm": "登録済みの {{count}} 語を、単語集の元の内容に戻します。",
+    "overwriteDetail": "意味・読み・例文・タグが置き換わり、ご自分で直した内容や付けたタグは失われます。学習の進捗は残ります。",
+    "overwriteRun": "元に戻して追加する（{{count}}）",
+    "keepProgress": "もう一度追加しても、学習の進捗は消えません。"
   },
   "reviewReading": {
     "title": "「{{tag}}」タグについて",

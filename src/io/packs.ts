@@ -176,13 +176,23 @@ export function formatSize(bytes: number): { value: string; unit: 'KB' | 'MB' } 
 /** 追加済みのパッケージの記録（ID → 版） */
 export type InstalledPacks = Record<string, number>
 
-export type PackStatus = 'notInstalled' | 'installed' | 'updateAvailable'
+/**
+ * 一覧に示す状態（仕様書 16.5）。追加の記録だけでなく、実際に登録されている単語で判断する。
+ * notInstalled：未追加、または追加したが単語集の単語が1語も残っていない
+ * partial：一部の単語だけが残っている、installed：すべて残っている、updateAvailable：新しい版がある
+ */
+export type PackStatus = 'notInstalled' | 'installed' | 'partial' | 'updateAvailable'
 
+/**
+ * @param present 単語集のタグ（`tags`）のどれかが付いた、登録中の単語の数
+ */
 export function packStatus(
-  entry: Pick<PackEntry, 'id' | 'version'>,
+  entry: Pick<PackEntry, 'id' | 'version' | 'wordCount'>,
   installed: InstalledPacks,
+  present: number,
 ): PackStatus {
   const version = installed[entry.id]
-  if (version === undefined) return 'notInstalled'
-  return version < entry.version ? 'updateAvailable' : 'installed'
+  if (version === undefined || present === 0) return 'notInstalled'
+  if (version < entry.version) return 'updateAvailable'
+  return present < entry.wordCount ? 'partial' : 'installed'
 }

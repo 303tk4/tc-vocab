@@ -21,6 +21,16 @@ export async function listWords(tags: string[] = []): Promise<Word[]> {
   return db.words.where('tags').anyOf(tags).distinct().toArray()
 }
 
+/** 指定したタグのいずれかを持つ単語の数（単語集の登録状況。仕様書 16.5） */
+export async function countWordsWithAnyTag(tags: readonly string[]): Promise<number> {
+  if (tags.length === 0) return 0
+  const ids = await db.words
+    .where('tags')
+    .anyOf([...tags])
+    .primaryKeys()
+  return new Set(ids).size
+}
+
 /** 登録済みの全タグ（重複なし・昇順） */
 export async function listTags(): Promise<string[]> {
   const keys = await db.words.orderBy('tags').uniqueKeys()

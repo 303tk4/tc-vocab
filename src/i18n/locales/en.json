@@ -375,7 +375,7 @@
     "installed": "Added",
     "updateAvailable": "Update available",
     "choose": "Choose",
-    "chooseNamed": "Choose {{name}}",
+    "chooseNamed": "{{action}} {{name}}",
     "packFailed": "Could not load this pack. Please check your connection.",
     "examples": "Examples",
     "back": "Back to list",
@@ -386,7 +386,16 @@
     "inPack": "Included",
     "tags": "Tags",
     "sourceAndLicense": "Sources and license",
-    "source": "Source: {{source}}"
+    "source": "Source: {{source}}",
+    "chooseAgain": "Add again",
+    "chooseUpdate": "Update",
+    "partial": "Added ({{present}} of {{total}} words registered)",
+    "overwrite": "Restore the pack’s content",
+    "overwriteNote": "Registered words get back the pack’s original meaning, readings, examples and tags. Study progress is kept.",
+    "overwriteConfirm": "Restore {{count}} registered words to the pack’s original content.",
+    "overwriteDetail": "Meanings, readings, examples and tags will be replaced; your own edits and tags on these words will be lost. Study progress is kept.",
+    "overwriteRun": "Restore and add ({{count}})",
+    "keepProgress": "Adding again keeps your study progress."
   },
   "reviewReading": {
     "title": "About the “{{tag}}” tag",

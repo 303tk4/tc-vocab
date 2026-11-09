@@ -7,6 +7,7 @@ import { requestPersistentStorage } from '../../services/storage-persist'
 import { db } from '../schema'
 import {
   addWord,
+  countWordsWithAnyTag,
   deleteAllData,
   findDuplicateWord,
   updateWord,
@@ -231,5 +232,17 @@ describe('addWord・updateWord（FR-WORDS-15・16）', () => {
     expect((await findDuplicateWord({ hanzi: '捷運', pinyin: '' }))?.id).toBe('jieyun')
     expect(await findDuplicateWord({ hanzi: '捷運', pinyin: 'jiē yún' })).toBeUndefined()
     expect(await findDuplicateWord({ hanzi: '捷運', pinyin: 'jié yùn' }, 'jieyun')).toBeUndefined()
+  })
+})
+
+describe('countWordsWithAnyTag（仕様書 16.5）', () => {
+  it('指定したタグのいずれかを持つ単語を、重ねて数えずに数える', async () => {
+    await db.words.bulkPut([
+      makeWord({ id: 'a', tags: ['TOCFL', 'TOCFL:入門'] }),
+      makeWord({ id: 'b', tags: ['TOCFL'] }),
+      makeWord({ id: 'c', tags: ['自分'] }),
+    ])
+    expect(await countWordsWithAnyTag(['TOCFL', 'TOCFL:入門'])).toBe(2)
+    expect(await countWordsWithAnyTag([])).toBe(0)
   })
 })

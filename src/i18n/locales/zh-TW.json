@@ -375,7 +375,7 @@
     "installed": "已新增",
     "updateAvailable": "有更新",
     "choose": "選擇",
-    "chooseNamed": "選擇{{name}}",
+    "chooseNamed": "{{action}}：{{name}}",
     "packFailed": "無法載入這個單字包，請確認網路連線。",
     "examples": "範例",
     "back": "回到清單",
@@ -386,7 +386,16 @@
     "inPack": "收錄",
     "tags": "標籤",
     "sourceAndLicense": "出處與授權",
-    "source": "出處：{{source}}"
+    "source": "出處：{{source}}",
+    "chooseAgain": "再次新增",
+    "chooseUpdate": "更新",
+    "partial": "已新增（{{total}} 個中有 {{present}} 個已登錄）",
+    "overwrite": "還原為單字包的內容",
+    "overwriteNote": "將已登錄單字的意思、讀音、例句與標籤還原為單字包的原始內容。學習進度會保留。",
+    "overwriteConfirm": "將 {{count}} 個已登錄的單字還原為單字包的原始內容。",
+    "overwriteDetail": "意思、讀音、例句與標籤會被取代，您自行修改的內容與加上的標籤將會消失。學習進度會保留。",
+    "overwriteRun": "還原並新增（{{count}}）",
+    "keepProgress": "再次新增也不會清除學習進度。"
   },
   "reviewReading": {
     "title": "關於「{{tag}}」標籤",
