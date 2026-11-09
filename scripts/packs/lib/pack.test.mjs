@@ -7,7 +7,11 @@ import { buildWords, NEEDS_CHECK_TAG, packFile, parseMeanings, tbclTag } from '.
 describe('tbclTag', () => {
   it('級をタグにする', () => {
     assert.equal(tbclTag('第1級'), 'TBCL:1級')
-    assert.equal(tbclTag('第2*級'), 'TBCL:2*級')
+    assert.equal(tbclTag('第7級'), 'TBCL:7級')
+  })
+  it('「*」の級は同じ番号の級にまとめる', () => {
+    assert.equal(tbclTag('第1*級'), 'TBCL:1級')
+    assert.equal(tbclTag('第2*級'), 'TBCL:2級')
   })
 })
 
