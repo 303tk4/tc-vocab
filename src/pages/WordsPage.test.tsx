@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import samplesText from '../../public/samples/starter.json?raw'
 import { AppRoutes } from '../App'
 import { db } from '../db/schema'
+import { buildJson } from '../io/json'
 import i18n from '../i18n'
 import { SettingsProvider } from '../settings/SettingsProvider'
 import { jieyun, makeWord, tricky } from '../test/fixtures'
@@ -186,9 +187,134 @@ describe('初回起動時のサンプル単語（FR-SMP-03）', () => {
     const user = userEvent.setup()
     renderApp('/')
 
-    await user.click(await screen.findByRole('button', { name: 'Add sample words' }))
+    await user.click(await screen.findByRole('button', { name: 'Add sample words (about 50)' }))
     await waitFor(async () => expect(await db.words.count()).toBeGreaterThan(40))
-    await waitFor(() => expect(screen.queryByText('No words yet')).not.toBeInTheDocument())
+    await waitFor(() =>
+      expect(screen.queryByText('Add words to get started')).not.toBeInTheDocument(),
+    )
+  })
+})
+
+describe('単語パッケージ（仕様書 16.5）', () => {
+  const packIndex = JSON.stringify({
+    format: 'tc-vocab-packs',
+    version: 1,
+    packs: [
+      {
+        id: 'tocfl-test',
+        file: 'tocfl-test.json',
+        version: 1,
+        name: { ja: 'TOCFL 試験用', en: 'TOCFL Test' },
+        description: { en: 'Words for the test' },
+        wordCount: 2,
+        size: 2048,
+        tags: ['TOCFL'],
+        license: 'Test license',
+        levelGuide: {
+          title: { ja: 'TOCFL と TBCL の級の対応', en: 'TOCFL and TBCL levels' },
+          note: { en: 'Equivalent TBCL levels.' },
+          columns: {
+            tocfl: { en: 'TOCFL' },
+            cefr: { en: 'CEFR' },
+            listening: { en: 'TBCL (listening)' },
+            reading: { en: 'TBCL (reading)' },
+          },
+          rows: [
+            {
+              tocfl: { en: 'Level 1' },
+              cefr: 'A1',
+              listening: '2+',
+              reading: '2+',
+              inPack: true,
+              tag: 'TOCFL:入門',
+            },
+            { tocfl: { en: 'Level 3' }, cefr: 'B1', listening: '4', reading: '4', inPack: false },
+          ],
+          source: { name: 'TOCFL Q&A', url: 'https://example.com/a.pdf' },
+        },
+      },
+    ],
+  })
+  const packFile = buildJson([
+    { ...jieyun, id: 'p1', meaning: 'パッケージの意味', tags: ['TOCFL', 'TOCFL:入門'] },
+    makeWord({ id: 'p2', hanzi: '茶', pinyin: 'chá', meaning: 'お茶', tags: ['TOCFL'] }),
+  ])
+
+  /** 同じサイトの packs/ と samples/ だけを返す fetch */
+  function stubSite() {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input)
+      if (url.endsWith('packs/index.json')) return new Response(packIndex)
+      if (url.endsWith('packs/tocfl-test.json')) return new Response(packFile)
+      if (url.endsWith('samples/starter.json')) return new Response(samplesText)
+      return new Response('', { status: 404 })
+    })
+    vi.stubGlobal('fetch', fetchMock)
+    return fetchMock
+  }
+
+  afterEach(() => {
+    Reflect.deleteProperty(navigator, 'onLine')
+  })
+
+  it('ホームの案内から一覧を開き、既存の単語にはタグだけを付けて追加する', async () => {
+    stubSite()
+    const user = userEvent.setup()
+    renderApp('/')
+
+    await user.click(await screen.findByRole('link', { name: 'Choose a word pack (free)' }))
+    const dialog = await screen.findByRole('dialog', { name: 'Word packs' })
+    expect(within(dialog).getByText('Sample words')).toBeInTheDocument()
+    expect(await within(dialog).findByText('TOCFL Test')).toBeInTheDocument()
+    expect(within(dialog).getByText('2 words · about 2 KB')).toBeInTheDocument()
+    // 対象の試験がわかるよう、パッケージのタグを示す
+    expect(within(dialog).getByRole('list', { name: 'Tags' })).toHaveTextContent('TOCFL')
+
+    // 既存の単語があるときは、初期値の「タグだけ付ける」で追加する
+    await db.words.put({ ...jieyun, tags: ['交通'] })
+    await user.click(within(dialog).getByRole('button', { name: 'Choose TOCFL Test' }))
+    expect(await within(dialog).findByText('Examples')).toBeInTheDocument()
+    // 級の対応表（TOCFL と TBCL）
+    const table = within(dialog).getByRole('table')
+    expect(within(table).getByRole('rowheader', { name: /Level 1/ })).toHaveTextContent('Included')
+    expect(
+      within(table).getByRole('columnheader', { name: 'TBCL (listening)' }),
+    ).toBeInTheDocument()
+    expect(within(dialog).getByText('Source: TOCFL Q&A')).toBeInTheDocument()
+    expect(within(dialog).getByRole('radio', { name: /Add tags only/ })).toBeChecked()
+    await user.click(within(dialog).getByRole('button', { name: 'Add (2)' }))
+
+    expect(await screen.findByText(/Added “TOCFL Test”\./)).toBeInTheDocument()
+    expect(screen.getByText(/Added tags to 1 existing words\./)).toBeInTheDocument()
+    const stored = await db.words.get('jieyun')
+    expect(stored).toMatchObject({ meaning: jieyun.meaning, tags: ['交通', 'TOCFL', 'TOCFL:入門'] })
+    expect(await db.words.count()).toBe(2)
+
+    // 追加済みの記録が一覧に示される
+    await user.click(screen.getByRole('button', { name: 'Word packs' }))
+    const reopened = await screen.findByRole('dialog', { name: 'Word packs' })
+    expect(await within(reopened).findByText('Added')).toBeInTheDocument()
+  })
+
+  it('オフラインでは一覧を読み込まず、サンプル単語は追加できる', async () => {
+    Object.defineProperty(navigator, 'onLine', { value: false, configurable: true })
+    const fetchMock = stubSite()
+    const user = userEvent.setup()
+    renderApp('/words?open=packs')
+
+    const dialog = await screen.findByRole('dialog', { name: 'Word packs' })
+    expect(
+      within(dialog).getByText(/Connect to the internet to choose a pack\./),
+    ).toBeInTheDocument()
+    expect(fetchMock).not.toHaveBeenCalledWith(expect.stringContaining('packs/'), expect.anything())
+
+    await user.click(within(dialog).getByRole('button', { name: 'Choose Sample words' }))
+    // サンプル単語では「タグだけ付ける」を選べない（FR-SMP-04）
+    expect(await within(dialog).findByText('Examples')).toBeInTheDocument()
+    expect(within(dialog).queryByRole('radio', { name: /Add tags only/ })).not.toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: /^Add \(\d+\)$/ }))
+    await waitFor(async () => expect(await db.words.count()).toBeGreaterThan(40))
+    expect((await db.words.toArray()).every((w) => w.tags.includes('サンプル'))).toBe(true)
   })
 })
 

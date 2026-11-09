@@ -156,3 +156,13 @@ a.card:active {
     display: none;
   }
 }
+
+/* 単語パッケージの通信の案内（仕様書 16.5）。本文のすぐ下に小さく示す */
+.empty p:has(+ .packsNote) {
+  margin-bottom: var(--space-1);
+}
+
+.empty .packsNote {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}

@@ -28,7 +28,14 @@ export function listProgressForWords(wordIds: string[]): Promise<Progress[]> {
 
 export type ImportResult = Pick<
   ImportPlan,
-  'added' | 'updated' | 'skipped' | 'merged' | 'duplicatesAdded' | 'mergeOverflow'
+  | 'added'
+  | 'updated'
+  | 'skipped'
+  | 'merged'
+  | 'duplicatesAdded'
+  | 'mergeOverflow'
+  | 'tagged'
+  | 'tagOverflow'
 >
 
 /**
@@ -63,8 +70,9 @@ function importInTransaction(file: ParsedFile, options: ImportOptions): Promise<
       const progress = plan.progress.filter((p) => !existingKeys.has(`${p.modeId}:${p.wordId}`))
       if (progress.length > 0) await db.progress.bulkPut(progress)
     }
-    const { added, updated, skipped, merged, duplicatesAdded, mergeOverflow } = plan
-    return { added, updated, skipped, merged, duplicatesAdded, mergeOverflow }
+    const { added, updated, skipped, merged, duplicatesAdded, mergeOverflow, tagged, tagOverflow } =
+      plan
+    return { added, updated, skipped, merged, duplicatesAdded, mergeOverflow, tagged, tagOverflow }
   })
 }
 

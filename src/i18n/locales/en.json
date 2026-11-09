@@ -12,15 +12,17 @@
   "home": {
     "title": "Study modes",
     "wordCount": "Words: {{count}}",
-    "emptyTitle": "No words yet",
-    "emptyBody": "Add the sample words (about 50)? You can also import your own words from the Word data page.",
-    "emptyAction": "Go to word data",
+    "emptyTitle": "Add words to get started",
+    "emptyBody": "Free word packs such as TOCFL vocabulary are available. Pick one and add it to start studying right away.",
+    "emptyAction": "Import a file",
     "needWords": "Minimum words required: {{count}}",
-    "addSamples": "Add sample words",
+    "addSamples": "Add sample words (about 50)",
     "addingSamples": "Adding…",
     "samplesFailed": "Could not add the sample words. Check your connection.",
     "badge": "{{count}} due",
-    "emptyNote": "In private browsing and similar modes, your words may be deleted when you close the browser. Adding the app to your home screen makes this less likely."
+    "emptyNote": "In private browsing and similar modes, your words may be deleted when you close the browser. Adding the app to your home screen makes this less likely.",
+    "choosePacks": "Choose a word pack (free)",
+    "packsNote": "Downloading word packs requires an internet connection."
   },
   "mode": {
     "notFound": "The requested study mode was not found.",
@@ -73,8 +75,6 @@
     "title": "Word data",
     "import": "Import",
     "export": "Export",
-    "addSamples": "Add sample words",
-    "samplesAdded": "Sample words added: {{added}} (already registered, skipped: {{skipped}}).",
     "filter": "Search and filter",
     "search": "Search",
     "searchPlaceholder": "Hanzi, Zhuyin, Pinyin, meaning",
@@ -91,7 +91,9 @@
     "cannotUndo": "This cannot be undone. Export your data first if you need it.",
     "deleted": "Deleted words: {{count}}.",
     "writeFailed": "Saving failed. Your data has not been changed.",
-    "selectionActions": "Actions for selected words"
+    "selectionActions": "Actions for selected words",
+    "packs": "Word packs",
+    "packAdded": "Added “{{name}}”."
   },
   "tags": {
     "manage": "Manage tags",
@@ -156,7 +158,8 @@
       "skip": "Do not import duplicates",
       "keepBoth": "Import duplicates too",
       "merge": "Merge into existing words",
-      "overwrite": "Overwrite (for restoring a backup)"
+      "overwrite": "Overwrite (for restoring a backup)",
+      "tagOnly": "Add tags only"
     },
     "extraTag": "Tag to add to imported words (optional)",
     "extraTagPlaceholder": "e.g. imported-2026-11",
@@ -284,14 +287,17 @@
       "skip": "Your existing words stay as they are.",
       "keepBoth": "They are added as separate words. You can combine them later with \"Organize duplicates\".",
       "merge": "Meanings, examples and tags from both are kept, so nothing is lost. The existing word's pronunciation and study progress take priority.",
-      "overwrite": "Replaces the existing word with the content of the file."
+      "overwrite": "Replaces the existing word with the content of the file.",
+      "tagOnly": "Existing words keep their meaning, readings and study progress; only the pack's tags are added."
     },
     "duplicatesAddedNote": "{{count}} words that duplicate existing words were also added. You can combine them with \"Organize duplicates\".",
     "mergeOverflowNote": "{{count}} words would exceed the limits (meaning, examples or tags) if merged, so they were added as separate words.",
     "overwriteConfirm": "{{count}} saved words will be overwritten with the content of the file.",
     "overwriteDetail": "The meanings, examples, tags and other content of those words will be replaced. If the file contains study progress, that progress is replaced too.",
     "overwriteRun": "Overwrite and import ({{count}})",
-    "back": "Back"
+    "back": "Back",
+    "taggedNote": "Added tags to {{count}} existing words.",
+    "tagOverflowNote": "{{count}} words already have the maximum of 20 tags and were not changed."
   },
   "common": {
     "loading": "Loading…",
@@ -341,5 +347,34 @@
     "body": "Reload to use the new version.",
     "reload": "Reload",
     "later": "Later"
+  },
+  "packs": {
+    "title": "Word packs",
+    "intro": "Choose a word list for your goal and add it. Added words get the pack's tags.",
+    "network": "Downloading word packs requires an internet connection.",
+    "offline": "Connect to the internet to choose a pack. You can add the sample words now.",
+    "loadFailed": "Could not load the list of word packs. Please try again later.",
+    "empty": "No word packs are available yet. They will appear here when ready.",
+    "samplesName": "Sample words",
+    "samplesDescription": "Basic Taiwanese Mandarin vocabulary (about 50 words). All of them get the “サンプル” tag.",
+    "bundled": "Built into the app · no download",
+    "wordCount": "{{formatted}} words",
+    "size": "about {{value}} {{unit}}",
+    "license": "License: {{license}}",
+    "installed": "Added",
+    "updateAvailable": "Update available",
+    "choose": "Choose",
+    "chooseNamed": "Choose {{name}}",
+    "packFailed": "Could not load this pack. Please check your connection.",
+    "examples": "Examples",
+    "back": "Back to list",
+    "close": "Close",
+    "run": "Add ({{count}})",
+    "adding": "Adding…",
+    "nothing": "There are no words to add.",
+    "inPack": "Included",
+    "tags": "Tags",
+    "sourceAndLicense": "Sources and license",
+    "source": "Source: {{source}}"
   }
 }

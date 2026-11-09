@@ -29,7 +29,7 @@ describe('ホーム', () => {
 
   it('単語が0件のときは単語データへの案内を出し、モードは無効表示にする', async () => {
     renderApp()
-    expect(await screen.findByText('No words yet')).toBeInTheDocument()
+    expect(await screen.findByText('Add words to get started')).toBeInTheDocument()
     expect(screen.getByText('Minimum words required: 1')).toBeInTheDocument()
     expect(screen.queryByRole('link', { name: /Flashcards/ })).not.toBeInTheDocument()
     // データが残りにくい環境への注意（FR-PWA-04）

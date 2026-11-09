@@ -2,7 +2,7 @@
 import type { Progress, Word } from '../types/word'
 import { DuplicateIndex, mergeWords } from './duplicates'
 import type { ParsedFile, ParsedRow } from './parsed'
-import { tagError, type WordDraft } from './validate'
+import { LIMITS, tagError, type WordDraft } from './validate'
 
 /**
  * 重複した単語の扱い（FR-IO-03）。
@@ -10,7 +10,15 @@ import { tagError, type WordDraft } from './validate'
  * merge：既存の単語と統合する、overwrite：上書きする（JSON のバックアップの復元用）
  */
 export const DUPLICATE_STRATEGIES = ['skip', 'keepBoth', 'merge', 'overwrite'] as const
-export type DuplicateStrategy = (typeof DUPLICATE_STRATEGIES)[number]
+
+/**
+ * 単語パッケージで選べる扱い（仕様書 16.5）。tagOnly：既存の単語にパッケージのタグだけを加える。
+ * 「タグだけ付ける」はファイルのインポートでは選べない
+ */
+export const PACK_STRATEGIES = ['tagOnly', 'skip', 'merge', 'keepBoth'] as const
+
+export type DuplicateStrategy =
+  (typeof DUPLICATE_STRATEGIES)[number] | (typeof PACK_STRATEGIES)[number]
 
 /** ファイルの形式ごとに選べる扱い。上書きは JSON だけ */
 export function strategiesFor(kind: ParsedFile['kind']): DuplicateStrategy[] {
@@ -72,6 +80,10 @@ export interface ImportPlan {
   duplicatesAdded: number
   /** 統合すると上限を超えるため、別の単語として追加した数 */
   mergeOverflow: number
+  /** 「タグだけ付ける」でタグを加えた既存の単語の数 */
+  tagged: number
+  /** 「タグだけ付ける」で、タグが上限を超えるため変更しなかった単語の数 */
+  tagOverflow: number
 }
 
 export function isValidExtraTag(tag: string): boolean {
@@ -105,6 +117,8 @@ export function planImport(
   let merged = 0
   let duplicatesAdded = 0
   let mergeOverflow = 0
+  const taggedIds = new Set<string>()
+  let tagOverflow = 0
   const updatedIds = new Set<string>()
 
   const fields = (draft: WordDraft) => ({
@@ -130,6 +144,19 @@ export function planImport(
 
     if (target && options.strategy === 'skip') {
       skipped++
+      continue
+    }
+    if (target && options.strategy === 'tagOnly') {
+      // 既存の単語の内容と進捗は変えず、タグだけを加える（仕様書 16.5）
+      const tags = fields(draft).tags.filter((tag) => !target.tags.includes(tag))
+      if (tags.length === 0) {
+        skipped++
+      } else if (target.tags.length + tags.length > LIMITS.tags) {
+        tagOverflow++
+      } else {
+        write({ ...target, tags: [...target.tags, ...tags], updatedAt: now })
+        if (existingIds.has(target.id)) taggedIds.add(target.id)
+      }
       continue
     }
     if (target && options.strategy === 'overwrite') {
@@ -181,11 +208,13 @@ export function planImport(
     progress,
     keepExistingProgress: [...keepExistingProgress],
     added,
-    updated: updatedIds.size - mergedExisting(updatedIds, keepExistingProgress),
+    updated: updatedIds.size - mergedExisting(updatedIds, keepExistingProgress) - taggedIds.size,
     skipped,
     merged,
     duplicatesAdded,
     mergeOverflow,
+    tagged: taggedIds.size,
+    tagOverflow,
   }
 }
 

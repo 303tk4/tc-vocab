@@ -1,17 +1,18 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { useDeferredValue, useId, useMemo, useState } from 'react'
+import { useDeferredValue, useEffect, useId, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router'
 import { Dialog } from '../components/Dialog'
 import { TagChips } from '../components/TagChips'
 import { WordTagsDialog } from '../components/WordTagsDialog'
 import { setWordTags } from '../db/repos/tags'
 import { deleteWords, listTags, listWords, type ImportResult } from '../db/repos/words'
-import { addSampleWords } from '../services/samples'
 import type { Word } from '../types/word'
 import { findDuplicateGroups } from '../io/duplicates'
 import { DuplicatesDialog } from './words/DuplicatesDialog'
 import { ExportDialog } from './words/ExportDialog'
 import { ImportDialog } from './words/ImportDialog'
+import { PacksDialog } from './words/PacksDialog'
 import { createMatcher, sortWords } from './words/search'
 import { BulkTagDialog, TagManagerDialog } from './words/TagDialogs'
 import { WordList } from './words/WordList'
@@ -19,6 +20,7 @@ import styles from './words/WordsPage.module.css'
 
 type DialogKind =
   | 'import'
+  | 'packs'
   | 'export'
   | 'deleteSelected'
   | 'addTag'
@@ -27,6 +29,9 @@ type DialogKind =
   | 'duplicates'
   | null
 type Notice = { kind: 'success' | 'error'; text: string } | null
+
+/** ホームの案内から開けるダイアログ（`#/words?open=packs` など。仕様書 16.5） */
+const OPENABLE: readonly DialogKind[] = ['packs', 'import']
 
 export function WordsPage() {
   const { t } = useTranslation()
@@ -38,7 +43,20 @@ export function WordsPage() {
   const deferredQuery = useDeferredValue(query)
   const [filterTags, setFilterTags] = useState<string[]>([])
   const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [searchParams, setSearchParams] = useSearchParams()
+  const openParam = searchParams.get('open')
   const [dialog, setDialog] = useState<DialogKind>(null)
+  // URL で指定されたダイアログを開く。表示中の画面で URL だけが変わった場合も開く
+  const [handledOpen, setHandledOpen] = useState<string | null>(null)
+  if (openParam !== handledOpen) {
+    setHandledOpen(openParam)
+    const kind = OPENABLE.find((k) => k === openParam)
+    if (kind) setDialog(kind)
+  }
+  // 開いたあとは URL から外し、再読み込みや戻る操作で再び開かないようにする
+  useEffect(() => {
+    if (openParam !== null) setSearchParams({}, { replace: true })
+  }, [openParam, setSearchParams])
   const [notice, setNotice] = useState<Notice>(null)
   const [busy, setBusy] = useState(false)
   /** タグを編集中の単語の id */
@@ -109,15 +127,11 @@ export function WordsPage() {
       t('io.imported', { ...r }),
       r.duplicatesAdded > 0 ? t('io.duplicatesAddedNote', { count: r.duplicatesAdded }) : '',
       r.mergeOverflow > 0 ? t('io.mergeOverflowNote', { count: r.mergeOverflow }) : '',
+      r.tagged > 0 ? t('io.taggedNote', { count: r.tagged }) : '',
+      r.tagOverflow > 0 ? t('io.tagOverflowNote', { count: r.tagOverflow }) : '',
     ]
       .filter(Boolean)
       .join(' ')
-
-  const addSamples = () =>
-    write(async () => {
-      const r = await addSampleWords()
-      return t('words.samplesAdded', { added: r.added, skipped: r.skipped })
-    })
 
   const confirmDeleteSelected = () =>
     write(async () => {
@@ -143,6 +157,10 @@ export function WordsPage() {
         <button type="button" className="button" onClick={() => setDialog('import')}>
           {t('words.import')}
         </button>
+        {/* 単語パッケージ（FR-WORDS-07）。サンプル単語もこの一覧から追加する（FR-SMP-04） */}
+        <button type="button" className="button" onClick={() => setDialog('packs')}>
+          {t('words.packs')}
+        </button>
         <button
           type="button"
           className="button"
@@ -166,9 +184,6 @@ export function WordsPage() {
           onClick={() => setDialog('duplicates')}
         >
           {t('dup.open', { count: duplicateGroupCount })}
-        </button>
-        <button type="button" className="button" disabled={busy} onClick={() => void addSamples()}>
-          {t('words.addSamples')}
         </button>
       </div>
 
@@ -266,6 +281,17 @@ export function WordsPage() {
         </section>
       )}
 
+      <PacksDialog
+        open={dialog === 'packs'}
+        onClose={() => setDialog(null)}
+        onAdded={(name, r) => {
+          setDialog(null)
+          setNotice({
+            kind: 'success',
+            text: `${t('words.packAdded', { name })} ${importedText(r)}`,
+          })
+        }}
+      />
       <ImportDialog
         open={dialog === 'import'}
         onClose={() => setDialog(null)}

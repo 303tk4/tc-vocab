@@ -532,3 +532,145 @@
 .groupResultLabel {
   font-weight: 700;
 }
+
+/* ---- 単語パッケージ（仕様書 16.5） ---- */
+
+.packList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.packItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+}
+
+.packText {
+  flex: 1;
+  min-width: 0;
+}
+
+.packText > p {
+  margin: 0;
+}
+
+.packName {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  font-weight: 700;
+}
+
+.packBadge {
+  padding: 0 var(--space-2);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.packBadgeUpdate {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+}
+
+.packDescription {
+  font-size: 0.875rem;
+}
+
+.packMeta {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}
+
+.packExamples {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.25rem;
+}
+
+.packExamples li + li {
+  margin-top: var(--space-1);
+}
+
+.packHanzi {
+  font-weight: 700;
+}
+
+/* スマホでは「選ぶ」を説明の下に横いっぱいに置く */
+@media (max-width: 599px) {
+  .packItem {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.packTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: var(--space-1) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.packTags > li {
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: 0.75rem;
+}
+
+.packSource {
+  margin: var(--space-2) 0 0;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
+/* 級の対応表。収めている級の行を目立たせる */
+.levelTable th[scope='row'] {
+  white-space: normal;
+}
+
+.levelTable .packBadge,
+.levelTag {
+  margin-left: var(--space-1);
+}
+
+.levelTag {
+  display: inline-block;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.levelInPack > * {
+  background: var(--color-accent-soft);
+}
+
+/* 単語の途中では折り返さない（見出しは空白で折り返す）。バッジとタグは1行で示す */
+.levelTable th,
+.levelTable td {
+  overflow-wrap: normal;
+}
+
+.levelTable td {
+  white-space: nowrap;
+}
+
+.levelTable .packBadge,
+.levelTag {
+  white-space: nowrap;
+}

@@ -12,15 +12,17 @@
   "home": {
     "title": "學習模式",
     "wordCount": "已登錄單字：{{count}} 個",
-    "emptyTitle": "目前還沒有單字",
-    "emptyBody": "要加入範例單字（約 50 個）嗎？自己準備的單字可以在「單字資料」頁面匯入。",
-    "emptyAction": "前往單字資料",
+    "emptyTitle": "新增單字，開始學習吧",
+    "emptyBody": "我們提供 TOCFL 等免費的「單字包」。選擇並新增後，就能馬上開始學習。",
+    "emptyAction": "匯入檔案",
     "needWords": "需要至少 {{count}} 個單字",
-    "addSamples": "加入範例單字",
+    "addSamples": "新增範例單字（約50個）",
     "addingSamples": "加入中…",
     "samplesFailed": "無法加入範例單字，請檢查網路連線。",
     "badge": "待複習 {{count}}",
-    "emptyNote": "使用無痕模式等情況下，關閉瀏覽器後單字可能會消失。加入主畫面後較不容易消失。"
+    "emptyNote": "使用無痕模式等情況下，關閉瀏覽器後單字可能會消失。加入主畫面後較不容易消失。",
+    "choosePacks": "選擇單字包（免費）",
+    "packsNote": "下載單字包需要連上網路。"
   },
   "mode": {
     "notFound": "找不到指定的學習模式。",
@@ -73,8 +75,6 @@
     "title": "單字資料",
     "import": "匯入",
     "export": "匯出",
-    "addSamples": "加入範例單字",
-    "samplesAdded": "已加入 {{added}} 個範例單字（略過已登錄的 {{skipped}} 個）。",
     "filter": "搜尋與篩選",
     "search": "搜尋",
     "searchPlaceholder": "繁體字、注音、拼音、意思",
@@ -91,7 +91,9 @@
     "cannotUndo": "此操作無法復原。如有需要，請先匯出。",
     "deleted": "已刪除 {{count}} 個單字。",
     "writeFailed": "儲存失敗，資料沒有任何變更。",
-    "selectionActions": "選取單字的操作"
+    "selectionActions": "選取單字的操作",
+    "packs": "單字包",
+    "packAdded": "已新增「{{name}}」。"
   },
   "tags": {
     "manage": "管理標籤",
@@ -156,7 +158,8 @@
       "skip": "不匯入重複的單字",
       "keepBoth": "重複的單字也匯入",
       "merge": "與既有單字合併",
-      "overwrite": "覆寫（用於還原備份）"
+      "overwrite": "覆寫（用於還原備份）",
+      "tagOnly": "只加上標籤"
     },
     "extraTag": "為匯入的單字加上標籤（選填）",
     "extraTagPlaceholder": "例：imported-2026-11",
@@ -284,14 +287,17 @@
       "skip": "已登錄的單字保持不變。",
       "keepBoth": "當作另一個單字新增。之後可以用「整理重複單字」合併。",
       "merge": "意思、例句、標籤兩邊都會保留，不必擔心。發音與學習進度以既有單字為優先。",
-      "overwrite": "以檔案內容取代已登錄單字的內容。"
+      "overwrite": "以檔案內容取代已登錄單字的內容。",
+      "tagOnly": "不變更已登錄單字的意思、讀音與學習進度，只加上單字包的標籤。"
     },
     "duplicatesAddedNote": "與已登錄單字重複的 {{count}} 個單字也已新增。可以用「整理重複單字」合併。",
     "mergeOverflowNote": "{{count}} 個單字合併後會超過上限（意思、例句、標籤的數量），因此當作另一個單字新增。",
     "overwriteConfirm": "將以檔案內容覆寫 {{count}} 個已登錄的單字。",
     "overwriteDetail": "被覆寫單字的意思、例句、標籤等，會被替換成檔案的內容。若檔案含有學習進度，學習進度也會被替換。",
     "overwriteRun": "覆寫並匯入（{{count}}）",
-    "back": "返回"
+    "back": "返回",
+    "taggedNote": "已為 {{count}} 個已登錄的單字加上標籤。",
+    "tagOverflowNote": "{{count}} 個單字的標籤已達上限（20個），未做變更。"
   },
   "common": {
     "loading": "載入中…",
@@ -341,5 +347,34 @@
     "body": "重新載入即可使用新版本。",
     "reload": "重新載入",
     "later": "稍後"
+  },
+  "packs": {
+    "title": "單字包",
+    "intro": "可依目的選擇單字集並新增。新增的單字會加上單字包的標籤。",
+    "network": "下載單字包需要連上網路。",
+    "offline": "連上網路後即可選擇。範例單字現在就能新增。",
+    "loadFailed": "無法載入單字包清單，請稍後再試。",
+    "empty": "目前還沒有公開的單字包。準備好後會顯示在這裡。",
+    "samplesName": "範例單字",
+    "samplesDescription": "台灣華語的基礎詞彙（約50個）。全部會加上「サンプル」標籤。",
+    "bundled": "內建於 App・不需網路",
+    "wordCount": "{{formatted}} 個單字",
+    "size": "約 {{value}} {{unit}}",
+    "license": "授權：{{license}}",
+    "installed": "已新增",
+    "updateAvailable": "有更新",
+    "choose": "選擇",
+    "chooseNamed": "選擇{{name}}",
+    "packFailed": "無法載入這個單字包，請確認網路連線。",
+    "examples": "範例",
+    "back": "回到清單",
+    "close": "關閉",
+    "run": "新增（{{count}}）",
+    "adding": "新增中…",
+    "nothing": "沒有要新增的單字。",
+    "inPack": "收錄",
+    "tags": "標籤",
+    "sourceAndLicense": "出處與授權",
+    "source": "出處：{{source}}"
   }
 }

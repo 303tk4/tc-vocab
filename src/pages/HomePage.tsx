@@ -39,7 +39,10 @@ export function HomePage() {
   )
 }
 
-/** 単語が0件のとき、サンプル単語を追加するか確認する（FR-HOME-05・FR-SMP-03） */
+/**
+ * 単語が0件のときの最初の案内（FR-HOME-05・FR-SMP-03、仕様書 16.5 の「最初の案内」）。
+ * (1) 単語パッケージを選ぶ (2) サンプル単語を追加 (3) 自分のファイルをインポート
+ */
 function EmptyState() {
   const { t } = useTranslation()
   const [busy, setBusy] = useState(false)
@@ -65,21 +68,25 @@ function EmptyState() {
         {t('home.emptyTitle')}
       </h2>
       <p>{t('home.emptyBody')}</p>
+      <p className={styles.packsNote}>{t('home.packsNote')}</p>
       {failed && (
         <p className={styles.reason} role="alert">
           {t('home.samplesFailed')}
         </p>
       )}
       <div className={styles.emptyActions}>
+        <Link to="/words?open=packs" className="button button--primary button--block-sm">
+          {t('home.choosePacks')}
+        </Link>
         <button
           type="button"
-          className="button button--primary button--block-sm"
+          className="button button--block-sm"
           disabled={busy}
           onClick={() => void add()}
         >
           {busy ? t('home.addingSamples') : t('home.addSamples')}
         </button>
-        <Link to="/words" className="button button--block-sm">
+        <Link to="/words?open=import" className="button button--block-sm">
           {t('home.emptyAction')}
         </Link>
       </div>

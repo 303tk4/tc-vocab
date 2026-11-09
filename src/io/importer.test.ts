@@ -178,3 +178,44 @@ describe('拼音が空の単語の重複（仕様書 6.1）', () => {
     expect(strategiesFor('json')).toContain('overwrite')
   })
 })
+
+describe('タグだけ付ける（仕様書 16.5）', () => {
+  const existing = [
+    makeWord({ id: 'tea', hanzi: '茶', pinyin: 'chá', meaning: 'お茶', tags: ['旧'] }),
+  ]
+
+  it('既存の単語の内容は変えず、タグだけを加える。新しい単語は追加する', () => {
+    const input = file([
+      draft('茶', 'chá', { meaning: '別の意味', tags: ['TOCFL', 'TOCFL:入門'] }),
+      draft('水', 'shuǐ', { tags: ['TOCFL'] }),
+    ])
+    const plan = planImport(input, existing, { strategy: 'tagOnly', now: NOW, newId: ids() })
+    expect(plan).toMatchObject({ added: 1, updated: 0, skipped: 0, tagged: 1, tagOverflow: 0 })
+    const tea = plan.words.find((w) => w.id === 'tea')
+    expect(tea).toMatchObject({
+      meaning: 'お茶',
+      tags: ['旧', 'TOCFL', 'TOCFL:入門'],
+      updatedAt: NOW,
+    })
+    expect(plan.progress).toEqual([])
+  })
+
+  it('加えるタグが無ければスキップとして数える', () => {
+    const input = file([draft('茶', 'chá', { tags: ['旧'] })])
+    const plan = planImport(input, existing, { strategy: 'tagOnly', now: NOW, newId: ids() })
+    expect(plan).toMatchObject({ added: 0, skipped: 1, tagged: 0 })
+    expect(plan.words).toEqual([])
+  })
+
+  it('タグが上限を超える単語は変更しない', () => {
+    const full = [makeWord({ id: 'tea', hanzi: '茶', pinyin: 'chá', tags: tagsOf(20) })]
+    const input = file([draft('茶', 'chá', { tags: ['TOCFL'] })])
+    const plan = planImport(input, full, { strategy: 'tagOnly', now: NOW, newId: ids() })
+    expect(plan).toMatchObject({ tagged: 0, tagOverflow: 1 })
+    expect(plan.words).toEqual([])
+  })
+})
+
+function tagsOf(n: number): string[] {
+  return Array.from({ length: n }, (_, i) => `t${i}`)
+}
