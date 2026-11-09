@@ -21,9 +21,10 @@
     "addingSamples": "Adding…",
     "samplesFailed": "Could not add the sample words. Check your connection.",
     "badge": "{{count}} due",
-    "emptyNote": "In private browsing and similar modes, your words may be deleted when you close the browser. Adding the app to your home screen makes this less likely.",
+    "emptyNote": "If you open this app inside another app such as LINE, or in a private (incognito) window, your words may be deleted when you close it.",
     "choosePacks": "Choose a word pack (free)",
-    "packsNote": "Downloading word packs requires an internet connection."
+    "packsNote": "Downloading word packs requires an internet connection.",
+    "emptyNoteFix": "To avoid this, open it normally in a browser such as Chrome. On a phone, we recommend adding this app to your home screen (on a computer, choose “Install as app” from the browser menu)."
   },
   "mode": {
     "notFound": "The requested study mode was not found.",
@@ -70,7 +71,7 @@
       "not-persisted": "Your data is not protected. The browser may delete your words, for example when storage space runs low.",
       "unsupported": "This browser cannot tell whether your data is protected."
     },
-    "storageHint": "Adding the app to your home screen makes protection more likely. To be safe, export important words from the Word data page."
+    "storageHint": "Adding this app to your phone’s home screen (on a computer, choosing “Install as app” from the browser menu) makes protection more likely. To be safe, export important words from the Word data page."
   },
   "words": {
     "title": "Word data",

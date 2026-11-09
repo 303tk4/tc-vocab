@@ -92,6 +92,7 @@ function EmptyState() {
       </div>
       {/* データが残りにくい環境への注意（FR-PWA-04） */}
       <p className={styles.note}>{t('home.emptyNote')}</p>
+      <p className={styles.note}>{t('home.emptyNoteFix')}</p>
     </section>
   )
 }

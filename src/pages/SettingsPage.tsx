@@ -54,7 +54,7 @@ export function SettingsPage() {
           options={THEMES.map((th) => ({ value: th, label: t(`settings.themes.${th}`) }))}
           onChange={(theme) => update({ theme })}
         />
-        {/* アクセントカラー（FR-SET-04） */}
+        {/* ボタンなどの色（アクセントカラー。FR-SET-04） */}
         <SegmentedControl
           label={t('settings.accent')}
           value={settings.accent}

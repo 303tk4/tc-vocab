@@ -6,7 +6,7 @@ import { LIMITS, tagError, type WordDraft } from './validate'
 
 /**
  * 重複した単語の扱い（FR-IO-03）。
- * skip：重複分はインポートしない、keepBoth：重複分もインポートする、
+ * skip：重複分は追加しない、keepBoth：重複分も追加する、
  * merge：既存の単語と統合する、overwrite：上書きする（JSON のバックアップの復元用）
  */
 export const DUPLICATE_STRATEGIES = ['skip', 'keepBoth', 'merge', 'overwrite'] as const

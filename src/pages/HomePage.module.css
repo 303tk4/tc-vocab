@@ -27,6 +27,11 @@
   color: var(--color-muted);
 }
 
+/* 注意（どこで消えうるか）と対策を段落に分ける */
+.empty .note + .note {
+  margin-top: var(--space-1);
+}
+
 /* スマホ 1列 / タブレット 2列 / PC 3列（仕様書 5章） */
 .grid {
   display: grid;

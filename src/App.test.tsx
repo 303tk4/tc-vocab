@@ -33,7 +33,7 @@ describe('ホーム', () => {
     expect(screen.getByText('Minimum words required: 1')).toBeInTheDocument()
     expect(screen.queryByRole('link', { name: /Flashcards/ })).not.toBeInTheDocument()
     // データが残りにくい環境への注意（FR-PWA-04）
-    expect(screen.getByText(/private browsing/)).toBeInTheDocument()
+    expect(screen.getByText(/inside another app such as LINE/)).toBeInTheDocument()
   })
 })
 
@@ -57,7 +57,7 @@ describe('設定', () => {
     // localStorage の写しが無くても IndexedDB から復元できること
     localStorage.clear()
     renderApp('/settings')
-    await waitFor(() => expect(screen.getByRole('radio', { name: 'ダーク' })).toBeChecked())
+    await waitFor(() => expect(screen.getByRole('radio', { name: '黒' })).toBeChecked())
     expect(screen.getByRole('radio', { name: '特大' })).toBeChecked()
   })
 })
@@ -74,7 +74,7 @@ describe('データの保存の状態（FR-PWA-04）', () => {
     })
     renderApp('/settings')
     expect(await screen.findByText(/Your data is not protected/)).toBeInTheDocument()
-    expect(screen.getByText(/home screen makes protection more likely/)).toBeInTheDocument()
+    expect(screen.getByText(/makes protection more likely/)).toBeInTheDocument()
   })
 
   it('保護されていれば、その旨だけを表示する', async () => {
@@ -84,7 +84,7 @@ describe('データの保存の状態（FR-PWA-04）', () => {
     })
     renderApp('/settings')
     expect(await screen.findByText(/Your data is protected/)).toBeInTheDocument()
-    expect(screen.queryByText(/home screen makes protection more likely/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/makes protection more likely/)).not.toBeInTheDocument()
   })
 
   it('確認できないブラウザでは、その旨を表示する', async () => {
