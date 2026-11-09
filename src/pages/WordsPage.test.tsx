@@ -306,6 +306,58 @@ describe('単語パッケージ（仕様書 16.5）', () => {
     expect(await within(reopened).findByText('Added')).toBeInTheDocument()
   })
 
+  it('追加済みでももう一度選べ、単語集の内容に戻せる。消した単語があれば登録中の語数を示す', async () => {
+    stubSite()
+    const user = userEvent.setup()
+    renderApp('/words?open=packs')
+    let dialog = await screen.findByRole('dialog', { name: 'Word packs' })
+    await user.click(await within(dialog).findByRole('button', { name: 'Choose TOCFL Test' }))
+    await user.click(await within(dialog).findByRole('button', { name: 'Add (2)' }))
+    expect(await screen.findByText(/Added “TOCFL Test”./)).toBeInTheDocument()
+
+    // 1語を編集してしまった
+    await db.words.update('p1', { meaning: '間違えて直した意味', tags: ['TOCFL', '自分のタグ'] })
+
+    // もう一度選び、「単語集の内容に戻す」を確認してから実行する
+    await user.click(screen.getByRole('button', { name: 'Word packs' }))
+    dialog = await screen.findByRole('dialog', { name: 'Word packs' })
+    // もう一度追加しても学習の進捗は消えないことを示す
+    expect(
+      await within(dialog).findByText('Adding again keeps your study progress.'),
+    ).toBeInTheDocument()
+    await user.click(await within(dialog).findByRole('button', { name: 'Add again TOCFL Test' }))
+    await user.click(
+      await within(dialog).findByRole('radio', { name: /Restore the pack’s content/ }),
+    )
+    await user.click(within(dialog).getByRole('button', { name: 'Add (2)' }))
+    expect(
+      within(dialog).getByText('Restore 2 registered words to the pack’s original content.'),
+    ).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Restore and add (2)' }))
+    await waitFor(async () =>
+      expect(await db.words.get('p1')).toMatchObject({
+        meaning: 'パッケージの意味',
+        tags: ['TOCFL', 'TOCFL:入門'],
+      }),
+    )
+
+    // 1語を消すと、登録中の語数を示す
+    await db.words.delete('p2')
+    await user.click(screen.getByRole('button', { name: 'Word packs' }))
+    dialog = await screen.findByRole('dialog', { name: 'Word packs' })
+    expect(await within(dialog).findByText('Added (1 of 2 words registered)')).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Close' }))
+
+    // すべて消すと「追加済み」を示さない
+    await db.words.clear()
+    await user.click(screen.getByRole('button', { name: 'Word packs' }))
+    dialog = await screen.findByRole('dialog', { name: 'Word packs' })
+    expect(
+      await within(dialog).findByRole('button', { name: 'Choose TOCFL Test' }),
+    ).toBeInTheDocument()
+    expect(within(dialog).queryByText(/^Added/)).not.toBeInTheDocument()
+  })
+
   it('オフラインでは一覧を読み込まず、サンプル単語は追加できる', async () => {
     Object.defineProperty(navigator, 'onLine', { value: false, configurable: true })
     const fetchMock = stubSite()
@@ -325,6 +377,12 @@ describe('単語パッケージ（仕様書 16.5）', () => {
     await user.click(within(dialog).getByRole('button', { name: /^Add \(\d+\)$/ }))
     await waitFor(async () => expect(await db.words.count()).toBeGreaterThan(40))
     expect((await db.words.toArray()).every((w) => w.tags.includes('サンプル'))).toBe(true)
+
+    // 追加済みでも一覧に残し、「追加済み」と示す
+    await user.click(await screen.findByRole('button', { name: 'Word packs' }))
+    const reopened = await screen.findByRole('dialog', { name: 'Word packs' })
+    const samples = within(reopened).getByText('Sample words').closest('li')!
+    expect(await within(samples).findByText('Added')).toBeInTheDocument()
   })
 })
 

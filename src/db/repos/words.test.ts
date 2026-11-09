@@ -6,6 +6,7 @@ import type { Progress } from '../../types/word'
 import { requestPersistentStorage } from '../../services/storage-persist'
 import { db } from '../schema'
 import {
+  countWordsWithAnyTag,
   deleteAllData,
   deleteWords,
   importWords,
@@ -175,5 +176,17 @@ describe('保護の要求（FR-PWA-04）', () => {
     const result = await importWords(parseJson(json), { strategy: 'skip' })
     expect(result.added).toBe(0)
     expect(request).not.toHaveBeenCalled()
+  })
+})
+
+describe('countWordsWithAnyTag（仕様書 16.5）', () => {
+  it('指定したタグのいずれかを持つ単語を、重ねて数えずに数える', async () => {
+    await db.words.bulkPut([
+      makeWord({ id: 'a', tags: ['TOCFL', 'TOCFL:入門'] }),
+      makeWord({ id: 'b', tags: ['TOCFL'] }),
+      makeWord({ id: 'c', tags: ['自分'] }),
+    ])
+    expect(await countWordsWithAnyTag(['TOCFL', 'TOCFL:入門'])).toBe(2)
+    expect(await countWordsWithAnyTag([])).toBe(0)
   })
 })

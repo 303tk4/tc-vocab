@@ -4,7 +4,7 @@ import { Dialog } from '../../components/Dialog'
 import { ReviewReadingNote } from '../../components/ReviewReadingNote'
 import { countReviewReading } from '../../io/reviewReading'
 import { getInstalledPacks } from '../../db/repos/packs'
-import { listWords, type ImportResult } from '../../db/repos/words'
+import { countWordsWithAnyTag, listWords, type ImportResult } from '../../db/repos/words'
 import {
   PACK_STRATEGIES,
   previewImport,
@@ -18,10 +18,11 @@ import {
   type InstalledPacks,
   type LevelGuide,
   type PackEntry,
+  type PackStatus,
 } from '../../io/packs'
 import type { ParsedFile } from '../../io/parsed'
 import { addPack, fetchPack, fetchPackIndex } from '../../services/packs'
-import { addSampleWords, fetchSamples, SAMPLE_STRATEGIES } from '../../services/samples'
+import { addSampleWords, fetchSamples, SAMPLE_STRATEGIES, SAMPLE_TAG } from '../../services/samples'
 import styles from './WordsPage.module.css'
 
 /** 見本として示す単語の数 */
@@ -55,6 +56,10 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
   const { t, i18n } = useTranslation()
   const [index, setIndex] = useState<IndexState>({ status: 'loading' })
   const [installed, setInstalled] = useState<InstalledPacks>({})
+  /** 各項目のタグが付いた、登録中の単語の数（keyOf → 数）。追加済みかを実際の単語で判断する（16.5） */
+  const [present, setPresent] = useState<Record<string, number>>({})
+  /** 上書きの確認を表示中（元に戻せないため。16.5） */
+  const [confirmingOverwrite, setConfirmingOverwrite] = useState(false)
   const [state, setState] = useState<State>({ step: 'list' })
   const [strategy, setStrategy] = useState<DuplicateStrategy>('tagOnly')
   const [busy, setBusy] = useState(false)
@@ -68,8 +73,17 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
     void getInstalledPacks().then((v) => {
       if (active) setInstalled(v)
     })
+    const count = (key: string, tags: readonly string[]) =>
+      void countWordsWithAnyTag(tags).then((n) => {
+        if (active) setPresent((prev) => ({ ...prev, [key]: n }))
+      })
+    count('samples', [SAMPLE_TAG])
     const settle = (next: IndexState) => {
-      if (active) setIndex(next)
+      if (!active) return
+      setIndex(next)
+      if (next.status === 'ready') {
+        for (const entry of next.packs) count(keyOf({ kind: 'pack', entry }), entry.tags)
+      }
     }
     if (isOffline()) {
       settle({ status: 'offline' })
@@ -89,6 +103,7 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
     item.kind === 'samples' ? t('packs.samplesName') : pickText(item.entry.name, i18n.language)
 
   const reset = () => {
+    setConfirmingOverwrite(false)
     setState({ step: 'list' })
     setRunError('')
     setBusy(false)
@@ -108,6 +123,7 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
       const preview = previewImport(file, await listWords())
       // 重複の扱いの初期値：パッケージは「タグだけ付ける」、サンプル単語は「インポートしない」
       setStrategy(item.kind === 'samples' ? 'skip' : 'tagOnly')
+      setConfirmingOverwrite(false)
       setState({ step: 'preview', item, file, preview })
     } catch {
       setState({ step: 'list', error: t('packs.packFailed') })
@@ -120,8 +136,16 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
       ? state.preview.counts.new + (strategy === 'skip' ? 0 : state.preview.counts.duplicate)
       : 0
 
+  const overwriteCount =
+    state.step === 'preview' && strategy === 'overwrite' ? state.preview.counts.duplicate : 0
+
   const run = async () => {
     if (state.step !== 'preview' || actionable === 0) return
+    // 単語集の内容に戻すのは取り消せないため、先に確認する（16.5）
+    if (overwriteCount > 0 && !confirmingOverwrite) {
+      setConfirmingOverwrite(true)
+      return
+    }
     setBusy(true)
     setRunError('')
     try {
@@ -140,7 +164,23 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
   }
 
   let body
-  if (state.step === 'preview') {
+  if (state.step === 'preview' && confirmingOverwrite) {
+    body = (
+      <>
+        <p className={styles.fileName}>{nameOf(state.item)}</p>
+        <div className={styles.warning} role="alert">
+          <p className={styles.strong}>{t('packs.overwriteConfirm', { count: overwriteCount })}</p>
+          <p>{t('packs.overwriteDetail')}</p>
+        </div>
+        <p className={styles.strong}>{t('words.cannotUndo')}</p>
+        {runError && (
+          <p className={styles.error} role="alert">
+            {runError}
+          </p>
+        )}
+      </>
+    )
+  } else if (state.step === 'preview') {
     const { item, preview } = state
     const examples = preview.rows.filter((r) => r.word).slice(0, EXAMPLE_COUNT)
     const reviewCount = countReviewReading(preview.rows.map((r) => r.word))
@@ -223,8 +263,13 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
                     onChange={() => setStrategy(s)}
                   />
                   <span>
-                    <span className={styles.choiceName}>{t(`io.strategies.${s}`)}</span>
-                    <span className={styles.choiceNote}>{t(`io.strategyNotes.${s}`)}</span>
+                    {/* 単語集の「上書き」は、元の内容に戻す操作として示す */}
+                    <span className={styles.choiceName}>
+                      {s === 'overwrite' ? t('packs.overwrite') : t(`io.strategies.${s}`)}
+                    </span>
+                    <span className={styles.choiceNote}>
+                      {s === 'overwrite' ? t('packs.overwriteNote') : t(`io.strategyNotes.${s}`)}
+                    </span>
                   </span>
                 </label>
               ))}
@@ -255,7 +300,20 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
         <ul className={styles.packList}>
           {items.map((item) => {
             const key = keyOf(item)
-            const status = item.kind === 'pack' ? packStatus(item.entry, installed) : null
+            // 追加済みのものも一覧に残し、印を付けて、もう一度選べるようにする（16.5）
+            const count = present[key] ?? 0
+            const status: PackStatus =
+              item.kind === 'pack'
+                ? packStatus(item.entry, installed, count)
+                : count > 0
+                  ? 'installed'
+                  : 'notInstalled'
+            const action =
+              status === 'notInstalled'
+                ? t('packs.choose')
+                : status === 'updateAvailable'
+                  ? t('packs.chooseUpdate')
+                  : t('packs.chooseAgain')
             const meta =
               item.kind === 'samples'
                 ? t('packs.bundled')
@@ -273,6 +331,14 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
                     <span>{nameOf(item)}</span>
                     {status === 'installed' && (
                       <span className={styles.packBadge}>{t('packs.installed')}</span>
+                    )}
+                    {status === 'partial' && item.kind === 'pack' && (
+                      <span className={styles.packBadge}>
+                        {t('packs.partial', {
+                          present: count.toLocaleString(i18n.language),
+                          total: item.entry.wordCount.toLocaleString(i18n.language),
+                        })}
+                      </span>
                     )}
                     {status === 'updateAvailable' && (
                       <span className={`${styles.packBadge} ${styles.packBadgeUpdate}`}>
@@ -295,15 +361,24 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
                   )}
                   <p className={styles.packMeta}>{meta}</p>
                 </div>
-                <button
-                  type="button"
-                  className="button"
-                  disabled={loadingKey !== null}
-                  aria-label={t('packs.chooseNamed', { name: nameOf(item) })}
-                  onClick={() => void choose(item)}
-                >
-                  {loadingKey === key ? t('common.loading') : t('packs.choose')}
-                </button>
+                <div className={styles.packAction}>
+                  <button
+                    type="button"
+                    className="button"
+                    disabled={loadingKey !== null}
+                    aria-label={t('packs.chooseNamed', { action, name: nameOf(item) })}
+                    aria-describedby={status === 'notInstalled' ? undefined : `${inputId}-${key}`}
+                    onClick={() => void choose(item)}
+                  >
+                    {loadingKey === key ? t('common.loading') : action}
+                  </button>
+                  {/* もう一度追加しても学習の進捗は消えないことを示す（16.5） */}
+                  {status !== 'notInstalled' && (
+                    <p id={`${inputId}-${key}`} className={styles.packKeepNote}>
+                      {t('packs.keepProgress')}
+                    </p>
+                  )}
+                </div>
               </li>
             )
           })}
@@ -334,7 +409,26 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
       title={t('packs.title')}
       onClose={close}
       actions={
-        state.step === 'preview' ? (
+        state.step === 'preview' && confirmingOverwrite ? (
+          <>
+            <button
+              type="button"
+              className="button"
+              disabled={busy}
+              onClick={() => setConfirmingOverwrite(false)}
+            >
+              {t('io.back')}
+            </button>
+            <button
+              type="button"
+              className={`button ${styles.dangerButton}`}
+              disabled={busy}
+              onClick={() => void run()}
+            >
+              {busy ? t('packs.adding') : t('packs.overwriteRun', { count: actionable })}
+            </button>
+          </>
+        ) : state.step === 'preview' ? (
           <>
             <button type="button" className="button" disabled={busy} onClick={reset}>
               {t('packs.back')}

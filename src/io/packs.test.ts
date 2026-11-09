@@ -113,10 +113,19 @@ describe('formatSize', () => {
   })
 })
 
-describe('packStatus', () => {
-  it('追加済みの版と比べて状態を返す', () => {
-    expect(packStatus(entry, {})).toBe('notInstalled')
-    expect(packStatus(entry, { 'tocfl-novice': 2 })).toBe('installed')
-    expect(packStatus(entry, { 'tocfl-novice': 1 })).toBe('updateAvailable')
+describe('packStatus（仕様書 16.5）', () => {
+  it('追加の記録と、実際に登録されている単語の数で状態を返す', () => {
+    expect(packStatus(entry, {}, 0)).toBe('notInstalled')
+    expect(packStatus(entry, { 'tocfl-novice': 2 }, 1000)).toBe('installed')
+    expect(packStatus(entry, { 'tocfl-novice': 2 }, 800)).toBe('partial')
+    expect(packStatus(entry, { 'tocfl-novice': 1 }, 1000)).toBe('updateAvailable')
+  })
+
+  it('記録があっても単語が1語も無ければ未追加とする（利用者が消した場合など）', () => {
+    expect(packStatus(entry, { 'tocfl-novice': 2 }, 0)).toBe('notInstalled')
+  })
+
+  it('記録が無ければ、同じタグの単語があっても未追加とする', () => {
+    expect(packStatus(entry, {}, 500)).toBe('notInstalled')
   })
 })
