@@ -151,3 +151,6 @@ vite.config.ts.timestamp-*
 # Claude Code（この開発機だけの設定・メモ）
 .claude/
 CLAUDE.local.md
+
+# 単語パッケージの元データのうち、容量の大きいもの（scripts/packs/README.md の手順で入手する）
+scripts/packs/sources/dict_revised_*.zip
