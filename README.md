@@ -16,7 +16,7 @@ A browser app for learning Taiwanese Mandarin (Traditional Chinese) vocabulary. 
 
 最初に開くと、単語を追加する方法が表示されます。
 
-- **用意された単語集から選ぶ**：TOCFL（華語文能力測驗）の入門級・基礎級に対応する単語集（約1,400語、注音・拼音・日本語の意味つき）などを無料で追加できます。ダウンロードにはインターネット接続が必要です。
+- **配布中の単語集から選ぶ**：TOCFL（華語文能力測驗）の入門級・基礎級に対応する単語集（約1,400語、注音・拼音・日本語の意味つき）などを無料で追加できます。ダウンロードにはインターネット接続が必要です。
 - **サンプル単語を追加**：基礎的な約50語です。アプリに含まれているので、通信なしで追加できます。
 - **ファイルを読み込んで単語を追加**：自分で作った CSV または JSON のファイルを読み込みます。
 - **単語を追加**：「単語データ」画面で1語ずつ入力することもできます。注音か拼音の片方を入れると、もう片方を自動で入れます。
@@ -133,7 +133,7 @@ npm run lint && npm run format:check && npm test && npm run build && npm run siz
 
 ### 単語集の作成
 
-用意された単語集（`public/packs/`）の作り方は [scripts/packs/README.md](scripts/packs/README.md) にあります。
+配布中の単語集（`public/packs/`）の作り方は [scripts/packs/README.md](scripts/packs/README.md) にあります。
 
 ### 公開
 

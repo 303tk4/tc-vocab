@@ -113,9 +113,9 @@ test('単語を1語追加し、編集できる（FR-WORDS-15・16）', async ({ 
   await expect(page.getByText('タピオカ入りのミルクティー')).toBeVisible()
 })
 
-test('用意された単語集を追加できる（仕様書 16.5）', async ({ page }) => {
+test('配布中の単語集を追加できる（仕様書 16.5）', async ({ page }) => {
   await page.goto('./')
-  await page.getByRole('link', { name: /用意された単語集から選ぶ/ }).click()
+  await page.getByRole('link', { name: /配布中の単語集から選ぶ/ }).click()
   const dialog = page.getByRole('dialog')
   await dialog.getByRole('button', { name: /^選ぶ（TOCFL/ }).click()
   await dialog.getByRole('button', { name: /^追加する（\d+）$/ }).click()
