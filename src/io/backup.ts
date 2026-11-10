@@ -1,5 +1,5 @@
 // アプリ全体のバックアップの組み立てと検証（仕様書 10.4、FR-SET-11・12・14）。DB には依存しない
-import type { Progress, SessionRecord, Word } from '../types/word'
+import { isItemProgressId, type Progress, type SessionRecord, type Word } from '../types/word'
 import { decodeText } from './encoding'
 import { isProgress, JSON_FORMAT, JSON_VERSION } from './json'
 import { ImportFileError, MAX_FILE_SIZE, stripBom } from './parsed'
@@ -175,7 +175,8 @@ export function parseBackup(text: string, now = Date.now()): Backup {
 
   if (!data.progress.every(isProgress)) throw new BackupFileError('invalidFormat')
   const progress = data.progress
-    .filter((p) => ids.has(p.wordId))
+    // 存在しない単語の進捗は捨てる。単語以外の学習項目の進捗は残す（FR-SET-12、6.2）
+    .filter((p) => ids.has(p.wordId) || isItemProgressId(p.wordId))
     .map(({ modeId, wordId, due, state, updatedAt }): Progress => ({
       modeId,
       wordId,

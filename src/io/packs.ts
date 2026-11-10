@@ -1,4 +1,5 @@
 // 単語パッケージの一覧（public/packs/index.json）の検証と表示用の処理（仕様書 16.5）。DB には触れない純粋な処理
+import { languageName, primaryLanguage } from '../i18n/languages'
 
 export const PACK_INDEX_FORMAT = 'tc-vocab-packs'
 export const PACK_INDEX_VERSION = 1
@@ -227,11 +228,11 @@ export function packStatus(
   return present < entry.wordCount ? 'partial' : 'installed'
 }
 
+// 言語タグの比較は i18n/languages.ts に置く（18.5）。単語集の処理からも使えるよう出し直す
+export { primaryLanguage }
+
 /** UI 言語に合う単語集が無いときに先に並べる意味の言語（仕様書 16.5「意味の言語」） */
 export const FALLBACK_MEANING_LANGUAGE = 'en'
-
-/** 言語タグの主な部分（例：`en-US` → `en`）。大文字・小文字は区別しない */
-export const primaryLanguage = (tag: string) => tag.split(/[-_]/)[0]!.toLowerCase()
 
 /**
  * 一覧で先に並べる意味の言語（16.5）。UI 言語と同じ意味の言語の単語集があればその言語、
@@ -260,17 +261,5 @@ export function sortByMeaningLanguage<T extends { meaningLanguage?: string }>(
   return [...items.filter(first), ...items.filter((i) => !first(i))]
 }
 
-/**
- * 意味の言語の名前を、その言語自身での名前で返す（例：`ja` → 日本語、`en` → English、`vi` → Tiếng Việt）。
- * 名前がわからない言語は、言語タグをそのまま返す
- */
-export function meaningLanguageName(tag: string): string {
-  try {
-    const name = new Intl.DisplayNames([tag], { type: 'language' }).of(tag)
-    if (!name || name === tag) return tag
-    // 先頭が小文字の名前（例：`vi` の「tiếng Việt」）は、見出しとして先頭を大文字にする
-    return name.charAt(0).toLocaleUpperCase(tag) + name.slice(1)
-  } catch {
-    return tag
-  }
-}
+/** 意味の言語の名前（その言語自身での名前。16.5） */
+export const meaningLanguageName = languageName

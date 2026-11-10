@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { makeWord } from '../../test/fixtures'
 import type { Progress } from '../../types/word'
 import { countDueByEndOfTomorrow, countIntroducedToday, planQueue, requeue } from './queue'
-import type { SrsState } from './srs'
+import type { SrsState } from '../shared/srs'
 
 const at = (day: number, hour: number) => new Date(2026, 10, day, hour).getTime()
 const NOW = at(9, 12)

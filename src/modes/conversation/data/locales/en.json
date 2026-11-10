@@ -1,0 +1,958 @@
+{
+  "language": "en",
+  "scenes": {
+    "convenience-store": "Convenience store",
+    "restaurant": "Restaurant",
+    "drink-stand": "Drink stand",
+    "night-market": "Night market",
+    "transport": "Getting around (taxi, MRT, bus)"
+  },
+  "items": {
+    "r0001": {
+      "line": "Welcome!",
+      "answers": [],
+      "note": "Said when you enter a shop. No reply is needed."
+    },
+    "r0002": {
+      "line": "Do you need a bag?",
+      "answers": [
+        "No, thanks.",
+        "Yes, one please."
+      ]
+    },
+    "r0003": {
+      "line": "Bags cost extra.",
+      "answers": [
+        "OK, that's fine.",
+        "Then I don't need one."
+      ],
+      "note": "Plastic bags cost about NT$1–2 in Taiwan."
+    },
+    "r0004": {
+      "line": "Do you have a carrier?",
+      "answers": [
+        "No, I don't.",
+        "Yes, here it is."
+      ],
+      "note": "A \"carrier\" (載具) is a barcode that stores your receipt electronically. Show it on your phone. Visitors can just say 沒有."
+    },
+    "r0005": {
+      "line": "Do you need a company tax ID on the receipt?",
+      "answers": [
+        "No."
+      ],
+      "note": "統編 is a company tax ID used for expense claims. Individuals answer 不用."
+    },
+    "r0006": {
+      "line": "Do you need the receipt?",
+      "answers": [
+        "Yes, please.",
+        "No, thanks."
+      ],
+      "note": "Receipts (發票) double as lottery tickets. If you don’t want it, you can donate it in the box by the register."
+    },
+    "r0007": {
+      "line": "Would you like it heated?",
+      "answers": [
+        "Yes, please.",
+        "No, thanks."
+      ],
+      "note": "Asked for lunch boxes, rice balls, bread and so on."
+    },
+    "r0008": {
+      "line": "Are you a member?",
+      "answers": [
+        "No.",
+        "Yes, I'll give you my phone number."
+      ],
+      "note": "Membership is usually checked with your mobile number."
+    },
+    "r0009": {
+      "line": "Would you like to collect points?",
+      "answers": [
+        "No, thanks.",
+        "Sure."
+      ],
+      "note": "集點 means collecting stickers or app points."
+    },
+    "r0010": {
+      "line": "That's 85 dollars in total.",
+      "answers": [
+        "OK.",
+        "Here's 100."
+      ],
+      "note": "塊 is the spoken word for 元 (New Taiwan dollars)."
+    },
+    "r0011": {
+      "line": "How would you like to pay?",
+      "answers": [
+        "Cash.",
+        "I'll use my EasyCard.",
+        "By card."
+      ],
+      "note": "付現 = pay in cash; 刷卡 = pay by card."
+    },
+    "r0012": {
+      "line": "Here's 15 dollars change.",
+      "answers": [
+        "Thank you."
+      ]
+    },
+    "r0013": {
+      "line": "The second one is 40% off. Would you like another?",
+      "answers": [
+        "No, thanks.",
+        "OK, I'll get another one."
+      ],
+      "note": "六折 means you pay 60% of the price (40% off)."
+    },
+    "r0014": {
+      "line": "Hot or iced?",
+      "answers": [
+        "Hot.",
+        "Iced."
+      ]
+    },
+    "r0015": {
+      "line": "Large or medium?",
+      "answers": [
+        "Large.",
+        "Medium, please."
+      ]
+    },
+    "r0016": {
+      "line": "Do you need a straw?",
+      "answers": [
+        "No.",
+        "Yes, please."
+      ]
+    },
+    "r0017": {
+      "line": "Shall I bag them separately?",
+      "answers": [
+        "No, together is fine.",
+        "Yes, separately please."
+      ],
+      "note": "Often asked when you buy hot and cold items together."
+    },
+    "r0018": {
+      "line": "Sorry, this is sold out.",
+      "answers": [
+        "OK, that's fine.",
+        "When will you get more in?"
+      ],
+      "note": "進貨 = to restock."
+    },
+    "r0019": {
+      "line": "For a pickup, please tell me your name and the last three digits of your phone number.",
+      "answers": [
+        "My surname is Lin, and the last three digits are 123."
+      ],
+      "note": "Online orders picked up in store are checked by name and the last three digits of your mobile number."
+    },
+    "r0020": {
+      "line": "Next, please. Over here.",
+      "answers": [],
+      "note": "No reply is needed. Just go to the register."
+    },
+    "r0021": {
+      "line": "Thank you for coming!",
+      "answers": [
+        "Thank you."
+      ]
+    },
+    "r0022": {
+      "line": "How many people?",
+      "answers": [
+        "Two.",
+        "Just one."
+      ],
+      "note": "位 is a polite counter for people."
+    },
+    "r0023": {
+      "line": "For here or to go?",
+      "answers": [
+        "For here.",
+        "To go."
+      ],
+      "note": "內用 = eat in; 外帶 = take away."
+    },
+    "r0024": {
+      "line": "Do you have a reservation?",
+      "answers": [
+        "No.",
+        "Yes, under the name Lin."
+      ]
+    },
+    "r0025": {
+      "line": "We're full right now, so there's a short wait.",
+      "answers": [
+        "About how long is the wait?",
+        "OK, we'll wait."
+      ]
+    },
+    "r0026": {
+      "line": "This way, please.",
+      "answers": [
+        "OK, thank you."
+      ]
+    },
+    "r0027": {
+      "line": "Are you ready to order?",
+      "answers": [
+        "Not yet, give us a minute.",
+        "Yes, I'll have this."
+      ]
+    },
+    "r0028": {
+      "line": "Call me when you're ready.",
+      "answers": [
+        "OK, thanks."
+      ]
+    },
+    "r0029": {
+      "line": "Do you want it spicy?",
+      "answers": [
+        "Not spicy.",
+        "Just a little spicy."
+      ],
+      "note": "Spice levels: 小辣 (mild), 中辣 (medium), 大辣 (hot)."
+    },
+    "r0030": {
+      "line": "Large or small bowl of rice?",
+      "answers": [
+        "A small one is fine.",
+        "Large."
+      ]
+    },
+    "r0031": {
+      "line": "Anything else?",
+      "answers": [
+        "That's all.",
+        "Another black tea, please."
+      ]
+    },
+    "r0032": {
+      "line": "This one takes a bit longer.",
+      "answers": [
+        "That's fine.",
+        "Then I'll order something else."
+      ]
+    },
+    "r0033": {
+      "line": "Please pay first.",
+      "answers": [
+        "OK, how much is it?"
+      ],
+      "note": "Small eateries often ask you to pay first."
+    },
+    "r0034": {
+      "line": "Together or separately?",
+      "answers": [
+        "Together.",
+        "Separately."
+      ]
+    },
+    "r0035": {
+      "line": "May I take this away?",
+      "answers": [
+        "Yes, thank you.",
+        "Not yet, I'm still eating."
+      ]
+    },
+    "r0036": {
+      "line": "Careful, it's hot.",
+      "answers": [
+        "OK, thanks."
+      ]
+    },
+    "r0037": {
+      "line": "Cutlery is over there. Help yourself.",
+      "answers": [
+        "OK, thanks."
+      ],
+      "note": "Many places are self-service."
+    },
+    "r0038": {
+      "line": "What would you like to drink?",
+      "answers": [
+        "I'd like a bubble milk tea.",
+        "I'm still looking."
+      ]
+    },
+    "r0039": {
+      "line": "Sugar level and ice?",
+      "answers": [
+        "Half sugar, less ice.",
+        "No sugar, no ice."
+      ],
+      "note": "Sugar: 全糖 full, 少糖 less, 半糖 half, 微糖 a little, 無糖 none. Ice: 正常冰 regular, 少冰 less, 微冰 a little, 去冰 none. You can also ask for 溫 (warm) or 熱 (hot)."
+    },
+    "r0040": {
+      "line": "Would you like any toppings?",
+      "answers": [
+        "Add tapioca pearls.",
+        "No, thanks."
+      ]
+    },
+    "r0041": {
+      "line": "Pearls are 10 dollars extra.",
+      "answers": [
+        "OK, that's fine."
+      ]
+    },
+    "r0042": {
+      "line": "Shall I put the straw in for you?",
+      "answers": [
+        "Yes, thanks.",
+        "No, I'll drink it later."
+      ]
+    },
+    "r0043": {
+      "line": "Did you bring your own cup?",
+      "answers": [
+        "No, I didn't.",
+        "Yes, please use this one."
+      ],
+      "note": "Many shops give a discount if you bring your own cup."
+    },
+    "r0044": {
+      "line": "Here's your number. We'll call it when it's ready.",
+      "answers": [
+        "OK, thank you."
+      ]
+    },
+    "r0045": {
+      "line": "Number 83, your order is ready!",
+      "answers": [
+        "That's me, thanks."
+      ]
+    },
+    "r0046": {
+      "line": "How many cups?",
+      "answers": [
+        "Two.",
+        "Just one."
+      ]
+    },
+    "r0047": {
+      "line": "How many portions?",
+      "answers": [
+        "One.",
+        "Two."
+      ]
+    },
+    "r0048": {
+      "line": "Would you like pepper and basil?",
+      "answers": [
+        "Both, please.",
+        "No basil."
+      ],
+      "note": "九層塔 is Taiwanese basil, often added at fried-food stalls."
+    },
+    "r0049": {
+      "line": "Shall I cut it?",
+      "answers": [
+        "Yes, please cut it.",
+        "No need to cut it."
+      ],
+      "note": "Asked for things like 雞排 (large fried chicken cutlets)."
+    },
+    "r0050": {
+      "line": "100 for one, 180 for two.",
+      "answers": [
+        "Then I'll take two.",
+        "Just one is fine."
+      ]
+    },
+    "r0051": {
+      "line": "Are you eating here?",
+      "answers": [
+        "Yes, I'll eat here.",
+        "No, I'll take it with me."
+      ]
+    },
+    "r0052": {
+      "line": "Seats are inside. Find yourself a seat.",
+      "answers": [
+        "OK, thanks."
+      ]
+    },
+    "r0053": {
+      "line": "Try a sample!",
+      "answers": [
+        "Thanks, it's tasty!",
+        "No, thank you."
+      ]
+    },
+    "r0054": {
+      "line": "The line is about 20 minutes right now.",
+      "answers": [
+        "OK, I'll wait.",
+        "Then I'll come back another time."
+      ]
+    },
+    "r0055": {
+      "line": "We only take cash.",
+      "answers": [
+        "OK.",
+        "Is there an ATM nearby, then?"
+      ],
+      "note": "Many night market stalls are cash only."
+    },
+    "r0056": {
+      "line": "Do you have small change?",
+      "answers": [
+        "No, sorry.",
+        "Yes, let me look."
+      ]
+    },
+    "r0057": {
+      "line": "Where to?",
+      "answers": [
+        "Taipei Main Station, please.",
+        "To this address, please."
+      ],
+      "note": "It helps to show the address on your phone or on paper."
+    },
+    "r0058": {
+      "line": "Is it OK to take the highway?",
+      "answers": [
+        "Sure.",
+        "Regular roads are fine."
+      ]
+    },
+    "r0059": {
+      "line": "We're here. That's 230 dollars.",
+      "answers": [
+        "Here's 250, keep the change.",
+        "Can I pay by card?"
+      ],
+      "note": "Tipping taxi drivers is not expected."
+    },
+    "r0060": {
+      "line": "Where should I stop?",
+      "answers": [
+        "The next intersection is fine.",
+        "Stop in front of that convenience store."
+      ]
+    },
+    "r0061": {
+      "line": "Do you need the trunk open?",
+      "answers": [
+        "Yes, please.",
+        "No, thanks."
+      ]
+    },
+    "r0062": {
+      "line": "Do you need a receipt?",
+      "answers": [
+        "Yes, please.",
+        "No."
+      ]
+    },
+    "r0063": {
+      "line": "This bus doesn't go to the zoo.",
+      "answers": [
+        "Then which bus should I take?"
+      ]
+    },
+    "r0064": {
+      "line": "Tap your card both when you get on and when you get off.",
+      "answers": [
+        "OK, thanks."
+      ],
+      "note": "Common on Taipei buses; it depends on the route."
+    },
+    "r0065": {
+      "line": "Insufficient balance. Please top up.",
+      "answers": [
+        "Where can I top up?"
+      ],
+      "note": "Shown at the gates. You can top up at station machines or convenience stores."
+    },
+    "r0066": {
+      "line": "You can't eat on the MRT.",
+      "answers": [
+        "Sorry."
+      ],
+      "note": "Drinks are not allowed either, and there are fines."
+    },
+    "r0067": {
+      "line": "Please move to the back.",
+      "answers": [
+        "OK."
+      ]
+    },
+    "s0001": {
+      "intent": "You want to say you don't need a bag.",
+      "answers": [
+        "No bag, thanks.",
+        "I don't need a bag."
+      ]
+    },
+    "s0002": {
+      "intent": "You want one bag.",
+      "answers": [
+        "I'd like a bag.",
+        "Could I have a bag?"
+      ]
+    },
+    "s0003": {
+      "intent": "You want your lunch box heated.",
+      "answers": [
+        "Could you heat this up for me?",
+        "Please microwave it."
+      ],
+      "note": "微波 = to microwave."
+    },
+    "s0004": {
+      "intent": "You want to say you don't need the receipt.",
+      "answers": [
+        "I don't need the receipt, thanks.",
+        "Please donate the receipt."
+      ],
+      "note": "捐 = to donate."
+    },
+    "s0005": {
+      "intent": "You want to pay with your EasyCard.",
+      "answers": [
+        "I'll use my EasyCard.",
+        "Can I pay with an EasyCard?"
+      ]
+    },
+    "s0006": {
+      "intent": "You want to ask if you can pay by credit card.",
+      "answers": [
+        "Can I pay by card?",
+        "Do you take credit cards?"
+      ]
+    },
+    "s0007": {
+      "intent": "You want to pay in cash.",
+      "answers": [
+        "I'll pay cash.",
+        "I'll use cash."
+      ]
+    },
+    "s0008": {
+      "intent": "You want to top up your EasyCard with 500 dollars.",
+      "answers": [
+        "I'd like to top up my EasyCard, 500 dollars."
+      ],
+      "note": "加值 is the common word for topping up."
+    },
+    "s0009": {
+      "intent": "You want to use the restroom.",
+      "answers": [
+        "May I use the restroom?",
+        "Is there a restroom?"
+      ]
+    },
+    "s0010": {
+      "intent": "You want to ask where the batteries are.",
+      "answers": [
+        "Where are the batteries?",
+        "Do you sell batteries?"
+      ]
+    },
+    "s0011": {
+      "intent": "You want chopsticks.",
+      "answers": [
+        "Could I have chopsticks?",
+        "A pair of chopsticks, please."
+      ],
+      "note": "Chopsticks are counted with 雙 (pair)."
+    },
+    "s0012": {
+      "intent": "You want a spoon.",
+      "answers": [
+        "Could I have a spoon?",
+        "A spoon, please."
+      ]
+    },
+    "s0013": {
+      "intent": "You want a large iced Americano.",
+      "answers": [
+        "I'd like a large iced Americano."
+      ],
+      "note": "美式 = Americano."
+    },
+    "s0014": {
+      "intent": "You want a medium hot latte.",
+      "answers": [
+        "I'd like a medium hot latte."
+      ]
+    },
+    "s0015": {
+      "intent": "You want to say you don't need sugar or creamer.",
+      "answers": [
+        "No sugar or creamer, thanks."
+      ],
+      "note": "奶精 = coffee creamer."
+    },
+    "s0016": {
+      "intent": "You want to pick up an online order.",
+      "answers": [
+        "I'm here for a pickup.",
+        "I've come to collect a parcel."
+      ]
+    },
+    "s0017": {
+      "intent": "You want to send a parcel.",
+      "answers": [
+        "I'd like to send a parcel."
+      ]
+    },
+    "s0018": {
+      "intent": "You want to ask how to use the photocopier.",
+      "answers": [
+        "How do I use the photocopier?"
+      ]
+    },
+    "s0019": {
+      "intent": "You want to ask if there is an ATM.",
+      "answers": [
+        "Is there an ATM?"
+      ],
+      "note": "提款機 = ATM. Saying \"ATM\" also works."
+    },
+    "s0020": {
+      "intent": "You want hot and cold items bagged separately.",
+      "answers": [
+        "Could you bag them separately?",
+        "Please keep the hot and cold things apart."
+      ]
+    },
+    "s0021": {
+      "intent": "You didn't catch that and want them to say it again.",
+      "answers": [
+        "Sorry, could you say that again?"
+      ]
+    },
+    "s0022": {
+      "intent": "You want them to speak more slowly.",
+      "answers": [
+        "Could you speak more slowly?"
+      ]
+    },
+    "s0023": {
+      "intent": "You want to say you only speak a little Chinese.",
+      "answers": [
+        "My Chinese isn't very good.",
+        "I only speak a little Chinese."
+      ]
+    },
+    "s0024": {
+      "intent": "You want to say there are two of you.",
+      "answers": [
+        "Two.",
+        "There are two of us."
+      ]
+    },
+    "s0025": {
+      "intent": "You want your order to go.",
+      "answers": [
+        "To go.",
+        "I'd like it to go."
+      ]
+    },
+    "s0026": {
+      "intent": "You want to eat in.",
+      "answers": [
+        "For here.",
+        "I'll eat here."
+      ]
+    },
+    "s0027": {
+      "intent": "You want a menu.",
+      "answers": [
+        "Could I have a menu?"
+      ]
+    },
+    "s0028": {
+      "intent": "You want to ask for a recommendation.",
+      "answers": [
+        "What do you recommend?",
+        "What's your signature item?"
+      ],
+      "note": "招牌 = signature item."
+    },
+    "s0029": {
+      "intent": "(Pointing) You want to order one of these.",
+      "answers": [
+        "I'll have one of these.",
+        "One of this, please."
+      ],
+      "note": "份 = a portion."
+    },
+    "s0030": {
+      "intent": "You don't want it spicy.",
+      "answers": [
+        "Not spicy, please.",
+        "Could you leave out the chili?"
+      ]
+    },
+    "s0031": {
+      "intent": "You don't want coriander.",
+      "answers": [
+        "No coriander, please.",
+        "Could you leave out the coriander?"
+      ]
+    },
+    "s0032": {
+      "intent": "You want a glass of water.",
+      "answers": [
+        "Could I have a glass of water?"
+      ]
+    },
+    "s0033": {
+      "intent": "You want a small plate for sharing.",
+      "answers": [
+        "Could I have a small plate?"
+      ]
+    },
+    "s0034": {
+      "intent": "You want to pay the bill.",
+      "answers": [
+        "I'd like to pay.",
+        "The bill, please."
+      ]
+    },
+    "s0035": {
+      "intent": "You want to take the leftovers home.",
+      "answers": [
+        "Could you pack this up for me?"
+      ],
+      "note": "打包 = to pack food to take away."
+    },
+    "s0036": {
+      "intent": "Your food hasn't arrived yet.",
+      "answers": [
+        "Excuse me, the dish I ordered hasn't come yet."
+      ]
+    },
+    "s0037": {
+      "intent": "You got something you didn't order.",
+      "answers": [
+        "Excuse me, this isn't what I ordered."
+      ]
+    },
+    "s0038": {
+      "intent": "You want to say you're allergic to shrimp.",
+      "answers": [
+        "I'm allergic to shrimp.",
+        "I can't eat shrimp."
+      ]
+    },
+    "s0039": {
+      "intent": "You want to ask where the restroom is.",
+      "answers": [
+        "Where is the restroom?"
+      ]
+    },
+    "s0040": {
+      "intent": "You want a bubble milk tea with half sugar and less ice.",
+      "answers": [
+        "One bubble milk tea, half sugar, less ice."
+      ]
+    },
+    "s0041": {
+      "intent": "You want it with no sugar and no ice.",
+      "answers": [
+        "No sugar, no ice.",
+        "No sugar, and no ice please."
+      ]
+    },
+    "s0042": {
+      "intent": "You want your drink hot.",
+      "answers": [
+        "I'd like it hot.",
+        "Can you make it hot?"
+      ]
+    },
+    "s0043": {
+      "intent": "You want to ask about the sugar levels.",
+      "answers": [
+        "What sugar levels are there?",
+        "How sweet is half sugar?"
+      ]
+    },
+    "s0044": {
+      "intent": "You want to add tapioca pearls.",
+      "answers": [
+        "Add pearls.",
+        "I'd like to add pearls."
+      ]
+    },
+    "s0045": {
+      "intent": "You want them to put the straw in.",
+      "answers": [
+        "Could you put the straw in for me?"
+      ]
+    },
+    "s0046": {
+      "intent": "You want to ask for something without caffeine.",
+      "answers": [
+        "Do you have anything caffeine-free?"
+      ]
+    },
+    "s0047": {
+      "intent": "You want to change your order to no ice.",
+      "answers": [
+        "Sorry, could I change it to no ice?"
+      ]
+    },
+    "s0048": {
+      "intent": "You want to ask how long the wait is.",
+      "answers": [
+        "About how long is the wait?"
+      ]
+    },
+    "s0049": {
+      "intent": "You want to ask the price.",
+      "answers": [
+        "How much is this?",
+        "How much for one portion?"
+      ]
+    },
+    "s0050": {
+      "intent": "You want a small discount.",
+      "answers": [
+        "Could you make it a bit cheaper?",
+        "Is it cheaper if I buy two?"
+      ],
+      "note": "People don't usually haggle at food stalls; it's more common at clothing or goods stalls."
+    },
+    "s0051": {
+      "intent": "You want to check where the line ends.",
+      "answers": [
+        "Is this the line?",
+        "Where does the line end?"
+      ]
+    },
+    "s0052": {
+      "intent": "You only want one.",
+      "answers": [
+        "Just one, please."
+      ]
+    },
+    "s0053": {
+      "intent": "You want to ask if you can try a sample.",
+      "answers": [
+        "Can I try some?"
+      ]
+    },
+    "s0054": {
+      "intent": "You want to ask if you can take a photo.",
+      "answers": [
+        "May I take a photo?"
+      ]
+    },
+    "s0055": {
+      "intent": "You want it just a little spicy.",
+      "answers": [
+        "Mild, please.",
+        "Just a tiny bit spicy."
+      ]
+    },
+    "s0056": {
+      "intent": "You want to ask if you can pay with your phone.",
+      "answers": [
+        "Can I pay by mobile?"
+      ],
+      "note": "行動支付 = mobile payment."
+    },
+    "s0057": {
+      "intent": "You want to ask where the rubbish bin is.",
+      "answers": [
+        "Where is the rubbish bin?"
+      ],
+      "note": "Public bins are rare in Taiwan; stalls often have one nearby."
+    },
+    "s0058": {
+      "intent": "(In a taxi) You want to go to this address.",
+      "answers": [
+        "To this address, please.",
+        "Here, please."
+      ]
+    },
+    "s0059": {
+      "intent": "You want to go to Taipei Main Station.",
+      "answers": [
+        "I'm going to Taipei Main Station.",
+        "Taipei Main Station, please."
+      ]
+    },
+    "s0060": {
+      "intent": "You want the driver to stop here.",
+      "answers": [
+        "Here is fine, thanks.",
+        "Please stop here."
+      ]
+    },
+    "s0061": {
+      "intent": "You want to say you're in a hurry.",
+      "answers": [
+        "I'm in a bit of a hurry, thanks."
+      ]
+    },
+    "s0062": {
+      "intent": "You want to ask roughly how much it costs.",
+      "answers": [
+        "About how much is it to get there?"
+      ]
+    },
+    "s0063": {
+      "intent": "You want to ask how long it takes.",
+      "answers": [
+        "About how long does it take to get there?"
+      ]
+    },
+    "s0064": {
+      "intent": "You want to ask where the MRT station is.",
+      "answers": [
+        "Where is the MRT station?"
+      ]
+    },
+    "s0065": {
+      "intent": "You want to ask if this bus goes to the zoo.",
+      "answers": [
+        "Does this bus go to the zoo?"
+      ]
+    },
+    "s0066": {
+      "intent": "You want to ask where to change trains.",
+      "answers": [
+        "Which station do I change at?"
+      ]
+    },
+    "s0067": {
+      "intent": "(On a bus) You want to be told when you arrive.",
+      "answers": [
+        "Could you tell me when we get there?"
+      ]
+    },
+    "s0068": {
+      "intent": "You want to ask how to buy a single ticket.",
+      "answers": [
+        "How do I buy a single-journey ticket?"
+      ]
+    },
+    "s0069": {
+      "intent": "You want to offer your seat.",
+      "answers": [
+        "Please sit down.",
+        "Please take this seat."
+      ]
+    },
+    "s0070": {
+      "intent": "You want to get off a crowded train or bus.",
+      "answers": [
+        "Excuse me, I need to get off.",
+        "Excuse me, coming through."
+      ],
+      "note": "借過 = excuse me, let me through."
+    }
+  }
+}

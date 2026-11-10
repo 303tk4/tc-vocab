@@ -31,6 +31,16 @@ export function CardsIcon() {
   )
 }
 
+/** 吹き出し（場面別会話。仕様書 18章） */
+export function ChatIcon() {
+  return (
+    <Icon>
+      <path d="M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" />
+      <path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v2.5L16 18h-4" />
+    </Icon>
+  )
+}
+
 export function GearIcon() {
   return (
     <Icon>

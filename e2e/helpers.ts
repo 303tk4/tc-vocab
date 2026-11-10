@@ -77,3 +77,14 @@ export async function startFlashcard(page: Page) {
   await page.getByRole('button', { name: '学習を始める' }).click()
   await expect(page.getByText(/^1 \/ \d+ 枚$/)).toBeVisible()
 }
+
+/**
+ * 場面別会話の準備画面から学習を始め、1問目が出るまで待つ（仕様書 18章）。
+ * 準備画面の部品は遅延読み込みで後から出るため、出そろってから押す
+ */
+export async function startConversation(page: Page) {
+  await expect(page.getByText(/^対象：\d+ 項目$/)).toBeVisible()
+  await expect(page.getByRole('group', { name: '出題の種類' })).toBeVisible()
+  await page.getByRole('button', { name: '学習を始める' }).click()
+  await expect(page.getByText(/^1 \/ \d+ 問$/)).toBeVisible()
+}

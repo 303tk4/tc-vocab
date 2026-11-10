@@ -73,6 +73,9 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [sessionWords, setSessionWords] = useState<Word[]>([])
   const [result, setResult] = useState<SessionResult | null>(null)
+  // 単語を使わないモードは、開始できるかをモード自身が決める（FR-MODE-01・FR-PLUG-07）
+  const usesWords = mode.usesWords !== false
+  const [setupReady, setSetupReady] = useState(true)
   const startedAt = useRef(0)
 
   // 学習セッション中は更新の通知を保留する（FR-PWA-03）
@@ -98,13 +101,14 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
   // 存在しなくなったタグは条件から外す
   const activeTags = selectedTags.filter((tag) => allTags.includes(tag))
   const words = useLiveQuery(async () => {
+    if (!usesWords) return [] as Word[]
     const list = await listWords(activeTags)
     const required = mode.requiredFields ?? []
     return list.filter((w) => required.every((field) => hasValue(w[field])))
-  }, [activeTags.join('\u0000'), mode])
+  }, [activeTags.join('\u0000'), mode, usesWords])
 
   const minWords = mode.minWords ?? 1
-  const canStart = words !== undefined && words.length >= minWords
+  const canStart = usesWords ? words !== undefined && words.length >= minWords : setupReady
 
   const changeOptions = (next: unknown) => {
     setOptions(next)
@@ -152,7 +156,7 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
       {phase === 'setup' && (
         <div className="stack">
           <div className="panel stack">
-            {allTags.length > 0 && (
+            {usesWords && allTags.length > 0 && (
               <TagChips
                 legend={t('mode.tags')}
                 tags={allTags}
@@ -162,17 +166,23 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
             )}
             {mode.Setup && (
               <Suspense fallback={loading}>
-                <mode.Setup options={options} onChange={changeOptions} />
+                <mode.Setup
+                  options={options}
+                  onChange={changeOptions}
+                  onCanStartChange={usesWords ? undefined : setSetupReady}
+                />
               </Suspense>
             )}
           </div>
           <div className={styles.actions}>
-            <p className="muted">
-              {words === undefined
-                ? t('common.loading')
-                : t('mode.targetWords', { count: words.length })}
-            </p>
-            {words !== undefined && !canStart && <p>{t('mode.notEnoughWords')}</p>}
+            {usesWords && (
+              <p className="muted">
+                {words === undefined
+                  ? t('common.loading')
+                  : t('mode.targetWords', { count: words.length })}
+              </p>
+            )}
+            {usesWords && words !== undefined && !canStart && <p>{t('mode.notEnoughWords')}</p>}
             <button
               type="button"
               className="button button--primary button--block-sm"

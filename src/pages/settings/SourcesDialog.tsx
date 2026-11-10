@@ -81,6 +81,14 @@ function Body() {
             {t('about.license')}
             <ExternalLink href={meanings.licenseUrl}>{meanings.license}</ExternalLink>
           </dd>
+          {/* 場面別会話の内容（仕様書 18.6。単語集の意味・例文と同じ条件） */}
+          <dt>{t('about.sourceConversation')}</dt>
+          <dd>
+            {t('about.sourceMeaningsBody')}
+            <br />
+            {t('about.license')}
+            <ExternalLink href={meanings.licenseUrl}>{meanings.license}</ExternalLink>
+          </dd>
         </dl>
       </section>
       <section className={styles.section}>

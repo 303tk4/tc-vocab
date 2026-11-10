@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import { expect, test, type Page } from '@playwright/test'
-import { addSampleWords, startFlashcard } from './helpers'
+import { addSampleWords, startConversation, startFlashcard } from './helpers'
 
 // 主要な流れの E2E テスト（仕様書 13.1）
 
@@ -43,6 +43,39 @@ test('最初の案内からサンプル単語を追加すると、ホームか�
   await page.getByRole('link', { name: 'ホームへ戻る' }).click()
   // 学習した単語は復習待ちに入らない（今日は新規だけ）が、ホームに戻れる
   await expect(page.getByRole('heading', { name: '学習モード' })).toBeVisible()
+})
+
+test('単語が0件でも場面別会話を始められ、訓練の言語は画面の言語とは別に選べる（仕様書 18章）', async ({
+  page,
+}) => {
+  await page.goto('./')
+  await expect(page.getByText('登録単語数：0 語')).toBeVisible()
+  // 単語を使わないモードは、単語が無くても開ける（FR-HOME-03・FR-PLUG-07）
+  await page.getByRole('link', { name: /^場面別会話ドリル/ }).click()
+
+  // 訓練の言語を English にし、コンビニの「言いたいことを伝える」だけを選ぶ（FR-CONV-01・05）
+  await page.getByRole('radio', { name: 'English' }).check()
+  await expect(page.getByText('Convenience store')).toBeVisible()
+  await page.getByRole('checkbox', { name: /便利商店/ }).check()
+  await page.getByRole('radio', { name: '言いたいことを伝える' }).check()
+  await startConversation(page)
+
+  // 問題文は訓練の言語（英語）、ボタンは画面の言語（日本語）で示す（18.2）
+  await expect(page.getByText('Say it in Chinese')).toHaveCount(0)
+  await expect(page.getByText('中国語で言ってみましょう')).toBeVisible()
+  await expect(page.getByText("You want to say you don't need a bag.")).toBeVisible()
+  await page.getByRole('button', { name: '回答例を見る' }).click()
+  await expect(page.getByText('不用袋子，謝謝。')).toBeVisible()
+  await page.getByRole('button', { name: /^普通/ }).click()
+  await expect(page.getByText(/^2 \/ \d+ 問$/)).toBeVisible()
+  await page.getByRole('button', { name: '中断' }).click()
+  await expect(page.getByRole('heading', { name: '結果' })).toBeVisible()
+
+  // 選んだ条件は次回の初期値になる（FR-MODE-02・FR-CONV-05）
+  await page.reload()
+  await page.goto('./#/mode/conversation')
+  await expect(page.getByRole('radio', { name: 'English' })).toBeChecked()
+  await expect(page.getByRole('checkbox', { name: /便利商店/ })).toBeChecked()
 })
 
 test('JSON に書き出して、別の端末（空のブラウザ）で読み込める（仕様書 9.5）', async ({

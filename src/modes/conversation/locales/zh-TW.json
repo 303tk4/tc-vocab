@@ -1,0 +1,89 @@
+{
+  "title": "情境會話練習",
+  "description": "在便利商店、餐廳等情境中，回答店員的話，或用中文說出想說的話。與參考答案比較後，以五個等級評估自己的表現。",
+  "setup": {
+    "language": "選擇題目等的語言",
+    "languageHint": "請選擇題目與翻譯的語言。本應用程式的顯示語言不會改變。",
+    "scenes": "情境",
+    "scenesHint": "若未選擇任何情境，將從所有情境出題。",
+    "advanced": "進階",
+    "onlyIn": "僅有{{languages}}",
+    "kinds": "題型",
+    "kindOptions": {
+      "both": "兩種都出題",
+      "respond": "聽了再回應",
+      "say": "說出想表達的事"
+    },
+    "targetItems": "共 {{count}} 題",
+    "noItems": "沒有符合條件的題目。",
+    "changeNote": "開始前可隨時變更這些設定。",
+    "loadFailed": "無法讀取情境列表。"
+  },
+  "loadFailed": "無法讀取學習資料。",
+  "saveFailed": "無法儲存評估結果，請再評估一次。",
+  "progress": "{{current}} / {{total}} 題",
+  "kind": {
+    "respond": "試著回答看看",
+    "say": "試著用中文說說看"
+  },
+  "showAnswer": "看參考答案",
+  "showAnswerKeyHint": "Space：看參考答案",
+  "showText": "顯示文字",
+  "audioOnly": "目前只播放語音",
+  "replay": "再聽一次",
+  "speak": "朗讀",
+  "line": "對方說的話",
+  "answers": "參考答案",
+  "noReply": "不需要回答。",
+  "note": "補充",
+  "swipeHint": "← 再一次　　普通 →",
+  "keyHint": "1～5：評估　S：朗讀　Esc：中斷",
+  "ratingsLabel": "表現評估",
+  "ratings": {
+    "again": "再一次",
+    "hard": "困難",
+    "good": "普通",
+    "easy": "簡單",
+    "perfect": "完全記住"
+  },
+  "intervals": {
+    "minutes": "{{value}} 分鐘",
+    "days": "{{value}} 天",
+    "months": "{{value}} 個月",
+    "years": "{{value}} 年"
+  },
+  "empty": {
+    "title": "今天沒有要練習的題目",
+    "nextDue": "下次複習：{{date}}",
+    "noSchedule": "目前沒有複習排程。",
+    "studyMore": "額外練習新題目（{{count}} 題）"
+  },
+  "summary": {
+    "studied": "練習題數",
+    "durationSec": "所需時間",
+    "dueTomorrow": "明天的複習",
+    "again": "再一次",
+    "hard": "困難",
+    "good": "普通",
+    "easy": "簡單",
+    "perfect": "完全記住"
+  },
+  "result": {
+    "ratings": "各評估的次數",
+    "items": "{{count}} 題",
+    "times": "{{count}} 次",
+    "minSec": "{{m}} 分 {{s}} 秒",
+    "sec": "{{s}} 秒"
+  },
+  "settings": {
+    "newPerDay": "每日新題目上限",
+    "newPerDayHint": "0～100 的整數。日期於上午 4 點切換。",
+    "newPerDayInvalid": "請輸入 0～100 的整數。",
+    "showZhuyin": "顯示注音",
+    "showPinyin": "顯示拼音",
+    "audioOnly": "店員的話只播放語音（僅限支援朗讀的環境）",
+    "showBackground": "顯示背景圖片",
+    "languageNote": "練習語言（題目與翻譯的語言）請在開始練習的畫面選擇。",
+    "saveFailed": "無法儲存設定。"
+  }
+}

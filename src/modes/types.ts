@@ -10,6 +10,8 @@ type Lazy<P> = LazyExoticComponent<ComponentType<P>>
 export interface SetupProps<O> {
   options: O
   onChange(options: O): void
+  /** 開始できるかを知らせる。usesWords: false のモードだけが使う（FR-MODE-01・FR-PLUG-07） */
+  onCanStartChange?(canStart: boolean): void
 }
 
 export interface SessionResult {
@@ -45,7 +47,7 @@ export interface WordService {
 }
 
 export interface SessionProps<O> {
-  /** 準備画面の条件で絞り込んだ単語 */
+  /** 準備画面の条件で絞り込んだ単語。usesWords: false のモードには空の配列（FR-PLUG-07） */
   words: Word[]
   options: O
   /** このモード専用の進捗 API */
@@ -95,6 +97,11 @@ export interface StudyMode<O = unknown> {
   Result?: Lazy<ResultProps>
   locales: Record<UiLanguage, Record<string, unknown>>
   getBadge?(ctx: ModeContext): Promise<number | null>
+  /**
+   * 単語を出題に使うか（既定 true）。false のモードは自身の内容を出題し、
+   * タグの選択・単語数の条件（minWords・requiredFields）を使わない（FR-PLUG-07）
+   */
+  usesWords?: boolean
 }
 
 /** レジストリでは型引数を消して扱う。モード定義ごとの型安全性は defineMode で確保する */

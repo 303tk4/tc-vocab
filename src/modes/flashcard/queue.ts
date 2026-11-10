@@ -1,7 +1,7 @@
 // 出題順の決定（仕様書 8.1 FR-FC-01〜04、8.3 FR-FC-22）。React から独立した純粋関数
 import type { Progress, Word } from '../../types/word'
 import type { Direction } from './options'
-import { addDays, dayStart, isSrsState } from './srs'
+import { isSrsState } from '../shared/srs'
 
 export interface Card {
   word: Word
@@ -26,9 +26,6 @@ export interface PlanInput {
   direction: Direction
   random?: () => number
 }
-
-/** 「もう一度」の後、何枚後に再び出すか（仕様書 8.3） */
-export const REQUEUE_OFFSET = 3
 
 /** 期限が来た単語を古い順に、その後に新規カードを登録の古い順に並べる */
 export function planQueue({
@@ -70,21 +67,10 @@ export function planQueue({
   }
 }
 
-/** 今日（午前4時以降）初めて学習した単語の件数（FR-FC-02） */
-export function countIntroducedToday(rows: Progress[], now: number): number {
-  const start = dayStart(now)
-  return rows.filter((r) => isSrsState(r.state) && r.state.introducedAt >= start).length
-}
-
-/** 明日の終わり（翌々日の午前4時）までに期限が来る件数（FR-FC-40） */
-export function countDueByEndOfTomorrow(rows: Progress[], now: number): number {
-  const end = addDays(dayStart(now), 2)
-  return rows.filter((r) => r.due !== null && r.due < end).length
-}
-
-/** 「もう一度」のカードを数枚後に入れ直す（FR-FC-22）。残りが少なければ最後に回す */
-export function requeue<T>(cards: readonly T[], pos: number, offset = REQUEUE_OFFSET): T[] {
-  const next = [...cards]
-  next.splice(Math.min(pos + 1 + offset, next.length), 0, cards[pos])
-  return next
-}
+// 件数の数え方と「もう一度」の入れ直しは、場面別会話と共通（7.4）
+export {
+  countDueByEndOfTomorrow,
+  countIntroducedToday,
+  REQUEUE_OFFSET,
+  requeue,
+} from '../shared/queue'

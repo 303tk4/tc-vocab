@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { startFlashcard } from './helpers'
+import { startConversation, startFlashcard } from './helpers'
 
 // オフラインでの起動と学習（FR-PWA-01、M4 の完了条件）
 test.use({ serviceWorkers: 'allow' })
@@ -69,4 +69,24 @@ test('設定画面の「更新を確認」で、最新の版かを確かめら�
   await context.setOffline(true)
   await expect(button).toBeDisabled()
   await expect(page.getByText('インターネットに接続すると確認できます。')).toBeVisible()
+})
+
+test('オフラインでも、場面別会話の場面のデータを読んで学習できる（FR-PLUG-07、仕様書 18.5）', async ({
+  page,
+  context,
+}) => {
+  await page.goto('./')
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready
+  })
+  await page.reload()
+  await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true)
+
+  await context.setOffline(true)
+  // 場面の一覧・項目・訳は遅延読み込みだが、事前キャッシュに含まれる
+  await page.goto('./#/mode/conversation')
+  await page.getByRole('radio', { name: 'English' }).check()
+  await startConversation(page)
+  await page.getByRole('button', { name: '回答例を見る' }).click()
+  await expect(page.getByRole('group', { name: '覚え具合の評価' })).toBeVisible()
 })

@@ -9,7 +9,7 @@
 
 - **実装は SPEC.md に従う。** 仕様にない機能の追加や、仕様と異なる実装をする場合は、先に SPEC.md の変更案をユーザーに示し、承認を得る。
 - **SPEC.md を変更したら**、表紙の「版」を上げ、17章「改訂履歴」に1行追加する。要件 ID（例：`FR-WORDS-08`）は既存の番号を変えずに追番する。
-- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5, M4, M4.5, M4.6, M4.7, M5, M5.1, M5.2, M5.3 …）の単位で進める。完了済みは M0〜M5.3（アプリの版 1.4.3）。次は15章の「以降」（クイズモードなどの機能追加）。各マイルストーンはユーザーの指示があってから始める。
+- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5, M4, M4.5, M4.6, M4.7, M5, M5.1, M5.2, M5.3, M6 …）の単位で進める。完了済みは M0〜M5.3、M6（アプリの版 1.5.0）。次は15章の「以降」（クイズモードなどの機能追加）。各マイルストーンはユーザーの指示があってから始める。
 - コード中のコメント、テスト名、コミットメッセージは日本語で書く。コメントでは、関係する要件 ID や仕様書の節番号を示す（例：`// 取り込みの計画（仕様書 9.3）`）。
 
 ## 技術スタック
@@ -68,7 +68,7 @@ src/
 ├─ app/                   # レイアウト、更新の通知（PWA）
 ├─ pages/                 # 画面（HomePage, ModePage, SettingsPage, WordsPage）
 │  └─ words/              # 単語データ画面だけで使う部品（一覧、ダイアログ、検索）
-├─ modes/                 # 学習モード（プラグイン）。types.ts・registry.ts と、モードごとのフォルダ
+├─ modes/                 # 学習モード（プラグイン）。types.ts・registry.ts、モードごとのフォルダ、共通の部品 shared/（SRS・出題順）
 ├─ db/
 │  ├─ schema.ts           # Dexie のスキーマ。変更時は version を上げて upgrade() で移行する
 │  └─ repos/              # DB 操作はここに集約（words.ts, tags.ts, progress.ts）
@@ -88,6 +88,7 @@ scripts/check-size.mjs       # 初回表示の JS の大きさの確認
 scripts/licenses-plugin.ts   # ライブラリのライセンスの一覧 licenses.json を書き出す（FR-SET-08）
 LICENSE                      # MIT License（プログラム）。単語集の条件は public/packs/README.md
 scripts/build-icons.mjs      # public/favicon.svg から PWA のアイコン画像（PNG）を作る
+scripts/conversation/        # 場面別会話のデータを作る（build.mjs。下書きは scenes/、多音字の読みは readings.mjs。仕様書 18.6）
 ```
 
 - テストは対象ファイルの隣に `*.test.ts(x)` として置く。
@@ -130,6 +131,7 @@ scripts/build-icons.mjs      # public/favicon.svg から PWA のアイコン画�
    - `titleKey` と `descriptionKey` は、そのモードの locales 内のキー。
    - `icon` を `components/icons.tsx` に追加する。
    - `minWords`（開始に必要な最少単語数）、`requiredFields`（出題に必須の項目）、`defaultOptions` を指定する。
+   - 単語ではなくモード自身の内容を出題するモード（例：`conversation`）は `usesWords: false` とする。タグの選択と単語数の条件は使われず、開始できるかは `Setup` が `onCanStartChange` で知らせる。進捗の ID は `itemProgressId(modeId, itemId)`（`item:` で始まる。仕様書 6.2・FR-PLUG-07）。
    - `Setup`・`Session`・`SettingsPanel`・`Result` は必ず `lazy(() => import('./Session'))` の形で遅延読み込みにする（FR-PLUG-02）。
    - `locales: { ja, 'zh-TW': zhTW, en }` を渡す。文言は名前空間 `mode.quiz` に登録されるので、コンポーネントでは `useTranslation('mode.quiz')` で使う（FR-PLUG-03）。
 4. **登録する**：`src/modes/registry.ts` の `modes` 配列に追加する。並び順がホームでの表示順になる。これだけでホームに表示され、`#/mode/quiz` で開ける（FR-PLUG-01）。

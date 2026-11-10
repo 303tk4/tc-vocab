@@ -8,3 +8,6 @@ public/packs
 scripts/packs/reports
 test-results
 playwright-report
+# 場面別会話のデータ（scripts/conversation/build.mjs が出力する）
+src/modes/conversation/data
+scripts/conversation/reports

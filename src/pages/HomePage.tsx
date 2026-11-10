@@ -142,7 +142,8 @@ function ModeCard({ mode, wordCount }: { mode: AnyStudyMode; wordCount: number }
   const { t } = useTranslation(modeNamespace(mode.id))
   const { t: tc } = useTranslation()
   const minWords = mode.minWords ?? 1
-  const available = wordCount >= minWords
+  // 単語を使わないモードは、単語が0件でも選べる（FR-HOME-03・FR-PLUG-07）
+  const available = mode.usesWords === false || wordCount >= minWords
   const Icon = mode.icon
   // モードが提供するバッジ（例：暗記カードの復習待ち件数。FR-HOME-02）
   const badge = useLiveQuery(

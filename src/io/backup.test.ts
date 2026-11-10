@@ -84,6 +84,20 @@ describe('バックアップの往復（FR-SET-11・12）', () => {
     expect(parseBackup(JSON.stringify(data)).progress).toEqual([progress[0]])
   })
 
+  it('単語以外の学習項目（item: で始まる ID）の進捗は、単語が無くても残す（6.2）', () => {
+    const data = backupObject()
+    const item = {
+      modeId: 'conversation',
+      wordId: 'item:conversation:r0002',
+      due: 5,
+      state: {},
+      updatedAt: 6,
+    }
+    data.words = []
+    data.progress = [...progress, item]
+    expect(parseBackup(JSON.stringify(data)).progress).toEqual([item])
+  })
+
   it('id や日時の無い単語には付ける', () => {
     const data = backupObject()
     data.words = [{ hanzi: '茶', meaning: 'お茶' }]

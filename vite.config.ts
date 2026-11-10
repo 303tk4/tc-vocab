@@ -55,6 +55,17 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,json,webmanifest}'],
         // 単語パッケージは使うときに読み込み、事前キャッシュに含めない（仕様書 16.5）
         globIgnores: ['packs/**'],
+        // 場面別会話の背景の画像（WebP）は事前キャッシュせず、初めて表示したときに保存する（仕様書 12.1・FR-CONV-16）
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.endsWith('.webp'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'scene-images',
+              expiration: { maxEntries: 100 },
+            },
+          },
+        ],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
       },

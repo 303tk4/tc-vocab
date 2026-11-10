@@ -39,6 +39,16 @@ export interface Progress<S = unknown> {
   updatedAt: number
 }
 
+/** 単語以外の学習項目の進捗の ID の接頭辞（仕様書 6.2・FR-PLUG-07） */
+export const ITEM_PROGRESS_PREFIX = 'item:'
+
+/** 単語以外の学習項目の進捗の ID（例：item:conversation:r0002） */
+export const itemProgressId = (modeId: string, itemId: string) =>
+  `${ITEM_PROGRESS_PREFIX}${modeId}:${itemId}`
+
+/** 単語以外の学習項目の進捗か（単語の削除や復元で捨てない。6.2・FR-SET-12） */
+export const isItemProgressId = (wordId: string) => wordId.startsWith(ITEM_PROGRESS_PREFIX)
+
 export interface SessionRecord {
   id?: number
   modeId: string

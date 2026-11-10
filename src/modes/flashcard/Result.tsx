@@ -1,7 +1,7 @@
 // 暗記カードの結果画面の集計（仕様書 8.5 FR-FC-40）
 import { useTranslation } from 'react-i18next'
 import type { ResultProps } from '../types'
-import { RATINGS } from './srs'
+import { RATINGS } from '../shared/srs'
 import styles from './Result.module.css'
 
 export default function FlashcardResult({ summary }: ResultProps) {

@@ -17,7 +17,14 @@ import {
   type Card,
 } from './queue'
 import { extraNewCount, loadSettings, type FlashcardSettings } from './settings'
-import { intervalLabel, isSrsState, RATINGS, schedule, type Rating, type SrsState } from './srs'
+import {
+  intervalLabel,
+  isSrsState,
+  RATINGS,
+  schedule,
+  type Rating,
+  type SrsState,
+} from '../shared/srs'
 import styles from './Session.module.css'
 
 type Props = SessionProps<FlashcardOptions>

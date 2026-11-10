@@ -1,4 +1,4 @@
-// SRS（SM-2 の簡略版）。仕様書 8.3（FR-FC-21・23）
+// SRS（SM-2 の簡略版）。仕様書 8.3（FR-FC-21・23）。暗記カードと場面別会話で共通に使う（7.4）
 // UI から独立した純粋関数にしてあり、将来 FSRS などに差し替えられる
 
 export const RATINGS = ['again', 'hard', 'good', 'easy', 'perfect'] as const

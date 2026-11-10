@@ -1,0 +1,89 @@
+{
+  "title": "Scene Conversation Drills",
+  "description": "Practice everyday scenes such as convenience stores and restaurants: reply to what staff say, or say what you want in Chinese. Compare with sample answers and rate yourself on a 5-point scale.",
+  "setup": {
+    "language": "Choose the language for prompts",
+    "languageHint": "Choose the language for prompts and translations. The app's display language won't change.",
+    "scenes": "Scenes",
+    "scenesHint": "If none are selected, items come from all scenes.",
+    "advanced": "Advanced",
+    "onlyIn": "{{languages}} only",
+    "kinds": "Question type",
+    "kindOptions": {
+      "both": "Both types",
+      "respond": "Listen and respond",
+      "say": "Say what you want"
+    },
+    "targetItems": "{{count}} items",
+    "noItems": "No items match these settings.",
+    "changeNote": "You can change these settings any time before you start.",
+    "loadFailed": "Could not load the list of scenes."
+  },
+  "loadFailed": "Could not load study data.",
+  "saveFailed": "Could not save your rating. Please rate it again.",
+  "progress": "Item {{current}} of {{total}}",
+  "kind": {
+    "respond": "How would you reply?",
+    "say": "Say it in Chinese"
+  },
+  "showAnswer": "Show sample answers",
+  "showAnswerKeyHint": "Space: show sample answers",
+  "showText": "Show text",
+  "audioOnly": "Audio only",
+  "replay": "Play again",
+  "speak": "Speak",
+  "line": "What they said",
+  "answers": "Sample answers",
+  "noReply": "No reply is needed.",
+  "note": "Note",
+  "swipeHint": "← Again    Good →",
+  "keyHint": "1–5: rate   S: speak   Esc: stop",
+  "ratingsLabel": "Rate how well you did",
+  "ratings": {
+    "again": "Again",
+    "hard": "Hard",
+    "good": "Good",
+    "easy": "Easy",
+    "perfect": "Perfect"
+  },
+  "intervals": {
+    "minutes": "{{value}} min",
+    "days": "{{value}} d",
+    "months": "{{value}} mo",
+    "years": "{{value}} yr"
+  },
+  "empty": {
+    "title": "Nothing to study today",
+    "nextDue": "Next review: {{date}}",
+    "noSchedule": "No reviews are scheduled.",
+    "studyMore": "Study more new items ({{count}})"
+  },
+  "summary": {
+    "studied": "Items studied",
+    "durationSec": "Time",
+    "dueTomorrow": "Due tomorrow",
+    "again": "Again",
+    "hard": "Hard",
+    "good": "Good",
+    "easy": "Easy",
+    "perfect": "Perfect"
+  },
+  "result": {
+    "ratings": "Ratings",
+    "items": "{{count}}",
+    "times": "{{count}}",
+    "minSec": "{{m}} min {{s}} s",
+    "sec": "{{s}} s"
+  },
+  "settings": {
+    "newPerDay": "New items per day",
+    "newPerDayHint": "A whole number from 0 to 100. The day changes at 4 a.m.",
+    "newPerDayInvalid": "Enter a whole number from 0 to 100.",
+    "showZhuyin": "Show Zhuyin",
+    "showPinyin": "Show Pinyin",
+    "audioOnly": "Play staff lines as audio only (where speech is supported)",
+    "showBackground": "Show background images",
+    "languageNote": "Choose the training language (for prompts and translations) on the screen where you start studying.",
+    "saveFailed": "Could not save the setting."
+  }
+}

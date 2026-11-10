@@ -1,0 +1,89 @@
+{
+  "title": "場面別会話ドリル",
+  "description": "コンビニや飲食店などの場面で、店員のセリフに答えたり、言いたいことを中国語で言ったりする練習です。回答例と比べて、覚え具合を5段階で評価します。",
+  "setup": {
+    "language": "問題文などの言語を選択",
+    "languageHint": "問題文と訳の言語を選択してください。このアプリの表示言語は変更されません。",
+    "scenes": "場面",
+    "scenesHint": "何も選択されていない場合、すべての場面から出題されます。",
+    "advanced": "上級向け",
+    "onlyIn": "{{languages}}のみ",
+    "kinds": "出題の種類",
+    "kindOptions": {
+      "both": "どちらも出題する",
+      "respond": "聞き取って、応答する",
+      "say": "言いたいことを伝える"
+    },
+    "targetItems": "対象：{{count}} 項目",
+    "noItems": "この条件で出せる項目がありません。",
+    "changeNote": "この設定は、開始前にいつでも変更できます。",
+    "loadFailed": "場面の一覧を読み込めませんでした。"
+  },
+  "loadFailed": "学習データを読み込めませんでした。",
+  "saveFailed": "評価を保存できませんでした。もう一度評価してください。",
+  "progress": "{{current}} / {{total}} 問",
+  "kind": {
+    "respond": "答えてみましょう",
+    "say": "中国語で言ってみましょう"
+  },
+  "showAnswer": "回答例を見る",
+  "showAnswerKeyHint": "Space：回答例を見る",
+  "showText": "文字を見る",
+  "audioOnly": "音声だけで出しています",
+  "replay": "もう一度聞く",
+  "speak": "読み上げる",
+  "line": "セリフ",
+  "answers": "回答例",
+  "noReply": "返事は要りません。",
+  "note": "補足",
+  "swipeHint": "← もう一度　　普通 →",
+  "keyHint": "1〜5：評価　S：読み上げ　Esc：中断",
+  "ratingsLabel": "覚え具合の評価",
+  "ratings": {
+    "again": "もう一度",
+    "hard": "難しい",
+    "good": "普通",
+    "easy": "簡単",
+    "perfect": "完璧"
+  },
+  "intervals": {
+    "minutes": "{{value}}分",
+    "days": "{{value}}日",
+    "months": "{{value}}か月",
+    "years": "{{value}}年"
+  },
+  "empty": {
+    "title": "今日学習する項目はありません",
+    "nextDue": "次の復習予定：{{date}}",
+    "noSchedule": "復習の予定はありません。",
+    "studyMore": "新しい項目を追加で学習する（{{count}} 問）"
+  },
+  "summary": {
+    "studied": "学習した項目",
+    "durationSec": "所要時間",
+    "dueTomorrow": "明日の復習予定",
+    "again": "もう一度",
+    "hard": "難しい",
+    "good": "普通",
+    "easy": "簡単",
+    "perfect": "完璧"
+  },
+  "result": {
+    "ratings": "評価ごとの件数",
+    "items": "{{count}} 問",
+    "times": "{{count}} 回",
+    "minSec": "{{m}}分{{s}}秒",
+    "sec": "{{s}}秒"
+  },
+  "settings": {
+    "newPerDay": "1日の新しい項目の上限",
+    "newPerDayHint": "0〜100 の整数。日付は午前4時に切り替わります。",
+    "newPerDayInvalid": "0〜100 の整数を入力してください。",
+    "showZhuyin": "注音を表示",
+    "showPinyin": "拼音を表示",
+    "audioOnly": "セリフを音声だけで出す（読み上げに対応した環境のみ）",
+    "showBackground": "背景の画像を表示する",
+    "languageNote": "訓練の言語（問題文と訳の言語）は、学習を始める画面で選びます。",
+    "saveFailed": "設定を保存できませんでした。"
+  }
+}

@@ -1,5 +1,10 @@
 import { expect, test } from '@playwright/test'
-import { addSampleWords, expectNoA11yViolations, startFlashcard } from './helpers'
+import {
+  addSampleWords,
+  expectNoA11yViolations,
+  startConversation,
+  startFlashcard,
+} from './helpers'
 
 // 全画面の自動のアクセシビリティ検査（NFR-03・04、仕様書 13.1）
 
@@ -81,6 +86,27 @@ test.describe('単語があるとき', () => {
   })
 })
 
+test('場面別会話（準備・表・裏・結果。単語が無くても開ける）', async ({ page }) => {
+  await page.goto('./#/mode/conversation')
+  await expect(page.getByRole('button', { name: '学習を始める' })).toBeVisible()
+  await expect(page.getByText(/^対象：\d+ 項目$/)).toBeVisible()
+  await expectNoA11yViolations(page)
+
+  await startConversation(page)
+  await expectNoA11yViolations(page)
+
+  await page.getByRole('button', { name: '回答例を見る' }).click()
+  await expect(page.getByRole('group', { name: '覚え具合の評価' })).toBeVisible()
+  await expectNoA11yViolations(page)
+
+  // 1問評価してから中断すると結果画面に移る（FR-CONV-20・FR-FC-32）
+  await page.keyboard.press('3')
+  await expect(page.getByText(/^2 \/ \d+ 問$/)).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('heading', { name: '結果' })).toBeVisible()
+  await expectNoA11yViolations(page)
+})
+
 test('黒の背景（機器の設定に従う）でも違反がない', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' })
   await addSampleWords(page)
@@ -91,6 +117,12 @@ test('黒の背景（機器の設定に従う）でも違反がない', async ({
   await page.goto('./#/mode/flashcard')
   await startFlashcard(page)
   await page.getByRole('button', { name: /答えを表示/ }).click()
+  await expect(page.getByRole('group', { name: '覚え具合の評価' })).toBeVisible()
+  await expectNoA11yViolations(page)
+  // 場面別会話の準備画面と裏面（仕様書 18章）
+  await page.goto('./#/mode/conversation')
+  await startConversation(page)
+  await page.getByRole('button', { name: '回答例を見る' }).click()
   await expect(page.getByRole('group', { name: '覚え具合の評価' })).toBeVisible()
   await expectNoA11yViolations(page)
 })

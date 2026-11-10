@@ -1,0 +1,41 @@
+/* 場面別会話の結果画面（仕様書 18.4） */
+.main,
+.ratings {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.main {
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+}
+
+.ratings {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.main dt,
+.ratings dt {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.main dd,
+.ratings dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.main dd {
+  font-size: 1.5rem;
+}
+
+.ratings dd {
+  font-size: 1.125rem;
+}
+
+.subtitle {
+  margin: 0 0 var(--space-2);
+  font-size: 1rem;
+}
