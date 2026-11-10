@@ -14,22 +14,23 @@ export interface ReviewPlan<T> {
 }
 
 /**
- * 期限が来た項目を古い順に、その後に未学習の項目を与えられた順に、指定の件数まで並べる。
- * 状態が壊れている進捗は未学習として扱う
+ * 期限が来た項目を古い順に先に、残りを未学習の項目（与えられた順）で埋めて、合わせて limit 件まで並べる
+ * （一回の出題数。FR-FC-02、版 1.41）。状態が壊れている進捗は未学習として扱う
  */
 export function planReviews<T>({
   items,
   keyOf,
   progress,
   now,
-  newCount,
+  limit,
 }: {
   items: readonly T[]
   /** 進捗の ID */
   keyOf(item: T): string
   progress: ReadonlyMap<string, Progress>
   now: number
-  newCount: number
+  /** 一回の出題数（期限が来た項目と未学習の項目の合計） */
+  limit: number
 }): ReviewPlan<T> {
   const reviews: { item: T; due: number }[] = []
   const unstudied: T[] = []
@@ -41,18 +42,13 @@ export function planReviews<T>({
     else if (nextDue === null || p.due < nextDue) nextDue = p.due
   }
   reviews.sort((a, b) => a.due - b.due)
-  const fresh = unstudied.slice(0, Math.max(0, newCount))
+  const due = reviews.slice(0, Math.max(0, limit))
+  const fresh = unstudied.slice(0, Math.max(0, limit - due.length))
   return {
-    items: [...reviews.map((r) => r.item), ...fresh],
+    items: [...due.map((r) => r.item), ...fresh],
     remainingNew: unstudied.length - fresh.length,
     nextDue,
   }
-}
-
-/** 今日（午前4時以降）初めて学習した件数（FR-FC-02） */
-export function countIntroducedToday(rows: Progress[], now: number): number {
-  const start = dayStart(now)
-  return rows.filter((r) => isSrsState(r.state) && r.state.introducedAt >= start).length
 }
 
 /** 明日の終わり（翌々日の午前4時）までに期限が来る件数（FR-FC-40） */

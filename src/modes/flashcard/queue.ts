@@ -21,18 +21,18 @@ export interface PlanInput {
   words: Word[]
   progress: Map<string, Progress>
   now: number
-  /** 今回出す新規カードの枚数 */
-  newCount: number
+  /** 一回の出題数（期限が来たカードと新規カードの合計。FR-FC-02、版 1.41） */
+  limit: number
   direction: Direction
   random?: () => number
 }
 
-/** 期限が来た単語を古い順に、その後に新規カードを登録の古い順に並べる */
+/** 期限が来た単語を古い順に先に、残りを新規カード（登録の古い順）で埋めて、合わせて limit 枚まで並べる */
 export function planQueue({
   words,
   progress,
   now,
-  newCount,
+  limit,
   direction,
   random = Math.random,
 }: PlanInput): QueuePlan {
@@ -53,7 +53,8 @@ export function planQueue({
 
   reviews.sort((a, b) => a.due - b.due)
   unstudied.sort((a, b) => a.createdAt - b.createdAt)
-  const fresh = unstudied.slice(0, Math.max(0, newCount))
+  const due = reviews.slice(0, Math.max(0, limit))
+  const fresh = unstudied.slice(0, Math.max(0, limit - due.length))
 
   const toCard = (word: Word): Card => ({
     word,
@@ -61,16 +62,11 @@ export function planQueue({
   })
 
   return {
-    cards: [...reviews.map((r) => toCard(r.word)), ...fresh.map(toCard)],
+    cards: [...due.map((r) => toCard(r.word)), ...fresh.map(toCard)],
     remainingNew: unstudied.length - fresh.length,
     nextDue,
   }
 }
 
 // 件数の数え方と「もう一度」の入れ直しは、場面別会話と共通（7.4）
-export {
-  countDueByEndOfTomorrow,
-  countIntroducedToday,
-  REQUEUE_OFFSET,
-  requeue,
-} from '../shared/queue'
+export { countDueByEndOfTomorrow, REQUEUE_OFFSET, requeue } from '../shared/queue'

@@ -9,7 +9,7 @@
 
 - **実装は SPEC.md に従う。** 仕様にない機能の追加や、仕様と異なる実装をする場合は、先に SPEC.md の変更案をユーザーに示し、承認を得る。
 - **SPEC.md を変更したら**、表紙の「版」を上げ、17章「改訂履歴」に1行追加する。要件 ID（例：`FR-WORDS-08`）は既存の番号を変えずに追番する。
-- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5, M4, M4.5, M4.6, M4.7, M5, M5.1, M5.2, M5.3, M6 …）の単位で進める。完了済みは M0〜M5.3、M6（アプリの版 1.7.1）。次は15章の「以降」（クイズモードなどの機能追加）。各マイルストーンはユーザーの指示があってから始める。
+- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5, M4, M4.5, M4.6, M4.7, M5, M5.1, M5.2, M5.3, M6 …）の単位で進める。完了済みは M0〜M5.3、M6（アプリの版 1.8.0）。次は15章の「以降」（クイズモードなどの機能追加）。各マイルストーンはユーザーの指示があってから始める。
 - コード中のコメント、テスト名、コミットメッセージは日本語で書く。コメントでは、関係する要件 ID や仕様書の節番号を示す（例：`// 取り込みの計画（仕様書 9.3）`）。
 - **並行で動かすセッションは、必ず自分の作業用フォルダ（git worktree）で作業する。** 同じフォルダを複数のセッションで同時に書き換えない。作業が終わったら（ブランチを統合した、または不要になったら）、使った worktree の片付け（`git worktree remove` とブランチの削除）を人間に促すか、承認を得て Claude が行う。
 
@@ -132,6 +132,7 @@ scripts/conversation/        # 場面別会話のデータを作る（build.mjs�
    - `titleKey` と `descriptionKey` は、そのモードの locales 内のキー。
    - `icon` を `components/icons.tsx` に追加する。
    - `minWords`（開始に必要な最少単語数）、`requiredFields`（出題に必須の項目）、`defaultOptions` を指定する。
+   - 1回に出す数を決めて学習するモードは `sessionSize: { defaultValue }` を指定する。準備画面の「学習を始める」の下に「一回の出題数」の欄をコアが置き、`SessionProps.sessionSize` で値を渡す。単位の文言はモードの locales のキー `sessionSizeUnit`（FR-PLUG-08）。
    - 単語ではなくモード自身の内容を出題するモード（例：`conversation`）は `usesWords: false` とする。タグの選択と単語数の条件は使われず、開始できるかは `Setup` が `onCanStartChange` で知らせる。進捗の ID は `itemProgressId(modeId, itemId)`（`item:` で始まる。仕様書 6.2・FR-PLUG-07）。
    - `Setup`・`Session`・`SettingsPanel`・`Result` は必ず `lazy(() => import('./Session'))` の形で遅延読み込みにする（FR-PLUG-02）。
    - `locales: { ja, 'zh-TW': zhTW, en }` を渡す。文言は名前空間 `mode.quiz` に登録されるので、コンポーネントでは `useTranslation('mode.quiz')` で使う（FR-PLUG-03）。

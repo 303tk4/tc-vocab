@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { makeWord } from '../../test/fixtures'
 import type { Progress } from '../../types/word'
-import { countDueByEndOfTomorrow, countIntroducedToday, planQueue, requeue } from './queue'
+import { countDueByEndOfTomorrow, planQueue, requeue } from './queue'
 import type { SrsState } from '../shared/srs'
 
 const at = (day: number, hour: number) => new Date(2026, 10, day, hour).getTime()
@@ -14,7 +14,7 @@ function progress(wordId: string, due: number | null, introducedAt = at(1, 12)):
 
 const toMap = (rows: Progress[]) => new Map(rows.map((r) => [r.wordId, r]))
 
-describe('planQueue（FR-FC-01・02）', () => {
+describe('planQueue（FR-FC-01・02。一回の出題数は版 1.41）', () => {
   it('期限が来た単語を古い順に出し、その後に新規カードを登録の古い順に出す', () => {
     const late = makeWord({ id: 'late' })
     const early = makeWord({ id: 'early' })
@@ -29,7 +29,7 @@ describe('planQueue（FR-FC-01・02）', () => {
         progress('future', at(10, 4)),
       ]),
       now: NOW,
-      newCount: 20,
+      limit: 20,
       direction: 'hanziToMeaning',
     })
     expect(plan.cards.map((c) => c.word.id)).toEqual(['early', 'late', 'newA', 'newB'])
@@ -37,30 +37,44 @@ describe('planQueue（FR-FC-01・02）', () => {
     expect(plan.remainingNew).toBe(0)
   })
 
-  it('新規カードは指定の枚数までにする', () => {
+  it('新規カードだけのときは、出題数までにする', () => {
     const words = [1, 2, 3].map((n) => makeWord({ id: `n${n}`, createdAt: n }))
     const plan = planQueue({
       words,
       progress: new Map(),
       now: NOW,
-      newCount: 2,
+      limit: 2,
       direction: 'hanziToMeaning',
     })
     expect(plan.cards.map((c) => c.word.id)).toEqual(['n1', 'n2'])
     expect(plan.remainingNew).toBe(1)
   })
 
-  it('新規の枚数が0以下なら復習だけを出す', () => {
+  it('期限が来たカードを先に出し、残りを新規カードで埋めて合計で出題数までにする', () => {
+    const due = [1, 2, 3].map((n) => makeWord({ id: 'd' + n }))
+    const fresh = [1, 2].map((n) => makeWord({ id: 'n' + n, createdAt: n }))
     const plan = planQueue({
-      words: [makeWord({ id: 'a' })],
-      progress: new Map(),
+      words: [...fresh, ...due],
+      progress: toMap(due.map((w, i) => progress(w.id, at(9, 4) - i))),
       now: NOW,
-      newCount: -3,
+      limit: 4,
       direction: 'hanziToMeaning',
     })
-    expect(plan.cards).toEqual([])
+    expect(plan.cards.map((c) => c.word.id)).toEqual(['d3', 'd2', 'd1', 'n1'])
     expect(plan.remainingNew).toBe(1)
-    expect(plan.nextDue).toBeNull()
+  })
+
+  it('期限が来たカードが出題数より多いときは、古い順に出題数分だけ出す', () => {
+    const due = [1, 2, 3].map((n) => makeWord({ id: 'd' + n }))
+    const plan = planQueue({
+      words: [...due, makeWord({ id: 'new' })],
+      progress: toMap(due.map((w, i) => progress(w.id, at(9, 4) - i))),
+      now: NOW,
+      limit: 2,
+      direction: 'hanziToMeaning',
+    })
+    expect(plan.cards.map((c) => c.word.id)).toEqual(['d3', 'd2'])
+    expect(plan.remainingNew).toBe(1)
   })
 
   it('状態が壊れている進捗は新規カードとして扱う', () => {
@@ -69,7 +83,7 @@ describe('planQueue（FR-FC-01・02）', () => {
       words: [word],
       progress: toMap([{ modeId: 'flashcard', wordId: 'broken', due: 1, state: {}, updatedAt: 0 }]),
       now: NOW,
-      newCount: 1,
+      limit: 1,
       direction: 'hanziToMeaning',
     })
     expect(plan.cards.map((c) => c.word.id)).toEqual(['broken'])
@@ -77,7 +91,7 @@ describe('planQueue（FR-FC-01・02）', () => {
 
   it('出題の向き（FR-FC-04）', () => {
     const words = [makeWord(), makeWord()]
-    const base = { words, progress: new Map(), now: NOW, newCount: 2 }
+    const base = { words, progress: new Map(), now: NOW, limit: 2 }
     expect(planQueue({ ...base, direction: 'hanziToMeaning' }).cards.every((c) => !c.reverse)).toBe(
       true,
     )
@@ -89,17 +103,6 @@ describe('planQueue（FR-FC-01・02）', () => {
     expect(planQueue({ ...base, direction: 'random', random }).cards.map((c) => c.reverse)).toEqual(
       [true, false],
     )
-  })
-})
-
-describe('countIntroducedToday', () => {
-  it('今日の午前4時以降に初めて学習した件数を数える', () => {
-    const rows = [
-      progress('a', 1, at(9, 5)),
-      progress('b', 1, at(9, 3)), // 前日扱い
-      progress('c', 1, at(8, 12)),
-    ]
-    expect(countIntroducedToday(rows, NOW)).toBe(1)
   })
 })
 

@@ -40,7 +40,11 @@
     "resultTitle": "結果",
     "again": "再學一次",
     "backHome": "回到首頁",
-    "notEnoughWords": "單字數量不足，無法開始。"
+    "notEnoughWords": "單字數量不足，無法開始。",
+    "sessionSize": "每次出題數",
+    "sessionSizeHint": "可設定 1～200。先出已到複習時間的題目，其餘以新題目補足。",
+    "sessionSizeInvalid": "請輸入 1～200 的整數。",
+    "sessionSizeSaveFailed": "無法儲存出題數。本次學習仍可使用。"
   },
   "settings": {
     "title": "設定",

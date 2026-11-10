@@ -125,3 +125,51 @@ describe('ルーティング', () => {
     expect(await screen.findByText('Study modes')).toBeInTheDocument()
   })
 })
+
+describe('一回の出題数（FR-PLUG-08、仕様書 8.1）', () => {
+  it('準備画面の「学習を始める」の下に置き、正しい値を保存する', async () => {
+    const user = userEvent.setup()
+    await db.words.add(makeWord())
+    renderApp('/mode/flashcard')
+    const input = await screen.findByLabelText('Questions per session')
+    await waitFor(() => expect(input).toHaveValue(20))
+    expect(screen.getByText('cards')).toBeInTheDocument()
+    // 「学習を始める」より後ろにある
+    const start = screen.getByRole('button', { name: 'Start' })
+    expect(start.compareDocumentPosition(input) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+
+    await user.clear(input)
+    await user.type(input, '0')
+    expect(screen.getByText('Enter a whole number from 1 to 200.')).toBeInTheDocument()
+    expect(start).toBeDisabled()
+
+    await user.clear(input)
+    await user.type(input, '35')
+    expect(start).toBeEnabled()
+    await waitFor(async () => expect(await getSetting('mode.flashcard.sessionSize')).toBe(35))
+  })
+
+  it('版 1.40 までの「1日の上限」を引き継ぐ。0 は初期値にする', async () => {
+    await db.words.add(makeWord())
+    await db.settings.bulkPut([
+      { key: 'mode.flashcard.newPerDay', value: 50 },
+      { key: 'mode.conversation.newPerDay', value: 0 },
+    ])
+    const { unmount } = renderApp('/mode/flashcard')
+    const input = await screen.findByLabelText('Questions per session')
+    await waitFor(() => expect(input).toHaveValue(50))
+    unmount()
+
+    renderApp('/mode/conversation')
+    const conv = await screen.findByLabelText('Questions per session')
+    await waitFor(() => expect(conv).toHaveValue(10))
+  })
+
+  it('設定画面には置かない（10.2）', async () => {
+    renderApp('/settings')
+    // 両方のモードの設定が出るまで待つ
+    expect(await screen.findAllByText('Show Zhuyin')).toHaveLength(2)
+    expect(screen.queryByLabelText('Questions per session')).not.toBeInTheDocument()
+    expect(screen.queryByText('New cards per day')).not.toBeInTheDocument()
+  })
+})

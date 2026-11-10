@@ -96,15 +96,12 @@ describe('暗記カードのセッション', () => {
     expect(screen.getByRole('button', { name: 'Speak the example' })).toBeInTheDocument()
   })
 
-  it('新規カードは1日の上限までにする（FR-FC-02）', async () => {
-    await modeSettings.set('newPerDay', 1)
-    renderSession([makeWord(), makeWord()])
-    expect(await screen.findByText('Card 1 of 1')).toBeInTheDocument()
+  it('一回の出題数までにする（FR-FC-02、版 1.41）', async () => {
+    renderSession([makeWord(), makeWord(), makeWord()], { sessionSize: 2 })
+    expect(await screen.findByText('Card 1 of 2')).toBeInTheDocument()
   })
 
-  it('出題対象が0件なら次の予定を示し、新規カードを追加で学習できる（FR-FC-03）', async () => {
-    const user = userEvent.setup()
-    await modeSettings.set('newPerDay', 0)
+  it('出題対象が0件なら次の予定を示す（FR-FC-03）', async () => {
     const studied = makeWord({ id: 'done' })
     await progress.put('done', Date.now() + 86_400_000, {
       reps: 1,
@@ -112,12 +109,12 @@ describe('暗記カードのセッション', () => {
       ease: 2.5,
       introducedAt: Date.now(),
     })
-    renderSession([studied, makeWord()])
+    renderSession([studied])
 
     expect(await screen.findByText('No cards to study today')).toBeInTheDocument()
     expect(screen.getByText(/Next review:/)).toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: 'Study extra new cards (1)' }))
-    expect(await screen.findByText('Card 1 of 1')).toBeInTheDocument()
+    // 1日の上限が無くなったので、「新規カードを追加で学習する」は出さない（版 1.41）
+    expect(screen.queryByRole('button', { name: /Study extra/ })).not.toBeInTheDocument()
   })
 
   it('1枚も評価せずに Esc で中断するとホームへ戻る（FR-FC-32）', async () => {

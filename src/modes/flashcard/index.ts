@@ -5,6 +5,7 @@ import en from './locales/en.json'
 import ja from './locales/ja.json'
 import zhTW from './locales/zh-TW.json'
 import type { FlashcardOptions } from './options'
+import { DEFAULT_SESSION_SIZE } from './settings'
 
 // 暗記カードモード（仕様書 8章）
 export const flashcardMode = defineMode<FlashcardOptions>({
@@ -15,6 +16,8 @@ export const flashcardMode = defineMode<FlashcardOptions>({
   minWords: 1,
   requiredFields: ['hanzi', 'meaning'],
   defaultOptions: { direction: 'hanziToMeaning' },
+  // 一回の出題数（FR-PLUG-08）。入力欄は準備画面の「学習を始める」の下にコアが置く
+  sessionSize: { defaultValue: DEFAULT_SESSION_SIZE },
   Setup: lazy(() => import('./Setup')),
   Session: lazy(() => import('./Session')),
   Result: lazy(() => import('./Result')),

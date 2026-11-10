@@ -1,6 +1,7 @@
 {
   "title": "Flashcards",
   "description": "Flip cards to check the meaning and rate how well you remember them. Reviews come back just before you forget.",
+  "sessionSizeUnit": "cards",
   "direction": "Card direction",
   "directions": {
     "hanziToMeaning": "Characters → Meaning",
@@ -37,8 +38,7 @@
   "empty": {
     "title": "No cards to study today",
     "nextDue": "Next review: {{date}}",
-    "noSchedule": "No reviews are scheduled.",
-    "studyMore": "Study extra new cards ({{count}})"
+    "noSchedule": "No reviews are scheduled."
   },
   "summary": {
     "studied": "Cards studied",
@@ -58,9 +58,6 @@
     "sec": "{{s}} s"
   },
   "settings": {
-    "newPerDay": "New cards per day",
-    "newPerDayHint": "A whole number from 0 to 200. The day changes at 4 a.m.",
-    "newPerDayInvalid": "Enter a whole number from 0 to 200.",
     "showZhuyin": "Show Zhuyin",
     "showPinyin": "Show Pinyin",
     "autoSpeak": "Speak automatically when the card is flipped",

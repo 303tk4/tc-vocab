@@ -6,12 +6,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useSwipe } from '../../hooks/useSwipe'
 import { itemProgressId, type Progress } from '../../types/word'
 import { MODE_ID } from './modeId'
-import {
-  countDueByEndOfTomorrow,
-  countIntroducedToday,
-  planReviews,
-  requeue,
-} from '../shared/queue'
+import { countDueByEndOfTomorrow, planReviews, requeue } from '../shared/queue'
 import {
   intervalLabel,
   isSrsState,
@@ -32,7 +27,7 @@ import {
   type Sentence,
   type StudyItem,
 } from './scenes'
-import { extraNewCount, loadSettings, type ConversationSettings } from './settings'
+import { DEFAULT_SESSION_SIZE, loadSettings, type ConversationSettings } from './settings'
 import styles from './Session.module.css'
 
 type Props = SessionProps<ConversationOptions>
@@ -47,13 +42,12 @@ interface Loaded {
   all: StudyItem[]
   progress: Map<string, Progress>
   cards: StudyItem[]
-  remainingNew: number
   nextDue: number | null
   startedAt: number
 }
 
 export default function ConversationSession(props: Props) {
-  const { options: rawOptions, progress, modeSettings, services, onAbort } = props
+  const { options: rawOptions, progress, modeSettings, sessionSize, services, onAbort } = props
   const { t } = useTranslation('mode.conversation')
   const { t: tc } = useTranslation()
   const [loaded, setLoaded] = useState<Loaded | null>(null)
@@ -91,7 +85,8 @@ export default function ConversationSession(props: Props) {
         keyOf,
         progress: map,
         now,
-        newCount: settings.newPerDay - countIntroducedToday(rows, now),
+        // 期限が来た項目を先に、残りを新しい項目で埋めて「一回の出題数」まで出す（FR-CONV-03、版 1.41）
+        limit: sessionSize ?? DEFAULT_SESSION_SIZE,
       })
       if (!cancelled) {
         setLoaded({
@@ -100,7 +95,6 @@ export default function ConversationSession(props: Props) {
           all,
           progress: map,
           cards: plan.items,
-          remainingNew: plan.remainingNew,
           nextDue: plan.nextDue,
           startedAt: now,
         })
@@ -128,28 +122,16 @@ export default function ConversationSession(props: Props) {
   }
   if (!loaded) return <p className="muted">{tc('common.loading')}</p>
 
-  if (loaded.cards.length === 0) {
-    // 出題対象が0件のとき（FR-CONV-03。FR-FC-03 と同じ）
-    const studyMore = () => {
-      const plan = planReviews({
-        items: loaded.all,
-        keyOf,
-        progress: loaded.progress,
-        now: Date.now(),
-        newCount: extraNewCount(loaded.settings.newPerDay),
-      })
-      setLoaded({ ...loaded, cards: plan.items, remainingNew: plan.remainingNew })
-    }
-    return <EmptyState loaded={loaded} onStudyMore={studyMore} onBack={onAbort} />
-  }
+  // 出題対象が0件のとき（FR-CONV-03。FR-FC-03 と同じ）。期限が来た項目も新しい項目も無い
+  if (loaded.cards.length === 0) return <EmptyState loaded={loaded} onBack={onAbort} />
 
   return <Study {...props} loaded={loaded} />
 }
 
-function EmptyState(props: { loaded: Loaded; onStudyMore(): void; onBack(): void }) {
+function EmptyState(props: { loaded: Loaded; onBack(): void }) {
   const { t, i18n } = useTranslation('mode.conversation')
   const { t: tc } = useTranslation()
-  const { nextDue, remainingNew, settings } = props.loaded
+  const { nextDue } = props.loaded
   const date =
     nextDue === null
       ? null
@@ -163,17 +145,6 @@ function EmptyState(props: { loaded: Loaded; onStudyMore(): void; onBack(): void
         {date ? t('empty.nextDue', { date }) : t('empty.noSchedule')}
       </p>
       <div className={styles.emptyActions}>
-        {remainingNew > 0 && (
-          <button
-            type="button"
-            className="button button--primary button--block-sm"
-            onClick={props.onStudyMore}
-          >
-            {t('empty.studyMore', {
-              count: Math.min(remainingNew, extraNewCount(settings.newPerDay)),
-            })}
-          </button>
-        )}
         <button type="button" className="button button--block-sm" onClick={props.onBack}>
           {tc('mode.backHome')}
         </button>

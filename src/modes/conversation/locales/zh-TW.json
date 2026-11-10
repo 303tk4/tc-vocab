@@ -1,6 +1,7 @@
 {
   "title": "情境會話練習",
   "description": "在便利商店、餐廳等情境中，回答店員的話，或用中文說出想說的話。與參考答案比較後，以五個等級評估自己的表現。",
+  "sessionSizeUnit": "題",
   "setup": {
     "language": "選擇題目等的語言",
     "languageHint": "請選擇題目與翻譯的語言。本應用程式的顯示語言不會改變。",
@@ -56,8 +57,7 @@
   "empty": {
     "title": "今天沒有要練習的題目",
     "nextDue": "下次複習：{{date}}",
-    "noSchedule": "目前沒有複習排程。",
-    "studyMore": "額外練習新題目（{{count}} 題）"
+    "noSchedule": "目前沒有複習排程。"
   },
   "summary": {
     "studied": "練習題數",
@@ -77,9 +77,6 @@
     "sec": "{{s}} 秒"
   },
   "settings": {
-    "newPerDay": "每日新題目上限",
-    "newPerDayHint": "0～100 的整數。日期於上午 4 點切換。",
-    "newPerDayInvalid": "請輸入 0～100 的整數。",
     "showZhuyin": "顯示注音",
     "showPinyin": "顯示拼音",
     "audioOnly": "店員的話只播放語音（僅限支援朗讀的環境）",

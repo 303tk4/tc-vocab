@@ -40,7 +40,11 @@
     "resultTitle": "結果",
     "again": "もう一度",
     "backHome": "ホームへ戻る",
-    "notEnoughWords": "単語が足りないため開始できません。"
+    "notEnoughWords": "単語が足りないため開始できません。",
+    "sessionSize": "一回の出題数",
+    "sessionSizeHint": "1〜200 の範囲で決められます。復習の期限が来たものを先に出し、残りを新しいもので埋めます。",
+    "sessionSizeInvalid": "1〜200 の整数を入力してください。",
+    "sessionSizeSaveFailed": "出題数を保存できませんでした。今回の学習には使えます。"
   },
   "settings": {
     "title": "設定",

@@ -1,45 +1,27 @@
 import { describe, expect, it } from 'vitest'
 import { createModeSettingsStore } from '../../db/repos/settings'
 import { DEFAULT_OPTIONS, sanitizeOptions } from './options'
-import {
-  DEFAULT_SETTINGS,
-  extraNewCount,
-  loadSettings,
-  parseNewPerDay,
-  sanitizeSettings,
-} from './settings'
+import { DEFAULT_SESSION_SIZE, DEFAULT_SETTINGS, loadSettings, sanitizeSettings } from './settings'
 
 describe('場面別会話のモード別設定（仕様書 10.2）', () => {
-  it('新しい項目の上限は 0〜100 の整数', () => {
-    expect(parseNewPerDay(0)).toBe(0)
-    expect(parseNewPerDay('100')).toBe(100)
-    expect(parseNewPerDay(101)).toBeNull()
-    expect(parseNewPerDay(-1)).toBeNull()
-    expect(parseNewPerDay(2.5)).toBeNull()
-    expect(parseNewPerDay('')).toBeNull()
+  it('一回の出題数の初期値は 10 問（FR-CONV-03）', () => {
+    expect(DEFAULT_SESSION_SIZE).toBe(10)
   })
 
-  it('初期値：上限 10、注音・拼音を表示、音声だけで出さない、背景の画像を表示', () => {
+  it('初期値：注音・拼音を表示、音声だけで出さない、背景の画像を表示', () => {
     expect(DEFAULT_SETTINGS).toEqual({
-      newPerDay: 10,
       showZhuyin: true,
       showPinyin: true,
       audioOnly: false,
       showBackground: true,
     })
-    expect(sanitizeSettings({ newPerDay: 500, audioOnly: 'yes' })).toEqual(DEFAULT_SETTINGS)
+    expect(sanitizeSettings({ audioOnly: 'yes' })).toEqual(DEFAULT_SETTINGS)
   })
 
   it('保存した値を読む', async () => {
     const store = createModeSettingsStore('conversation')
-    await store.set('newPerDay', 25)
     await store.set('showBackground', false)
-    expect(await loadSettings(store)).toMatchObject({ newPerDay: 25, showBackground: false })
-  })
-
-  it('上限が 0 でも、追加で学習するときは 10 問出す', () => {
-    expect(extraNewCount(0)).toBe(10)
-    expect(extraNewCount(15)).toBe(15)
+    expect(await loadSettings(store)).toMatchObject({ showBackground: false })
   })
 })
 

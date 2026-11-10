@@ -9,14 +9,8 @@ import { useSwipe } from '../../hooks/useSwipe'
 import type { Progress, Word } from '../../types/word'
 import type { SessionProps } from '../types'
 import type { FlashcardOptions } from './options'
-import {
-  countDueByEndOfTomorrow,
-  countIntroducedToday,
-  planQueue,
-  requeue,
-  type Card,
-} from './queue'
-import { extraNewCount, loadSettings, type FlashcardSettings } from './settings'
+import { countDueByEndOfTomorrow, planQueue, requeue, type Card } from './queue'
+import { DEFAULT_SESSION_SIZE, loadSettings, type FlashcardSettings } from './settings'
 import {
   intervalLabel,
   isSrsState,
@@ -33,19 +27,19 @@ interface Loaded {
   settings: FlashcardSettings
   progress: Map<string, Progress>
   cards: Card[]
-  remainingNew: number
   nextDue: number | null
   startedAt: number
 }
 
 export default function FlashcardSession(props: Props) {
-  const { words, options, progress, modeSettings, onAbort } = props
+  const { words, options, progress, modeSettings, sessionSize, onAbort } = props
   const { t } = useTranslation('mode.flashcard')
   const { t: tc } = useTranslation()
   const [loaded, setLoaded] = useState<Loaded | null>(null)
   const [loadFailed, setLoadFailed] = useState(false)
 
-  // 出題対象を決める（FR-FC-01・02）。単語はセッション開始時点のもので固定する
+  // 出題対象を決める（FR-FC-01・02）。単語はセッション開始時点のもので固定する。
+  // 期限が来たカードを先に、残りを新規カードで埋めて「一回の出題数」まで出す（版 1.41）
   useEffect(() => {
     let cancelled = false
     void (async () => {
@@ -60,10 +54,18 @@ export default function FlashcardSession(props: Props) {
         words,
         progress: map,
         now,
-        newCount: settings.newPerDay - countIntroducedToday(rows, now),
+        limit: sessionSize ?? DEFAULT_SESSION_SIZE,
         direction: options.direction,
       })
-      if (!cancelled) setLoaded({ settings, progress: map, ...plan, startedAt: now })
+      if (!cancelled) {
+        setLoaded({
+          settings,
+          progress: map,
+          cards: plan.cards,
+          nextDue: plan.nextDue,
+          startedAt: now,
+        })
+      }
     })().catch((error: unknown) => {
       console.error('暗記カードの読み込みに失敗しました', error)
       if (!cancelled) setLoadFailed(true)
@@ -87,28 +89,16 @@ export default function FlashcardSession(props: Props) {
   }
   if (!loaded) return <p className="muted">{tc('common.loading')}</p>
 
-  if (loaded.cards.length === 0) {
-    // 出題対象が0件のとき（FR-FC-03）
-    const studyMore = () => {
-      const plan = planQueue({
-        words,
-        progress: loaded.progress,
-        now: Date.now(),
-        newCount: extraNewCount(loaded.settings.newPerDay),
-        direction: options.direction,
-      })
-      setLoaded({ ...loaded, ...plan })
-    }
-    return <EmptyState loaded={loaded} onStudyMore={studyMore} onBack={onAbort} />
-  }
+  // 出題対象が0件のとき（FR-FC-03）。期限が来たカードも未学習の単語も無い
+  if (loaded.cards.length === 0) return <EmptyState loaded={loaded} onBack={onAbort} />
 
   return <Study {...props} loaded={loaded} />
 }
 
-function EmptyState(props: { loaded: Loaded; onStudyMore(): void; onBack(): void }) {
+function EmptyState(props: { loaded: Loaded; onBack(): void }) {
   const { t, i18n } = useTranslation('mode.flashcard')
   const { t: tc } = useTranslation()
-  const { nextDue, remainingNew, settings } = props.loaded
+  const { nextDue } = props.loaded
   const date =
     nextDue === null
       ? null
@@ -122,17 +112,6 @@ function EmptyState(props: { loaded: Loaded; onStudyMore(): void; onBack(): void
         {date ? t('empty.nextDue', { date }) : t('empty.noSchedule')}
       </p>
       <div className={styles.emptyActions}>
-        {remainingNew > 0 && (
-          <button
-            type="button"
-            className="button button--primary button--block-sm"
-            onClick={props.onStudyMore}
-          >
-            {t('empty.studyMore', {
-              count: Math.min(remainingNew, extraNewCount(settings.newPerDay)),
-            })}
-          </button>
-        )}
         <button type="button" className="button button--block-sm" onClick={props.onBack}>
           {tc('mode.backHome')}
         </button>

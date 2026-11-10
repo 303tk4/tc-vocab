@@ -56,6 +56,8 @@ export interface SessionProps<O> {
   progress: ProgressStore
   /** このモード専用の設定 API（キー mode.<modeId>.*。FR-PLUG-05） */
   modeSettings: ModeSettingsStore
+  /** 一回の出題数（sessionSize を宣言したモードだけ。FR-PLUG-08） */
+  sessionSize?: number
   services: CoreServices
   onFinish(result: SessionResult): void
   onAbort(): void
@@ -104,6 +106,12 @@ export interface StudyMode<O = unknown> {
    * タグの選択・単語数の条件（minWords・requiredFields）を使わない（FR-PLUG-07）
    */
   usesWords?: boolean
+  /**
+   * 一回の出題数を使う（FR-PLUG-08）。宣言すると、コアが準備画面の「学習を始める」の下に入力欄を置き、
+   * 値を mode.<id>.sessionSize に保存して SessionProps.sessionSize で渡す。
+   * 単位の文言はモードの名前空間のキー sessionSizeUnit（例：「枚」）
+   */
+  sessionSize?: { defaultValue: number }
 }
 
 /** レジストリでは型引数を消して扱う。モード定義ごとの型安全性は defineMode で確保する */

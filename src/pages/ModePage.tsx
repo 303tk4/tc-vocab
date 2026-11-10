@@ -11,11 +11,18 @@ import { setWordTags } from '../db/repos/tags'
 import { findDuplicateWord, listTags, listWords, updateWord } from '../db/repos/words'
 import { modeNamespace } from '../i18n'
 import { getMode } from '../modes/registry'
+import {
+  LEGACY_DAILY_LIMIT_KEY,
+  parseSessionSize,
+  resolveSessionSize,
+  SESSION_SIZE_KEY,
+} from '../modes/sessionSize'
 import type { AnyStudyMode, CoreServices, SessionResult } from '../modes/types'
 import { canSpeak, speak } from '../services/speech'
 import { useSettings } from '../settings/context'
 import type { Word } from '../types/word'
 import styles from './ModePage.module.css'
+import { SessionSizeField } from './mode/SessionSizeField'
 import { usePageTitle } from '../hooks/usePageTitle'
 
 export function ModePage() {
@@ -76,6 +83,12 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
   // 単語を使わないモードは、開始できるかをモード自身が決める（FR-MODE-01・FR-PLUG-07）
   const usesWords = mode.usesWords !== false
   const [setupReady, setSetupReady] = useState(true)
+  // 一回の出題数（FR-PLUG-08）。入力中の文字のまま持ち、正しいときだけ保存して使う
+  const [sizeDraft, setSizeDraft] = useState(() =>
+    mode.sessionSize ? String(mode.sessionSize.defaultValue) : '',
+  )
+  const [sizeSaveFailed, setSizeSaveFailed] = useState(false)
+  const sessionSize = mode.sessionSize ? parseSessionSize(sizeDraft) : null
   const startedAt = useRef(0)
 
   // 学習セッション中は更新の通知を保留する（FR-PWA-03）
@@ -97,6 +110,31 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
     })
   }, [mode])
 
+  // 保存した出題数を読む。版 1.40 までの「1日の上限」があれば引き継ぐ（仕様書 8.1）
+  useEffect(() => {
+    if (!mode.sessionSize) return
+    const { defaultValue } = mode.sessionSize
+    void Promise.all([modeSettings.get(SESSION_SIZE_KEY), modeSettings.get(LEGACY_DAILY_LIMIT_KEY)])
+      .then(([saved, legacy]) =>
+        setSizeDraft(String(resolveSessionSize(saved, legacy, defaultValue))),
+      )
+      .catch((error: unknown) => console.error('出題数の読み込みに失敗しました', error))
+  }, [mode, modeSettings])
+
+  const changeSize = (text: string) => {
+    setSizeDraft(text)
+    const n = parseSessionSize(text)
+    if (n === null) return
+    modeSettings.set(SESSION_SIZE_KEY, n).then(
+      () => setSizeSaveFailed(false),
+      (error: unknown) => {
+        // 保存に失敗したら知らせる（NFR-07）。今回の学習にはその値を使える
+        console.error('出題数の保存に失敗しました', error)
+        setSizeSaveFailed(true)
+      },
+    )
+  }
+
   const allTags = useLiveQuery(listTags, [], [] as string[])
   // 存在しなくなったタグは条件から外す
   const activeTags = selectedTags.filter((tag) => allTags.includes(tag))
@@ -108,7 +146,9 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
   }, [activeTags.join('\u0000'), mode, usesWords])
 
   const minWords = mode.minWords ?? 1
-  const canStart = usesWords ? words !== undefined && words.length >= minWords : setupReady
+  const canStart =
+    (usesWords ? words !== undefined && words.length >= minWords : setupReady) &&
+    (!mode.sessionSize || sessionSize !== null)
 
   const changeOptions = (next: unknown) => {
     setOptions(next)
@@ -192,6 +232,15 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
             >
               {t('mode.start')}
             </button>
+            {mode.sessionSize && (
+              <SessionSizeField
+                value={sizeDraft}
+                valid={sessionSize !== null}
+                unit={tm('sessionSizeUnit')}
+                saveFailed={sizeSaveFailed}
+                onChange={changeSize}
+              />
+            )}
           </div>
         </div>
       )}
@@ -203,6 +252,7 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
             options={options}
             progress={progress}
             modeSettings={modeSettings}
+            sessionSize={sessionSize ?? undefined}
             services={services}
             onFinish={finish}
             onAbort={() => void navigate('/')}

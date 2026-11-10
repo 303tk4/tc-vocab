@@ -40,7 +40,11 @@
     "resultTitle": "Results",
     "again": "Study again",
     "backHome": "Back to Home",
-    "notEnoughWords": "Not enough words to start."
+    "notEnoughWords": "Not enough words to start.",
+    "sessionSize": "Questions per session",
+    "sessionSizeHint": "Choose from 1 to 200. Items due for review come first; new items fill the rest.",
+    "sessionSizeInvalid": "Enter a whole number from 1 to 200.",
+    "sessionSizeSaveFailed": "Could not save the number. You can still use it for this session."
   },
   "settings": {
     "title": "Settings",

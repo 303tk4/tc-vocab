@@ -1,0 +1,50 @@
+/* 準備画面の「一回の出題数」（FR-PLUG-08） */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex-basis: 100%;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.number {
+  width: 6rem;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.number[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
+/* 親（ModePage の .actions）の p の指定（flex-basis: 100%）を打ち消す */
+.field .hint,
+.field .invalid {
+  flex-basis: auto;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.hint {
+  color: var(--color-muted);
+}
+
+.invalid {
+  color: var(--color-danger-strong);
+  font-weight: 600;
+}

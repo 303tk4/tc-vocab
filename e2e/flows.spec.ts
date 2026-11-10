@@ -45,6 +45,37 @@ test('最初の案内からサンプル単語を追加すると、ホームか�
   await expect(page.getByRole('heading', { name: '学習モード' })).toBeVisible()
 })
 
+test('準備画面の「一回の出題数」で、1回の学習の枚数を変えられる（FR-PLUG-08、仕様書 8.1）', async ({
+  page,
+}) => {
+  await addSampleWords(page)
+  await page.goto('./#/mode/flashcard')
+  const size = page.getByLabel('一回の出題数')
+  // 「学習を始める」の下にあり、初期値は 20 枚
+  await expect(size).toHaveValue('20')
+  const start = await page.getByRole('button', { name: '学習を始める' }).boundingBox()
+  const field = await size.boundingBox()
+  expect(field!.y).toBeGreaterThan(start!.y)
+
+  await size.fill('0')
+  await expect(page.getByText('1〜200 の整数を入力してください。')).toBeVisible()
+  await expect(page.getByRole('button', { name: '学習を始める' })).toBeDisabled()
+
+  await size.fill('3')
+  await startFlashcard(page)
+  await expect(page.getByText('1 / 3 枚')).toBeVisible()
+
+  // 次に開いたときも同じ値を使い、設定画面には置かない
+  // 1枚も評価せずに中断するとホームへ戻る（FR-FC-32）。戻り終えてから開き直す
+  await page.getByRole('button', { name: '中断' }).click()
+  await expect(page.getByRole('heading', { name: '学習モード' })).toBeVisible()
+  await page.goto('./#/mode/flashcard')
+  await expect(page.getByLabel('一回の出題数')).toHaveValue('3')
+  await page.goto('./#/settings')
+  await expect(page.getByRole('heading', { name: '学習モードの設定' })).toBeVisible()
+  await expect(page.getByLabel('一回の出題数')).toHaveCount(0)
+})
+
 test('単語が0件でも場面別会話を始められ、訓練の言語は画面の言語とは別に選べる（仕様書 18章）', async ({
   page,
 }) => {

@@ -1,6 +1,7 @@
 {
   "title": "場面別会話ドリル",
   "description": "コンビニや飲食店などの場面で、店員のセリフに答えたり、言いたいことを中国語で言ったりする練習です。回答例と比べて、覚え具合を5段階で評価します。",
+  "sessionSizeUnit": "問",
   "setup": {
     "language": "問題文などの言語を選択",
     "languageHint": "問題文と訳の言語を選択してください。このアプリの表示言語は変更されません。",
@@ -56,8 +57,7 @@
   "empty": {
     "title": "今日学習する項目はありません",
     "nextDue": "次の復習予定：{{date}}",
-    "noSchedule": "復習の予定はありません。",
-    "studyMore": "新しい項目を追加で学習する（{{count}} 問）"
+    "noSchedule": "復習の予定はありません。"
   },
   "summary": {
     "studied": "学習した項目",
@@ -77,9 +77,6 @@
     "sec": "{{s}}秒"
   },
   "settings": {
-    "newPerDay": "1日の新しい項目の上限",
-    "newPerDayHint": "0〜100 の整数。日付は午前4時に切り替わります。",
-    "newPerDayInvalid": "0〜100 の整数を入力してください。",
     "showZhuyin": "注音を表示",
     "showPinyin": "拼音を表示",
     "audioOnly": "セリフを音声だけで出す（読み上げに対応した環境のみ）",

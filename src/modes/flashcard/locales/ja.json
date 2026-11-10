@@ -1,6 +1,7 @@
 {
   "title": "暗記カード",
   "description": "カードをめくって意味を確認し、覚え具合を5段階で評価します。忘れかけた頃に復習が出てきます。",
+  "sessionSizeUnit": "枚",
   "direction": "出題の向き",
   "directions": {
     "hanziToMeaning": "繁体字 → 意味",
@@ -37,8 +38,7 @@
   "empty": {
     "title": "今日学習するカードはありません",
     "nextDue": "次の復習予定：{{date}}",
-    "noSchedule": "復習の予定はありません。",
-    "studyMore": "新規カードを追加で学習する（{{count}} 枚）"
+    "noSchedule": "復習の予定はありません。"
   },
   "summary": {
     "studied": "学習した枚数",
@@ -58,9 +58,6 @@
     "sec": "{{s}}秒"
   },
   "settings": {
-    "newPerDay": "1日の新規カード上限",
-    "newPerDayHint": "0〜200 の整数。日付は午前4時に切り替わります。",
-    "newPerDayInvalid": "0〜200 の整数を入力してください。",
     "showZhuyin": "注音を表示",
     "showPinyin": "拼音を表示",
     "autoSpeak": "裏返したときに自動で読み上げる",

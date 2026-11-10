@@ -1,6 +1,7 @@
 {
   "title": "單字卡",
   "description": "翻開卡片確認意思，並以五個等級評估記憶程度。快要忘記時會再次出現複習。",
+  "sessionSizeUnit": "張",
   "direction": "出題方向",
   "directions": {
     "hanziToMeaning": "繁體字 → 意思",
@@ -37,8 +38,7 @@
   "empty": {
     "title": "今天沒有要學習的卡片",
     "nextDue": "下次複習：{{date}}",
-    "noSchedule": "目前沒有複習排程。",
-    "studyMore": "額外學習新卡片（{{count}} 張）"
+    "noSchedule": "目前沒有複習排程。"
   },
   "summary": {
     "studied": "學習張數",
@@ -58,9 +58,6 @@
     "sec": "{{s}} 秒"
   },
   "settings": {
-    "newPerDay": "每日新卡片上限",
-    "newPerDayHint": "0～200 的整數。日期於上午 4 點切換。",
-    "newPerDayInvalid": "請輸入 0～200 的整數。",
     "showZhuyin": "顯示注音",
     "showPinyin": "顯示拼音",
     "autoSpeak": "翻面時自動朗讀",
