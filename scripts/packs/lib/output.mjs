@@ -26,6 +26,8 @@ export function upsertIndex(current, entry) {
 }
 
 const REASONS = {
+  fixed:
+    '辞書と詞語表からは決められないため、手で読みを指定した（build-tocfl.mjs の READING_FIXES）',
   loose: '表記の流儀の違いだけ（一・不の変調、軽声）。辞書の表記を使った',
   dict: '詞語表の読みが欠けている。辞書の読みを使った',
   differ: '辞書と詞語表で読みが異なる。辞書の読みを使った（要確認）',
