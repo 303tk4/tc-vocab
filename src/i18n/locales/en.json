@@ -108,7 +108,7 @@
     "deleted": "Deleted words: {{count}}.",
     "writeFailed": "Saving failed. Your data has not been changed.",
     "selectionActions": "Actions for selected words",
-    "packs": "Word packs",
+    "packs": "Add from word packs",
     "packAdded": "Added “{{name}}”.",
     "add": "Add a word",
     "editWord": "Edit {{hanzi}}"
@@ -382,7 +382,7 @@
     "loadFailed": "Could not load the list of word packs. Please try again later.",
     "empty": "No word packs are available yet. They will appear here when ready.",
     "samplesName": "Sample words",
-    "samplesDescription": "Basic Taiwanese Mandarin vocabulary (about 50 words). All of them get the “{{tag}}” tag.",
+    "samplesDescription": "A sample set for trying out how the app works. Basic Taiwanese Mandarin vocabulary (about 50 words). All of them get the “{{tag}}” tag.",
     "bundled": "Built into the app · no download",
     "meaningLanguage": "Meanings in <0>{{language}}</0>",
     "nameWithLanguage": "{{name}} (meanings in {{language}})",

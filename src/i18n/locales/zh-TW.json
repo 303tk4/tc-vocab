@@ -382,7 +382,7 @@
     "loadFailed": "無法載入單字包清單，請稍後再試。",
     "empty": "目前還沒有公開的單字包。準備好後會顯示在這裡。",
     "samplesName": "範例單字",
-    "samplesDescription": "台灣華語的基礎詞彙（約50個）。全部會加上「{{tag}}」標籤。",
+    "samplesDescription": "這是為了確認功能與使用感而準備的範例。台灣華語的基礎詞彙（約50個）。全部會加上「{{tag}}」標籤。",
     "bundled": "內建於 App・不需網路",
     "meaningLanguage": "釋義：<0>{{language}}</0>",
     "nameWithLanguage": "{{name}}（釋義：{{language}}）",

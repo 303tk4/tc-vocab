@@ -307,7 +307,7 @@ describe('単語パッケージ（仕様書 16.5）', () => {
     expect(await db.words.count()).toBe(2)
 
     // 追加済みの記録が一覧に示される
-    await user.click(screen.getByRole('button', { name: 'Word packs' }))
+    await user.click(screen.getByRole('button', { name: 'Add from word packs' }))
     const reopened = await screen.findByRole('dialog', { name: 'Word packs' })
     expect(await within(reopened).findByText('Added')).toBeInTheDocument()
   })
@@ -325,7 +325,7 @@ describe('単語パッケージ（仕様書 16.5）', () => {
     await db.words.update('p1', { meaning: '間違えて直した意味', tags: ['TOCFL', '自分のタグ'] })
 
     // もう一度選び、「単語集の内容に戻す」を確認してから実行する
-    await user.click(screen.getByRole('button', { name: 'Word packs' }))
+    await user.click(screen.getByRole('button', { name: 'Add from word packs' }))
     dialog = await screen.findByRole('dialog', { name: 'Word packs' })
     // もう一度追加しても学習の進捗は消えないことを示す
     expect(
@@ -349,14 +349,14 @@ describe('単語パッケージ（仕様書 16.5）', () => {
 
     // 1語を消すと、登録中の語数を示す
     await db.words.delete('p2')
-    await user.click(screen.getByRole('button', { name: 'Word packs' }))
+    await user.click(screen.getByRole('button', { name: 'Add from word packs' }))
     dialog = await screen.findByRole('dialog', { name: 'Word packs' })
     expect(await within(dialog).findByText('Added (1 of 2 words registered)')).toBeInTheDocument()
     await user.click(within(dialog).getByRole('button', { name: 'Close' }))
 
     // すべて消すと「追加済み」を示さない
     await db.words.clear()
-    await user.click(screen.getByRole('button', { name: 'Word packs' }))
+    await user.click(screen.getByRole('button', { name: 'Add from word packs' }))
     dialog = await screen.findByRole('dialog', { name: 'Word packs' })
     expect(
       await within(dialog).findByRole('button', { name: 'Choose TOCFL Test' }),
@@ -387,7 +387,7 @@ describe('単語パッケージ（仕様書 16.5）', () => {
     expect((await db.words.toArray()).every((w) => w.tags.includes('sample'))).toBe(true)
 
     // 追加済みでも一覧に残し、「追加済み」と示す
-    await user.click(await screen.findByRole('button', { name: 'Word packs' }))
+    await user.click(await screen.findByRole('button', { name: 'Add from word packs' }))
     const reopened = await screen.findByRole('dialog', { name: 'Word packs' })
     // どの版も「sample」タグで判断するので、日本語版も追加済みと示す（仕様書 11章）
     for (const name of within(reopened).getAllByText('Sample words')) {

@@ -697,3 +697,9 @@
     max-width: none;
   }
 }
+
+/* 「単語の意味の表記：English」の言語名。どの言語の単語集かがひと目でわかるよう目立たせる（16.5） */
+.meaningLanguageName {
+  color: var(--color-accent-strong);
+  font-weight: 700;
+}

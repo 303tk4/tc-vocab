@@ -181,12 +181,13 @@ export function WordsPage() {
         >
           {t('words.add')}
         </button>
-        <button type="button" className="button" onClick={() => setDialog('import')}>
-          {t('words.import')}
-        </button>
-        {/* 単語パッケージ（FR-WORDS-07）。サンプル単語もこの一覧から追加する（FR-SMP-04） */}
+        {/* 単語パッケージ（FR-WORDS-07）。サンプル単語もこの一覧から追加する（FR-SMP-04）。
+            自分のファイルを持たない利用者が多いため、ファイルの読み込みより先に置く */}
         <button type="button" className="button" onClick={() => setDialog('packs')}>
           {t('words.packs')}
+        </button>
+        <button type="button" className="button" onClick={() => setDialog('import')}>
+          {t('words.import')}
         </button>
         <button
           type="button"

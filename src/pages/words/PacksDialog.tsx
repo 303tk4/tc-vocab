@@ -87,7 +87,7 @@ function MeaningLanguage({ language }: { language: string }) {
     <Trans
       i18nKey="packs.meaningLanguage"
       values={{ language: meaningLanguageName(language) }}
-      components={[<span key="language" lang={language} />]}
+      components={[<span key="language" lang={language} className={styles.meaningLanguageName} />]}
     />
   )
 }
