@@ -30,13 +30,17 @@ describe('準備画面のオプション（FR-CONV-01）', () => {
     expect(sanitizeOptions(undefined)).toEqual(DEFAULT_OPTIONS)
     expect(sanitizeOptions({ language: '', scenes: ['a', 1], kinds: 'x' })).toEqual({
       language: null,
+      languageUi: null,
       scenes: ['a'],
       kinds: 'both',
     })
-    expect(sanitizeOptions({ language: 'en', scenes: [], kinds: 'say' })).toEqual({
-      language: 'en',
-      scenes: [],
-      kinds: 'say',
-    })
+    expect(sanitizeOptions({ language: 'en', languageUi: 'ja', scenes: [], kinds: 'say' })).toEqual(
+      {
+        language: 'en',
+        languageUi: 'ja',
+        scenes: [],
+        kinds: 'say',
+      },
+    )
   })
 })

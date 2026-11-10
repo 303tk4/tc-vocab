@@ -64,8 +64,10 @@ export default function ConversationSetup({
   }, [])
 
   const languages = index ? availableLanguages(index) : []
-  // 訓練の言語（FR-CONV-06）。保存した言語 → UI 言語 → 英語の順に、用意のあるもの
-  const language = index ? pickLanguage(languages, options.language, i18n.language) : null
+  // 訓練の言語（FR-CONV-06）。選んだ言語は UI 言語が同じあいだだけ使い、初期値は UI 言語 → 英語
+  const language = index
+    ? pickLanguage(languages, options.language, i18n.language, options.languageUi)
+    : null
 
   // 場面の名前を訓練の言語で示すため、その言語の訳を読む
   useEffect(() => {
@@ -94,6 +96,8 @@ export default function ConversationSetup({
   if (!index || !language) return <p className="muted">{tc('common.loading')}</p>
 
   const change = (patch: Partial<ConversationOptions>) => onChange({ ...options, ...patch })
+  // 選んだ言語と、そのときの UI 言語を一緒に保存する
+  const chooseLanguage = (value: string) => change({ language: value, languageUi: i18n.language })
   const toggleScene = (sceneId: string) =>
     change({
       scenes: options.scenes.includes(sceneId)
@@ -112,7 +116,7 @@ export default function ConversationSetup({
             label={t('setup.language')}
             value={language}
             options={languageOptions}
-            onChange={(value) => change({ language: value })}
+            onChange={chooseLanguage}
           />
         ) : (
           <>
@@ -123,7 +127,7 @@ export default function ConversationSetup({
               id={`${id}-lang`}
               className={styles.select}
               value={language}
-              onChange={(e) => change({ language: e.target.value })}
+              onChange={(e) => chooseLanguage(e.target.value)}
             >
               {languageOptions.map((o) => (
                 <option key={o.value} value={o.value} lang={o.lang}>

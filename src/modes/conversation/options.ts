@@ -9,18 +9,26 @@ export interface ConversationOptions {
    * 準備画面の条件として保存し、次回の初期値にする（FR-MODE-02）
    */
   language: string | null
+  /** language を選んだときの UI 言語。UI 言語が変わったら language は使わない（FR-CONV-06） */
+  languageUi: string | null
   /** 選んだ場面の ID。空はすべての場面 */
   scenes: string[]
   kinds: KindFilter
 }
 
-export const DEFAULT_OPTIONS: ConversationOptions = { language: null, scenes: [], kinds: 'both' }
+export const DEFAULT_OPTIONS: ConversationOptions = {
+  language: null,
+  languageUi: null,
+  scenes: [],
+  kinds: 'both',
+}
 
 /** 保存値を検証し、不正な値は初期値で補う */
 export function sanitizeOptions(raw: unknown): ConversationOptions {
   const o = (typeof raw === 'object' && raw !== null ? raw : {}) as Record<string, unknown>
   return {
     language: typeof o.language === 'string' && o.language !== '' ? o.language : null,
+    languageUi: typeof o.languageUi === 'string' && o.languageUi !== '' ? o.languageUi : null,
     scenes: Array.isArray(o.scenes)
       ? o.scenes.filter((s): s is string => typeof s === 'string')
       : [],

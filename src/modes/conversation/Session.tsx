@@ -67,6 +67,7 @@ export default function ConversationSession(props: Props) {
         availableLanguages(index),
         options.language,
         services.settings.uiLanguage,
+        options.languageUi,
       )
       if (!language) throw new Error('訓練の言語の用意がありません')
       const data = await loadSceneData(language)

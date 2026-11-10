@@ -233,16 +233,20 @@ export function availableLanguages(index: SceneIndex): string[] {
 }
 
 /**
- * 訓練の言語の初期値（FR-CONV-06）。保存した言語 → UI 言語と同じ言語 → 英語 の順に、用意のあるもの。
+ * 訓練の言語（FR-CONV-06）。利用者が選んだ言語は、選んだときと UI 言語が同じあいだだけ使う
+ * （UI 言語を変えたら、初期値に戻す）。初期値は UI 言語と同じ言語、無ければ英語。
  * どれも無ければ用意のある最初の言語、用意が無ければ null
+ * @param saved 利用者が選んだ言語
+ * @param savedUi その言語を選んだときの UI 言語（無ければ、選んだ言語は使わない）
  */
 export function pickLanguage(
   available: readonly string[],
   saved: string | null | undefined,
   uiLanguage: string,
+  savedUi?: string | null,
 ): string | null {
-  if (saved && available.includes(saved)) return saved
   const ui = primaryLanguage(uiLanguage)
+  if (saved && savedUi && primaryLanguage(savedUi) === ui && available.includes(saved)) return saved
   const sameAsUi = available.find((l) => primaryLanguage(l) === ui)
   if (sameAsUi) return sameAsUi
   if (available.includes(FALLBACK_LANGUAGE)) return FALLBACK_LANGUAGE

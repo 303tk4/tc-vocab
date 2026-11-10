@@ -153,8 +153,7 @@ describe('訓練の言語（FR-CONV-05・06）', () => {
     expect(availableLanguages(index)).toEqual(['ja', 'en'])
   })
 
-  it('保存した言語 → UI 言語 → 英語 の順に選ぶ', () => {
-    expect(pickLanguage(['ja', 'en'], 'ja', 'en')).toBe('ja')
+  it('初期値は UI 言語と同じ言語、無ければ英語', () => {
     expect(pickLanguage(['ja', 'en'], null, 'ja')).toBe('ja')
     expect(pickLanguage(['ja', 'en'], null, 'en-US')).toBe('en')
     // UI 言語に用意が無い（繁體中文・韓国語など）ときは英語
@@ -162,8 +161,24 @@ describe('訓練の言語（FR-CONV-05・06）', () => {
     expect(pickLanguage(['ja', 'en'], null, 'ko')).toBe('en')
   })
 
-  it('保存した言語の用意が無くなっていたら、次の候補に移る', () => {
-    expect(pickLanguage(['ja', 'en'], 'vi', 'ja')).toBe('ja')
+  it('選んだ言語は、選んだときと UI 言語が同じあいだだけ使う', () => {
+    // 日本語の UI で English を選んだ
+    expect(pickLanguage(['ja', 'en'], 'en', 'ja', 'ja')).toBe('en')
+    // 繁體中文の UI で日本語を選んだ（用意の無い UI 言語でも、選んだ言語を覚えておく）
+    expect(pickLanguage(['ja', 'en'], 'ja', 'zh-TW', 'zh-TW')).toBe('ja')
+    // 日本語の UI で日本語を選んだあと、UI を English にした → 初期値（English）に戻す
+    expect(pickLanguage(['ja', 'en'], 'ja', 'en', 'ja')).toBe('en')
+    // 地域の違い（en-US と en）は同じ UI 言語とみなす
+    expect(pickLanguage(['ja', 'en'], 'ja', 'en-US', 'en')).toBe('ja')
+  })
+
+  it('選んだときの UI 言語が記録されていない古い保存値は使わない（版 1.6 までの保存値）', () => {
+    expect(pickLanguage(['ja', 'en'], 'ja', 'en')).toBe('en')
+    expect(pickLanguage(['ja', 'en'], 'ja', 'en', null)).toBe('en')
+  })
+
+  it('選んだ言語の用意が無くなっていたら、初期値に戻す', () => {
+    expect(pickLanguage(['ja', 'en'], 'vi', 'ja', 'ja')).toBe('ja')
   })
 
   it('英語も無ければ最初の言語、何も無ければ null', () => {

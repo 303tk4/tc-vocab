@@ -215,6 +215,29 @@ test('配布中の単語集を追加できる（仕様書 16.5）', async ({ pag
   expect(await wordCount(page)).toBeGreaterThan(1000)
 })
 
+test('場面別会話の問題文の言語は、画面の言語を変えると初期値（画面の言語、無ければ English）に戻る（FR-CONV-06）', async ({
+  page,
+}) => {
+  // 日本語の画面で、日本語を選ぶ（いったん English にしてから戻し、選んだことを保存する）
+  await page.goto('./#/mode/conversation')
+  await page.getByRole('radio', { name: 'English' }).check()
+  await page.getByRole('radio', { name: '日本語' }).check()
+  await expect(page.getByText(/^対象：\d+ 項目$/)).toBeVisible()
+
+  // 画面の言語を English にすると、選んでいた日本語ではなく English が選ばれる
+  await page.goto('./#/settings')
+  await page.getByRole('radio', { name: 'English', exact: true }).check()
+  await expect(page.getByRole('heading', { name: 'Settings', level: 1 })).toBeVisible()
+  await page.goto('./#/mode/conversation')
+  await expect(page.getByRole('radio', { name: 'English' })).toBeChecked()
+
+  // 用意の無い画面の言語（繁體中文）では English が選ばれる
+  await page.goto('./#/settings')
+  await page.getByRole('radio', { name: '繁體中文', exact: true }).check()
+  await page.goto('./#/mode/conversation')
+  await expect(page.getByRole('radio', { name: 'English' })).toBeChecked()
+})
+
 test('設定は再読み込みのあとも保たれる（仕様書 10.1）', async ({ page }) => {
   await page.goto('./#/settings')
   await page.getByRole('radio', { name: '黒', exact: true }).check()
