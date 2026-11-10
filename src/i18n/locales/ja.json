@@ -393,7 +393,7 @@
     "license": "ライセンス：{{license}}",
     "installed": "追加済み",
     "updateAvailable": "更新あり",
-    "choose": "選ぶ",
+    "choose": "選択する",
     "chooseNamed": "{{action}}（{{name}}）",
     "packFailed": "この単語集を読み込めませんでした。通信状態を確認してください。",
     "examples": "見本",
