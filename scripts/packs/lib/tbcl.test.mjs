@@ -23,11 +23,28 @@ describe('splitHeadword', () => {
     assert.deepEqual(splitHeadword('和1'), ['和'])
     assert.deepEqual(splitHeadword('聲音/聲1'), ['聲音', '聲'])
   })
+  it('括弧で示した省略できる部分は、省いた形と含めた形にする', () => {
+    assert.deepEqual(splitHeadword('沒(有)用'), ['沒用', '沒有用'])
+    assert.deepEqual(splitHeadword('有助（於）'), ['有助', '有助於'])
+    assert.deepEqual(splitReadings('ㄇㄟˊ (ㄧㄡˇ) ㄩㄥˋ'), ['ㄇㄟˊ ㄩㄥˋ', 'ㄇㄟˊ ㄧㄡˇ ㄩㄥˋ'])
+  })
 })
 
 describe('normalizeTbclZhuyin', () => {
   it('注音の代わりの漢字「一」を「ㄧ」に直す', () => {
     assert.equal(normalizeTbclZhuyin('一ㄡˇ ㄕˊ'), 'ㄧㄡˇ ㄕˊ')
+  })
+  it('音節の間の空白が抜けていれば補う', () => {
+    assert.equal(normalizeTbclZhuyin('ㄐㄧㄚˇㄕㄨㄛ'), 'ㄐㄧㄚˇ ㄕㄨㄛ')
+    assert.equal(normalizeTbclZhuyin('ㄏㄨㄥ ㄉㄨㄥˋㄧˋ ㄕˊ'), 'ㄏㄨㄥ ㄉㄨㄥˋ ㄧˋ ㄕˊ')
+    // 1声どうしで声調記号がなくても、成り立つ音節に分ける
+    assert.equal(normalizeTbclZhuyin('ㄍㄨㄢㄓㄨㄥˋ'), 'ㄍㄨㄢ ㄓㄨㄥˋ')
+    // 軽声の「˙」の前で区切ってから、記号を音節の前に置く
+    assert.equal(normalizeTbclZhuyin('ㄌㄚˊ˙ㄊㄚ'), 'ㄌㄚˊ ˙ㄊㄚ')
+    assert.equal(normalizeTbclZhuyin('ㄅㄚˋ　ㄅㄚ˙'), 'ㄅㄚˋ ˙ㄅㄚ')
+  })
+  it('儿化の「ㄦ」は音節に分けない', () => {
+    assert.equal(normalizeTbclZhuyin('ㄏㄨㄚˋㄦ'), 'ㄏㄨㄚˋㄦ')
   })
   it('独立した「ㄦ」を前の音節に付ける', () => {
     assert.equal(normalizeTbclZhuyin('ㄋㄚˇ ㄦ'), 'ㄋㄚˇㄦ')
