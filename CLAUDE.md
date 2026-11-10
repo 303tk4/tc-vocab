@@ -85,6 +85,7 @@ public/samples/starter.json  # サンプル単語（すべてに「サンプル�
 docs/SPEC.md                 # 仕様書
 e2e/                         # Playwright の E2E テスト（flows, offline, a11y, keyboard, perf）
 scripts/check-size.mjs       # 初回表示の JS の大きさの確認
+scripts/build-icons.mjs      # public/favicon.svg から PWA のアイコン画像（PNG）を作る
 ```
 
 - テストは対象ファイルの隣に `*.test.ts(x)` として置く。
