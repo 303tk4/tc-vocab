@@ -26,7 +26,7 @@
     "packsNote": "下載單字包需要連上網路。",
     "emptyNoteFix": "建議用 Chrome 等瀏覽器以一般模式開啟。在手機上建議把本 App 加入主畫面（電腦則從瀏覽器選單選擇「安裝為 App」）。",
     "addWordsTitle": "想增加單字時",
-    "addWordsBody": "隨時可以從準備好的單字集或自己的檔案新增單字。",
+    "addWordsBody": "單字卡的單字，隨時可以從準備好的單字集或自己的檔案新增。",
     "addWordsIconBefore": "也可以從畫面上方的書本按鈕（",
     "addWordsIconAfter": "「單字資料」）開啟。",
     "addWords": "新增單字"
@@ -257,6 +257,7 @@
     },
     "extraTag": "為匯入的單字加上標籤（選填）",
     "extraTagPlaceholder": "例：imported-2026-11",
+    "extraTagNote": "如果讀入的檔案在「tags」欄寫了標籤名稱，會直接加上這些標籤，不需要在這裡另外新增。",
     "nothingToImport": "沒有可以匯入的單字。",
     "chooseAnother": "換一個檔案",
     "run": "匯入（{{count}}）",

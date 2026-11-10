@@ -256,9 +256,14 @@ export function ImportDialog({ open, onClose, onImported }: Props) {
             className={styles.input}
             value={extraTag}
             placeholder={t('io.extraTagPlaceholder')}
+            aria-describedby={`${inputId}-tag-note`}
             aria-invalid={!tagValid}
             onChange={(e) => setExtraTag(e.target.value)}
           />
+          {/* tags 列のタグはそのまま付くことの案内（FR-IO-04） */}
+          <p id={`${inputId}-tag-note`} className="muted">
+            {t('io.extraTagNote')}
+          </p>
           {tagProblem && <p className={styles.error}>{t(`tags.errors.${tagProblem}`)}</p>}
         </div>
 
