@@ -6,7 +6,7 @@ import { primaryLanguage } from '../io/packs'
 import type { ParsedFile } from '../io/parsed'
 
 /** サンプル単語に必ず付くタグ。UI 言語・意味の言語によらず固定（FR-SMP-02） */
-export const SAMPLE_TAG = 'サンプル'
+export const SAMPLE_TAG = 'sample'
 
 /** サンプル単語の意味の言語。日本語版と英語版を同梱する（FR-SMP-01、仕様書 16.5「意味の言語」） */
 export const SAMPLE_LANGUAGES = ['ja', 'en'] as const
@@ -33,7 +33,7 @@ export async function fetchSamples(language: SampleLanguage): Promise<ParsedFile
 
 /**
  * サンプル単語で選べる重複の扱い（FR-SMP-04）。「タグだけ付ける」「統合する」は選べない。
- * どちらも利用者の単語に `サンプル` タグが付き、一括削除（FR-SMP-05）で消えてしまうため
+ * どちらも利用者の単語に `sample` タグが付き、一括削除（FR-SMP-05）で消えてしまうため
  */
 export const SAMPLE_STRATEGIES = [
   'skip',

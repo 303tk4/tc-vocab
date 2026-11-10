@@ -384,12 +384,12 @@ describe('単語パッケージ（仕様書 16.5）', () => {
     expect(within(dialog).queryByRole('radio', { name: /Add tags only/ })).not.toBeInTheDocument()
     await user.click(within(dialog).getByRole('button', { name: /^Add \(\d+\)$/ }))
     await waitFor(async () => expect(await db.words.count()).toBeGreaterThan(40))
-    expect((await db.words.toArray()).every((w) => w.tags.includes('サンプル'))).toBe(true)
+    expect((await db.words.toArray()).every((w) => w.tags.includes('sample'))).toBe(true)
 
     // 追加済みでも一覧に残し、「追加済み」と示す
     await user.click(await screen.findByRole('button', { name: 'Word packs' }))
     const reopened = await screen.findByRole('dialog', { name: 'Word packs' })
-    // どの版も「サンプル」タグで判断するので、日本語版も追加済みと示す（仕様書 11章）
+    // どの版も「sample」タグで判断するので、日本語版も追加済みと示す（仕様書 11章）
     for (const name of within(reopened).getAllByText('Sample words')) {
       expect(await within(name.closest('li')!).findByText('Added')).toBeInTheDocument()
     }

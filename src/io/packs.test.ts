@@ -4,6 +4,7 @@ import {
   meaningLanguageName,
   PackIndexError,
   packStatus,
+  presenceTagsOf,
   parsePackIndex,
   pickText,
   preferredMeaningLanguage,
@@ -120,6 +121,21 @@ describe('formatSize', () => {
     expect(formatSize(1.2 * 1024 * 1024)).toEqual({ value: '1.2', unit: 'MB' })
     expect(formatSize(245760)).toEqual({ value: '240', unit: 'KB' })
     expect(formatSize(10)).toEqual({ value: '1', unit: 'KB' })
+  })
+})
+
+describe('presenceTagsOf（仕様書 16.5）', () => {
+  it('presenceTags を読み込み、追加済みの判断に使う', () => {
+    const [pack] = parsePackIndex(index([{ ...entry, presenceTags: ['TBCL:5級', 1] }]))
+    expect(pack?.presenceTags).toEqual(['TBCL:5級'])
+    expect(presenceTagsOf(pack!)).toEqual(['TBCL:5級'])
+  })
+
+  it('presenceTags が無いか空なら tags を使う', () => {
+    const [a, b] = parsePackIndex(index([entry, { ...entry, id: 'other', presenceTags: [] }]))
+    expect(a?.presenceTags).toBeUndefined()
+    expect(presenceTagsOf(a!)).toEqual(entry.tags)
+    expect(presenceTagsOf(b!)).toEqual(entry.tags)
   })
 })
 

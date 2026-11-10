@@ -17,6 +17,11 @@ export interface PackEntry {
   /** パッケージの JSON のバイト数 */
   size: number
   tags: string[]
+  /**
+   * 追加済みの判断に使うタグ（任意。仕様書 16.5）。単語集ごとに重ならないタグ（例：`TBCL:5級`）を指定する。
+   * 無ければ `tags` で判断する
+   */
+  presenceTags?: string[]
   meaningLanguage?: string
   license?: string
   source?: string
@@ -107,12 +112,17 @@ function parseLevelGuide(raw: unknown): LevelGuide | undefined {
   }
 }
 
+/** 文字列の配列だけを取り出す。配列でなければ空 */
+const stringList = (v: unknown): string[] =>
+  Array.isArray(v) ? v.filter((t): t is string => typeof t === 'string') : []
+
 const isCount = (v: unknown): v is number => Number.isInteger(v) && (v as number) >= 0
 
 /** 1件のパッケージを検証する。不正なものは null（一覧から除く） */
 function parseEntry(raw: unknown): PackEntry | null {
   if (!isRecord(raw)) return null
   const { id, file, version, wordCount, size, tags } = raw
+  const presenceTags = stringList(raw.presenceTags)
   const name = localized(raw.name)
   if (typeof id !== 'string' || !ID_PATTERN.test(id)) return null
   if (typeof file !== 'string' || !FILE_PATTERN.test(file)) return null
@@ -126,7 +136,8 @@ function parseEntry(raw: unknown): PackEntry | null {
     description: localized(raw.description) ?? {},
     wordCount,
     size,
-    tags: Array.isArray(tags) ? tags.filter((t): t is string => typeof t === 'string') : [],
+    tags: stringList(tags),
+    ...(presenceTags.length > 0 && { presenceTags }),
     meaningLanguage: optionalString(raw.meaningLanguage),
     license: optionalString(raw.license),
     source: optionalString(raw.source),
@@ -183,8 +194,13 @@ export type InstalledPacks = Record<string, number>
  */
 export type PackStatus = 'notInstalled' | 'installed' | 'partial' | 'updateAvailable'
 
+/** 追加済みの判断に使うタグ。`presenceTags` が無ければ `tags`（仕様書 16.5） */
+export function presenceTagsOf(entry: Pick<PackEntry, 'tags' | 'presenceTags'>): string[] {
+  return entry.presenceTags?.length ? entry.presenceTags : entry.tags
+}
+
 /**
- * @param present 単語集のタグ（`tags`）のどれかが付いた、登録中の単語の数
+ * @param present 追加済みの判断に使うタグ（presenceTagsOf）のどれかが付いた、登録中の単語の数
  */
 export function packStatus(
   entry: Pick<PackEntry, 'id' | 'version' | 'wordCount'>,

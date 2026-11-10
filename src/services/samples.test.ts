@@ -21,10 +21,10 @@ describe('サンプル単語のデータ（仕様書 11章）', () => {
     expect(words.length).toBeLessThanOrEqual(60)
   })
 
-  it('すべてに「サンプル」タグと分類タグが付いている', () => {
+  it('すべてに「sample」タグだけが付いている（FR-SMP-02）', () => {
     for (const w of words) {
       expect(w.tags).toContain(SAMPLE_TAG)
-      expect(w.tags.length).toBeGreaterThanOrEqual(2)
+      expect(w.tags).toEqual([SAMPLE_TAG])
     }
   })
 

@@ -14,7 +14,7 @@
           "translation": "こんにちは、私は日本人です。"
         }
       ],
-      "tags": ["サンプル", "挨拶"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "謝謝",
@@ -27,7 +27,7 @@
           "translation": "手伝ってくれてありがとう。"
         }
       ],
-      "tags": ["サンプル", "挨拶"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "再見",
@@ -40,7 +40,7 @@
           "translation": "先生、さようなら！"
         }
       ],
-      "tags": ["サンプル", "挨拶"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "早安",
@@ -48,7 +48,7 @@
       "pinyin": "zǎo ān",
       "meaning": "おはようございます",
       "examples": [],
-      "tags": ["サンプル", "挨拶"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "晚安",
@@ -56,7 +56,7 @@
       "pinyin": "wǎn ān",
       "meaning": "おやすみなさい",
       "examples": [],
-      "tags": ["サンプル", "挨拶"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "請",
@@ -69,7 +69,7 @@
           "translation": "どうぞお座りください。"
         }
       ],
-      "tags": ["サンプル", "挨拶"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "一",
@@ -77,7 +77,7 @@
       "pinyin": "yī",
       "meaning": "1",
       "examples": [],
-      "tags": ["サンプル", "数字"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "二",
@@ -85,7 +85,7 @@
       "pinyin": "èr",
       "meaning": "2",
       "examples": [],
-      "tags": ["サンプル", "数字"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "三",
@@ -93,7 +93,7 @@
       "pinyin": "sān",
       "meaning": "3",
       "examples": [],
-      "tags": ["サンプル", "数字"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "十",
@@ -101,7 +101,7 @@
       "pinyin": "shí",
       "meaning": "10",
       "examples": [],
-      "tags": ["サンプル", "数字"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "今天",
@@ -114,7 +114,7 @@
           "translation": "今日は暑いです。"
         }
       ],
-      "tags": ["サンプル", "時間"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "明天",
@@ -127,7 +127,7 @@
           "translation": "明日は空いていますか？"
         }
       ],
-      "tags": ["サンプル", "時間"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "昨天",
@@ -135,7 +135,7 @@
       "pinyin": "zuó tiān",
       "meaning": "昨日",
       "examples": [],
-      "tags": ["サンプル", "時間"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "星期",
@@ -148,7 +148,7 @@
           "translation": "今日は何曜日ですか？"
         }
       ],
-      "tags": ["サンプル", "時間"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "現在",
@@ -161,7 +161,7 @@
           "translation": "今何時ですか？"
         }
       ],
-      "tags": ["サンプル", "時間"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "米飯",
@@ -169,7 +169,7 @@
       "pinyin": "mǐ fàn",
       "meaning": "ご飯（炊いた米）",
       "examples": [],
-      "tags": ["サンプル", "食べ物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "牛肉麵",
@@ -182,7 +182,7 @@
           "translation": "この店の牛肉麺はおいしいです。"
         }
       ],
-      "tags": ["サンプル", "食べ物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "小籠包",
@@ -195,7 +195,7 @@
           "translation": "小籠包が食べたいです。"
         }
       ],
-      "tags": ["サンプル", "食べ物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "水果",
@@ -203,7 +203,7 @@
       "pinyin": "shuǐ guǒ",
       "meaning": "果物",
       "examples": [],
-      "tags": ["サンプル", "食べ物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "芒果",
@@ -211,7 +211,7 @@
       "pinyin": "máng guǒ",
       "meaning": "マンゴー",
       "examples": [],
-      "tags": ["サンプル", "食べ物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "便當",
@@ -224,7 +224,7 @@
           "translation": "昼に弁当を1つ買いました。"
         }
       ],
-      "tags": ["サンプル", "食べ物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "水",
@@ -232,7 +232,7 @@
       "pinyin": "shuǐ",
       "meaning": "水",
       "examples": [],
-      "tags": ["サンプル", "飲み物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "茶",
@@ -240,7 +240,7 @@
       "pinyin": "chá",
       "meaning": "茶、お茶",
       "examples": [],
-      "tags": ["サンプル", "飲み物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "咖啡",
@@ -253,7 +253,7 @@
           "translation": "コーヒーにしますか、それともお茶にしますか？"
         }
       ],
-      "tags": ["サンプル", "飲み物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "珍珠奶茶",
@@ -266,7 +266,7 @@
           "translation": "タピオカミルクティーを1杯ください。"
         }
       ],
-      "tags": ["サンプル", "飲み物"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "捷運",
@@ -279,7 +279,7 @@
           "translation": "毎日MRTで会社に行きます。"
         }
       ],
-      "tags": ["サンプル", "交通"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "公車",
@@ -292,7 +292,7 @@
           "translation": "バス停はどこですか？"
         }
       ],
-      "tags": ["サンプル", "交通"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "計程車",
@@ -305,7 +305,7 @@
           "translation": "タクシーで行きましょう。"
         }
       ],
-      "tags": ["サンプル", "交通"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "機車",
@@ -313,7 +313,7 @@
       "pinyin": "jī chē",
       "meaning": "バイク（スクーター）",
       "examples": [],
-      "tags": ["サンプル", "交通"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "高鐵",
@@ -326,7 +326,7 @@
           "translation": "高鉄で台中に行くと速いです。"
         }
       ],
-      "tags": ["サンプル", "交通"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "飛機",
@@ -334,7 +334,7 @@
       "pinyin": "fēi jī",
       "meaning": "飛行機",
       "examples": [],
-      "tags": ["サンプル", "交通"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "車站",
@@ -342,7 +342,7 @@
       "pinyin": "chē zhàn",
       "meaning": "駅",
       "examples": [],
-      "tags": ["サンプル", "場所"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "機場",
@@ -350,7 +350,7 @@
       "pinyin": "jī chǎng",
       "meaning": "空港",
       "examples": [],
-      "tags": ["サンプル", "場所"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "便利商店",
@@ -363,7 +363,7 @@
           "translation": "コンビニは24時間開いています。"
         }
       ],
-      "tags": ["サンプル", "場所"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "學校",
@@ -371,7 +371,7 @@
       "pinyin": "xué xiào",
       "meaning": "学校",
       "examples": [],
-      "tags": ["サンプル", "場所"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "醫院",
@@ -379,7 +379,7 @@
       "pinyin": "yī yuàn",
       "meaning": "病院",
       "examples": [],
-      "tags": ["サンプル", "場所"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "廁所",
@@ -392,7 +392,7 @@
           "translation": "すみません、トイレはどこですか？"
         }
       ],
-      "tags": ["サンプル", "場所"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "夜市",
@@ -405,7 +405,7 @@
           "translation": "夜は夜市を見て回ります。"
         }
       ],
-      "tags": ["サンプル", "場所"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "臺灣",
@@ -413,7 +413,7 @@
       "pinyin": "tái wān",
       "meaning": "台湾",
       "examples": [],
-      "tags": ["サンプル", "場所"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "老師",
@@ -421,7 +421,7 @@
       "pinyin": "lǎo shī",
       "meaning": "先生、教師",
       "examples": [],
-      "tags": ["サンプル", "人"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "學生",
@@ -429,7 +429,7 @@
       "pinyin": "xué shēng",
       "meaning": "学生",
       "examples": [],
-      "tags": ["サンプル", "人"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "吃",
@@ -442,7 +442,7 @@
           "translation": "ご飯は食べましたか？"
         }
       ],
-      "tags": ["サンプル", "動詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "喝",
@@ -450,7 +450,7 @@
       "pinyin": "hē",
       "meaning": "飲む",
       "examples": [],
-      "tags": ["サンプル", "動詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "去",
@@ -467,7 +467,7 @@
           "translation": "台湾へ旅行に行きたいです。"
         }
       ],
-      "tags": ["サンプル", "動詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "買",
@@ -480,7 +480,7 @@
           "translation": "これを買いたいです。"
         }
       ],
-      "tags": ["サンプル", "動詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "看",
@@ -488,7 +488,7 @@
       "pinyin": "kàn",
       "meaning": "見る、読む",
       "examples": [],
-      "tags": ["サンプル", "動詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "學習",
@@ -501,7 +501,7 @@
           "translation": "私は中国語を勉強しています。"
         }
       ],
-      "tags": ["サンプル", "動詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "睡覺",
@@ -509,7 +509,7 @@
       "pinyin": "shuì jiào",
       "meaning": "寝る",
       "examples": [],
-      "tags": ["サンプル", "動詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "好吃",
@@ -522,7 +522,7 @@
           "translation": "これはとてもおいしい！"
         }
       ],
-      "tags": ["サンプル", "形容詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "便宜",
@@ -535,7 +535,7 @@
           "translation": "この服は安いです。"
         }
       ],
-      "tags": ["サンプル", "形容詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "貴",
@@ -548,7 +548,7 @@
           "translation": "高すぎます！少し安くできますか？"
         }
       ],
-      "tags": ["サンプル", "形容詞"]
+      "tags": ["sample"]
     },
     {
       "hanzi": "熱",
@@ -561,7 +561,7 @@
           "translation": "台湾の夏は暑いです。"
         }
       ],
-      "tags": ["サンプル", "形容詞"]
+      "tags": ["sample"]
     }
   ]
 }

@@ -15,6 +15,7 @@ import {
   formatSize,
   meaningLanguageName,
   packStatus,
+  presenceTagsOf,
   pickText,
   sortByMeaningLanguage,
   type InstalledPacks,
@@ -63,7 +64,7 @@ type State =
 const isOffline = () => typeof navigator !== 'undefined' && navigator.onLine === false
 const keyOf = (item: PackItem) =>
   item.kind === 'samples' ? `samples:${item.language}` : `pack:${item.entry.id}`
-/** 登録中の単語の数の記録のキー。サンプル単語はどの版も `サンプル` タグで数える（仕様書 11章） */
+/** 登録中の単語の数の記録のキー。サンプル単語はどの版も `sample` タグで数える（仕様書 11章） */
 const countKeyOf = (item: PackItem) => (item.kind === 'samples' ? 'samples' : keyOf(item))
 /** 意味の言語（仕様書 16.5）。サンプル単語は版の言語 */
 const meaningOf = (item: PackItem) =>
@@ -111,7 +112,7 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
       if (!active) return
       setIndex(next)
       if (next.status === 'ready') {
-        for (const entry of next.packs) count(keyOf({ kind: 'pack', entry }), entry.tags)
+        for (const entry of next.packs) count(keyOf({ kind: 'pack', entry }), presenceTagsOf(entry))
       }
     }
     if (isOffline()) {
@@ -411,7 +412,7 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
                   )}
                   <p className={styles.packDescription}>
                     {item.kind === 'samples'
-                      ? t('packs.samplesDescription')
+                      ? t('packs.samplesDescription', { tag: SAMPLE_TAG })
                       : pickText(item.entry.description, i18n.language)}
                   </p>
                   {/* 対象の試験や級がひと目でわかるよう、パッケージのタグを示す（16.5） */}

@@ -30,6 +30,8 @@ export function TagField({
   const { t } = useTranslation()
   const id = useId()
   const shownError = value.trim() === '' && error === 'empty' ? null : error
+  const hintId = `${id}-hint`
+  const errorId = `${id}-error`
   return (
     <div className={styles.field}>
       <label htmlFor={id}>{label}</label>
@@ -42,7 +44,7 @@ export function TagField({
           autoComplete="off"
           placeholder={t('tags.tagPlaceholder')}
           aria-invalid={!!shownError}
-          aria-describedby={shownError ? `${id}-error` : undefined}
+          aria-describedby={shownError ? `${errorId} ${hintId}` : hintId}
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.nativeEvent.isComposing && onEnter) {
@@ -53,13 +55,17 @@ export function TagField({
         />
         {action}
       </div>
+      {/* タグの付け方の例（FR-WORDS-17） */}
+      <p id={hintId} className={styles.hint}>
+        {t('tags.tagHint')}
+      </p>
       <datalist id={`${id}-list`}>
         {suggestions.map((tag) => (
           <option key={tag} value={tag} />
         ))}
       </datalist>
       {shownError && (
-        <p id={`${id}-error`} className={styles.error}>
+        <p id={errorId} className={styles.error}>
           {t(`tags.errors.${shownError}`, { max: LIMITS.tags })}
         </p>
       )}

@@ -37,3 +37,9 @@
   color: var(--color-danger-strong);
   font-weight: 600;
 }
+
+/* タグの付け方の例（FR-WORDS-17） */
+.hint {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}

@@ -79,10 +79,10 @@ const PACKS = LANGS.flatMap((lang) =>
  */
 const READING_FIXES = { 有助於: 'ㄧㄡˇ ㄓㄨˋ ㄩˊ' }
 
-/** 級ごとのタグ：「TOCFL」、TOCFL の級の目安、TBCL の級 */
+/** 級ごとのタグ：TOCFL の級の目安と TBCL の級（「TOCFL」だけのタグは付けない。仕様書 16.5） */
 function tagsFor(entry) {
   const tocfl = TOCFL_GUIDE.levelTags[entry.level]
-  return ['TOCFL', tocfl, tbclTag(entry.level)].filter(Boolean)
+  return [tocfl, tbclTag(entry.level)].filter(Boolean)
 }
 
 /** --name value の形の引数をすべて集める */
