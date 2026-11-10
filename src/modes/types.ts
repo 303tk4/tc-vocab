@@ -12,6 +12,8 @@ export interface SetupProps<O> {
   onChange(options: O): void
   /** 開始できるかを知らせる。usesWords: false のモードだけが使う（FR-MODE-01・FR-PLUG-07） */
   onCanStartChange?(canStart: boolean): void
+  /** このモードの進捗。準備画面では読むだけ（例：場面ごとの出題済みの数 FR-CONV-22） */
+  progress: ProgressStore
 }
 
 export interface SessionResult {

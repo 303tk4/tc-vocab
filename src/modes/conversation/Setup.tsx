@@ -1,4 +1,4 @@
-// 場面別会話の準備画面（仕様書 18.1 FR-CONV-01・09、18.2 FR-CONV-05〜07）
+// 場面別会話の準備画面（仕様書 18.1 FR-CONV-01・09・22、18.2 FR-CONV-05〜07）
 import { useEffect, useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SegmentedControl } from '../../components/SegmentedControl'
@@ -11,6 +11,8 @@ import {
   loadSceneIndex,
   loadTranslation,
   pickLanguage,
+  sceneCounts,
+  studiedItemIds,
   sortScenes,
   type PhraseTranslation,
   type SceneIndex,
@@ -24,6 +26,7 @@ export default function ConversationSetup({
   options: rawOptions,
   onChange,
   onCanStartChange,
+  progress,
 }: SetupProps<ConversationOptions>) {
   const { t, i18n } = useTranslation('mode.conversation')
   const { t: tc } = useTranslation()
@@ -32,6 +35,19 @@ export default function ConversationSetup({
   const [index, setIndex] = useState<SceneIndex | null>(null)
   const [failed, setFailed] = useState(false)
   const [translation, setTranslation] = useState<PhraseTranslation | null>(null)
+  // 進捗の記録がある項目の ID（r0001 など。FR-CONV-22）。読めなければ数を示さない
+  const [studiedIds, setStudiedIds] = useState<ReadonlySet<string> | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    progress.list().then(
+      (rows) => !cancelled && setStudiedIds(studiedItemIds(rows.map((r) => r.wordId))),
+      (error: unknown) => console.error('学習の進捗を読み込めませんでした', error),
+    )
+    return () => {
+      cancelled = true
+    }
+  }, [progress])
 
   useEffect(() => {
     let cancelled = false
@@ -127,6 +143,7 @@ export default function ConversationSetup({
           {sortScenes(index.scenes).map((scene) => {
             const usable = scene.languages.includes(language)
             const name = usable ? translation?.scenes[scene.id] : undefined
+            const counts = studiedIds && sceneCounts(scene, studiedIds)
             return (
               <li key={scene.id}>
                 <label className={styles.scene} data-disabled={!usable || undefined}>
@@ -148,6 +165,12 @@ export default function ConversationSetup({
                     {/* 上級向けの印（FR-CONV-09） */}
                     {scene.level >= 2 && (
                       <span className={styles.badge}>{t('setup.advanced')}</span>
+                    )}
+                    {/* 出題済み / 登録の数（FR-CONV-22） */}
+                    {counts && (
+                      <span className={styles.counts}>
+                        {t('setup.sceneCounts', { studied: counts.studied, total: counts.total })}
+                      </span>
                     )}
                     {/* 選んだ言語の用意が無い場面（FR-CONV-07） */}
                     {!usable && (

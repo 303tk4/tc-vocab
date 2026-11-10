@@ -13,6 +13,8 @@ import {
   parseTranslation,
   pickLanguage,
   SceneDataError,
+  sceneCounts,
+  studiedItemIds,
   sortScenes,
   type Phrase,
   type PhraseTranslation,
@@ -214,5 +216,30 @@ describe('buildItems・countItems（FR-CONV-01〜03・07）', () => {
         expect(countItems({ index, sceneIds, kinds, language: 'ja' })).toBe(items.length)
       }
     }
+  })
+})
+
+describe('場面ごとの出題済み / 登録の数（FR-CONV-22）', () => {
+  it('進捗の ID から、このモードの項目の ID だけを取り出す', () => {
+    expect(
+      studiedItemIds([
+        'item:conversation:r0002',
+        'item:other:r0001',
+        'w-123',
+        'item:conversation:s0001',
+      ]),
+    ).toEqual(new Set(['r0002', 's0001']))
+  })
+
+  it('登録は場面の項目の数（種類によらない）、出題済みは進捗のある項目の数', () => {
+    const studied = new Set(['r0002'])
+    expect(sceneCounts(index.scenes[0], studied)).toEqual({ studied: 1, total: 2 })
+    expect(sceneCounts(index.scenes[1], studied)).toEqual({ studied: 1, total: 2 })
+    expect(sceneCounts(index.scenes[2], studied)).toEqual({ studied: 0, total: 1 })
+  })
+
+  it('項目を増やせば登録の数も増える', () => {
+    const grown = scene({ id: 'a', items: ['r0002', 's0001', 'r0001'] })
+    expect(sceneCounts(grown, new Set())).toEqual({ studied: 0, total: 3 })
   })
 })

@@ -1,5 +1,7 @@
 // 場面のデータの形式・検証・読み込み（仕様書 18.5）。検証と組み立ては React から独立した純粋関数
 import { primaryLanguage } from '../../i18n/languages'
+import { itemProgressId } from '../../types/word'
+import { MODE_ID } from './modeId'
 
 export const SCENE_INDEX_FORMAT = 'tc-vocab-scenes'
 export const SCENE_INDEX_VERSION = 1
@@ -337,6 +339,29 @@ export function countItems({
     for (const id of scene.items) if (kinds === 'both' || kindOfId(id) === kinds) ids.add(id)
   }
   return ids.size
+}
+
+/** 進捗の ID（item:conversation:r0001）から、このモードの項目の ID（r0001）を取り出す（FR-CONV-22） */
+export function studiedItemIds(progressIds: readonly string[]): Set<string> {
+  const prefix = itemProgressId(MODE_ID, '')
+  return new Set(progressIds.filter((p) => p.startsWith(prefix)).map((p) => p.slice(prefix.length)))
+}
+
+/** 場面の出題済みと登録の数（FR-CONV-22） */
+export interface SceneCounts {
+  studied: number
+  total: number
+}
+
+/**
+ * 場面ごとの「出題済み / 登録」の数（FR-CONV-22）。登録は場面の項目の数（種類によらない）、
+ * 出題済みはそのうち進捗の記録がある項目の数。studiedItemIds は進捗のある項目の ID（`r0001` など）
+ */
+export function sceneCounts(scene: SceneEntry, studiedItemIds: ReadonlySet<string>): SceneCounts {
+  const ids = new Set(scene.items)
+  let studied = 0
+  for (const id of ids) if (studiedItemIds.has(id)) studied++
+  return { studied, total: ids.size }
 }
 
 // ---- 読み込み（動的 import。使うときだけ読み、オフライン用のキャッシュにも含まれる。FR-PLUG-07） ----

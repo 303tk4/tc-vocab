@@ -4,11 +4,12 @@ import { defineMode } from '../types'
 import en from './locales/en.json'
 import ja from './locales/ja.json'
 import zhTW from './locales/zh-TW.json'
+import { MODE_ID } from './modeId'
 import { DEFAULT_OPTIONS, type ConversationOptions } from './options'
 
 // 場面別会話モード（仕様書 18章）。単語ではなく、モードが持つ場面のデータを出題する（FR-PLUG-07）
 export const conversationMode = defineMode<ConversationOptions>({
-  id: 'conversation',
+  id: MODE_ID,
   titleKey: 'title',
   descriptionKey: 'description',
   icon: ChatIcon,

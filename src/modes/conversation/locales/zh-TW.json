@@ -7,6 +7,7 @@
     "scenes": "情境",
     "scenesHint": "若未選擇任何情境，將從所有情境出題。",
     "advanced": "進階",
+    "sceneCounts": "已練習 {{studied}} / 共 {{total}} 句",
     "onlyIn": "僅有{{languages}}",
     "kinds": "題型",
     "kindOptions": {

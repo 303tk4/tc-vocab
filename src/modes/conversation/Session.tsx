@@ -5,6 +5,7 @@ import { SpeakerIcon } from '../../components/icons'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useSwipe } from '../../hooks/useSwipe'
 import { itemProgressId, type Progress } from '../../types/word'
+import { MODE_ID } from './modeId'
 import {
   countDueByEndOfTomorrow,
   countIntroducedToday,
@@ -36,7 +37,6 @@ import styles from './Session.module.css'
 
 type Props = SessionProps<ConversationOptions>
 
-const MODE_ID = 'conversation'
 /** 項目の進捗の ID（6.2） */
 const keyOf = (item: StudyItem) => itemProgressId(MODE_ID, item.phrase.id)
 

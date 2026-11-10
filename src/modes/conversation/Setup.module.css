@@ -115,3 +115,10 @@
 .onlyIn {
   font-size: 0.75rem;
 }
+
+/* 出題済み / 登録の数（FR-CONV-22）。名前の下の行に出す */
+.counts {
+  flex-basis: 100%;
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}

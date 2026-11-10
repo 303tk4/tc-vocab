@@ -170,6 +170,7 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
                   options={options}
                   onChange={changeOptions}
                   onCanStartChange={usesWords ? undefined : setSetupReady}
+                  progress={progress}
                 />
               </Suspense>
             )}

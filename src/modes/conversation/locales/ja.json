@@ -8,6 +8,7 @@
     "scenesHint": "何も選択されていない場合、すべての場面から出題されます。",
     "advanced": "上級向け",
     "onlyIn": "{{languages}}のみ",
+    "sceneCounts": "出題済み {{studied}} / 登録 {{total}}",
     "kinds": "出題の種類",
     "kindOptions": {
       "both": "どちらも出題する",

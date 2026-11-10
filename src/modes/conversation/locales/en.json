@@ -7,6 +7,7 @@
     "scenes": "Scenes",
     "scenesHint": "If none are selected, items come from all scenes.",
     "advanced": "Advanced",
+    "sceneCounts": "Studied {{studied}} / Total {{total}}",
     "onlyIn": "{{languages}} only",
     "kinds": "Question type",
     "kindOptions": {
