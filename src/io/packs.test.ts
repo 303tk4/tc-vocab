@@ -3,6 +3,7 @@ import {
   formatSize,
   meaningLanguageName,
   PackIndexError,
+  packDescription,
   packStatus,
   presenceTagsOf,
   parsePackIndex,
@@ -113,6 +114,28 @@ describe('pickText', () => {
     expect(pickText({ ja: 'あ', en: 'a' }, 'zh-TW')).toBe('あ')
     expect(pickText({ en: 'a' }, 'zh-TW')).toBe('a')
     expect(pickText({}, 'ja')).toBe('')
+  })
+})
+
+describe('packDescription（仕様書 16.5）', () => {
+  const description = { ja: '日本語の説明', 'zh-TW': '中文說明', en: 'English description' }
+
+  it('UI 言語によらず、意味の言語の説明文を返す', () => {
+    expect(packDescription({ description, meaningLanguage: 'en' }, 'ja')).toEqual({
+      text: 'English description',
+      lang: 'en',
+    })
+    expect(packDescription({ description, meaningLanguage: 'ja' }, 'zh-TW')).toEqual({
+      text: '日本語の説明',
+      lang: 'ja',
+    })
+  })
+
+  it('意味の言語の文が無ければ、UI 言語の順で選び、言語は返さない', () => {
+    expect(packDescription({ description, meaningLanguage: 'vi' }, 'zh-TW')).toEqual({
+      text: '中文說明',
+    })
+    expect(packDescription({ description }, 'en')).toEqual({ text: 'English description' })
   })
 })
 

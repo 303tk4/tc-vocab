@@ -119,7 +119,9 @@ test('配布中の単語集を追加できる（仕様書 16.5）', async ({ pag
   const dialog = page.getByRole('dialog')
   // 日本語の UI では、意味が日本語の単語集が先に並ぶ（16.5「意味の言語」）
   const packs = dialog.getByRole('button', { name: /^選択する（TOCFL/ })
-  await expect(packs.first()).toHaveAccessibleName(/^選択する（TOCFL 入門級.*（意味：日本語））$/)
+  await expect(packs.first()).toHaveAccessibleName(
+    /^選択する（TOCFL 入門級.*（単語の意味の表記：日本語））$/,
+  )
   await packs.first().click()
   await dialog.getByRole('button', { name: /^追加する（\d+）$/ }).click()
   // 1,000 語を超えるため、遅い環境（Windows の WebKit など）では数秒かかる

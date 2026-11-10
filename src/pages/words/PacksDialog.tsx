@@ -16,6 +16,7 @@ import {
   meaningLanguageName,
   packStatus,
   presenceTagsOf,
+  packDescription,
   pickText,
   sortByMeaningLanguage,
   type InstalledPacks,
@@ -70,7 +71,17 @@ const countKeyOf = (item: PackItem) => (item.kind === 'samples' ? 'samples' : ke
 const meaningOf = (item: PackItem) =>
   item.kind === 'samples' ? item.language : item.entry.meaningLanguage
 
-/** 「意味：English」の表示（16.5）。言語名はその言語自身での名前で示す */
+/** 単語集の説明文。意味の言語で示し、lang を付ける（16.5） */
+function PackDescription({ entry, uiLanguage }: { entry: PackEntry; uiLanguage: string }) {
+  const { text, lang } = packDescription(entry, uiLanguage)
+  return (
+    <p className={styles.packDescription} lang={lang}>
+      {text}
+    </p>
+  )
+}
+
+/** 「意味の表記：English」の表示（16.5）。言語名はその言語自身での名前で示す */
 function MeaningLanguage({ language }: { language: string }) {
   return (
     <Trans
@@ -410,11 +421,14 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
                       <MeaningLanguage language={language} />
                     </p>
                   )}
-                  <p className={styles.packDescription}>
-                    {item.kind === 'samples'
-                      ? t('packs.samplesDescription', { tag: SAMPLE_TAG })
-                      : pickText(item.entry.description, i18n.language)}
-                  </p>
+                  {/* 説明文は意味の言語で示す（16.5・FR-SMP-04）。名前だけが UI 言語に合わせる */}
+                  {item.kind === 'samples' ? (
+                    <p className={styles.packDescription} lang={item.language}>
+                      {t('packs.samplesDescription', { tag: SAMPLE_TAG, lng: item.language })}
+                    </p>
+                  ) : (
+                    <PackDescription entry={item.entry} uiLanguage={i18n.language} />
+                  )}
                   {/* 対象の試験や級がひと目でわかるよう、パッケージのタグを示す（16.5） */}
                   {item.kind === 'pack' && item.entry.tags.length > 0 && (
                     <ul className={styles.packTags} aria-label={t('packs.tags')}>

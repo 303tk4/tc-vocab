@@ -176,6 +176,20 @@ export function pickText(text: LocalizedText, language: string): string {
   return text[language] ?? text.ja ?? Object.values(text)[0] ?? ''
 }
 
+/**
+ * 単語集の説明文と、その言語（仕様書 16.5）。説明文は UI 言語ではなく意味の言語で示し、
+ * どの言語の単語集かがひと目でわかるようにする。意味の言語の文が無ければ pickText で選び、言語は返さない
+ */
+export function packDescription(
+  entry: Pick<PackEntry, 'description' | 'meaningLanguage'>,
+  uiLanguage: string,
+): { text: string; lang?: string } {
+  const meaning = entry.meaningLanguage
+  const text = meaning ? entry.description[meaning] : undefined
+  if (meaning && text) return { text, lang: meaning }
+  return { text: pickText(entry.description, uiLanguage) }
+}
+
 /** 容量の表示（例：「約 1.2 MB」の数値と単位）。1 KB 未満は 1 KB とする */
 export function formatSize(bytes: number): { value: string; unit: 'KB' | 'MB' } {
   if (bytes >= 1024 * 1024) {
