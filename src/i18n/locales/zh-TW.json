@@ -383,6 +383,8 @@
     "samplesName": "範例單字",
     "samplesDescription": "台灣華語的基礎詞彙（約50個）。全部會加上「サンプル」標籤。",
     "bundled": "內建於 App・不需網路",
+    "meaningLanguage": "釋義：<0>{{language}}</0>",
+    "nameWithLanguage": "{{name}}（釋義：{{language}}）",
     "wordCount": "{{formatted}} 個單字",
     "size": "約 {{value}} {{unit}}",
     "license": "授權：{{license}}",

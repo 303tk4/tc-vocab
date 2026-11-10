@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import samplesText from '../../public/samples/starter.json?raw'
+import samplesEnText from '../../public/samples/starter-en.json?raw'
 import { AppRoutes } from '../App'
 import { db } from '../db/schema'
 import { buildJson } from '../io/json'
@@ -180,15 +181,18 @@ describe('単語データ画面', () => {
 
 describe('初回起動時のサンプル単語（FR-SMP-03）', () => {
   it('単語が0件のホームで確認し、承諾するとサンプル単語を追加する', async () => {
-    vi.stubGlobal(
-      'fetch',
-      vi.fn(async () => new Response(samplesText)),
-    )
+    const fetchMock = vi.fn(async () => new Response(samplesEnText))
+    vi.stubGlobal('fetch', fetchMock)
     const user = userEvent.setup()
     renderApp('/')
 
     await user.click(await screen.findByRole('button', { name: 'Add sample words (about 50)' }))
     await waitFor(async () => expect(await db.words.count()).toBeGreaterThan(40))
+    // UI 言語が日本語以外なので英語版を追加する（仕様書 11章）
+    expect(fetchMock).toHaveBeenCalledWith(expect.stringMatching(/samples\/starter-en\.json$/))
+    expect(await db.words.where('hanzi').equals('謝謝').first()).toMatchObject({
+      meaning: 'thank you',
+    })
     await waitFor(() =>
       expect(screen.queryByText('Add words to get started')).not.toBeInTheDocument(),
     )
@@ -253,6 +257,7 @@ describe('単語パッケージ（仕様書 16.5）', () => {
       if (url.endsWith('packs/index.json')) return new Response(packIndex)
       if (url.endsWith('packs/tocfl-test.json')) return new Response(packFile)
       if (url.endsWith('samples/starter.json')) return new Response(samplesText)
+      if (url.endsWith('samples/starter-en.json')) return new Response(samplesEnText)
       return new Response('', { status: 404 })
     })
     vi.stubGlobal('fetch', fetchMock)
@@ -270,7 +275,8 @@ describe('単語パッケージ（仕様書 16.5）', () => {
 
     await user.click(await screen.findByRole('link', { name: 'Choose a word pack (free)' }))
     const dialog = await screen.findByRole('dialog', { name: 'Word packs' })
-    expect(within(dialog).getByText('Sample words')).toBeInTheDocument()
+    // サンプル単語は日本語版と英語版を示す（FR-SMP-04）
+    expect(within(dialog).getAllByText('Sample words')).toHaveLength(2)
     expect(await within(dialog).findByText('TOCFL Test')).toBeInTheDocument()
     expect(within(dialog).getByText('2 words · about 2 KB')).toBeInTheDocument()
     // 対象の試験がわかるよう、パッケージのタグを示す
@@ -370,7 +376,9 @@ describe('単語パッケージ（仕様書 16.5）', () => {
     ).toBeInTheDocument()
     expect(fetchMock).not.toHaveBeenCalledWith(expect.stringContaining('packs/'), expect.anything())
 
-    await user.click(within(dialog).getByRole('button', { name: 'Choose Sample words' }))
+    await user.click(
+      within(dialog).getByRole('button', { name: 'Choose Sample words (meanings in English)' }),
+    )
     // サンプル単語では「タグだけ付ける」を選べない（FR-SMP-04）
     expect(await within(dialog).findByText('Examples')).toBeInTheDocument()
     expect(within(dialog).queryByRole('radio', { name: /Add tags only/ })).not.toBeInTheDocument()
@@ -381,8 +389,54 @@ describe('単語パッケージ（仕様書 16.5）', () => {
     // 追加済みでも一覧に残し、「追加済み」と示す
     await user.click(await screen.findByRole('button', { name: 'Word packs' }))
     const reopened = await screen.findByRole('dialog', { name: 'Word packs' })
-    const samples = within(reopened).getByText('Sample words').closest('li')!
-    expect(await within(samples).findByText('Added')).toBeInTheDocument()
+    // どの版も「サンプル」タグで判断するので、日本語版も追加済みと示す（仕様書 11章）
+    for (const name of within(reopened).getAllByText('Sample words')) {
+      expect(await within(name.closest('li')!).findByText('Added')).toBeInTheDocument()
+    }
+    expect((await db.words.where('hanzi').equals('謝謝').first())?.meaning).toBe('thank you')
+  })
+
+  it('意味の言語を示し、UI 言語と同じ言語の単語集を先に並べる（16.5「意味の言語」）', async () => {
+    const entry = JSON.parse(packIndex).packs[0]
+    const multi = JSON.stringify({
+      format: 'tc-vocab-packs',
+      version: 1,
+      packs: [
+        { ...entry, id: 'pack-ja', name: { en: 'Pack JA' }, meaningLanguage: 'ja' },
+        { ...entry, id: 'pack-vi', name: { en: 'Pack VI' }, meaningLanguage: 'vi' },
+        { ...entry, id: 'pack-en', name: { en: 'Pack EN' }, meaningLanguage: 'en' },
+      ],
+    })
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) =>
+        String(input).endsWith('packs/index.json')
+          ? new Response(multi)
+          : new Response('', { status: 404 }),
+      ),
+    )
+    renderApp('/words?open=packs')
+    const dialog = await screen.findByRole('dialog', { name: 'Word packs' })
+    await within(dialog).findByText('Pack EN')
+    const names = () =>
+      [...dialog.querySelectorAll('li button[aria-label]')].map((b) => b.getAttribute('aria-label'))
+    // 英語の UI：サンプル単語も単語集も英語版が先。ほかは index.json の順
+    expect(names()).toEqual([
+      'Choose Sample words (meanings in English)',
+      'Choose Sample words (meanings in 日本語)',
+      'Choose Pack EN (meanings in English)',
+      'Choose Pack JA (meanings in 日本語)',
+      'Choose Pack VI (meanings in Tiếng Việt)',
+    ])
+    // 言語名はその言語自身での名前で示し、lang を付ける
+    const vi_ = within(dialog).getByText('Pack VI').closest('li')!
+    expect(vi_).toHaveTextContent('Meanings in Tiếng Việt')
+    expect(within(vi_).getByText('Tiếng Việt')).toHaveAttribute('lang', 'vi')
+
+    // 繁體中文の UI には合う単語集が無いので、英語版を先に並べる
+    await i18n.changeLanguage('zh-TW')
+    await waitFor(() => expect(names()[0]).toMatch(/範例單字（釋義：English）/))
+    expect(names()[2]).toMatch(/Pack EN/)
   })
 })
 

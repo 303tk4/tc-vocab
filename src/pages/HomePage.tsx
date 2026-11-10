@@ -79,7 +79,7 @@ function AddWordsHint() {
  * (1) 単語パッケージを選ぶ (2) サンプル単語を追加 (3) 自分のファイルをインポート
  */
 function EmptyState() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [busy, setBusy] = useState(false)
   const [failed, setFailed] = useState(false)
 
@@ -88,8 +88,9 @@ function EmptyState() {
     setFailed(false)
     try {
       // 取り込み処理は大きいため、押されたときに読み込む
-      const { addSampleWords } = await import('../services/samples')
-      await addSampleWords()
+      const { addSampleWords, sampleLanguageFor } = await import('../services/samples')
+      // UI 言語が日本語なら日本語版、それ以外は英語版を追加する（仕様書 11章）
+      await addSampleWords(sampleLanguageFor(i18n.language))
     } catch {
       setFailed(true)
     } finally {
