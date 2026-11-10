@@ -1,0 +1,1377 @@
+# TOCFL 対応パッケージ（tocfl-1-en）の英語の意味。AI（Claude）による下書き（仕様書 16.5「意味の言語」）
+# 形式：TBCL 詞語表の id<TAB>繁体字<TAB>意味。キーは「id:繁体字」
+1	愛	to love; to like to
+2	吧	sentence particle for suggestion or supposition
+3	八	eight
+4	爸爸	dad; father
+4	爸	dad; father
+5	百	hundred
+6	半	half
+7	本	measure word for books
+8	不	not; no
+9	茶	tea
+10	車子	car; vehicle
+10	車	car; vehicle
+11	吃	to eat
+12	吃飯	to eat; to have a meal
+13	打	to hit; to play (ball games); to make (a phone call)
+14	大	big; large; old (age)
+15	帶	to bring; to take; to lead
+16	大家	everyone
+17	到	to arrive; to go to; until
+18	大學	university
+19	的	possessive or attributive particle
+20	點	o'clock; dot; to order (food)
+21	電話	telephone; phone call
+22	弟弟	younger brother
+22	弟	younger brother
+23	東西	thing; stuff
+24	都	all; both; already
+25	對	correct; right; toward; to
+26	對不起	sorry; excuse me
+27	多	many; much; more
+28	多少	how many; how much
+29	二	two
+30	兒子	son
+31	分	minute; cent; point; to divide
+32	高	tall; high
+33	個	general measure word
+34	哥哥	older brother
+34	哥	older brother
+35	給	to give; for; to
+36	工作	work; job; to work
+37	國	country; nation
+38	孩子	child
+39	和	and; with
+40	好	good; well; very
+41	號	number; date (of the month)
+42	喝	to drink
+43	很	very
+44	後	after; behind; back
+45	話	words; speech; language
+46	幾	how many; a few
+47	家	home; family; measure word for businesses
+48	腳	foot
+49	叫	to call; to be called; to shout
+50	姊姊	older sister
+50	姐姐	older sister
+50	姊	older sister
+50	姐	older sister
+51	今年	this year
+52	今天	today
+53	久	long (time)
+54	九	nine
+55	就	then; right away; just; exactly
+56	咖啡	coffee
+57	看	to look; to watch; to read; to visit
+58	可能	possible; maybe; possibility
+59	可以	can; may; not bad
+60	塊	dollar (colloquial); piece; chunk
+61	來	to come
+62	老	old
+63	老師	teacher
+64	冷	cold
+65	兩	two (with measure words)
+66	六	six
+67	路	road; route
+68	嗎	question particle
+69	買	to buy
+70	媽媽	mom; mother
+70	媽	mom; mother
+71	沒	not (have); did not
+72	沒關係	it doesn't matter; no problem
+73	妹妹	younger sister
+73	妹	younger sister
+74	沒有	not have; there is not; did not
+75	們	plural suffix for people
+76	名字	name
+77	明天	tomorrow
+78	拿	to take; to hold
+79	哪	which
+80	那	that
+81	哪裡	where
+81	哪裏	where
+81	哪兒	where
+82	那裡	there
+82	那裏	there
+82	那兒	there
+83	難	difficult
+84	呢	question particle (and what about...?); particle for continuing action
+85	你	you
+86	妳	you (female)
+87	年	year
+88	你們	you (plural)
+89	您	you (polite)
+90	女兒	daughter
+91	朋友	friend
+92	七	seven
+93	千	thousand
+94	前	front; before; ago
+95	錢	money
+96	請	please; to invite; to treat (someone)
+97	請問	excuse me, may I ask
+98	去	to go
+99	去年	last year
+100	熱	hot
+101	人	person; people
+102	日	day; sun; date
+103	容易	easy
+104	三	three
+105	上	up; on; above; last (week etc.); to go up; to attend
+106	上午	morning; a.m.
+107	少	few; little; less
+108	誰	who
+109	什麼	what
+109	甚麼	what
+110	十	ten
+111	是	to be; yes
+112	時候	time; moment; when
+113	時間	time
+114	手機	cell phone
+115	書	book
+116	水	water
+117	睡覺	to sleep; to go to bed
+118	說	to say; to speak
+119	四	four
+120	歲	years old
+121	她	she; her
+122	他	he; him
+123	太	too; extremely
+124	太太	wife; Mrs.
+125	台灣	Taiwan
+125	臺灣	Taiwan
+126	臺灣人	Taiwanese (person)
+126	台灣人	Taiwanese (person)
+127	他們	they; them
+128	天	day; sky
+129	聽	to listen; to hear
+130	同學	classmate
+131	外	outside; foreign
+132	晚安	good night
+133	晚上	evening; night
+134	位	polite measure word for people
+135	問	to ask
+136	問題	question; problem
+137	我	I; me
+138	我們	we; us
+139	五	five
+140	想	to want; to think; to miss
+141	先生	Mr.; sir; husband
+142	現在	now
+143	小	small; little; young
+144	小孩	child
+144	小孩子	child
+145	小姐	Miss; young lady
+146	小時	hour
+147	下午	afternoon; p.m.
+148	寫	to write
+149	謝謝	thank you
+150	喜歡	to like
+151	新	new
+152	姓名	full name
+153	星期天	Sunday
+153	星期日	Sunday
+154	星期一	Monday
+155	學	to learn; to study
+156	學生	student
+157	學校	school
+158	要	to want; to need; will
+159	也	also; too
+160	一	one
+161	英文	English (language)
+162	一起	together
+163	醫生	doctor
+163	醫師	doctor; physician
+164	一月	January
+165	用	to use
+166	有	to have; there is
+167	元	dollar (unit of currency)
+168	月	month; moon
+169	再見	goodbye
+170	早	early; good morning
+171	早安	good morning
+172	早上	morning
+173	怎麼	how; why
+174	找	to look for; to give change
+175	這	this
+176	這裡	here
+176	這裏	here
+176	這兒	here
+177	知道	to know
+178	中文	Chinese (language)
+179	中午	noon
+180	字	character; word
+181	走	to walk; to leave
+182	做	to do; to make
+183	坐	to sit; to ride (a vehicle)
+184	昨天	yesterday
+185	矮	short (height)
+186	白	white
+187	飽	full (after eating)
+188	包子	steamed stuffed bun
+189	杯	cup; measure word for drinks
+190	杯子	cup; glass
+191	筆	pen; brush
+192	比	than; compared with; to compare
+193	邊	side
+194	別	don't; other
+195	冰	ice; iced
+196	病	illness; sick
+197	鼻子	nose
+197	鼻	nose
+198	不錯	not bad; pretty good
+199	菜	dish (of food); vegetable
+200	餐廳	restaurant
+201	長	long
+202	唱	to sing
+203	唱歌	to sing (a song)
+204	常常	often
+204	常	often
+205	出	to go out; to come out
+206	穿	to wear; to put on
+207	床	bed
+208	從	from
+209	錯	wrong; mistake
+210	蛋	egg
+211	得	particle linking a verb to its complement
+212	得	must; have to
+213	等	to wait; etc.
+214	低	low
+215	店	store; shop
+216	電腦	computer
+217	電視	television
+218	電影	movie
+219	地方	place
+220	懂	to understand
+221	讀	to read; to study
+222	短	short (length)
+223	多久	how long
+224	餓	hungry
+225	耳朵	ear
+226	飯	cooked rice; meal
+227	方便	convenient
+228	房間	room
+229	房子	house
+230	非常	very; extremely
+231	飛機	airplane
+232	風	wind
+233	分鐘	minute
+234	附近	nearby; vicinity
+235	感冒	cold (illness); to catch a cold
+236	告訴	to tell
+237	歌	song
+238	跟	with; and; to follow
+239	公車	bus
+240	功課	homework
+241	公園	park
+242	夠	enough
+243	貴	expensive
+244	過	to pass; to spend (time); experiential particle
+245	國家	country
+246	還	still; also; even more
+247	還是	or (in questions); still; had better
+248	黑	black; dark
+249	紅	red
+250	後年	the year after next
+251	後天	the day after tomorrow
+252	花	flower; to spend
+253	畫	to draw; painting
+254	會	can; will; meeting
+255	火車	train
+256	雞	chicken
+257	見	to see; to meet
+258	件	measure word for clothes and matters
+259	教	to teach
+260	教室	classroom
+261	家人	family member
+262	計程車	taxi
+263	介紹	to introduce
+264	進	to enter
+265	酒	alcohol; liquor
+266	舊	old (not new)
+267	覺得	to feel; to think
+268	句子	sentence
+269	開	to open; to drive; to turn on
+270	開車	to drive (a car)
+271	看病	to see a doctor
+272	看到	to see
+273	看見	to see
+274	考試	exam; to take an exam
+275	課	class; lesson
+276	可是	but
+277	空氣	air
+278	快	fast; soon
+279	快樂	happy
+280	筷子	chopsticks
+280	筷	chopsticks
+281	累	tired
+282	裡	inside
+282	裏	inside
+283	輛	measure word for vehicles
+284	禮拜天	Sunday
+285	裡面	inside
+285	裏面	inside
+286	樓	floor; building
+287	慢	slow
+288	忙	busy
+289	馬上	immediately
+290	美	beautiful
+291	每	every; each
+292	門	door; gate
+293	門口	entrance; doorway
+294	麵	noodles
+295	麵包	bread
+296	明年	next year
+297	男	male
+298	能	can; to be able to
+299	唸	to read aloud; to study
+299	念	to read aloud; to study
+300	牛	cow; ox; beef
+301	牛奶	milk
+302	女	female
+303	怕	to be afraid of
+304	胖	fat; chubby
+305	旁邊	side; beside
+305	旁	side; beside
+306	便宜	cheap
+307	漂亮	pretty; beautiful
+308	前面	front; ahead
+309	前年	the year before last
+310	前天	the day before yesterday
+311	起床	to get up
+312	起來	to get up; to rise; (after a verb) beginning or completion
+313	球	ball
+314	然後	then; after that
+315	肉	meat
+316	山	mountain
+317	上課	to attend class; class begins
+318	生病	to get sick
+319	生日	birthday
+320	身體	body; health
+321	事	matter; thing; business
+322	手	hand
+323	瘦	thin; slim
+324	雙	pair
+325	舒服	comfortable
+326	水果	fruit
+327	說話	to speak; to talk
+328	所以	so; therefore
+329	它	it
+330	湯	soup
+331	甜	sweet
+332	天氣	weather
+333	跳	to jump
+334	跳舞	to dance
+335	聽見	to hear
+336	痛	painful; to hurt
+337	頭	head
+338	外國	foreign country
+339	外頭	outside
+340	玩	to play; to have fun
+341	晚	late
+342	碗	bowl
+343	萬	ten thousand
+344	晚餐	dinner
+344	晚飯	dinner
+345	為什麼	why
+346	午餐	lunch
+346	午飯	lunch
+347	下	down; below; next (week etc.); to go down
+348	下課	class is over; to finish class
+349	先	first; in advance
+350	像	to resemble; like
+351	小吃	snack; street food
+352	下雨	to rain
+353	鞋子	shoe
+353	鞋	shoe
+354	姓	surname; to be surnamed
+355	星期	week
+356	休息	to rest
+357	眼睛	eye
+358	藥	medicine
+359	一點	a little
+359	一點點	a little bit
+359	一點兒	a little
+360	一定	certainly; must
+361	衣服	clothes
+361	衣	clothes
+362	一共	altogether; in total
+362	共	in total; together
+363	以後	after; later; in the future
+364	應該	should; ought to
+364	應	should; ought to
+365	因為	because
+366	以前	before; in the past
+367	意思	meaning
+368	一些	some; a few
+369	一樣	the same
+370	椅子	chair
+370	椅	chair
+371	右	right (side)
+372	又	again; also
+373	右邊	right side
+374	有點	a bit; somewhat
+374	有一點	a bit; somewhat
+374	有點兒	a bit; somewhat
+375	有時候	sometimes
+375	有時	sometimes
+376	魚	fish
+377	雨	rain
+378	運動	sports; exercise; to exercise
+379	再	again; then
+380	在	to be at; in; at; (in the middle of) doing
+381	早餐	breakfast
+381	早飯	breakfast
+382	怎麼樣	how; how about
+383	站	to stand; station; stop
+384	張	measure word for flat objects
+385	真	really; true
+386	真的	really; truly
+387	枝	measure word for pens and stems
+388	紙	paper
+389	只	only
+390	中	middle; in; among
+391	鐘頭	hour
+392	週末	weekend
+392	周末	weekend
+393	豬	pig; pork
+394	住	to live; to stay
+395	桌子	table; desk
+395	桌	table; desk
+396	自己	oneself
+397	走路	to walk
+398	最	most
+399	嘴巴	mouth
+399	嘴	mouth
+400	左	left (side)
+401	啊	sentence particle expressing exclamation
+402	把	particle introducing the object; measure word for things with handles
+403	班	class; shift
+404	辦法	way; method
+405	幫	to help
+406	棒	great; excellent; stick
+407	幫忙	to help
+408	幫助	to help; help
+409	包	bag; package; to wrap
+410	北	north
+411	被	by (passive marker)
+412	本來	originally
+413	變	to change; to become
+414	別人	other people
+415	比較	relatively; to compare
+415	較	comparatively
+416	病人	patient (sick person)
+417	比賽	competition; match; to compete
+418	部	part; department; measure word for films and machines
+419	部分	part; section
+419	部份	part; section
+420	不過	but; however; only
+421	才	only then; just; only
+422	參加	to take part in; to attend
+423	差不多	about the same; almost
+424	場	measure word for events, games and shows
+425	成績	grades; results
+426	春天	spring
+426	春	spring
+427	次	time (occurrence)
+428	戴	to wear (glasses, hat, accessories)
+429	當	to serve as; when
+430	當然	of course
+431	但是	but
+431	但	but
+432	道	measure word for dishes and questions; road; to say
+433	大人	adult
+434	地	adverbial particle (-ly)
+435	地	ground; land
+436	電	electricity
+437	第一	first
+438	冬天	winter
+438	冬	winter
+439	放	to put; to place; to let go
+440	方法	method; way
+441	發現	to discover; to find
+442	份	portion; copy; measure word for newspapers, jobs, etc.
+443	敢	to dare
+444	剛剛	just now
+444	剛	just; just now
+445	乾淨	clean
+446	高興	happy; glad
+447	高中	senior high school
+448	各	each; every
+449	更	even more
+450	公司	company
+451	狗	dog
+452	故事	story
+453	海	sea
+454	行	line; row; profession
+455	好像	to seem; as if
+456	後來	afterwards; later
+457	還	to return; to give back
+458	黃	yellow
+459	歡迎	to welcome; welcome
+460	回	to return; to go back; measure word for times
+461	回到	to return to
+462	火	fire
+463	活動	activity; event
+464	或是	or
+465	加	to add; plus
+466	間	measure word for rooms and buildings; between
+467	簡單	simple; easy
+468	講	to speak; to tell; to explain
+469	健康	health; healthy
+470	家庭	family; household
+471	記得	to remember
+472	接	to pick up (someone); to receive; to answer (the phone)
+473	計畫	plan; to plan
+473	計劃	plan; to plan
+474	機會	opportunity; chance
+475	近	near; close
+476	進步	progress; to improve
+477	經過	to pass by; through; process
+478	經驗	experience
+479	緊張	nervous; tense
+480	句	measure word for sentences
+481	決定	to decide; decision
+482	開始	to begin; to start
+483	可愛	cute; lovely
+484	客人	guest; customer
+485	哭	to cry
+486	苦	bitter; hard (life)
+487	啦	sentence particle (exclamation)
+488	拉	to pull
+489	老闆	boss; shop owner
+489	老板	boss; shop owner
+490	老人	old person
+491	離	from (distance); away from
+492	臉	face
+493	練習	to practice; exercise
+494	聊天	to chat
+494	聊	to chat
+495	離開	to leave
+496	綠	green
+497	旅行	to travel; trip
+498	馬	horse
+499	賣	to sell
+500	貓	cat
+501	名	name; measure word for people
+502	哪	sentence particle (variant of 啊)
+503	那麼	so; then; in that case
+504	南	south
+505	能力	ability
+506	年輕	young
+507	鳥	bird
+508	努力	to work hard; effort
+509	跑	to run
+510	片	slice; piece; measure word for flat things
+511	票	ticket; vote
+512	平常	usually; ordinary
+513	騎	to ride (a bike, motorcycle, horse)
+514	汽車	car; automobile
+515	奇怪	strange; odd
+516	清楚	clear; to understand clearly
+517	其他	other
+517	其它	other
+518	全	whole; all; entire
+519	全部	all; whole
+520	讓	to let; to allow; to make
+521	認識	to know (a person); to recognize
+522	認為	to think; to believe
+523	如果	if
+524	聲	sound; voice; measure word for sounds
+525	聲音	sound; voice
+526	試	to try
+527	市場	market
+528	世界	world
+529	事情	matter; thing
+530	樹	tree
+531	送	to give (as a gift); to send; to see off
+532	算	to calculate; to count as
+533	雖然	although
+533	雖	although
+534	所	place; measure word for schools and houses
+535	所有	all
+536	台	measure word for machines and vehicles; stage
+536	臺	measure word for machines and vehicles; stage
+537	特別	special; especially
+538	替	for; on behalf of; to replace
+539	條	measure word for long, thin things
+540	聽到	to hear
+541	聽說	to hear (that); it is said that
+542	圖	picture; drawing; map
+543	往	toward; to
+544	網路	internet; network
+545	味道	taste; smell
+545	味	taste; smell
+546	文化	culture
+547	屋子	room; house
+547	屋	house; room
+548	西	west
+549	洗	to wash
+550	香	fragrant; tasty
+551	向	toward; to face
+552	想法	idea; opinion
+553	相片	photo
+553	照片	photo
+554	相信	to believe
+555	笑	to laugh; to smile
+556	小時候	in childhood; as a child
+557	小心	to be careful; careful
+558	小朋友	child; kid
+559	夏天	summer
+559	夏	summer
+560	習慣	habit; to be used to
+561	心	heart; mind
+562	信	letter; to believe
+563	行	OK; capable; to be all right
+564	辛苦	hard; toilsome; thank you for your hard work
+565	希望	to hope; hope
+566	學習	to learn; to study
+567	需要	to need; need
+567	需	to need
+568	呀	sentence particle (exclamation)
+569	樣子	appearance; manner
+570	顏色	color
+571	一半	half
+572	已經	already
+573	銀行	bank
+574	音樂	music
+575	以為	to think (mistakenly); to assume
+576	一下子	a short while; all at once
+576	一下	a bit; a moment (after a verb)
+577	醫院	hospital
+578	一直	all along; continuously; straight
+579	有的	some
+580	遠	far
+581	願意	to be willing
+582	語言	language
+582	語	language; words
+583	怎麼辦	what to do
+584	長	to grow; head; chief
+585	找到	to find
+586	這麼	so; like this
+587	支	measure word for pens and songs
+588	隻	measure word for animals
+589	種	kind; type
+590	重	heavy; important
+591	中間	middle; between
+592	重要	important
+593	轉	to turn; to transfer
+594	準備	to prepare
+595	注意	to pay attention to
+596	總是	always
+596	總	always; total
+597	最後	last; finally
+598	最近	recently; lately
+599	作業	homework; assignment
+600	阿姨	aunt (mother's sister); auntie
+601	百貨公司	department store
+602	白天	daytime
+603	搬	to move (something)
+604	辦公室	office
+605	棒球	baseball
+606	搬家	to move (house)
+607	報紙	newspaper
+608	巴士	bus
+609	背包	backpack
+610	北部	the north; northern part
+611	笨	stupid; clumsy
+612	本子	notebook
+613	便利商店	convenience store
+614	別的	other
+615	比方說	for example
+615	比方	for example
+616	冰塊	ice cube
+617	冰淇淋	ice cream
+618	冰箱	refrigerator
+619	伯伯	uncle (father's elder brother); older man
+619	伯	uncle (father's elder brother)
+620	不好意思	sorry; excuse me; embarrassed
+621	不見了	missing; gone
+622	不客氣	you're welcome
+623	菜單	menu
+624	餐	meal
+625	草	grass
+626	超市	supermarket
+626	超級市場	supermarket
+627	茶館	teahouse
+628	炒	to stir-fry
+629	超商	convenience store
+630	叉子	fork
+630	叉	fork
+631	車站	station
+632	匙	spoon
+633	臭	smelly
+634	窗	window
+634	窗戶	window
+634	窗子	window
+635	聰明	smart; clever
+636	從前	in the past; once upon a time
+637	刀子	knife
+637	刀	knife
+638	袋	bag
+639	袋子	bag
+640	大樓	building
+641	大門	main gate; front door
+642	蛋糕	cake
+643	打算	to plan; to intend
+644	大衣	overcoat
+645	燈	lamp; light
+646	德文	German (language)
+647	電梯	elevator
+648	點心	snack; dim sum
+649	掉	to fall; to drop; to lose
+650	地圖	map
+651	地址	address
+652	東	east
+653	對面	opposite; across
+654	肚子	belly; stomach
+654	肚	belly
+655	飯店	hotel; restaurant
+656	房租	rent
+657	房東	landlord
+658	飯廳	dining room
+659	法文	French (language)
+660	飛	to fly
+661	風景	scenery
+662	付	to pay
+663	公共汽車	bus
+664	掛	to hang
+665	關	to close; to turn off
+666	罐	can; jar
+667	罐子	can; jar
+668	過年	to celebrate the New Year
+669	果汁	juice
+670	漢堡	hamburger
+671	號碼	number
+672	河	river
+673	盒	box
+674	盒子	box
+675	紅茶	black tea
+676	壞	bad; broken
+677	火腿	ham
+678	護士	nurse
+679	寄	to mail; to send
+680	見面	to meet
+681	交	to hand in; to make (friends)
+682	腳踏車	bicycle
+683	餃子	dumpling
+683	餃	dumpling
+684	加油	to add fuel; come on! (cheer)
+685	機場	airport
+686	街	street
+687	借	to borrow; to lend
+688	開學	school starts
+689	考	to take an exam; to test
+690	烤	to roast; to bake; to grill
+691	渴	thirsty
+692	課本	textbook
+693	可樂	cola
+694	客氣	polite; to stand on ceremony
+695	客廳	living room
+696	空	free time; vacant
+697	褲子	pants; trousers
+697	褲	pants; trousers
+698	辣	spicy
+699	藍	blue
+700	籃球	basketball
+701	冷氣	air conditioning
+702	禮拜	week
+703	零	zero
+704	樓上	upstairs
+705	樓梯	stairs
+706	樓下	downstairs
+707	路口	intersection
+708	旅館	hotel; inn
+709	麻煩	trouble; troublesome; to bother
+710	馬路	road; street
+711	慢跑	to jog; jogging
+712	饅頭	steamed bun
+713	帽子	hat
+713	帽	hat
+714	門票	admission ticket
+715	奶茶	milk tea
+716	奶奶	grandma (paternal)
+717	難過	sad
+718	男生	boy; male
+719	年級	grade; year (in school)
+720	念書	to study
+720	唸書	to study
+721	女生	girl; female
+722	盤	plate; dish
+723	盤子	plate; dish
+724	跑步	to run; running
+725	皮包	purse; handbag
+726	啤酒	beer
+727	瓶	bottle
+728	蘋果	apple
+729	瓶子	bottle
+730	錢包	wallet
+731	輕	light (weight)
+732	青菜	vegetable
+733	汽水	soda; soft drink
+734	秋天	autumn; fall
+734	秋	autumn
+735	裙子	skirt
+735	裙	skirt
+736	熱狗	hot dog
+737	日文	Japanese (language)
+738	日語	Japanese (language)
+739	三明治	sandwich
+740	色	color
+741	上班	to go to work
+742	商店	store
+743	上網	to go online
+744	上學	to go to school
+745	生氣	angry; to get angry
+746	市	city
+747	室友	roommate
+748	十字路口	crossroads
+749	手錶	watch
+749	手表	watch
+749	錶	watch
+749	表	watch
+750	書包	school bag
+751	書店	bookstore
+752	書房	study (room)
+753	叔叔	uncle (father's younger brother); man
+753	叔	uncle (father's younger brother)
+754	司機	driver
+755	酸	sour
+756	宿舍	dormitory
+757	糖	sugar; candy
+758	湯匙	spoon
+759	踢	to kick
+760	甜點	dessert
+761	頭髮	hair
+761	髮	hair
+762	脫	to take off
+763	圖書館	library
+764	外套	jacket; coat
+765	忘	to forget
+766	網球	tennis
+767	網站	website
+768	喂	hello (on the phone); hey
+769	下班	to get off work
+770	鹹	salty
+771	香蕉	banana
+772	小學	elementary school
+773	下雪	to snow
+774	西瓜	watermelon
+775	新年	New Year
+776	信用卡	credit card
+777	洗手間	restroom
+778	洗澡	to take a bath or shower
+779	雪	snow
+780	眼鏡	glasses
+781	要是	if
+782	野餐	picnic
+783	夜市	night market
+784	爺爺	grandpa (paternal)
+785	一會	a moment; a while
+785	一會兒	a moment; a while
+786	一塊	together
+786	一塊兒	together
+787	英語	English (language)
+788	用功	studious; to study hard
+789	游	to swim
+790	郵局	post office
+791	有空	to have free time
+792	有名	famous
+793	郵票	stamp
+794	有錢	rich
+795	有意思	interesting
+796	游泳	to swim; swimming
+797	有用	useful
+798	游泳池	swimming pool
+799	炸	to deep-fry
+800	照相	to take a photo
+801	週日	Sunday
+802	週一	Monday
+803	祝	to wish
+804	字典	dictionary
+805	租	to rent
+806	足球	soccer
+807	安全	safe; safety
+808	報告	report; to report
+809	背	to carry on one's back
+810	背	back (of the body); to memorize
+811	遍	time (from beginning to end)
+812	便當	lunch box; bento
+813	餅	cake; pastry; pancake
+814	餅乾	cookie; cracker
+815	必須	must
+815	須	must
+816	畢業	to graduate
+817	不必	need not
+818	不但	not only
+819	不同	different
+820	不用	need not; no need
+821	草莓	strawberry
+822	廁所	toilet; restroom
+823	查	to check; to look up
+824	城市	city
+824	城	city; city wall
+825	遲到	to be late
+826	船	boat; ship
+827	傳統	tradition; traditional
+828	廚房	kitchen
+829	出國	to go abroad
+830	出口	exit; export
+831	出門	to go out
+832	春節	Spring Festival; Chinese New Year
+833	詞	word
+834	搭	to take (transport); to put up
+835	大概	probably; roughly
+836	打工	to work part-time
+837	到處	everywhere
+838	大學生	college student
+839	打折	to give a discount
+840	電影院	movie theater
+841	店員	shop clerk
+842	訂	to book; to order; to reserve
+843	訂位	to make a reservation
+844	地鐵	subway
+845	丟	to lose; to throw
+846	底下	under; below
+847	豆腐	tofu
+848	豆漿	soy milk
+849	度	degree
+850	讀書	to study; to read
+851	而且	moreover; and also
+851	且	and; moreover
+852	耳機	earphones
+853	放假	to have a holiday
+854	番茄	tomato
+855	發生	to happen
+856	肥皂	soap
+857	封	measure word for letters
+858	鳳梨	pineapple
+859	父母	parents
+860	父親	father
+861	服務	service; to serve
+862	乾	dry
+863	剛才	just now
+864	趕快	quickly; hurry
+865	逛	to stroll; to browse
+866	逛街	to go window-shopping
+867	關係	relationship; connection
+868	關心	to care about
+869	還好	not bad; fortunately
+870	海鮮	seafood
+871	寒假	winter vacation
+872	漢字	Chinese character
+873	好處	benefit; advantage
+874	黑板	blackboard
+876	華人	ethnic Chinese person
+877	壞處	disadvantage; harm
+878	換	to change; to exchange
+879	環境	environment
+880	華語	Mandarin Chinese
+881	回答	to answer; answer
+881	答	to answer
+882	回信	to reply (to a letter)
+883	或者	or
+883	或	or
+884	急	anxious; urgent
+885	假	holiday; leave
+886	醬	sauce; paste
+887	簡訊	text message
+888	交通	traffic; transportation
+889	教育	education
+890	加上	plus; in addition
+891	機車	scooter; motorcycle
+892	結婚	to marry
+893	捷運	MRT (metro)
+894	季節	season
+894	季	season
+895	橘子	tangerine; orange
+896	開心	happy
+897	看起來	to look like; to seem
+898	顆	measure word for small round things
+899	客滿	fully booked; full house
+900	可怕	scary; terrible
+901	空	empty; sky
+902	口	mouth; measure word for family members and bites
+903	口袋	pocket
+904	垃圾	garbage; trash
+905	例子	example
+905	例	example
+906	涼快	cool (pleasantly)
+907	立刻	immediately
+908	零錢	small change; pocket money
+909	另外	besides; in addition; other
+909	另	other; another
+910	鄰居	neighbor
+911	歷史	history
+912	留	to stay; to leave (behind)
+913	流汗	to sweat
+914	流行	popular; fashionable
+915	禮物	gift
+916	亂	messy; randomly
+917	滿	full
+918	芒果	mango
+919	毛巾	towel
+920	毛衣	sweater
+921	夢	dream
+922	摩托車	motorcycle
+923	木瓜	papaya
+924	母親	mother
+925	沐浴乳	body wash
+926	鬧鐘	alarm clock
+927	那樣	like that
+928	內	inside; within
+929	能夠	to be able to
+930	年紀	age
+931	牛排	steak
+932	弄	to do; to make; to handle
+933	拍	to pat; to take (a photo)
+934	排隊	to line up
+935	拍照	to take a photo
+936	泡	to soak; to steep; bubble
+937	泡麵	instant noodles
+938	爬山	to hike; to climb a mountain
+939	陪	to accompany
+940	皮鞋	leather shoes
+941	破	broken; torn
+942	葡萄	grape
+943	簽證	visa
+944	巧克力	chocolate
+945	請客	to treat (someone to a meal)
+946	輕鬆	relaxed; easy
+947	認真	serious; earnest
+948	入口	entrance
+949	傘	umbrella
+950	沙發	sofa
+951	沙拉	salad
+952	上床	to go to bed
+953	生活	life; to live
+954	生意	business
+955	溼	wet
+955	濕	wet
+956	適合	to suit; suitable
+957	食物	food
+958	收	to receive; to collect; to put away
+959	手套	gloves
+960	帥	handsome
+961	刷卡	to pay by card
+962	暑假	summer vacation
+963	死	to die; dead
+964	速食	fast food
+965	颱風	typhoon
+966	太陽	sun
+967	台語	Taiwanese (language)
+967	臺語	Taiwanese (language)
+968	糖果	candy
+969	套	set; suit; measure word for sets
+970	提	to carry (in hand); to mention
+971	停	to stop; to park
+972	停車場	parking lot
+973	同意	to agree
+974	頭痛	headache
+975	腿	leg
+976	哇	wow
+977	忘記	to forget
+978	襪子	socks
+979	衛生紙	toilet paper; tissue
+980	危險	dangerous; danger
+981	位子	seat
+982	聞	to smell
+983	文法	grammar
+984	溫泉	hot spring
+985	舞	dance
+986	無聊	bored; boring
+987	烏龍茶	oolong tea
+988	相當	quite; considerably
+989	消息	news; information
+990	校園	campus
+991	洗髮精	shampoo
+992	行李	luggage
+993	興趣	interest; hobby
+994	新聞	news
+995	新鮮	fresh
+996	信箱	mailbox; email inbox
+997	兄弟	brothers
+998	洗衣機	washing machine
+999	選	to choose
+1000	學期	semester
+1001	學生證	student ID
+1002	牙膏	toothpaste
+1003	鹽	salt
+1004	樣	kind; type
+1005	洋蔥	onion
+1006	研究	research; to study
+1007	鑰匙	key
+1008	牙刷	toothbrush
+1009	已	already
+1010	影響	influence; to affect
+1011	飲料	drink; beverage
+1012	油	oil
+1013	郵件	mail; email
+1014	有趣	interesting; fun
+1015	遊戲	game
+1016	越	the more...the more
+1017	雨傘	umbrella
+1018	浴室	bathroom
+1019	雨衣	raincoat
+1020	髒	dirty
+1021	長大	to grow up
+1022	照顧	to take care of
+1023	這樣	like this; this way
+1024	只好	to have no choice but to
+1025	直接	direct; directly
+1026	只要	as long as
+1027	中心	center
+1028	週	week
+1029	裝	to install; to pack; to pretend
+1030	資料	data; materials
+1031	自行車	bicycle
+1032	最好	best; had better
+1033	做法	method; way of doing
+1033	作法	method; way of doing
+1034	辦	to handle; to do
+1035	班次	scheduled service (bus, train, flight)
+1036	半夜	midnight
+1037	保護	to protect
+1038	包括	to include
+1039	倍	times; -fold
+1040	標準	standard
+1041	鼻水	runny nose
+1042	伯父	uncle (father's elder brother)
+1043	伯母	aunt (wife of father's elder brother)
+1044	步	step
+1045	不停	nonstop
+1046	不只	not only
+1047	不得了	terrible; extremely
+1048	不管	no matter
+1049	參觀	to visit (a place)
+1050	餐桌	dining table
+1051	層	floor; layer
+1052	差	difference; poor (quality)
+1053	吵	noisy; to quarrel
+1054	乘	to ride; to multiply
+1055	程度	level; degree
+1056	成功	success; successful
+1057	除	except; to remove
+1058	傳	to pass; to spread
+1059	除了	except; besides
+1060	春季	spring (season)
+1061	春假	spring break
+1062	出生	to be born
+1063	除夕	Lunar New Year's Eve
+1064	從來	always; never (with negative)
+1065	存	to save; to deposit
+1066	答案	answer
+1067	帶來	to bring
+1068	大陸	mainland China; continent
+1069	當時	at that time
+1070	當中	among; in the middle
+1071	擔心	to worry
+1072	等等	etc.; wait a moment
+1073	得到	to get; to obtain
+1074	等到	by the time; to wait until
+1075	底	bottom; end
+1076	地點	location
+1077	低頭	to lower one's head
+1078	豆	bean
+1078	豆子	bean
+1079	動	to move
+1080	東方	the East; Orient
+1081	朵	measure word for flowers and clouds
+1082	多麼	how (exclamatory)
+1083	法律	law
+1084	煩	annoyed; annoying
+1085	方	square; side
+1086	房	room; house
+1087	方面	aspect; side
+1088	房屋	house; building
+1089	方向	direction
+1090	放心	to feel relieved; not to worry
+1091	發燒	to have a fever
+1092	改	to change; to correct
+1093	剛好	just right; happen to
+1094	感覺	feeling; to feel
+1095	高級	high-level; high-end
+1096	公路	highway
+1097	工人	worker
+1098	姑姑	aunt (father's sister)
+1098	姑	aunt (father's sister)
+1099	光	light; only; used up
+1100	櫃子	cabinet; cupboard
+1100	櫃	cabinet; cupboard
+1101	姑媽	aunt (father's married sister)
+1102	國小	elementary school
+1103	害怕	to be afraid
+1104	汗	sweat
+1105	合適	suitable
+1106	合作	to cooperate; cooperation
+1107	畫家	painter
+1108	環保	environmental protection
+1109	極	extremely
+1110	加班	to work overtime
+1111	家具	furniture
+1111	傢俱	furniture
+1112	減	to reduce; to subtract
+1113	建議	to suggest; suggestion
+1114	教授	professor
+1115	教書	to teach
+1116	叫做	to be called
+1117	假日	holiday; day off
+1118	結果	result; as a result
+1119	節日	festival; holiday
+1120	結束	to end; to finish
+1121	接著	next; then
+1121	接着	next; then
+1122	經常	often
+1123	精神	spirit; energy; energetic
+1124	金色	gold (color)
+1125	居留證	residence permit
+1126	開會	to have a meeting
+1127	開玩笑	to joke
+1128	看法	view; opinion
+1129	咳	to cough
+1130	咳嗽	to cough
+1131	可惜	it's a pity
+1132	困難	difficulty; difficult
+1133	老太太	old lady
+1134	籃	basket
+1135	籃子	basket
+1136	老闆娘	proprietress; boss's wife
+1136	老板娘	proprietress; boss's wife
+1137	類	kind; category
+1138	連	even; to connect
+1139	涼	cool; cold
+1140	臉色	complexion; facial expression
+1141	了解	to understand
+1141	瞭解	to understand
+1142	禮貌	manners; polite
+1143	零用錢	pocket money; allowance
+1144	例如	for example
+1145	流	to flow
+1146	留下	to leave behind; to stay
+1147	利用	to use; to make use of
+1148	毛	hair; fur; dime (10 cents)
+1149	美麗	beautiful
+1150	沒想到	unexpectedly
+1151	米	rice (uncooked); meter
+1152	目的	purpose
+1153	母語	mother tongue
+1154	爬	to climb; to crawl
+1155	派對	party
+1156	拼音	pinyin; phonetic spelling
+1157	起	to rise; from
+1158	淺	shallow; light (color)
+1159	晴天	sunny day
+1160	情形	situation
+1161	其實	actually
+1162	其中	among them
+1163	熱鬧	lively; bustling
+1164	日用品	daily necessities
+1165	日記	diary
+1166	日子	day; life
+1167	散步	to take a walk
+1168	商人	businessperson
+1169	上衣	top (clothing)
+1170	社會	society
+1171	深	deep; dark (color)
+1172	身邊	at one's side
+1173	身高	height
+1174	聖誕老人	Santa Claus
+1175	生活費	living expenses
+1176	時	time; when
+1177	時差	time difference; jet lag
+1178	市區	city area; downtown
+1179	時鐘	clock
+1179	鐘	clock; bell
+1180	熟	ripe; cooked; familiar
+1181	數	to count
+1182	刷	to brush
+1183	書法	calligraphy
+1184	睡衣	pajamas
+1185	書架	bookshelf
+1186	書桌	desk
+1187	速度	speed
+1188	孫女	granddaughter
+1189	孫子	grandson
+1190	鎖	lock; to lock
+1191	談	to talk; to discuss
+1192	套餐	set meal
+1193	討論	to discuss
+1194	題	question; topic
+1195	題目	topic; question
+1196	廳	hall
+1197	同班	in the same class
+1198	同時	at the same time
+1199	同樣	the same
+1200	偷	to steal
+1201	拖鞋	slippers
+1202	外公	grandpa (maternal)
+1202	外祖父	grandfather (maternal)
+1203	外婆	grandma (maternal)
+1203	外祖母	grandmother (maternal)
+1204	完	to finish; finished
+1205	完全	completely
+1206	蚊子	mosquito
+1207	臥房	bedroom
+1208	臥室	bedroom
+1209	污染	pollution; to pollute
+1209	汙染	pollution; to pollute
+1210	現代	modern
+1211	箱	box; measure word for boxes
+1212	香味	fragrance
+1213	鄉下	countryside
+1214	箱子	box; suitcase
+1215	小費	tip (money)
+1216	信封	envelope
+1217	星星	star
+1218	心情	mood
+1219	選擇	to choose; choice
+1220	許多	many; a lot of
+1221	眼	eye
+1222	嚴重	serious; severe
+1223	藥房	pharmacy
+1224	藥局	pharmacy
+1225	要求	to request; requirement
+1226	夜	night
+1227	夜晚	night
+1228	也許	perhaps
+1229	一般	general; ordinary
+1230	衣架	hanger
+1231	意見	opinion
+1232	陰天	cloudy day
+1233	一切	everything
+1234	以上	above; more than
+1235	以下	below; less than
+1236	尤其	especially
+1237	院子	yard; courtyard
+1237	院	yard; institute
+1238	圓	round; circle
+1239	原來	originally; so it turns out
+1240	原因	reason; cause
+1241	約	to make an appointment; about
+1242	約會	date; appointment
+1243	月亮	moon
+1244	月台	platform (station)
+1245	早點	breakfast; a bit earlier
+1246	雜誌	magazine
+1247	整	whole; entire
+1248	正	just; right; straight
+1249	正常	normal
+1250	正好	just right; happen to
+1251	正式	formal; official
+1252	枕頭	pillow
+1253	汁	juice
+1254	知識	knowledge
+1256	中式	Chinese-style
+1257	中學	secondary school
+1258	抓	to grab; to catch
+1259	主人	host; owner
+1260	住址	address
+1261	子	child; son
+1262	自然	nature; natural
+1263	自由	freedom; free
+1264	座	measure word for mountains and buildings; seat
+1265	做到	to achieve; to accomplish
+1266	做生意	to do business
+1267	座位	seat
+1268	作文	essay; composition
+1269	左右	about; approximately

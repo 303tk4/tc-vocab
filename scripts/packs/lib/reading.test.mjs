@@ -57,6 +57,8 @@ const index = buildReadingIndex([
   row('語', 'ㄩˋ'),
   row('人', 'ㄖㄣˊ'),
   row('這裡', 'ㄓㄜˋ ㄌㄧˇ'),
+  row('唇', 'ㄓㄣ'),
+  row('脣', 'ㄔㄨㄣˊ'),
 ])
 
 describe('buildReadingIndex', () => {
@@ -73,6 +75,8 @@ describe('lookup と segment', () => {
   it('字体を置き換えた見出しの読みも候補にする', () => {
     assert.deepEqual(lookup('台', index).main, ['ㄊㄞ', 'ㄧˊ', 'ㄊㄞˊ'])
     assert.deepEqual(lookup('台灣', index).main, ['ㄊㄞˊ ㄨㄢ'])
+    // くちびるの「唇」は、辞書では「脣」の見出しにある
+    assert.deepEqual(lookup('唇', index).main, ['ㄓㄣ', 'ㄔㄨㄣˊ'])
   })
   it('最長一致で区切る', () => {
     assert.deepEqual(

@@ -1,0 +1,2737 @@
+# TOCFL 対応パッケージ（tocfl-3-en）の英語の意味。AI（Claude）による下書き（仕様書 16.5「意味の言語」）
+# 形式：TBCL 詞語表の id<TAB>繁体字<TAB>意味。キーは「id:繁体字」
+2699	軍	army; military
+2700	哎	hey; oh (surprise, dissatisfaction)
+2701	挨打	to be beaten
+2702	挨餓	to go hungry
+2703	挨罵	to be scolded
+2704	癌症	cancer
+2704	癌	cancer
+2705	矮小	short and small
+2706	愛護	to cherish; to take good care of
+2707	愛惜	to treasure; to use sparingly
+2708	安定	stable; to stabilize
+2709	安全帶	seat belt
+2710	安慰	to comfort; comfort
+2711	安心	to feel at ease
+2712	案件	case (legal)
+2713	案例	case; example
+2714	按摩	massage
+2715	按時	on time
+2716	暗示	to hint; hint
+2717	暗中	secretly
+2718	昂貴	expensive
+2719	八成	most likely; 80 percent
+2720	拔	to pull out
+2721	把握	to grasp; confidence; certainty
+2722	罷工	to go on strike
+2723	罷了	that's all; nothing more
+2724	罷免	to recall (an official)
+2725	白日夢	daydream
+2726	擺脫	to get rid of; to break free
+2727	拜	to worship; to pay respects
+2728	拜託	please; to ask a favor
+2729	班級	class (in school)
+2730	搬運	to carry; to transport
+2731	版	edition; page (of a newspaper)
+2732	版本	version; edition
+2733	拌	to mix; to toss
+2734	辦公	to work (in an office)
+2735	辦理	to handle; to process
+2736	半路	halfway
+2737	伴侶	partner; companion
+2738	伴手禮	souvenir gift
+2739	伴隨	to accompany
+2740	半途	halfway
+2741	幫手	helper; assistant
+2742	傍晚	dusk; evening
+2743	綁	to tie; to bind
+2744	包圍	to surround
+2745	包裝	packaging; to package
+2746	寶貝	treasure; darling
+2747	保存	to preserve; to save
+2748	保管	to keep; to take care of
+2749	寶貴	precious; valuable
+2750	保留	to retain; to reserve
+2751	保守	conservative
+2752	保險	insurance; safe
+2753	保障	to safeguard; guarantee
+2754	保重	to take care of oneself
+2755	報案	to report a case to the police
+2756	報導	to report; news report
+2757	報到	to check in; to register
+2758	爆發	to erupt; to break out
+2759	報復	to retaliate; revenge
+2760	報警	to call the police
+2761	報刊	newspapers and periodicals
+2762	暴力	violence
+2763	爆炸	to explode; explosion
+2764	盃	cup; trophy
+2765	悲哀	sorrow; sad
+2766	悲慘	miserable; tragic
+2767	悲觀	pessimistic
+2768	悲劇	tragedy
+2769	悲傷	sad; sorrowful
+2770	北極	North Pole; Arctic
+2771	輩	generation; peers
+2772	被動	passive
+2773	背叛	to betray
+2774	背影	figure seen from behind
+2775	輩子	lifetime
+2776	本領	ability; skill
+2777	本能	instinct
+2778	本錢	capital; assets
+2779	本身	itself; in itself
+2780	本事	ability; skill
+2781	本土	local; native
+2782	本性	nature; true character
+2783	笨重	heavy and cumbersome
+2784	逼	to force; to press
+2785	鼻孔	nostril
+2786	彼此	each other
+2787	比例	proportion; ratio
+2788	比率	rate; ratio
+2789	比喻	metaphor; to compare
+2790	閉	to close
+2791	必備	essential
+2792	必定	surely
+2793	避風港	safe haven
+2794	畢竟	after all
+2795	避開	to avoid
+2796	必然	inevitable; certainly
+2797	閉嘴	to shut up
+2798	編輯	to edit; editor
+2799	編劇	screenwriter; to write a script
+2800	扁	flat
+2801	變動	change; to change
+2802	辨識	to identify; to recognize
+2803	標籤	label; tag
+2804	標題	title; headline
+2805	表決	to vote (on)
+2806	表明	to make clear; to indicate
+2807	賓客	guest
+2808	兵	soldier
+2809	冰冷	ice-cold
+2810	病床	hospital bed
+2811	病毒	virus
+2812	病痛	illness and pain
+2813	撥	to dial; to push aside
+2814	波	wave
+2815	薄	thin; meager (figurative)
+2816	播放	to broadcast; to play (media)
+2817	不便	inconvenient
+2818	不顧	to disregard
+2819	不利	unfavorable
+2820	不料	unexpectedly
+2821	補充	to supplement; to add
+2822	補課	to make up a lesson
+2823	補習	to take extra lessons
+2824	步道	trail; walkway
+2825	不得已	having no choice
+2826	不妨	might as well
+2827	不敢當	I don't deserve it (modest reply)
+2828	不可思議	unbelievable; inconceivable
+2829	不滿	dissatisfied; dissatisfaction
+2830	不明	unclear; unknown
+2831	不然	otherwise; not so
+2832	部屬	subordinate
+2833	部位	part (of the body); location
+2834	不知不覺	unconsciously
+2835	不止	more than; not limited to
+2836	布置	to arrange; to decorate
+2836	佈置	to arrange; to decorate
+2837	步驟	step; procedure
+2838	猜測	to guess; to speculate
+2839	猜想	to guess; to suppose
+2840	財產	property; assets
+2841	財富	wealth
+2842	才華	talent
+2843	才能	talent; ability
+2844	裁判	referee; judgment
+2845	財務	finance; financial affairs
+2846	材質	material
+2847	踩	to step on
+2848	採訪	to interview (as a reporter)
+2849	採購	to purchase; procurement
+2850	採取	to adopt; to take (measures)
+2851	彩色	color; colorful
+2852	菜色	dishes; pallid look (from hunger)
+2853	餐具	tableware
+2854	參與	to participate
+2855	殘酷	cruel
+2856	殘忍	cruel; ruthless
+2857	慘	miserable; terrible
+2858	慘重	heavy (losses)
+2859	蒼白	pale
+2860	倉庫	warehouse
+2861	操作	to operate
+2862	草原	grassland
+2863	冊	volume; measure word for books
+2864	策略	strategy
+2865	測試	test; to test
+2866	冊子	booklet
+2867	插	to insert; to stick in
+2868	差距	gap; disparity
+2869	插嘴	to interrupt
+2870	拆	to take apart; to tear down; to open (a package)
+2871	產地	place of origin
+2872	產量	output; yield
+2873	產業	industry
+2874	嘗	to taste; to try
+2874	嚐	to taste; to try
+2875	長處	strong point
+2876	長久	long-term; for a long time
+2877	長壽	longevity
+2878	長途	long-distance
+2879	長遠	long-term
+2880	場次	showing; session (of a performance)
+2881	場地	venue; site
+2882	場合	occasion
+2883	場景	scene
+2884	廠商	manufacturer; vendor
+2885	場所	place; venue
+2886	抄	to copy
+2887	超出	to exceed
+2888	鈔票	banknote
+2889	超人	superman
+2890	超越	to surpass
+2891	潮流	trend
+2892	嘲笑	to ridicule
+2893	吵鬧	noisy; to make a fuss
+2894	車道	lane; driveway
+2895	車輛	vehicle
+2896	車廂	train car; carriage
+2897	澈底	thorough
+2897	徹底	thorough
+2898	沉	to sink; heavy
+2898	沈	to sink; heavy
+2899	沉默	silent; silence
+2899	沈默	silent; silence
+2900	陳述	to state
+2901	沉重	heavy; serious
+2901	沈重	heavy; serious
+2902	趁早	as early as possible
+2903	撐	to prop up; to hold (an umbrella); to hold out
+2904	稱	to call; to weigh
+2905	稱呼	to address; form of address
+2906	稱讚	to praise
+2907	成本	cost
+2908	懲罰	punishment; to punish
+2909	成分	ingredient; component
+2909	成份	ingredient; component
+2910	成就感	sense of accomplishment
+2911	成名	to become famous
+2912	承諾	promise; to promise
+2913	誠實	honest
+2914	程式	program (computer)
+2915	成為	to become
+2916	成效	effect; result
+2917	成語	idiom (chengyu)
+2918	成員	member
+2919	乘坐	to ride
+2920	吃驚	to be startled
+2921	吃苦	to endure hardship
+2922	吃虧	to suffer a loss
+2923	吃力	strenuous
+2924	持	to hold; to maintain
+2925	尺寸	size; dimensions
+2926	遲早	sooner or later
+2927	翅膀	wing
+2927	翅	wing
+2928	沖	to rinse; to pour (hot water)
+2929	衝動	impulse; impulsive
+2930	充分	full; sufficient
+2930	充份	full; sufficient
+2931	充實	substantial; to enrich
+2932	充足	adequate; ample
+2933	崇拜	to worship; to admire
+2934	重複	to repeat
+2935	重建	to rebuild
+2936	重現	to reappear; to reproduce
+2937	重新	again; anew
+2938	蟲子	insect; bug
+2938	蟲	insect; bug
+2939	重組	to reorganize
+2940	寵	to spoil; to dote on
+2941	抽	to draw (lots); to take out; to smoke
+2942	抽空	to find time
+2943	抽屜	drawer
+2944	抽象	abstract
+2945	齣	measure word for plays
+2946	出版社	publisher
+2947	出兵	to send troops
+2948	初步	preliminary
+2949	出差	to go on a business trip
+2950	出錯	to make a mistake
+2951	出軌	to derail; to cheat (on a partner)
+2952	出海	to go to sea
+2953	初級	elementary; beginner
+2954	出境	to leave the country
+2955	出路	way out; prospects
+2956	出名	famous; to become famous
+2957	出色	outstanding
+2958	出身	background; origin
+2959	出生率	birth rate
+2960	出手	to make a move; to show one's skill
+2961	出外	to go away from home
+2962	出席	to attend
+2963	出血	to bleed
+2964	出自	to come from
+2965	出走	to run away from home
+2966	除此之外	besides this
+2967	儲存	to store
+2968	廚師	cook; chef
+2969	除外	to exclude
+2970	處罰	to punish
+2971	處方	prescription
+2972	穿越	to pass through; to cross
+2973	穿著	clothing; attire
+2974	傳播	to spread; to disseminate
+2975	傳達	to convey
+2976	傳教	to preach; missionary work
+2977	傳奇	legend; legendary
+2978	傳染	to infect; contagious
+2979	傳送	to transmit; to send
+2980	船隻	vessels; ships
+2981	喘	to pant
+2982	喘氣	to pant; to take a breather
+2983	串	string; skewer; measure word for strings of things
+2984	床單	bedsheet
+2985	闖	to rush; to charge in
+2986	闖禍	to get into trouble
+2987	創辦	to found
+2988	創立	to establish
+2989	創業	to start a business
+2990	創作	to create; creative work
+2991	吹牛	to brag
+2992	純	pure
+2993	詞彙	vocabulary
+2994	辭職	to resign
+2995	此後	after this
+2996	此外	besides; in addition
+2997	刺	to stab; thorn
+2998	次女	second daughter
+2999	次數	number of times
+3000	次子	second son
+3001	匆忙	hasty; in a hurry
+3002	從頭到尾	from beginning to end
+3003	粗心	careless
+3004	促使	to prompt; to cause
+3005	催	to urge; to hurry
+3006	脆弱	fragile
+3007	村子	village
+3007	村	village
+3008	存款	savings; deposit
+3009	存在	to exist; existence
+3010	吋	inch
+3011	寸	inch (Chinese unit)
+3012	錯過	to miss (an opportunity)
+3013	挫折	setback; frustration
+3014	搭乘	to ride; to take (transport)
+3015	搭配	to match; to pair
+3016	打敗	to defeat
+3017	打動	to move (emotionally)
+3018	打賭	to bet
+3019	打斷	to interrupt; to break
+3020	打擊	blow; to attack; to strike
+3021	打瞌睡	to doze off
+3022	打獵	to hunt
+3023	打破	to break
+3024	打氣	to pump up; to cheer on
+3025	打仗	to fight a war
+3026	大半	most of
+3027	大便	feces; to defecate
+3028	大膽	bold
+3029	大地	earth; land
+3030	大夫	doctor
+3031	大會	general meeting; convention
+3032	大街小巷	streets and lanes; everywhere
+3033	大腦	brain; cerebrum
+3034	大排長龍	to queue in a long line
+3035	大清早	early morning
+3036	大師	master
+3037	大王	king; magnate
+3038	大西洋	Atlantic Ocean
+3039	大象	elephant
+3039	象	elephant
+3040	大致	roughly; generally
+3041	大眾	the public
+3042	呆	dull; blank; to stay
+3043	待	to treat; to wait; to stay
+3044	逮捕	to arrest
+3045	代溝	generation gap
+3046	代價	price; cost
+3047	代課	to substitute-teach
+3048	貸款	loan
+3049	代理	to act on behalf of; agent
+3050	帶領	to lead
+3051	帶路	to show the way
+3052	代替	to replace
+3053	待遇	treatment; pay and benefits
+3054	單	single; list; sheet
+3055	單獨	alone; separately
+3056	單價	unit price
+3057	單親	single parent
+3058	擔任	to serve as
+3059	單身	single (unmarried)
+3060	單位	unit; organization
+3061	耽誤	to delay; to hold up
+3062	單一	single; sole
+3063	擔憂	to worry
+3064	膽	gallbladder; courage
+3065	膽小	timid
+3066	膽子	courage; nerve
+3067	誕生	to be born
+3068	但願	if only; I wish
+3069	當兵	to serve in the army
+3070	當場	on the spot
+3071	當代	contemporary
+3072	當今	nowadays
+3073	當局	the authorities
+3074	當面	face to face
+3075	當日	on that day
+3076	當心	to be careful
+3077	當選	to be elected
+3078	擋	to block
+3079	檔案	file; archive
+3080	當	to regard as; to pawn
+3081	禱告	to pray; prayer
+3082	倒楣	unlucky
+3083	道	to say; way; measure word for courses and questions
+3084	盜版	pirated copy; piracy
+3085	道地	authentic
+3086	道歉	to apologize
+3087	倒數	to count down
+3088	倒退	to go backwards; to regress
+3089	道謝	to thank
+3090	得意	proud; pleased with oneself
+3091	得知	to learn (of); to find out
+3092	登	to climb; to publish
+3093	燈光	lighting
+3094	燈火	lights
+3095	登記	to register
+3096	燈泡	light bulb
+3097	登山	to climb mountains
+3098	等不及	can't wait
+3099	等候	to wait
+3100	等於	to equal; to amount to
+3101	瞪	to stare; to glare
+3102	滴	to drip; drop
+3103	低級	low-level; vulgar
+3104	低落	low; depressed
+3105	低聲	in a low voice
+3106	敵人	enemy
+3107	敵意	hostility
+3108	抵抗	to resist
+3109	遞	to hand over
+3110	地帶	zone; region
+3111	地瓜	sweet potato
+3112	地形	terrain
+3113	弟子	disciple
+3114	典範	model; example
+3115	點名	to take roll call; to name
+3116	點子	idea
+3117	電動	electric; video games
+3118	電線	electric wire
+3119	電信	telecommunications
+3120	調	to transfer; to investigate
+3121	釣	to fish (with a hook)
+3122	掉落	to fall
+3123	碟	small plate; dish
+3124	跌	to fall; to drop
+3125	跌倒	to fall down
+3126	叮	to sting; to bite (insects)
+3127	盯	to stare at; to keep an eye on
+3128	頂	top; to carry on the head; measure word for hats
+3129	頂多	at most
+3130	頂樓	top floor
+3131	訂單	order (purchase)
+3132	定期	regular; periodic
+3133	定時	at fixed times
+3134	定義	definition
+3135	訂製	to custom-make
+3136	丟臉	to lose face; embarrassing
+3137	懂事	sensible; mature
+3138	凍	to freeze
+3139	動不動	easily; at every turn
+3140	動畫	animation
+3141	動機	motive
+3142	動力	motive power; driving force
+3143	動人	moving; touching
+3144	動身	to set off
+3145	動手	to start work; to lay hands on
+3146	動聽	pleasant to hear
+3147	獨特	unique
+3148	毒藥	poison
+3149	獨子	only son
+3150	獨自	alone; by oneself
+3151	賭	to gamble; to bet
+3152	賭博	gambling
+3153	賭場	casino
+3154	堵車	traffic jam
+3155	堵塞	to block; to clog
+3156	短處	shortcoming
+3157	短暫	brief; short-lived
+3158	斷	to break; to cut off
+3159	段落	paragraph; stage
+3160	對比	to contrast; contrast
+3161	對付	to deal with; to cope with
+3162	對抗	to resist; to confront
+3163	對立	to oppose; opposition
+3164	隊伍	ranks; team; procession
+3165	對於	regarding; toward
+3166	蹲	to squat
+3167	多餘	superfluous; extra
+3168	多元	diverse; pluralistic
+3169	奪	to seize; to snatch
+3170	墮胎	abortion
+3171	鵝	goose
+3172	額頭	forehead
+3173	額外	extra; additional
+3174	噁心	nauseous; disgusting
+3175	惡化	to worsen
+3176	惡劣	bad; vile
+3177	惡夢	nightmare
+3178	而	and; but
+3179	兒時	childhood
+3180	耳環	earring
+3181	發達	developed; advanced
+3182	發呆	to space out
+3183	發動	to launch; to start (an engine)
+3184	發抖	to shiver; to tremble
+3185	發瘋	to go crazy
+3186	發揮	to bring into play
+3187	發覺	to realize; to discover
+3188	發脾氣	to lose one's temper
+3189	發起	to initiate
+3190	發誓	to swear; to vow
+3191	發問	to ask a question
+3192	發行	to issue; to release
+3193	發言	to speak (at a meeting)
+3194	發育	to develop (physically)
+3195	罰	to punish; to fine
+3196	罰款	fine; penalty
+3197	法子	way; method
+3198	法官	judge
+3199	法庭	court (of law)
+3200	法院	court
+3201	番	time; kind
+3202	翻臉	to fall out with
+3203	煩人	annoying
+3204	繁榮	prosperous; prosperity
+3205	凡事	everything
+3206	反駁	to refute
+3207	反而	instead; on the contrary
+3208	返回	to return
+3209	反抗	to resist; to rebel
+3210	反面	reverse side; negative side
+3211	反省	to reflect on oneself
+3212	反映	to reflect
+3213	犯錯	to make a mistake
+3214	犯法	to break the law
+3215	犯規	to foul; to break a rule
+3216	販賣	to sell
+3217	方言	dialect
+3218	防守	to defend
+3219	防止	to prevent
+3220	仿冒	to counterfeit; counterfeit
+3221	訪談	interview
+3222	放屁	to fart; nonsense
+3223	放手	to let go
+3224	非	not; non-
+3225	非法	illegal
+3226	飛快	very fast
+3227	飛行	to fly; flight
+3228	肥	fat; fertile; fertilizer
+3229	肺	lung
+3230	廢話	nonsense
+3231	費力	strenuous
+3232	廢氣	exhaust gas
+3233	費時	time-consuming
+3234	廢水	wastewater
+3235	分辨	to distinguish
+3236	紛紛	one after another
+3237	吩咐	to instruct; to tell
+3238	分類	to classify
+3239	分離	to separate
+3240	分裂	to split
+3241	分配	to distribute; to allocate
+3242	分散	to disperse
+3243	分析	to analyze
+3244	粉絲	fans; glass noodles
+3245	憤怒	angry; anger
+3246	封閉	to close; closed-off
+3247	瘋狂	crazy; frantic
+3248	蜂蜜	honey
+3249	封面	cover (of a book)
+3250	風氣	general mood; atmosphere
+3251	風趣	humorous
+3252	風水	feng shui
+3253	風俗	custom
+3254	風險	risk
+3255	瘋子	madman
+3256	縫	to sew
+3257	逢	to meet; to happen upon
+3258	諷刺	to satirize; satire
+3259	佛	Buddha
+3260	否定	to deny; negative
+3261	否認	to deny
+3262	夫人	lady; Mrs.
+3263	膚色	skin color
+3264	扶	to support with the hand
+3265	浮	to float
+3266	服從	to obey
+3267	符號	symbol
+3268	符合	to conform to; to match
+3269	福氣	good fortune
+3270	扶手	handrail
+3271	服務業	service industry
+3272	輔導	to tutor; to counsel
+3273	副	vice-; deputy; measure word for pairs
+3274	腹	abdomen
+3275	負	to bear; negative; to lose
+3276	副本	copy; duplicate
+3277	負擔	burden
+3278	負面	negative
+3279	婦人	married woman
+3280	富有	rich; to be full of
+3281	富裕	wealthy
+3282	復原	to recover; to restore
+3283	複製	to copy; to duplicate
+3284	副總統	vice president
+3285	該	should; that
+3286	改編	to adapt
+3287	改革	to reform
+3288	改進	to improve
+3289	改造	to transform; to remodel
+3290	概況	general situation
+3291	蓋章	to stamp (a seal)
+3292	肝	liver
+3293	乾脆	simply; straightforward
+3294	尷尬	awkward
+3295	干擾	to disturb; interference
+3296	感恩	grateful
+3297	感激	grateful; to appreciate
+3298	趕忙	hurriedly
+3299	感染	to infect; infection
+3300	感人	touching
+3301	感受	to feel; feeling
+3302	感想	thoughts; impressions
+3303	幹	to do
+3304	幹部	cadre; executive
+3305	港口	port
+3305	港	port; harbor
+3306	高層	high-level; senior management
+3307	高等	advanced; higher
+3308	高爾夫球	golf
+3309	高跟鞋	high heels
+3310	高貴	noble
+3311	高階	high-level
+3312	高明	brilliant; wise
+3313	高手	expert; master
+3314	搞	to do; to make
+3315	搞不好	maybe; if things go wrong
+3316	搞定	to get it done
+3317	告	to tell; to sue
+3318	告白	to confess (love)
+3319	告別	to say goodbye
+3320	告知	to inform
+3321	割	to cut
+3322	歌曲	song
+3323	歌星	singing star
+3324	格	grid; standard
+3325	隔	to separate; at an interval of
+3326	革命	revolution
+3327	隔天	the next day
+3328	格外	especially
+3329	個別	individual
+3330	各行各業	all walks of life
+3331	跟隨	to follow
+3332	根源	root; origin
+3333	更改	to change; to alter
+3334	更換	to replace
+3335	更加	even more
+3336	公布	to announce
+3336	公佈	to announce
+3337	工程	engineering; project
+3338	攻打	to attack
+3339	工夫	time; effort
+3340	公公	father-in-law (husband's father)
+3341	攻擊	to attack
+3342	供給	to supply
+3343	公克	gram
+3344	功勞	contribution; credit
+3345	公立	public (institution)
+3346	公民	citizen
+3347	公升	liter
+3348	公事	official business
+3349	功效	efficacy
+3350	供應	to supply
+3351	功用	function; use
+3352	公眾	the public
+3353	公主	princess
+3354	工資	wages
+3355	貢獻	contribution; to contribute
+3356	構成	to constitute
+3357	構想	concept; idea
+3358	構造	structure
+3359	孤單	lonely
+3360	孤獨	lonely; solitary
+3361	孤兒	orphan
+3362	估計	to estimate
+3363	姑娘	girl; young woman
+3364	姑丈	uncle (husband of father's sister)
+3365	骨頭	bone
+3365	骨	bone
+3366	鼓	drum
+3367	股	share (stock); measure word for strands, smells, forces
+3368	古典	classical
+3369	古典樂	classical music
+3370	古怪	eccentric; odd
+3371	古跡	historic site
+3371	古蹟	historic site
+3372	古老	ancient; old
+3373	股票	stock; share
+3374	古人	ancients
+3375	股市	stock market
+3376	顧問	consultant; adviser
+3377	故障	malfunction; to break down
+3378	刮	to scrape; to blow (wind)
+3379	怪獸	monster
+3380	關閉	to close; to shut down
+3381	觀察	to observe
+3382	觀點	point of view
+3383	關懷	to care for
+3384	關鍵	key; crucial
+3385	觀看	to watch
+3386	關聯	connection; related
+3387	觀賞	to view; to enjoy (watching)
+3388	關注	to pay attention to
+3389	管道	pipe; channel
+3390	管子	tube; pipe
+3391	冠軍	champion
+3392	罐頭	canned food
+3393	光臨	presence (polite); welcome
+3394	光芒	rays of light
+3395	光明	bright; light
+3396	廣	wide; broad
+3397	廣播	broadcast; radio
+3398	廣場	square; plaza
+3399	廣大	vast
+3400	廣泛	extensive; wide-ranging
+3401	規矩	rule; well-behaved
+3402	規律	regular; law (pattern)
+3403	鬼臉	funny face
+3404	跪	to kneel
+3405	貴重	valuable
+3406	貴族	aristocrat
+3407	滾	to roll; to boil; get lost!
+3408	棍子	stick; rod
+3408	棍	stick; rod
+3409	鍋	pot; wok
+3410	國會	parliament; congress
+3411	國籍	nationality
+3412	國立	national (institution)
+3413	國民	citizen; national
+3414	國旗	national flag
+3415	國王	king
+3416	國營	state-run
+3417	過程	process
+3418	過度	excessive
+3419	過量	excessive amount
+3420	過世	to pass away
+3421	過頭	to go too far
+3422	過癮	to satisfy a craving; enjoyable
+3423	過於	too; excessively
+3424	孩童	child
+3425	海岸	coast
+3426	海關	customs
+3427	海浪	waves
+3428	海峽	strait
+3429	海運	shipping by sea
+3430	害處	harm
+3431	害羞	shy
+3432	含	to contain
+3433	寒冷	cold
+3434	罕見	rare
+3435	旱災	drought
+3436	航空	aviation
+3437	行業	industry; profession
+3438	好比	to be like
+3439	好感	good impression
+3440	好手	expert
+3441	好心	kind-hearted
+3442	好意	good intentions
+3443	好在	luckily
+3444	好轉	to improve
+3445	好客	hospitable
+3446	好奇心	curiosity
+3447	合	to close; to combine; to suit
+3448	何必	why bother
+3449	合成	to synthesize
+3450	合法	legal
+3451	和好	to make up (after a quarrel)
+3452	荷花	lotus
+3453	合計	total; to add up
+3454	何況	let alone
+3455	河流	river
+3456	核能	nuclear energy
+3457	和諧	harmonious
+3458	核心	core
+3459	嘿	hey
+3460	黑白	black and white
+3461	黑心	unscrupulous
+3462	黑夜	night
+3463	痕跡	trace; mark
+3464	哼	humph; to hum
+3465	橫	horizontal
+3466	吼叫	to roar
+3467	後代	descendants; later generations
+3468	後悔	to regret
+3469	後世	later generations
+3470	後退	to retreat
+3471	後者	the latter
+3472	忽視	to ignore
+3473	壺	pot; kettle
+3474	蝴蝶	butterfly
+3475	狐狸	fox
+3476	胡說	to talk nonsense
+3477	戶	household
+3478	戶頭	bank account
+3479	互助	to help each other
+3480	花朵	flower
+3481	花心	unfaithful (in love)
+3482	划	to row; to be worth it
+3483	滑動	to slide; to swipe
+3484	華僑	overseas Chinese
+3485	滑鼠	mouse (computer)
+3486	划算	worthwhile; good value
+3487	華裔	person of Chinese descent
+3488	劃	to draw (a line); to mark
+3489	化學	chemistry
+3490	懷抱	embrace; to cherish
+3491	懷念	to miss; to cherish the memory of
+3492	懷孕	to be pregnant
+3493	壞蛋	bad guy
+3494	歡樂	joy; happy
+3495	歡喜	joyful
+3496	歡笑	laughter
+3497	緩慢	slow
+3498	患	to suffer from; trouble
+3499	幻想	fantasy; to fantasize
+3500	病患	patient
+3501	皇帝	emperor
+3502	皇后	empress; queen
+3503	黃昏	dusk
+3504	黃金	gold
+3505	謊話	lie
+3506	揮	to wave
+3507	灰	ash; gray
+3508	回復	to recover; to reply
+3508	回覆	to reply
+3509	回味	aftertaste; to savor in memory
+3510	回憶	memory; to recall
+3511	回應	to respond; response
+3512	繪畫	painting; drawing
+3513	匯款	to remit money
+3514	昏	dizzy; to faint
+3515	葷	meat dishes
+3516	昏倒	to faint
+3517	昏迷	to be in a coma
+3518	婚事	marriage arrangements
+3519	混	to mix; to muddle through
+3520	混合	to mix; mixed
+3521	混亂	chaos; chaotic
+3522	活該	serves (one) right
+3523	活躍	active
+3524	夥伴	partner; companion
+3524	伙伴	partner; companion
+3525	火光	flames; blaze
+3526	火山	volcano
+3527	火災	fire (disaster)
+3528	貨車	truck
+3529	獲得	to obtain
+3529	獲	to obtain; to capture
+3530	獲利	to make a profit
+3531	獲勝	to win
+3532	基本	basic
+3533	基地	base
+3534	激動	excited; agitated
+3535	飢餓	hunger
+3535	饑餓	hunger
+3536	機構	organization; institution
+3537	基金	fund
+3538	機率	probability
+3539	肌肉	muscle
+3540	績效	performance
+3541	基因	gene
+3542	擊敗	to defeat
+3543	疾病	disease
+3544	嫉妒	to be jealous
+3544	忌妒	to be jealous
+3545	集合	to gather
+3546	急救	first aid
+3547	寂寞	lonely
+3548	集體	collective
+3549	集團	group; conglomerate
+3550	計	to count; plan; meter
+3551	繫	to tie; to fasten
+3552	祭拜	to worship (ancestors, gods)
+3553	繼承	to inherit
+3554	記號	mark; sign
+3555	技能	skill
+3556	既有	existing
+3557	記載	to record; record
+3558	盡	to exhaust; to do one's utmost
+3558	儘	as much as possible
+3559	佳	good; fine
+3560	加倍	to double
+3561	加工	to process
+3562	傢伙	guy; fellow
+3563	家家戶戶	every household
+3564	佳節	festival
+3565	家境	family's financial situation
+3566	家屬	family members
+3567	加速	to accelerate
+3568	家園	home; homeland
+3569	家族	family; clan
+3570	將	will; (used like 把)
+3571	夾	to clip; to pick up (with chopsticks)
+3572	假使	if
+3573	架構	framework; structure
+3574	駕駛	to drive; driver
+3574	駕	to drive; to pilot
+3575	價值觀	values
+3576	肩膀	shoulder
+3576	肩	shoulder
+3577	堅持	to insist; to persist
+3578	堅定	firm
+3579	監督	to supervise
+3580	堅固	sturdy
+3581	尖叫	to scream
+3582	堅決	resolute
+3583	艱難	difficult
+3584	堅強	strong; resilient
+3585	監視	to monitor
+3586	兼職	part-time job
+3587	撿	to pick up
+3588	簡報	briefing; presentation
+3589	簡便	simple and convenient
+3590	簡稱	abbreviation
+3591	減低	to reduce
+3592	簡短	brief
+3593	簡介	brief introduction
+3594	減輕	to lighten; to ease
+3595	檢討	to review; to reflect on
+3596	檢驗	to inspect; to test
+3597	劍	sword
+3598	箭	arrow
+3599	間接	indirect
+3600	見解	view; opinion
+3601	建立	to establish; to build
+3602	鍵盤	keyboard
+3603	健全	sound; healthy
+3604	建設	to build; construction
+3605	健身	to work out
+3606	健身房	gym
+3607	見識	knowledge; experience
+3608	箭頭	arrow (sign)
+3609	建造	to construct
+3610	薑	ginger
+3611	講解	to explain
+3612	獎金	bonus; prize money
+3613	講究	to be particular about; exquisite
+3614	獎勵	to reward; reward
+3615	講台	lectern; podium
+3615	講臺	lectern; podium
+3616	講義	handout; lecture notes
+3617	降	to fall; to lower
+3618	降價	to lower prices
+3619	降落	to land; to descend
+3620	驕傲	proud; arrogant
+3621	交代	to explain; to instruct; to hand over
+3622	焦點	focus
+3623	焦慮	anxious; anxiety
+3624	交談	to converse
+3625	交往	to associate with; to date
+3626	交易	transaction; trade
+3627	交友	to make friends
+3628	攪	to stir; to disturb
+3629	角	corner; horn; angle; dime
+3630	角度	angle
+3631	腳尖	tiptoe
+3632	角落	corner
+3633	腳印	footprint
+3634	教材	teaching materials
+3635	教導	to teach; to instruct
+3636	教會	church (organization)
+3637	教練	coach
+3638	教徒	believer; follower
+3639	教訓	lesson; to lecture
+3640	教育部	Ministry of Education
+3641	皆	all
+3642	接待	to receive (guests)
+3643	階級	class (social)
+3644	接收	to receive
+3645	街頭	street
+3646	結	knot; to tie; to conclude
+3647	傑出	outstanding
+3648	結構	structure
+3649	結局	ending
+3650	節能	energy-saving
+3651	節省	to save; to economize
+3652	結尾	ending
+3653	截止	to close; deadline
+3654	節奏	rhythm
+3655	解除	to remove; to lift
+3656	解答	to answer; answer
+3657	解開	to untie; to solve
+3658	解渴	to quench thirst
+3659	解說	to explain; commentary
+3660	屆	measure word for sessions and graduating classes
+3661	戒	to quit (a habit); to guard against
+3662	藉口	excuse
+3663	借用	to borrow
+3664	戒指	ring
+3665	禁不住	can't help
+3666	金額	amount (of money)
+3667	金牌	gold medal
+3668	金融	finance
+3669	金屬	metal
+3670	金子	gold
+3671	儘管	although; feel free to
+3672	緊急	urgent; emergency
+3673	僅僅	only; merely
+3673	僅	only
+3674	緊密	close; tight
+3675	謹慎	cautious
+3676	近代	modern times
+3677	進度	progress; schedule
+3678	進攻	to attack
+3679	盡快	as soon as possible
+3679	儘快	as soon as possible
+3680	近來	recently
+3681	盡力	to do one's best
+3682	盡量	as much as possible
+3682	儘量	as much as possible
+3683	近視	nearsighted
+3684	進行	to carry out; to be in progress
+3685	進展	progress
+3686	禁止	to prohibit
+3687	精彩	wonderful; brilliant
+3687	精采	wonderful; brilliant
+3688	經費	funds; budget
+3689	經濟學	economics
+3690	精力	energy
+3691	經歷	to experience; experience
+3692	驚奇	amazed
+3693	精確	precise
+3694	驚人	astonishing
+3695	驚喜	pleasant surprise
+3696	精心	meticulously
+3697	經營	to run (a business)
+3698	經由	via
+3699	井	well
+3700	警察局	police station
+3701	景點	scenic spot; tourist attraction
+3702	警告	to warn; warning
+3703	景氣	economic conditions
+3704	警衛	security guard
+3705	景象	scene; sight
+3706	敬酒	to propose a toast
+3707	競賽	competition; contest
+3708	鏡頭	camera lens; shot
+3709	競選	to run for office
+3710	糾紛	dispute
+3711	酒店	hotel; wine shop
+3712	酒精	alcohol
+3713	就讀	to attend (school)
+3714	究竟	after all; exactly
+3715	救命	to save a life; help!
+3716	就學	to go to school
+3717	就業	to get a job; employment
+3718	居住	to reside
+3719	局	bureau; game (round)
+3720	舉動	act; move
+3721	具備	to have; to possess
+3722	劇本	script
+3723	巨大	huge
+3723	巨	huge
+3724	聚會	gathering; party
+3725	聚集	to gather
+3726	俱樂部	club
+3727	劇烈	violent; intense
+3728	劇情	plot
+3729	具有	to have; to possess
+3730	卷	volume; roll
+3731	捐	to donate
+3732	捐款	donation; to donate money
+3733	捲	to roll up
+3734	決策	decision-making; policy decision
+3735	決賽	final (match)
+3736	絕望	despair; desperate
+3737	軍人	soldier
+3738	軍事	military
+3739	卡	card; to get stuck
+3740	開除	to expel; to fire
+3741	開創	to pioneer; to found
+3742	開刀	to have surgery; to operate
+3743	開發	to develop
+3744	開關	switch
+3745	開戶	to open an account
+3746	開幕式	opening ceremony
+3747	開頭	beginning
+3748	看	to look after; to guard
+3749	刊登	to publish (in a newspaper)
+3750	看診	to see patients; to see a doctor
+3751	抗拒	to resist
+3752	抗議	to protest
+3753	考量	to consider; consideration
+3754	考取	to pass an entrance exam
+3755	烤箱	oven
+3756	考驗	test; trial
+3757	科	department; branch of study
+3758	可見	it is evident that
+3759	可口	tasty
+3760	可惡	hateful; damn
+3761	可信	credible
+3762	刻	to carve; quarter (of an hour)
+3763	客	guest
+3764	克服	to overcome
+3765	客觀	objective
+3766	課業	schoolwork
+3767	空難	air crash
+3768	空手	empty-handed
+3769	空運	air freight
+3770	恐懼	fear
+3771	空白	blank
+3772	空地	vacant lot
+3773	空閒	free time
+3774	控制	to control
+3775	口才	eloquence
+3776	口號	slogan
+3777	口氣	tone of voice
+3778	口頭	oral
+3779	口語	spoken language
+3780	哭泣	to weep
+3781	苦惱	distressed; worry
+3782	庫	warehouse; storehouse
+3783	誇獎	to praise
+3783	誇	to praise; to boast
+3784	誇張	exaggerated
+3785	垮	to collapse
+3786	跨	to step over; to straddle
+3787	跨國	multinational
+3788	快遞	express delivery
+3789	寬廣	vast; broad
+3790	狂	crazy; wild
+3791	困	trapped; sleepy; difficult
+3792	困境	predicament
+3793	困擾	to trouble; distress
+3794	擴大	to expand
+3795	擴張	to expand; expansion
+3796	喇叭	horn; speaker; trumpet
+3797	蠟燭	candle
+3798	來電	incoming call
+3799	來臨	to arrive; to approach
+3800	攔	to block; to stop
+3801	懶惰	lazy
+3802	爛	rotten; terrible
+3803	狼	wolf
+3804	嘮叨	to nag
+3805	勞動	labor
+3806	勞工	laborer
+3807	老大	eldest child; boss
+3808	老家	hometown
+3809	老舊	old; worn-out
+3810	老人家	elderly person (respectful)
+3811	老實	honest
+3812	老天	heaven; God
+3812	老天爺	heaven; God
+3813	老頭	old man
+3813	老頭子	old man
+3814	老鷹	eagle; hawk
+3814	鷹	eagle; hawk
+3815	樂意	willing; glad to
+3816	樂園	paradise; amusement park
+3817	雷	thunder
+3818	累積	to accumulate
+3819	類別	category
+3820	淚水	tears
+3821	類似	similar
+3822	冷冰冰	ice-cold; cold (manner)
+3823	冷淡	cold; indifferent
+3824	冷凍	to freeze; frozen
+3825	冷靜	calm
+3826	冷漠	indifferent; apathetic
+3827	梨	pear
+3828	離職	to resign; to leave a job
+3829	禮服	formal dress
+3830	理解	to understand
+3831	理論	theory
+3832	理所當然	naturally; as a matter of course
+3833	理性	rational; reason
+3834	禮儀	etiquette
+3835	理智	reason; rational
+3836	哩	mile
+3836	英里	mile
+3837	利	benefit; profit; sharp
+3838	粒	grain; measure word for small grains
+3839	曆	calendar
+3840	立場	position; standpoint
+3841	立即	immediately
+3842	力量	strength; power
+3843	利潤	profit
+3844	利息	interest (on money)
+3845	利益	benefit; interest
+3846	聯合	to unite; joint
+3847	聯合國	United Nations
+3848	連接	to connect
+3849	連忙	hastily
+3850	聯盟	alliance; league
+3851	聯繫	to contact; connection
+3851	連繫	to contact; connection
+3852	連線	to connect (online); connection
+3853	聯想	to associate; association
+3854	連續劇	TV series
+3855	臉頰	cheek
+3856	臉孔	face
+3857	量	to measure
+3858	糧食	food; grain
+3859	涼爽	cool and refreshing
+3860	良心	conscience
+3861	料理	cuisine; to handle
+3862	裂	to crack; to split
+3863	列	to list; row
+3864	淋	to drench; to pour
+3865	臨時	temporary; at the last moment
+3866	靈感	inspiration
+3867	靈活	flexible; agile
+3868	零件	part; component
+3869	領帶	necktie
+3870	領導	to lead; leader
+3871	領先	to lead; to be ahead
+3872	領袖	leader
+3873	領子	collar
+3874	令	to cause; order
+3875	流產	miscarriage; to fall through
+3876	流程	process; workflow
+3877	流傳	to spread; to be passed down
+3878	流動	to flow; mobile
+3879	流浪	to wander; to roam
+3880	流淚	to shed tears
+3881	流露	to reveal (feelings)
+3882	流血	to bleed
+3883	留意	to pay attention
+3884	籠	cage; basket
+3885	露	to reveal; to show
+3886	露出	to reveal; to expose
+3887	滷	to stew in soy sauce
+3888	錄	to record
+3889	鹿	deer
+3890	陸地	land
+3891	路段	section of road
+3892	路過	to pass by
+3893	錄取	to admit (to school); to hire
+3894	陸續	one after another
+3895	錄音	to record (audio); recording
+3896	錄音帶	audio tape
+3897	錄影	to record video
+3898	錄影帶	videotape
+3899	亂七八糟	a mess; chaotic
+3900	輪	wheel; to take turns
+3901	輪流	to take turns
+3902	輪胎	tire
+3903	輪椅	wheelchair
+3904	輪子	wheel
+3905	囉嗦	long-winded; to nag
+3905	囉唆	long-winded; to nag
+3906	邏輯	logic
+3907	落	to fall; to drop
+3908	落後	to fall behind; backward
+3909	落伍	outdated
+3910	旅程	journey
+3911	旅途	journey; trip
+3912	旅行社	travel agency
+3913	馬鈴薯	potato
+3914	馬馬虎虎	so-so; careless
+3915	馬桶	toilet
+3916	螞蟻	ant
+3917	埋	to bury
+3918	麥克風	microphone
+3919	賣力	to work hard
+3920	漫畫	comics; manga
+3921	慢吞吞	sluggish
+3922	忙碌	busy
+3923	矛盾	contradiction; contradictory
+3924	毛髮	hair
+3925	毛毛雨	drizzle
+3926	冒	to emit; to risk
+3927	冒險	to take a risk; adventure
+3928	梅	plum
+3929	玫瑰	rose
+3930	眉毛	eyebrow
+3930	眉	eyebrow
+3931	眉頭	brows
+3932	每當	whenever
+3933	美感	aesthetic sense
+3934	美景	beautiful scenery
+3935	美滿	happy (marriage, life)
+3936	美妙	wonderful
+3937	美容	beauty treatment
+3938	魅力	charm
+3939	悶	stuffy; bored; depressed
+3940	門鈴	doorbell
+3941	門診	outpatient service
+3942	猛	fierce; sudden
+3943	猛然	suddenly
+3944	謎	riddle; mystery
+3945	迷糊	confused; muddleheaded
+3946	迷你	mini
+3947	迷信	superstition
+3948	蜜蜂	bee
+3948	蜂	bee
+3949	祕密	secret
+3949	秘密	secret
+3950	密切	close; intimate
+3951	祕書	secretary
+3951	秘書	secretary
+3952	蜜月	honeymoon
+3953	棉	cotton
+3954	棉花	cotton
+3955	免	to avoid; to exempt
+3956	免得	so as to avoid
+3957	勉強	reluctantly; to force; barely
+3958	面積	area
+3959	面具	mask
+3960	面臨	to face
+3961	面貌	appearance; look
+3962	面向	to face; to be oriented to
+3963	面子	face; reputation
+3964	描繪	to depict
+3965	描述	to describe
+3966	苗條	slim
+3967	描寫	to describe; to portray
+3968	妙	wonderful; clever
+3969	廟	temple
+3970	滅亡	to perish
+3971	民調	opinion poll
+3972	民意	public opinion
+3973	民營	privately run
+3974	敏感	sensitive
+3975	敏銳	sharp; keen
+3976	名單	list of names
+3977	名貴	expensive; precious
+3978	明亮	bright
+3979	明明	obviously
+3980	明確	clear; definite
+3981	明日	tomorrow
+3982	名聲	reputation
+3983	明顯	obvious
+3984	命名	to name
+3985	磨	to grind; to rub
+3986	模仿	to imitate
+3987	魔鬼	devil
+3988	模糊	blurry; vague
+3989	魔術	magic (tricks)
+3990	模特兒	model
+3991	模型	model (replica)
+3992	模樣	appearance; look
+3993	抹	to smear; to wipe
+3994	抹布	rag; cloth
+3995	墨	ink
+3996	默默	silently
+3996	默	silent; to write from memory
+3997	默認	to tacitly approve
+3998	陌生	unfamiliar; strange
+3999	某	certain; some
+4000	木柴	firewood
+4000	柴	firewood
+4001	目光	gaze
+4002	納入	to include; to bring into
+4003	耐	to endure
+4004	耐性	patience
+4005	南極	South Pole; Antarctica
+4006	難免	unavoidable
+4007	難受	uncomfortable; unbearable
+4008	難說	hard to say
+4009	難題	difficult problem
+4010	難為情	embarrassed
+4011	難以	difficult to
+4012	腦筋	brains; mind
+4013	鬧	noisy; to make a fuss
+4014	內行	expert
+4015	內外	inside and outside
+4016	內向	introverted
+4017	內在	inner; intrinsic
+4018	能幹	capable
+4019	能量	energy
+4020	能源	energy source
+4021	泥巴	mud
+4022	泥土	soil; mud
+4023	黏	sticky; to stick
+4024	年節	Lunar New Year holidays
+4025	年幼	young
+4026	年長	older; senior
+4027	娘家	married woman's parents' home
+4028	尿	urine
+4029	寧靜	peaceful; tranquil
+4030	農場	farm
+4031	農村	rural area
+4032	農夫	farmer
+4033	農家	farm household
+4034	農民	farmer; peasant
+4035	女婿	son-in-law
+4036	虐待	to abuse; to mistreat
+4037	偶然	by chance; accidental
+4038	偶像	idol
+4039	趴	to lie on one's stomach
+4040	拍攝	to film; to shoot (photos)
+4041	排斥	to reject; to exclude
+4042	排除	to eliminate; to rule out
+4043	排行	ranking; birth order
+4044	排行榜	chart; ranking list
+4045	排列	to arrange
+4046	派遣	to dispatch
+4047	判斷	to judge; judgment
+4048	拚命	desperately; with all one's might
+4048	拼命	desperately; with all one's might
+4049	盼望	to look forward to
+4050	拋棄	to abandon
+4051	跑道	track; runway
+4052	賠	to compensate; to lose (money)
+4053	陪伴	to accompany
+4054	陪同	to accompany
+4055	培養	to cultivate; to foster
+4056	配	to match; to go with
+4057	佩服	to admire
+4058	配角	supporting role
+4059	配偶	spouse
+4060	噴	to spray; to spurt
+4061	盆	basin; pot
+4062	碰巧	by chance
+4063	批	batch; measure word for groups
+4064	披	to drape over one's shoulders
+4065	披薩	pizza
+4066	疲倦	tired
+4067	疲勞	fatigue; tired
+4068	屁	fart
+4069	屁股	buttocks
+4070	譬如說	for example
+4070	譬如	for example
+4071	偏	slanted; deliberately; unexpectedly
+4072	偏見	prejudice
+4073	片刻	a moment
+4074	飄	to float (in the air)
+4075	漂白	to bleach
+4076	拼	to piece together; to spell
+4077	拼圖	jigsaw puzzle
+4078	頻繁	frequent
+4079	頻率	frequency
+4080	貧窮	poor; poverty
+4080	貧	poor
+4081	品嚐	to taste; to savor
+4081	品嘗	to taste; to savor
+4082	品味	taste; to savor
+4083	品種	breed; variety
+4084	坪	ping (unit of area, about 3.3 m²)
+4085	憑	to rely on; based on
+4086	平凡	ordinary
+4087	評估	to assess
+4088	平衡	balance
+4089	平價	affordable
+4090	評價	evaluation; review
+4091	評量	assessment
+4092	評論	to comment; commentary
+4093	評審	judge (of a competition); to judge
+4094	平原	plain
+4095	潑	to splash
+4096	婆家	husband's family
+4097	破產	bankruptcy; to go bankrupt
+4098	破舊	worn-out
+4099	破損	damaged
+4100	瀑布	waterfall
+4101	暴露	to expose
+4102	欺負	to bully
+4103	欺騙	to deceive
+4104	棋	chess; board game
+4105	其次	next; secondly
+4106	奇蹟	miracle
+4107	期刊	periodical; journal
+4108	奇妙	wonderful; marvelous
+4109	歧視	to discriminate; discrimination
+4110	奇特	peculiar
+4111	期限	deadline; time limit
+4112	奇異	strange
+4113	其餘	the rest
+4114	起初	at first
+4115	起點	starting point
+4116	啟動	to start; to launch
+4117	起碼	at least; minimum
+4118	起身	to get up
+4119	器官	organ (of the body)
+4120	器具	utensil; implement
+4121	氣味	smell; odor
+4122	企業界	business world
+4123	汽油	gasoline
+4124	氣質	temperament; elegance
+4125	恰當	appropriate
+4126	牽	to lead (by the hand)
+4127	謙虛	modest
+4128	遷移	to move; to migrate
+4129	簽約	to sign a contract
+4130	簽字	to sign
+4131	前輩	senior; predecessor
+4132	錢財	wealth
+4133	前後	front and back; around (time)
+4134	潛力	potential
+4135	前途	future; prospects
+4136	前往	to go to
+4137	欠	to owe
+4138	牆壁	wall
+4138	牆	wall
+4139	強盜	robber
+4140	強調	to emphasize
+4141	強化	to strengthen
+4142	強烈	strong; intense
+4143	強權	great power
+4144	強人	strongman
+4145	強壯	strong; sturdy
+4146	搶奪	to snatch; to rob
+4147	強迫	to force
+4148	瞧	to look
+4149	巧	skillful; coincidental
+4150	巧妙	clever; ingenious
+4151	悄悄	quietly
+4151	悄	quietly
+4152	親	relative; to kiss; close
+4153	親近	close; to be close to
+4154	親口	(say) personally
+4155	親情	family affection
+4156	親熱	affectionate
+4157	親身	personally
+4158	親手	with one's own hands
+4159	親眼	with one's own eyes
+4160	親友	relatives and friends
+4161	親子	parent-child
+4162	親自	personally
+4163	琴	stringed or keyboard instrument
+4164	清晨	early morning
+4165	青春	youth
+4166	清淡	light (food)
+4167	清潔	clean; to clean
+4168	清潔工	cleaner
+4169	清理	to clean up
+4170	清涼	refreshing; cool
+4171	輕聲	softly; neutral tone
+4172	青蛙	frog
+4173	輕微	slight
+4174	清洗	to wash; to clean
+4175	清醒	awake; clear-headed
+4176	情報	intelligence (information)
+4177	情感	emotion
+4178	情節	plot
+4179	情景	scene
+4180	晴朗	sunny; clear
+4181	情侶	couple (romantic)
+4182	情人	lover
+4183	情勢	situation
+4184	情緒	mood; emotions
+4185	請求	to request; request
+4186	求婚	to propose (marriage)
+4187	球迷	(sports) fan
+4188	球鞋	sneakers
+4189	求學	to pursue studies
+4190	區別	difference; to distinguish
+4191	區分	to differentiate
+4192	娶	to marry (a wife)
+4193	曲	song; tune
+4194	取代	to replace
+4195	取得	to obtain
+4196	取消	to cancel
+4197	曲子	tune; melody
+4198	去世	to pass away
+4199	圈	circle; ring; lap
+4200	拳	fist; boxing
+4201	權力	power
+4202	全面	comprehensive
+4203	全然	completely
+4204	權勢	power and influence
+4205	全體	all; whole
+4206	拳頭	fist
+4207	全職	full-time
+4208	勸告	to advise; advice
+4209	缺乏	to lack
+4210	缺少	to lack
+4210	缺	to lack; vacancy
+4211	缺失	defect; deficiency
+4212	缺席	to be absent
+4213	缺陷	defect; flaw
+4214	確保	to ensure
+4215	確立	to establish
+4216	確認	to confirm
+4217	確實	indeed; reliable
+4218	確信	to be convinced
+4219	群體	group; community
+4220	群眾	the masses
+4221	然而	however
+4222	燃燒	to burn
+4223	染	to dye; to catch (a disease)
+4224	繞	to wind; to go around
+4225	熱愛	to love ardently
+4226	熱帶	tropics; tropical
+4227	熱烈	warm; enthusiastic
+4228	人潮	crowd
+4229	人格	personality; character
+4230	人工	artificial; manual labor
+4231	人際	interpersonal
+4232	人家	household; family
+4233	人間	the human world
+4234	人民幣	renminbi (Chinese yuan)
+4235	人氣	popularity
+4236	人情味	human warmth
+4237	人權	human rights
+4238	人山人海	huge crowds
+4239	人事	personnel; human affairs
+4240	人士	person; figure
+4241	人體	human body
+4242	人心	popular feeling; people's hearts
+4243	人性	human nature
+4244	人選	candidate
+4245	人員	personnel; staff
+4246	人緣	popularity with people
+4247	忍耐	to endure; patience
+4248	忍受	to bear; to put up with
+4249	任	to appoint; to let; any
+4250	認錯	to admit a mistake
+4251	認定	to determine; to recognize
+4252	認同	to identify with; to approve
+4253	仍舊	still
+4254	日落	sunset
+4255	日夜	day and night
+4256	日益	increasingly
+4257	融合	to merge; fusion
+4258	融化	to melt
+4259	融入	to blend in
+4260	揉	to rub; to knead
+4261	柔軟	soft
+4262	肉麻	cheesy; sickening
+4263	肉體	the body; flesh
+4264	如此	like this; so
+4265	如何	how
+4266	如同	like; as if
+4267	如意	as one wishes
+4268	入學	to enter school
+4269	軟弱	weak
+4270	軟體	software
+4271	弱點	weakness
+4272	塞	to stuff; to squeeze in
+4273	散	to scatter; to disperse
+4274	散發	to give off; to distribute
+4275	散心	to relax; to take one's mind off things
+4276	艘	measure word for boats
+4277	掃除	to clean up; to sweep away
+4278	色情	pornographic
+4279	殺害	to murder
+4280	殺價	to haggle
+4281	沙漠	desert
+4282	傻	silly; stupid
+4283	傻瓜	fool
+4284	傻事	foolish thing
+4285	晒	to dry in the sun; to tan
+4285	曬	to dry in the sun; to tan
+4286	扇	fan; measure word for doors and windows
+4287	山谷	valley
+4288	山腳	foot of a mountain
+4289	山坡	hillside
+4290	閃	to flash; to dodge
+4291	善良	kind; good-hearted
+4292	傷口	wound
+4293	傷腦筋	troublesome; to rack one's brains
+4294	賞	to reward; to enjoy
+4295	上場	to go on stage; to enter the field
+4296	上當	to be fooled
+4297	上升	to rise
+4298	上市	to be launched; to go public
+4299	上述	above-mentioned
+4300	上司	boss; superior
+4301	上鎖	to lock
+4302	上台	to go on stage; to take office
+4302	上臺	to go on stage; to take office
+4303	上下	up and down; about
+4304	上演	to be staged; to show
+4305	上癮	to be addicted
+4306	上漲	to rise (prices)
+4307	稍微	slightly
+4307	稍	slightly
+4308	燒香	to burn incense
+4309	蛇	snake
+4310	舌頭	tongue
+4310	舌	tongue
+4311	捨不得	to hate to part with
+4312	捨得	to be willing to part with
+4313	射	to shoot
+4314	設定	to set; settings
+4315	設法	to try to find a way
+4316	社工	social worker
+4317	社交	social
+4318	設立	to establish
+4319	社群	community; social media
+4320	攝氏	Celsius
+4321	社團	club; association
+4322	攝影	photography
+4323	身旁	beside
+4324	深入	to go deep into; thorough
+4325	身心	body and mind
+4326	身影	figure; silhouette
+4327	深遠	far-reaching
+4328	神話	myth
+4329	神經	nerve
+4330	神祕	mysterious
+4330	神秘	mysterious
+4331	神奇	magical
+4332	神聖	sacred
+4333	神仙	immortal; fairy
+4334	腎臟	kidney
+4334	腎	kidney
+4335	升	to rise; to promote; liter
+4336	生存	to survive
+4337	生動	vivid
+4338	生火	to make a fire
+4339	生理	physiology
+4340	生態	ecology
+4341	聲響	sound
+4342	升學	to advance to a higher school
+4343	繩子	rope
+4343	繩	rope
+4344	剩餘	surplus; remainder
+4345	詩	poem; poetry
+4346	師父	master (teacher; monk)
+4347	師傅	master craftsman; driver
+4348	失去	to lose
+4349	詩人	poet
+4350	失業	unemployed
+4351	師長	teachers and elders
+4352	獅子	lion
+4352	獅	lion
+4353	失蹤	to go missing
+4354	食材	ingredients
+4355	時光	time; days
+4356	實話	truth
+4357	時機	timing; opportunity
+4358	實踐	to practice; to put into practice
+4359	時刻	moment; always
+4360	時空	time and space
+4361	實力	strength; capability
+4362	十全十美	perfect
+4363	時速	speed per hour
+4364	實習	internship; to intern
+4365	實驗	experiment
+4366	石油	petroleum
+4367	實在	really; honest
+4368	石子	pebble
+4369	十足	full; complete
+4370	使	to make; to use
+4371	使得	to cause; to make
+4372	始終	from beginning to end; always
+4373	士兵	soldier
+4374	世代	generation
+4375	示範	to demonstrate
+4376	是非	right and wrong; gossip
+4377	是否	whether
+4378	事故	accident
+4379	事件	incident; event
+4380	視覺	vision; visual
+4381	勢力	power; influence
+4382	市民	citizen
+4383	事實上	in fact
+4384	視為	to regard as
+4385	事務	affairs
+4386	事先	in advance
+4387	視線	line of sight
+4388	事項	matter; item
+4389	試驗	test; experiment
+4390	式樣	style; type
+4391	視野	field of vision
+4392	適用	to apply; applicable
+4393	收藏	to collect; collection
+4394	收穫	harvest; gains
+4395	收拾	to tidy up
+4396	手背	back of the hand
+4397	手臂	arm
+4398	手冊	handbook
+4399	手電筒	flashlight
+4400	手段	means; method
+4401	手工	handmade
+4402	守護	to guard; to protect
+4403	手忙腳亂	in a rush; flustered
+4404	手勢	gesture
+4405	手腕	wrist; skill
+4406	手下	subordinate
+4407	手心	palm
+4408	手續	procedure; formalities
+4409	手掌	palm
+4410	售	to sell
+4411	受害	to be harmed; victim
+4412	受苦	to suffer
+4413	壽命	life span
+4414	梳	to comb
+4415	書本	book
+4416	書籍	books
+4417	書面	written
+4418	舒適	comfortable
+4419	書寫	to write
+4420	書信	letter; correspondence
+4421	屬	to belong to; to be born in the year of
+4422	暑期	summer vacation period
+4423	屬於	to belong to
+4424	束	bundle; to tie
+4425	數據	data
+4426	樹林	woods
+4427	數目	number; amount
+4428	數位	digital
+4429	樹葉	leaf
+4430	樹枝	branch
+4431	摔	to fall; to throw down
+4432	摔跤	to fall; wrestling
+4433	率領	to lead
+4434	雙胞胎	twins
+4435	雙親	parents
+4436	水分	moisture
+4436	水份	moisture
+4437	水溝	ditch; gutter
+4438	水管	water pipe; hose
+4439	水庫	reservoir
+4440	水平	level; horizontal
+4441	水災	flood
+4442	稅	tax
+4443	說服	to persuade
+4444	稅制	tax system
+4445	順	smooth; along
+4446	順道	on the way
+4447	順序	order; sequence
+4448	順眼	pleasing to the eye
+4449	說謊	to lie
+4450	碩士	master's degree
+4451	私底下	privately
+4451	私下	privately
+4452	私立	private (school)
+4453	思念	to miss; to think of
+4454	私人	private; personal
+4455	私事	private matter
+4456	思想	thought; ideology
+4457	寺	temple
+4458	四方	all sides
+4459	似乎	it seems
+4459	似	to seem; like
+4460	寺廟	temple
+4461	蒐集	to collect
+4462	搜尋	to search
+4463	俗話	saying
+4464	俗氣	tacky
+4465	訴苦	to complain
+4466	宿醉	hangover
+4467	痠痛	aching
+4467	酸痛	aching
+4468	算命	fortune-telling
+4469	算帳	to settle accounts
+4470	隨地	anywhere
+4471	隨機	random
+4472	隨口	casually (say)
+4473	隨身	to carry with oneself
+4474	隨手	conveniently; at hand
+4475	隨意	as one pleases
+4476	隨著	along with; as
+4477	碎	broken; fragmented
+4478	歲數	age
+4479	歲月	years; time
+4480	損壞	to damage
+4481	損失	loss; to lose
+4482	縮小	to shrink; to reduce
+4483	所謂	so-called
+4484	塌	to collapse
+4485	他人	others
+4486	塔	tower; pagoda
+4487	踏	to step on
+4488	胎	fetus; tire
+4489	抬頭	to raise one's head
+4490	太空	outer space
+4491	太空人	astronaut
+4492	太平洋	Pacific Ocean
+4493	貪	greedy; to covet
+4494	貪心	greedy
+4495	談話	conversation; talk
+4496	談論	to discuss
+4497	彈性	flexibility; elasticity
+4498	坦白	frank; to confess
+4499	毯子	blanket
+4500	嘆	to sigh; to admire
+4500	歎	to sigh; to admire
+4501	炭	charcoal
+4502	嘆氣	to sigh
+4503	探討	to explore; to discuss
+4504	堂	measure word for classes; hall
+4505	逃避	to escape; to avoid
+4506	逃跑	to run away
+4507	逃生	to escape (danger)
+4508	桃子	peach
+4509	討	to ask for; to invite (trouble)
+4510	套房	studio apartment; suite
+4511	特產	local specialty
+4512	特地	specially
+4513	特定	specific
+4514	特殊	special; particular
+4515	特有	unique; characteristic
+4516	特徵	feature
+4517	特質	trait
+4518	疼愛	to dote on
+4519	提及	to mention
+4520	提前	to move ahead; in advance
+4521	提問	to ask a question
+4522	提早	early; ahead of time
+4523	體會	to understand through experience
+4524	體貼	considerate
+4525	體溫	body temperature
+4526	體型	body type
+4527	體驗	to experience; experience
+4528	體育	physical education; sports
+4529	替代	to replace; substitute
+4530	添	to add
+4531	天才	genius
+4532	天賦	talent; gift
+4533	天黑	to get dark
+4534	天亮	daybreak
+4535	天然	natural
+4536	天使	angel
+4537	天堂	heaven; paradise
+4538	天下	the world
+4539	天性	nature; innate character
+4540	天災	natural disaster
+4541	天真	naive; innocent
+4542	田地	field; farmland
+4543	甜美	sweet
+4544	甜蜜	sweet; happy
+4545	田野	field; open country
+4546	挑剔	picky
+4547	挑選	to choose; to select
+4548	調	to adjust; to mix
+4549	調味	to season
+4550	鐵馬	bicycle (Taiwanese)
+4551	聽從	to obey
+4552	聽覺	hearing
+4553	聽眾	audience; listeners
+4554	停頓	to pause
+4555	停留	to stay
+4556	庭園	garden
+4557	庭院	courtyard
+4558	挺	to straighten; quite
+4559	通風	ventilated
+4560	通俗	popular; common
+4561	通通	all
+4562	通往	to lead to
+4563	通訊	communication
+4564	通用	universal; general-purpose
+4565	銅	copper; bronze
+4566	同伴	companion
+4567	同行	people of the same profession
+4568	同理	empathy; likewise
+4569	同年	the same year; the same age
+4570	同鄉	fellow townsman
+4571	同行	to travel together
+4572	同性戀	homosexual
+4573	同志	comrade; gay
+4574	桶	bucket; barrel
+4575	統計	statistics
+4576	統治	to rule
+4577	桶子	bucket
+4578	痛恨	to detest
+4579	痛哭	to cry bitterly
+4580	痛快	delighted; to one's heart's content
+4581	痛罵	to scold severely
+4582	偷看	to peek
+4583	偷懶	to slack off
+4584	偷聽	to eavesdrop
+4585	偷偷	secretly
+4586	頭腦	mind; brains
+4587	頭皮	scalp
+4588	投票	to vote
+4589	投手	pitcher
+4590	頭條	headline
+4591	投降	to surrender
+4592	透	to penetrate; thoroughly
+4593	透過	through; via
+4594	透露	to reveal
+4595	透明	transparent
+4596	塗	to apply; to smear
+4597	圖案	pattern; design
+4598	突出	outstanding; to stand out
+4599	突破	breakthrough; to break through
+4600	團結	to unite
+4601	團聚	to reunite
+4602	團圓	reunion (family)
+4603	推測	to speculate
+4604	推出	to launch; to release
+4605	推翻	to overthrow
+4606	推廣	to promote
+4607	推理	reasoning; deduction
+4608	推銷	to promote; to sell
+4609	退出	to withdraw; to quit
+4610	吞	to swallow
+4611	拖	to drag; to delay
+4612	脫離	to break away from
+4613	拖延	to delay; to procrastinate
+4614	外出	to go out
+4615	外地	other places
+4616	外行	layman
+4617	外交	diplomacy
+4618	外界	the outside world
+4619	外來	foreign; external
+4620	外貌	appearance
+4621	外人	outsider
+4622	外向	extroverted
+4623	外銷	export
+4624	外型	appearance; exterior
+4625	外形	shape; external form
+4626	外遇	extramarital affair
+4627	外在	external
+4628	彎	to bend; curve
+4629	彎曲	winding; curved
+4630	完蛋	finished; doomed
+4631	玩樂	to have fun
+4632	玩耍	to play
+4633	晚輩	younger generation
+4634	晚年	old age
+4635	萬分	extremely
+4636	萬事如意	may all go well
+4637	萬一	in case
+4638	王國	kingdom
+4639	王子	prince
+4640	往常	usually
+4641	往後	from now on
+4642	往來	contact; to come and go
+4643	網絡	network
+4644	往事	past events
+4645	威力	power
+4646	威脅	to threaten; threat
+4647	圍	to surround
+4648	維持	to maintain
+4649	微風	breeze
+4650	維護	to maintain; to safeguard
+4651	危急	critical; urgent
+4652	圍巾	scarf
+4653	微妙	subtle
+4654	圍裙	apron
+4655	圍繞	to revolve around
+4656	唯一	only; sole
+4657	為止	until
+4658	尾巴	tail
+4658	尾	tail; end
+4659	偉人	great person
+4660	委員	committee member
+4661	未	not yet
+4662	胃	stomach
+4663	未必	not necessarily
+4664	為何	why
+4665	未婚	unmarried
+4666	味精	MSG
+4667	味覺	sense of taste
+4668	胃口	appetite
+4669	衛生	hygiene
+4670	溫帶	temperate zone
+4671	溫和	gentle; mild
+4672	溫柔	gentle; tender
+4673	文明	civilization; civilized
+4674	文憑	diploma
+4675	文人	man of letters
+4676	吻	to kiss; kiss
+4677	穩	stable; steady
+4678	問候	to greet
+4679	窩	nest; den
+4680	無	not have; without
+4681	無法	unable to
+4682	無關	unrelated
+4683	無論如何	in any case
+4684	無情	heartless
+4685	無窮	endless
+4686	無趣	boring
+4687	無數	countless
+4688	無所謂	doesn't matter
+4689	無限	unlimited
+4690	無形	invisible; intangible
+4691	無形中	imperceptibly
+4692	無疑	undoubtedly
+4693	無意	unintentionally
+4694	無知	ignorant
+4695	無助	helpless
+4696	舞蹈	dance
+4697	武功	martial arts
+4698	五花八門	all kinds of
+4699	武器	weapon
+4700	舞台劇	stage play
+4701	五顏六色	colorful
+4702	午夜	midnight
+4703	勿	do not
+4704	霧	fog
+4705	誤會	misunderstanding; to misunderstand
+4706	物價	prices
+4707	誤解	to misunderstand
+4708	物理	physics
+4709	物體	object
+4710	物質	material; substance
+4711	溪	stream
+4712	攜帶	to carry
+4713	吸毒	to take drugs
+4714	膝蓋	knee
+4715	西洋	the West
+4716	西醫	Western medicine
+4717	媳婦	daughter-in-law
+4718	習俗	custom
+4719	喜好	preference
+4720	喜劇	comedy
+4721	喜悅	joy
+4722	戲劇	drama; theater
+4723	細菌	bacteria
+4724	系統	system
+4725	細心	careful
+4726	夕陽	setting sun
+4727	細雨	drizzle
+4728	戲院	theater; cinema
+4729	瞎子	blind person
+4730	下巴	chin
+4731	下場	fate; outcome
+4732	下跌	to fall (prices)
+4733	下降	to decline
+4734	下列	following
+4735	夏令營	summer camp
+4736	嚇人	scary
+4737	下台	to step down
+4738	先後	successively
+4739	鮮花	fresh flowers
+4740	先進	advanced
+4741	鮮明	bright; distinct
+4742	先前	previously
+4743	先天	congenital; innate
+4744	嫌	to dislike; to mind
+4745	閒	idle; free
+4746	閒逛	to stroll around
+4747	閒聊	to chat
+4748	閒談	to chat
+4749	顯得	to appear; to seem
+4750	顯然	obviously
+4751	顯示	to show; to display
+4752	顯現	to appear
+4753	顯著	remarkable; significant
+4754	縣	county
+4755	現成	ready-made
+4756	現代化	modernization
+4757	現今	nowadays
+4758	陷阱	trap
+4759	限量	limited quantity
+4760	羨慕	to envy
+4760	羡慕	to envy
+4761	線條	line; contour
+4762	鄉	countryside; township; hometown
+4763	相愛	to love each other
+4764	相比	to compare
+4765	香腸	sausage
+4766	相對	relative; opposite
+4767	相互	mutual
+4768	相近	similar; close
+4769	香氣	fragrance
+4770	鄉親	fellow villagers
+4771	相似	similar
+4772	相遇	to meet
+4773	想必	presumably
+4774	項	item; measure word for items
+4775	向來	always
+4776	項鍊	necklace
+4777	項目	item; event
+4778	相親	blind date (for marriage)
+4779	消除	to eliminate
+4780	消毒	to disinfect
+4781	消費	to consume; consumption
+4782	消費者	consumer
+4783	消化	to digest
+4784	消極	passive; negative
+4785	銷路	sales; market
+4786	消滅	to eliminate; to wipe out
+4787	銷售	to sell; sales
+4788	小便	urine; to urinate
+4789	小伙子	young man
+4789	小夥子	young man
+4790	小看	to underestimate
+4791	小子	kid; guy
+4792	小組	group; team
+4793	孝順	filial
+4794	笑嘻嘻	grinning
+4795	效應	effect
+4796	校友	alumnus
+4797	斜	slanting
+4798	協辦	to co-organize
+4799	協會	association
+4800	血管	blood vessel
+4801	血壓	blood pressure
+4802	血液	blood
+4803	心愛	beloved
+4804	心得	what one has learned; reflections
+4805	心動	heart flutter; tempted
+4806	新進	newly hired
+4807	心理	psychology; mentality
+4808	心力	mental and physical effort
+4809	心目中	in one's mind
+4810	新奇	novel
+4811	心事	something on one's mind
+4812	心思	thoughts
+4813	心痛	heartache
+4814	心意	intention; regards
+4815	心臟	heart
+4816	薪資	salary
+4817	信號	signal
+4818	信賴	to trust
+4819	信徒	believer
+4820	信仰	faith; belief
+4821	信用	credit; trustworthiness
+4822	興建	to build
+4823	興起	to rise; to emerge
+4824	行程	itinerary
+4825	行動	action; to act
+4826	形式	form
+4827	行事曆	planner; calendar
+4828	行為	behavior
+4829	形象	image
+4830	行銷	marketing
+4831	行政	administration
+4832	行走	to walk
+4833	性感	sexy
+4834	性命	life
+4835	性質	nature; character
+4836	胸	chest
+4837	凶手	murderer
+4837	兇手	murderer
+4838	貓熊	giant panda
+4838	熊貓	giant panda
+4839	修改	to revise
+4840	休假	to take a vacation
+4841	修正	to amend; to correct
+4842	袖子	sleeve
+4842	袖	sleeve
+4843	噓	shh
+4844	需求	demand; need
+4845	許願	to make a wish
+4846	酗酒	to drink excessively
+4847	宣傳	to promote; publicity
+4848	旋轉	to rotate
+4849	選舉	election
+4850	選舉權	right to vote
+4851	選民	voter
+4852	選票	ballot
+4853	選手	athlete; contestant
+4854	選用	to choose and use
+4855	靴子	boots
+4855	靴	boots
+4856	學科	subject; discipline
+4857	學歷	educational background
+4858	學派	school of thought
+4859	學士	bachelor's degree
+4860	學術	academic
+4861	學業	studies
+4862	循環	cycle; to circulate
+4863	尋求	to seek
+4864	詢問	to inquire
+4865	尋找	to look for
+4866	訊號	signal
+4867	訊息	message; information
+4868	押金	deposit
+4869	壓迫	to oppress
+4870	壓歲錢	New Year money gift
+4871	牙科	dentistry
+4872	亞軍	runner-up
+4873	訝異	surprised
+4874	沿	along
+4875	延長	to extend
+4876	研發	research and development
+4877	延後	to postpone
+4878	嚴厲	stern; severe
+4879	言論	speech; opinion
+4880	炎熱	scorching hot
+4881	嚴肅	serious; solemn
+4882	言行	words and deeds
+4883	延續	to continue
+4884	演變	to evolve
+4885	演唱	to sing (on stage)
+4886	演技	acting
+4887	眼神	look in one's eyes
+4888	演說	speech
+4889	演戲	to act (in a play)
+4890	演奏	to perform (music)
+4891	厭惡	to detest
+4892	洋裝	dress
+4893	癢	itchy
+4894	養成	to develop (a habit)
+4895	養分	nutrients
+4895	養份	nutrients
+4896	養家	to support a family
+4897	養老	to provide for the elderly; retirement
+4898	養生	health maintenance
+4899	樣式	style; pattern
+4900	眼看	soon; to watch helplessly
+4901	喲	oh; yo
+4902	搖晃	to shake; to sway
+4903	搖頭	to shake one's head
+4904	遙遠	distant
+4905	要好	close (friends)
+4906	要命	extremely; terrible
+4907	要素	element; factor
+4908	藥丸	pill
+4909	野心	ambition
+4910	夜間	at night
+4911	夜景	night view
+4912	衣櫥	wardrobe
+4913	依舊	as before; still
+4914	依據	basis; according to
+4915	依靠	to rely on
+4916	依賴	to depend on
+4917	醫療	medical treatment
+4918	醫藥	medicine
+4919	依照	according to
+4920	醫治	to treat (an illness)
+4921	咦	huh? (surprise)
+4922	遺產	inheritance; heritage
+4923	遺傳	heredity; to inherit
+4924	一旦	once (something happens)
+4925	遺憾	regret; pity
+4926	儀器	instrument; apparatus
+4927	遺忘	to forget
+4928	疑問	question; doubt
+4929	一致	consistent; unanimous
+4930	以	with; by means of
+4931	已婚	married
+4932	以及	as well as; and
+4932	及	and; to reach
+4933	以免	so as not to
+4934	以往	in the past
+4935	一般而言	generally speaking
+4936	異常	abnormal; extremely
+4937	益處	benefit
+4938	一乾二淨	completely; clean
+4939	義工	volunteer
+4940	一口氣	in one breath; at one go
+4941	一連	in a row
+4942	一連串	a series of
+4943	一流	first-class
+4944	一模一樣	exactly alike
+4945	一清二楚	perfectly clear
+4946	藝人	entertainer
+4947	意識	consciousness; to be aware of
+4948	義務	duty; obligation
+4949	意義	meaning; significance
+4950	意願	wish; willingness
+4951	一早	early in the morning
+4952	陰	overcast; shade; yin
+4953	因而	therefore
+4954	陰謀	conspiracy
+4955	音效	sound effects
+4956	陰影	shadow
+4957	癮	addiction
+4958	隱藏	to hide
+4959	引發	to trigger
+4960	引擎	engine
+4961	隱形	invisible
+4962	隱形眼鏡	contact lenses
+4963	引用	to quote; to cite
+4964	印	to print; seal
+4965	印度洋	Indian Ocean
+4966	印章	seal; stamp
+4966	圖章	seal; stamp
+4967	英鎊	pound sterling
+4968	應付	to deal with; to do perfunctorily
+4969	英俊	handsome
+4970	櫻桃	cherry
+4971	應有盡有	to have everything one could wish for
+4972	贏得	to win
+4973	贏家	winner
+4974	迎接	to welcome
+4975	螢幕	screen
+4976	營養	nutrition
+4977	營業	to do business; to be open
+4978	影本	copy; photocopy
+4979	影集	TV series
+4980	影展	film festival
+4981	硬幣	coin
+4982	硬體	hardware
+4983	應用	to apply; application
+4984	應徵	to apply (for a job)
+4985	擁抱	to hug; embrace
+4986	永久	permanent
+4987	擁有	to own; to have
+4988	用來	to be used for
+4989	用途	use; purpose
+4990	憂慮	to worry; anxiety
+4991	幽默	humor; humorous
+4992	優先	priority
+4993	優秀	excellent
+4994	憂鬱	depressed; depression
+4995	遊覽	to tour
+4996	遊玩	to play; to have fun
+4997	遊行	parade; demonstration
+4998	猶豫	to hesitate
+4999	有害	harmful
+5000	友好	friendly
+5001	有機	organic
+5002	有利	advantageous
+5003	有力	powerful; strong
+5004	友情	friendship
+5005	友善	friendly
+5006	有限	limited
+5007	有心	considerate; intentional
+5008	有形	tangible
+5009	友誼	friendship
+5010	有意	to intend; on purpose
+5011	幼兒	young child
+5012	幼年	childhood
+5013	幼稚	childish
+5014	於	at; in; to
+5015	餘	surplus; more than
+5016	娛樂	entertainment
+5017	漁民	fisherman
+5018	愉悅	delighted
+5019	語氣	tone (of voice)
+5020	語文	language and literature
+5021	宇宙	universe
+5022	玉	jade
+5023	預備	to prepare
+5024	預測	to predict
+5025	預定	to schedule; to book
+5026	預訂	to reserve; to book
+5027	預防	to prevent
+5028	預告	to announce in advance; trailer
+5029	預計	to estimate; expected
+5030	預賽	preliminary round
+5031	預算	budget
+5032	慾望	desire
+5032	欲望	desire
+5032	慾	desire
+5033	預先	in advance
+5033	預	in advance
+5034	預言	prophecy
+5035	預約	to make an appointment
+5036	緣分	fate (bringing people together)
+5036	緣份	fate (bringing people together)
+5037	緣故	reason
+5038	原來如此	so that's how it is
+5039	原料	raw material
+5040	圓滿	satisfactory; perfect
+5041	圓圈	circle
+5042	原始	primitive; original
+5043	原先	originally
+5044	原則上	in principle
+5045	原住民	indigenous people
+5046	源自	to originate from
+5047	願	to be willing; wish
+5048	怨言	complaint
+5049	約定	to agree on; agreement
+5050	樂隊	band
+5051	月分	month
+5052	岳父	father-in-law (wife's father)
+5053	岳母	mother-in-law (wife's mother)
+5054	樂器	musical instrument
+5055	暈	dizzy
+5056	暈倒	to faint
+5057	雲端	cloud (computing)
+5058	允許	to allow
+5059	運動會	sports day; athletic meet
+5060	運送	to transport
+5061	運用	to use; to apply
+5062	雜	mixed; miscellaneous
+5063	災害	disaster
+5064	災難	catastrophe
+5065	在場	present (at the scene)
+5066	再度	once again
+5067	在意	to care about; to mind
+5068	咱們	we (inclusive)
+5069	讚	great; like; to praise
+5070	贊成	to approve; to agree
+5071	讚美	to praise
+5072	贊同	to approve of
+5073	糟糕	too bad; oh no
+5074	遭受	to suffer
+5075	遭遇	to encounter; experience
+5076	早年	early years
+5077	早日	soon
+5078	早晚	morning and evening; sooner or later
+5079	造型	style; design
+5080	噪音	noise
+5081	則	then; rule
+5082	賊	thief
+5083	增進	to enhance
+5084	增長	to grow; growth
+5085	贈送	to give as a gift
+5085	贈	to give as a gift
+5086	炸	to explode; to bomb
+5087	詐騙	fraud; scam
+5088	摘	to pick; to take off
+5089	窄	narrow
+5090	沾	to dip; to touch
+5091	展開	to unfold; to launch
+5092	展示	to display
+5093	占	to occupy
+5093	佔	to occupy
+5094	戰場	battlefield
+5095	站立	to stand
+5096	佔領	to occupy (territory)
+5096	占領	to occupy (territory)
+5097	戰術	tactics
+5098	佔有	to possess
+5098	占有	to possess
+5099	漲	to rise (water, prices)
+5100	長輩	elder
+5101	漲價	to increase in price
+5102	掌控	to control
+5103	長女	eldest daughter
+5104	掌握	to grasp; to master
+5105	長子	eldest son
+5106	丈	zhang (unit of length, about 3.3 m)
+5107	漲	to swell
+5108	障礙	obstacle; disorder
+5109	帳戶	account
+5110	帳篷	tent
+5111	招待	to entertain (guests)
+5112	招呼	to greet; to call
+5113	招牌	signboard
+5114	照常	as usual
+5115	召集	to convene
+5116	照舊	as before
+5117	照樣	in the same way
+5118	折	to fold; to break; discount
+5119	針	needle; injection
+5120	真誠	sincere
+5121	珍貴	precious
+5122	針灸	acupuncture
+5123	真空	vacuum
+5124	真理	truth
+5125	偵探	detective
+5126	珍惜	to cherish
+5127	真相	truth; the real facts
+5128	真心	sincere
+5129	珍珠	pearl; tapioca pearl
+5130	診斷	to diagnose
+5131	診所	clinic
+5132	鎮	town; to suppress
+5133	震動	to vibrate
+5134	震驚	to shock; shocked
+5135	振作	to pull oneself together
+5136	蒸	to steam
+5137	爭吵	to quarrel
+5138	爭奪	to fight for
+5139	爭論	to argue; debate
+5140	徵求	to seek; to solicit
+5141	爭取	to strive for
+5142	爭議	controversy
+5143	正月	first lunar month
+5144	掙扎	to struggle
+5145	爭執	to dispute
+5146	整齊	tidy; neat
+5147	整整	whole; full
+5148	證件	ID; credentials
+5149	正面	front; positive
+5150	證實	to confirm
+5151	證書	certificate
+5152	正向	positive
+5153	症狀	symptom
+5154	之	(literary) of; it
+5155	支出	expenditure
+5156	支付	to pay
+5157	知覺	consciousness; perception
+5158	芝麻	sesame
+5159	知名	well-known
+5160	支票	check (bank)
+5161	之所以	the reason why
+5162	肢體	limbs; body
+5163	枝葉	branches and leaves
+5164	之餘	besides; after
+5165	支援	to support
+5166	職場	workplace
+5167	殖民	colony; to colonize
+5168	姪女	niece
+5169	值錢	valuable
+5170	職位	position
+5171	職務	duties
+5172	直線	straight line
+5173	執行	to execute; to carry out
+5174	職責	responsibility
+5175	執照	license
+5176	侄子	nephew
+5176	姪子	nephew
+5176	侄兒	nephew
+5176	姪兒	nephew
+5177	紙鈔	banknote
+5178	指定	to designate
+5179	指揮	to command; conductor
+5180	指甲	fingernail
+5181	指教	to give advice
+5182	指令	command; instruction
+5183	指示	to instruct; instruction
+5184	紙條	note; slip of paper
+5185	指引	to guide; guidance
+5186	紙張	paper
+5187	至	to; until
+5188	治病	to treat an illness
+5189	制定	to formulate
+5189	制訂	to formulate
+5190	制服	uniform
+5191	志工	volunteer
+5192	智慧	wisdom
+5193	治理	to govern
+5194	治療	to treat; treatment
+5195	致命	fatal
+5196	秩序	order
+5197	至於	as for
+5198	志願	aspiration; to volunteer
+5199	製造商	manufacturer
+5200	製作	to make; to produce
+5201	中等	medium
+5202	終點	finish line; terminus
+5203	中斷	to interrupt
+5204	中古	second-hand; medieval
+5205	中華民國	Republic of China (Taiwan)
+5206	中級	intermediate
+5207	終身	lifelong
+5208	中途	midway
+5209	中性	neutral
+5210	中央	center; central
+5211	中藥	Chinese medicine
+5212	中醫	traditional Chinese medicine; TCM doctor
+5213	腫	swollen
+5214	種子	seed
+5215	種族	race; ethnicity
+5216	重病	serious illness
+5217	中毒	to be poisoned
+5218	眾多	numerous
+5219	中風	stroke
+5220	中獎	to win a prize
+5221	仲介	agent; agency
+5222	重量	weight
+5223	眾人	everyone
+5224	中暑	heatstroke
+5225	重心	center of gravity; focus
+5226	重要性	importance
+5227	周	circumference; week
+5228	州	state; prefecture
+5229	粥	porridge; congee
+5230	週刊	weekly (magazine)
+5230	周刊	weekly (magazine)
+5231	皺	wrinkle; to wrinkle
+5232	珠子	bead
+5233	逐步	step by step
+5234	燭光	candlelight
+5235	逐漸	gradually
+5236	主辦	to host; to organize
+5237	主編	editor-in-chief
+5238	主持	to host; to preside
+5239	主廚	head chef
+5240	主導	to lead; dominant
+5241	主婦	housewife
+5242	主觀	subjective
+5243	主見	one's own opinion
+5244	主流	mainstream
+5245	主體	main body
+5246	主席	chairman
+5247	主修	to major in
+5248	主演	to star in
+5249	主義	-ism; doctrine
+5250	主張	to advocate; position
+5251	註冊	to register
+5252	祝福	blessing; to bless
+5253	祝賀	to congratulate
+5254	住家	residence
+5255	助理	assistant
+5256	注視	to gaze at
+5257	住宿	accommodation
+5258	住宅	residence; housing
+5259	注重	to emphasize
+5260	抓狂	to go crazy; to freak out
+5261	抓住	to grab
+5262	專長	specialty
+5263	專輯	album
+5264	專人	designated person
+5265	專制	autocracy
+5266	專注	focused
+5267	轉變	change; transformation
+5268	轉播	to broadcast live
+5269	轉動	to turn; to rotate
+5270	轉告	to pass on (a message)
+5271	轉換	to switch; to convert
+5272	轉角	corner
+5273	轉身	to turn around
+5274	轉彎	to turn (a corner)
+5275	轉眼	in the blink of an eye
+5276	轉移	to transfer; to shift
+5277	轉帳	to transfer money
+5278	轉	to rotate; to spin
+5279	妝	makeup
+5280	裝飾	to decorate; decoration
+5281	裝置	device
+5282	裝作	to pretend
+5282	裝做	to pretend
+5283	壯	strong; robust
+5284	撞	to bump into; to collide
+5285	狀況	situation; condition
+5286	狀態	state; status
+5287	追尋	to pursue; to seek
+5288	追蹤	to track
+5289	准	to allow
+5290	準確	accurate
+5291	捉	to catch
+5292	資產	assets
+5293	資格	qualification
+5294	資金	funds
+5295	資深	senior; experienced
+5296	姿勢	posture
+5297	姿態	attitude; posture
+5298	滋味	taste; flavor
+5299	子孫	descendants
+5300	自	from; self
+5301	自稱	to call oneself
+5302	自己人	one of us
+5303	字母	letter (alphabet)
+5304	自私	selfish
+5305	字體	font; typeface
+5306	字條	note
+5307	自行	by oneself
+5308	自願	voluntary
+5309	自主	independent; autonomous
+5310	自傳	autobiography
+5311	自尊	self-esteem
+5312	總裁	president (of a company)
+5313	總公司	headquarters
+5314	總理	premier
+5315	總算	finally
+5316	總之	in short
+5316	總而言之	in short
+5317	綜合	comprehensive; to synthesize
+5318	走道	aisle; walkway
+5319	走動	to walk around
+5320	走廊	corridor
+5321	族群	ethnic group
+5322	足以	enough to
+5323	阻礙	to hinder; obstacle
+5324	祖先	ancestors
+5325	組織	organization; to organize
+5326	阻止	to stop; to prevent
+5327	鑽	to drill; to get into
+5328	嘴脣	lips
+5328	嘴唇	lips
+5328	脣	lip
+5328	唇	lip
+5329	罪	crime; sin
+5330	罪惡	evil; sin
+5331	最終	final; finally
+5332	尊敬	to respect
+5333	遵守	to obey; to abide by
+5334	尊重	to respect
+5335	昨日	yesterday
+5336	作弊	to cheat
+5337	作客	to be a guest
+5337	做客	to be a guest
+5338	作為	as; conduct
+5339	作用	effect; function

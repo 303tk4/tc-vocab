@@ -113,11 +113,14 @@ test('単語を1語追加し、編集できる（FR-WORDS-15・16）', async ({ 
   await expect(page.getByText('タピオカ入りのミルクティー')).toBeVisible()
 })
 
-test('用意された単語集を追加できる（仕様書 16.5）', async ({ page }) => {
+test('配布中の単語集を追加できる（仕様書 16.5）', async ({ page }) => {
   await page.goto('./')
-  await page.getByRole('link', { name: /用意された単語集から選ぶ/ }).click()
+  await page.getByRole('link', { name: /配布中の単語集から選ぶ/ }).click()
   const dialog = page.getByRole('dialog')
-  await dialog.getByRole('button', { name: /^選ぶ（TOCFL/ }).click()
+  // 日本語の UI では、意味が日本語の単語集が先に並ぶ（16.5「意味の言語」）
+  const packs = dialog.getByRole('button', { name: /^選ぶ（TOCFL/ })
+  await expect(packs.first()).toHaveAccessibleName(/^選ぶ（TOCFL 入門級.*（意味：日本語））$/)
+  await packs.first().click()
   await dialog.getByRole('button', { name: /^追加する（\d+）$/ }).click()
   // 1,000 語を超えるため、遅い環境（Windows の WebKit など）では数秒かかる
   await expect(page.getByRole('status').filter({ hasText: '追加しました' })).toBeVisible({
