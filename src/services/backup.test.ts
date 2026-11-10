@@ -2,6 +2,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { db } from '../db/schema'
 import {
   canPickSaveLocation,
+  canShareBackup,
+  isMobileDevice,
   createBackupFile,
   saveBackupFile,
   shareBackupFile,
@@ -13,6 +15,51 @@ const lastBackup = async () => (await db.settings.get('app.lastBackupAt'))?.valu
 afterEach(() => {
   delete (window as { showSaveFilePicker?: unknown }).showSaveFilePicker
   delete (navigator as { share?: unknown }).share
+})
+
+describe('共有を選べる端末（仕様書 10.4、版 1.38）', () => {
+  it.each([
+    [
+      'Android',
+      'Mozilla/5.0 (Linux; Android 14; Pixel 8) Chrome/130.0 Mobile Safari/537.36',
+      5,
+      true,
+    ],
+    ['iPhone', 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Safari/604.1', 5, true],
+    [
+      'パソコンとして名乗る iPad',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/605.1.15',
+      5,
+      true,
+    ],
+    [
+      'Windows の Chrome',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130.0 Safari/537.36',
+      0,
+      false,
+    ],
+    [
+      'Mac の Chrome',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/130.0 Safari/537.36',
+      0,
+      false,
+    ],
+    [
+      '画面に触れられる Windows',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130.0 Safari/537.36',
+      10,
+      false,
+    ],
+  ])('%s', (_label, ua, touch, expected) => {
+    expect(isMobileDevice(ua, touch)).toBe(expected)
+  })
+
+  it('パソコンでは、共有の機能があっても共有を選ばせない', () => {
+    Object.defineProperty(navigator, 'canShare', { value: () => true, configurable: true })
+    // jsdom の User-Agent はパソコンとして扱われる
+    expect(canShareBackup()).toBe(false)
+    delete (navigator as { canShare?: unknown }).canShare
+  })
 })
 
 describe('バックアップファイルの保存と共有（FR-SET-11）', () => {

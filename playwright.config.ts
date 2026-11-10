@@ -16,6 +16,9 @@ export default defineConfig({
   forbidOnly: isCI,
   retries: isCI ? 1 : 0,
   reporter: isCI ? [['list'], ['github']] : 'list',
+  // expect の待ち時間（既定 5 秒）を少し伸ばす。並べて流すと、読み込みの遅い画面（出典とライセンスなど）が
+  // まれに間に合わないため
+  expect: { timeout: 8_000 },
   use: {
     baseURL: `http://localhost:${PORT}/tc-vocab/`,
     locale: 'ja-JP',

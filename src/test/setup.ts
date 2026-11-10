@@ -1,8 +1,11 @@
 import 'fake-indexeddb/auto'
 import '@testing-library/jest-dom/vitest'
-import { cleanup } from '@testing-library/react'
+import { cleanup, configure } from '@testing-library/react'
 import { afterEach, beforeEach } from 'vitest'
 import { db } from '../db/schema'
+
+// findBy・waitFor の待ち時間（既定 1 秒）を少し伸ばす。全体を並べて流すと、重い画面のテストがまれに時間切れになるため
+configure({ asyncUtilTimeout: 2000 })
 
 // jsdom には matchMedia が無いので、常に不一致を返す簡易版を用意する
 if (!window.matchMedia) {

@@ -97,8 +97,18 @@ export async function saveBackupFile({ file, createdAt }: BackupFile): Promise<S
 }
 
 /** ファイルを共有の機能（Web Share API）で渡せるか */
+/**
+ * スマートフォンかタブレットか（Android、iPhone・iPad）。パソコンでは共有を選ばせない（仕様書 10.4、版 1.38）。
+ * iPadOS の Safari はパソコン（Macintosh）として名乗るため、画面に触れられることで見分ける
+ */
+export function isMobileDevice(userAgent: string, maxTouchPoints: number): boolean {
+  if (/Android|iPhone|iPad|iPod/.test(userAgent)) return true
+  return /Macintosh/.test(userAgent) && maxTouchPoints > 1
+}
+
 export function canShareBackup(): boolean {
   if (typeof navigator === 'undefined' || typeof navigator.canShare !== 'function') return false
+  if (!isMobileDevice(navigator.userAgent, navigator.maxTouchPoints ?? 0)) return false
   try {
     return navigator.canShare({
       files: [new File(['{}'], 'tc-vocab-backup.txt', { type: SHARE_MIME })],

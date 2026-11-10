@@ -249,15 +249,20 @@ test('バックアップを保存して初期化し、そのファイルから�
   await page.goto('./#/settings')
   await page.getByRole('radio', { name: '黒', exact: true }).check()
 
-  // バックアップファイルを作成し、保存方法として「ファイルとして保存」を選ぶ（版 1.34）
+  // バックアップファイルを作成する（版 1.34・1.38）。スマートフォン（mobile-webkit）では保存方法を選び、
+  // パソコン（chromium）では共有を選ばせずにすぐ保存する
   await expect(page.getByText('まだバックアップを保存していません。')).toBeVisible()
+  const downloadPromise = page.waitForEvent('download')
   await page.getByRole('button', { name: 'バックアップファイルを作成する', exact: true }).click()
   const choose = page.getByRole('dialog', {
     name: 'バックアップファイルの保存方法を選んでください',
   })
-  await expect(choose.getByRole('button', { name: /^ほかのアプリと共有/ })).toBeVisible()
-  const downloadPromise = page.waitForEvent('download')
-  await choose.getByRole('button', { name: 'ファイルとして保存' }).click()
+  if (test.info().project.name === 'mobile-webkit') {
+    await expect(choose.getByRole('button', { name: /^ほかのアプリと共有/ })).toBeVisible()
+    await choose.getByRole('button', { name: 'ファイルとして保存' }).click()
+  } else {
+    await expect(choose).toBeHidden()
+  }
   const download = await downloadPromise
   await expect(page.getByText('バックアップファイルを作成しました。')).toBeVisible()
   expect(download.suggestedFilename()).toMatch(/^tc-vocab-backup-\d{8}-\d{4}\.json$/)
