@@ -142,7 +142,7 @@
       "newerVersion": "這是較新版本的 App 所儲存的備份。請先更新 App 再還原。",
       "invalidWords": "有 {{count}} 個不正確的單字，因此無法還原。",
       "tooLarge": "檔案太大（上限 20MB）。",
-      "unsupportedType": "請選擇副檔名為 .json 的檔案。",
+      "unsupportedType": "請選擇副檔名為 .json 或 .txt 的檔案。",
       "readFailed": "無法讀取檔案。",
       "empty": "檔案是空的。",
       "invalidEncoding": "檔案的文字編碼不是 UTF-8。"
@@ -153,7 +153,8 @@
     "saveAsFile": "儲存為檔案",
     "saveToLocation": "選擇位置並儲存",
     "downloadNote": "會儲存到瀏覽器的下載位置（通常是「下載」資料夾）。",
-    "shareToApp": "分享到其他 App（Google 雲端硬碟、電子郵件等）"
+    "shareToApp": "分享到其他 App（Google 雲端硬碟、電子郵件等）",
+    "shareFailed": "無法分享。請改用「儲存為檔案」。"
   },
   "storageNotice": {
     "title": "資料儲存在此裝置的瀏覽器中",
@@ -445,7 +446,14 @@
     "title": "有新版本",
     "body": "重新載入即可使用新版本。",
     "reload": "重新載入",
-    "later": "稍後"
+    "later": "稍後",
+    "check": "檢查更新",
+    "checking": "檢查中…",
+    "checkOffline": "連上網路後即可檢查。",
+    "latest": "已是最新版本。",
+    "available": "有新版本。按下畫面下方的「重新載入」即可更新。",
+    "checkFailed": "無法檢查更新。",
+    "reopenNote": "重新開啟 App 時，也會檢查是否有新版本。"
   },
   "packs": {
     "title": "單字包",

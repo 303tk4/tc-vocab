@@ -22,6 +22,8 @@ import { useOnline } from '../hooks/useOnline'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { BackupPanel } from './settings/BackupPanel'
 import { SourcesDialog } from './settings/SourcesDialog'
+import { UpdateCheck } from './settings/UpdateCheck'
+import { canCheckForUpdate } from '../app/updateCheck'
 
 export function SettingsPage() {
   const { t } = useTranslation()
@@ -119,6 +121,8 @@ function About() {
       </h2>
       <div className={`panel stack ${styles.about}`}>
         <p className={styles.version}>{t('settings.version', { version: __APP_VERSION__ })}</p>
+        {/* 更新を確認（FR-SET-15） */}
+        {canCheckForUpdate() && <UpdateCheck />}
         {feedbackUrl && (
           <div className={styles.feedback}>
             <h3 className="section-title">{t('settings.feedback')}</h3>

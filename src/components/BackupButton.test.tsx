@@ -7,6 +7,7 @@ import {
   canShareBackup,
   saveBackupFile,
   shareBackupFile,
+  ShareRejectedError,
 } from '../services/backup'
 import { BackupButton } from './BackupButton'
 
@@ -18,6 +19,7 @@ vi.mock('../services/backup', () => ({
   ),
   saveBackupFile: vi.fn(() => Promise.resolve('saved')),
   shareBackupFile: vi.fn(() => Promise.resolve('saved')),
+  ShareRejectedError: class ShareRejectedError extends Error {},
 }))
 
 describe('バックアップファイルを作成する（FR-SET-11、仕様書 10.4）', () => {
@@ -54,6 +56,17 @@ describe('バックアップファイルを作成する（FR-SET-11、仕様書 
     await user.click(screen.getByRole('button', { name: 'バックアップファイルを作成する' }))
     await user.click(await screen.findByRole('button', { name: '保存先を選んで保存' }))
     expect(saveBackupFile).toHaveBeenCalledOnce()
+  })
+
+  it('共有が断られたら、作成の失敗とは分けて「ファイルとして保存」を勧める', async () => {
+    vi.mocked(shareBackupFile).mockRejectedValue(new ShareRejectedError(null))
+    const user = userEvent.setup()
+    render(<BackupButton />)
+    await user.click(screen.getByRole('button', { name: 'バックアップファイルを作成する' }))
+    await user.click(await screen.findByRole('button', { name: /^ほかのアプリと共有/ }))
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      '共有できませんでした。「ファイルとして保存」をお使いください。',
+    )
   })
 
   it('共有を取りやめたら、作成したとは示さない', async () => {

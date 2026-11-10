@@ -208,7 +208,8 @@ export function parseBackup(text: string, now = Date.now()): Backup {
 
 /** 選ばれたファイルを読み込んで検証する（サイズの上限と文字コードは単語の読み込みと同じ。FR-IO-01・07） */
 export async function readBackupFile(file: File): Promise<Backup> {
-  if (!file.name.toLowerCase().endsWith('.json')) throw new BackupFileError('unsupportedType')
+  // 共有で渡したファイルは .txt になる（中身は JSON。仕様書 10.4）
+  if (!/\.(json|txt)$/i.test(file.name)) throw new BackupFileError('unsupportedType')
   if (file.size > MAX_FILE_SIZE) throw new BackupFileError('tooLarge')
   let bytes: Uint8Array
   try {

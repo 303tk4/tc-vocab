@@ -10,11 +10,29 @@ import { defaultSettings, sanitizeSettings, SETTING_KEYS } from '../settings/typ
 import { requestPersistentStorage } from './storage-persist'
 
 const MIME = 'application/json'
+/** 共有で渡すファイルの種類。Chrome は .json の共有を断るため、中身は同じ JSON のまま .txt にする（仕様書 10.4） */
+const SHARE_MIME = 'text/plain'
 
 /** 作成したバックアップのファイルと、その作成日時 */
 export interface BackupFile {
+  /** ファイルとして保存するもの（.json） */
   file: File
+  /** 共有で渡すもの（中身は同じ。.txt） */
+  shareFile: File
   createdAt: number
+}
+
+/** 共有で渡すときのファイル名（拡張子だけを .txt にする） */
+export function shareFileName(name: string): string {
+  return name.replace(/\.json$/i, '') + '.txt'
+}
+
+/** 共有の機能がファイルを断ったとき（作成の失敗とは分けて示す） */
+export class ShareRejectedError extends Error {
+  constructor(cause: unknown) {
+    super('share rejected', { cause })
+    this.name = 'ShareRejectedError'
+  }
 }
 
 /**
@@ -23,7 +41,12 @@ export interface BackupFile {
  */
 export async function createBackupFile(now = new Date()): Promise<BackupFile> {
   const text = buildBackup(await loadBackupContent(), __APP_VERSION__, now)
-  return { file: new File([text], backupFileName(now), { type: MIME }), createdAt: now.getTime() }
+  const name = backupFileName(now)
+  return {
+    file: new File([text], name, { type: MIME }),
+    shareFile: new File([text], shareFileName(name), { type: SHARE_MIME }),
+    createdAt: now.getTime(),
+  }
 }
 
 /** 保存先を選ぶ画面（File System Access API）。パソコンの Chrome・Edge にある */
@@ -77,19 +100,21 @@ export async function saveBackupFile({ file, createdAt }: BackupFile): Promise<S
 export function canShareBackup(): boolean {
   if (typeof navigator === 'undefined' || typeof navigator.canShare !== 'function') return false
   try {
-    return navigator.canShare({ files: [new File(['{}'], 'tc-vocab-backup.json', { type: MIME })] })
+    return navigator.canShare({
+      files: [new File(['{}'], 'tc-vocab-backup.txt', { type: SHARE_MIME })],
+    })
   } catch {
     return false
   }
 }
 
-/** 共有の機能でファイルを渡し、作成日時を記録する。取りやめたら 'cancelled' */
-export async function shareBackupFile({ file, createdAt }: BackupFile): Promise<SaveOutcome> {
+/** 共有の機能でファイルを渡し、作成日時を記録する。取りやめたら 'cancelled'、断られたら ShareRejectedError */
+export async function shareBackupFile({ shareFile, createdAt }: BackupFile): Promise<SaveOutcome> {
   try {
-    await navigator.share({ files: [file], title: file.name })
+    await navigator.share({ files: [shareFile], title: shareFile.name })
   } catch (error) {
     if (isAbort(error)) return 'cancelled'
-    throw error
+    throw new ShareRejectedError(error)
   }
   await recordBackup(createdAt)
   return 'saved'

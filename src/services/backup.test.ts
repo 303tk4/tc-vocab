@@ -1,6 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { db } from '../db/schema'
-import { canPickSaveLocation, createBackupFile, saveBackupFile, shareBackupFile } from './backup'
+import {
+  canPickSaveLocation,
+  createBackupFile,
+  saveBackupFile,
+  shareBackupFile,
+  ShareRejectedError,
+} from './backup'
 
 const lastBackup = async () => (await db.settings.get('app.lastBackupAt'))?.value
 
@@ -70,7 +76,27 @@ describe('バックアップファイルの保存と共有（FR-SET-11）', () =
 
     share.mockResolvedValue(undefined)
     expect(await shareBackupFile(backup)).toBe('saved')
-    expect(share).toHaveBeenLastCalledWith({ files: [backup.file], title: backup.file.name })
+    expect(share).toHaveBeenLastCalledWith({
+      files: [backup.shareFile],
+      title: backup.shareFile.name,
+    })
     expect(await lastBackup()).toBe(2000)
+  })
+
+  it('共有では、中身は同じ JSON のまま .txt のファイルとして渡す（Chrome が .json を断るため）', async () => {
+    const backup = await createBackupFile(new Date(2026, 10, 10, 9, 5))
+    expect(backup.shareFile.name).toBe('tc-vocab-backup-20261110-0905.txt')
+    expect(backup.shareFile.type).toBe('text/plain')
+    expect(await backup.shareFile.text()).toBe(await backup.file.text())
+  })
+
+  it('共有の機能がファイルを断ったら ShareRejectedError を投げ、日時を記録しない', async () => {
+    Object.assign(navigator, {
+      share: () => Promise.reject(new DOMException('Permission denied', 'NotAllowedError')),
+    })
+    await expect(shareBackupFile(await createBackupFile())).rejects.toBeInstanceOf(
+      ShareRejectedError,
+    )
+    expect(await lastBackup()).toBeUndefined()
   })
 })

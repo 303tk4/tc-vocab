@@ -1,6 +1,8 @@
+import { useEffect } from 'react'
 import { useRegisterSW } from 'virtual:pwa-register/react'
 import { applyUpdate } from './applyUpdate'
 import { StorageNotice } from './StorageNotice'
+import { onShowUpdateNotice } from './updateCheck'
 import { UpdateNotice } from './UpdateNotice'
 
 /** 新しい版に切り替えて再読み込みする。どの場合も最後は必ず再読み込みする（FR-PWA-03） */
@@ -33,6 +35,9 @@ export function UpdatePrompt() {
       }, UPDATE_CHECK_INTERVAL)
     },
   })
+
+  // 「更新を確認」（FR-SET-15）で新しい版が見つかったら、「あとで」で閉じていた通知も出し直す
+  useEffect(() => onShowUpdateNotice(() => setNeedRefresh(true)), [setNeedRefresh])
 
   return (
     <>

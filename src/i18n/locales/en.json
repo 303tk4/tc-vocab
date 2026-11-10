@@ -142,7 +142,7 @@
       "newerVersion": "This backup was saved by a newer version of the app. Update the app, then restore it.",
       "invalidWords": "The backup cannot be restored because {{count}} word(s) are invalid.",
       "tooLarge": "The file is too large (up to 20 MB).",
-      "unsupportedType": "Choose a file with the .json extension.",
+      "unsupportedType": "Choose a file with the .json or .txt extension.",
       "readFailed": "Could not read the file.",
       "empty": "The file is empty.",
       "invalidEncoding": "The file is not encoded in UTF-8."
@@ -153,7 +153,8 @@
     "saveAsFile": "Save as a file",
     "saveToLocation": "Choose where to save",
     "downloadNote": "It is saved to your browser’s download location (usually the Downloads folder).",
-    "shareToApp": "Share to another app (Google Drive, email, etc.)"
+    "shareToApp": "Share to another app (Google Drive, email, etc.)",
+    "shareFailed": "Could not share the file. Please use “Save as a file” instead."
   },
   "storageNotice": {
     "title": "Your data is stored in this browser",
@@ -445,7 +446,14 @@
     "title": "Update available",
     "body": "Reload to use the new version.",
     "reload": "Reload",
-    "later": "Later"
+    "later": "Later",
+    "check": "Check for updates",
+    "checking": "Checking…",
+    "checkOffline": "You can check once you are connected to the internet.",
+    "latest": "You are using the latest version.",
+    "available": "A new version is available. Press “Reload” at the bottom of the screen to update.",
+    "checkFailed": "Could not check for updates.",
+    "reopenNote": "The app also checks for a new version each time you reopen it."
   },
   "packs": {
     "title": "Word packs",

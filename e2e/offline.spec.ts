@@ -49,3 +49,24 @@ test('オフラインでも、出典とライセンスのライブラリの一�
   await page.getByRole('button', { name: '出典とライセンス' }).click()
   await expect(page.getByRole('dialog').getByText('react', { exact: true })).toBeVisible()
 })
+
+test('設定画面の「更新を確認」で、最新の版かを確かめられる（FR-SET-15）', async ({
+  page,
+  context,
+}) => {
+  await page.goto('./#/settings')
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready
+  })
+  const button = page.getByRole('button', { name: '更新を確認' })
+  await button.click()
+  await expect(page.getByRole('status').filter({ hasText: '最新の版です。' })).toBeVisible()
+  await expect(
+    page.getByText('アプリを開き直したときにも、新しい版があるか確かめます。'),
+  ).toBeVisible()
+
+  // オフラインでは押せない
+  await context.setOffline(true)
+  await expect(button).toBeDisabled()
+  await expect(page.getByText('インターネットに接続すると確認できます。')).toBeVisible()
+})

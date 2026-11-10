@@ -77,7 +77,7 @@ export function BackupPanel() {
         <input
           ref={fileRef}
           type="file"
-          accept=".json,application/json"
+          accept=".json,.txt,application/json,text/plain"
           hidden
           data-testid="backup-file"
           onChange={(e) => void pickFile(e)}

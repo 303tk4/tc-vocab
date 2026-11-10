@@ -127,6 +127,12 @@ describe('復元できないファイル（FR-SET-12）', () => {
     })
     await expect(readBackupFile(new File([], 'a.json'))).rejects.toMatchObject({ code: 'empty' })
   })
+
+  it('共有で渡した .txt のファイルからも復元できる（中身は JSON）', async () => {
+    const text = buildBackup(content, '1.4.3', now)
+    const backup = await readBackupFile(new File([text], 'tc-vocab-backup-20261110-1332.txt'))
+    expect(backup.words).toEqual([jieyun, tricky])
+  })
 })
 
 describe('バックアップの勧め（FR-SET-14）', () => {

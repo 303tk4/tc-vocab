@@ -6,6 +6,7 @@ import {
   createBackupFile,
   saveBackupFile,
   shareBackupFile,
+  ShareRejectedError,
   type BackupFile,
   type SaveOutcome,
 } from '../services/backup'
@@ -42,7 +43,12 @@ export function BackupButton({ label, className = '', onSaved }: Props) {
     setMessage({ kind: 'ok', text: t('backup.saved') })
     onSaved?.()
   }
-  const fail = () => setMessage({ kind: 'error', text: t('backup.saveFailed') })
+  const fail = (error?: unknown) =>
+    setMessage({
+      kind: 'error',
+      // 共有が断られたときは、作成の失敗と分けて「ファイルとして保存」を勧める（仕様書 10.4）
+      text: error instanceof ShareRejectedError ? t('backup.shareFailed') : t('backup.saveFailed'),
+    })
 
   const start = async () => {
     setBusy(true)
@@ -65,8 +71,8 @@ export function BackupButton({ label, className = '', onSaved }: Props) {
     try {
       // 共有と保存先の選択は、押した操作の直後に呼ぶ（間に待ち時間を入れない）
       finish(await (how === 'save' ? saveBackupFile(backup) : shareBackupFile(backup)))
-    } catch {
-      fail()
+    } catch (error) {
+      fail(error)
     }
   }
 
