@@ -15,16 +15,19 @@ function renderChoice() {
 }
 
 describe('初回起動時の言語の選択（FR-HOME-07）', () => {
-  it('言語が保存されていなければ、3言語の見出しと選択肢を示す', async () => {
+  it('言語が保存されていなければ、English を先にした3言語の見出しと選択肢を示す', async () => {
     renderChoice()
-    const group = await screen.findByRole('group', { name: /言語.*語言.*Language/ })
+    const group = await screen.findByRole('group', {
+      name: /^Display Language.*アプリの表示言語.*介面語言$/,
+    })
     expect(group).toBeInTheDocument()
-    for (const name of ['日本語', '繁體中文', 'English']) {
-      expect(screen.getByRole('radio', { name })).toBeInTheDocument()
-    }
+    // 並び順は English → 日本語 → 繁體中文（版 1.45）
+    const names = screen.getAllByRole('radio').map((r) => r.closest('label')?.textContent)
+    expect(names).toEqual(['English', '日本語', '繁體中文'])
     // 選択肢と見出しには、それぞれの言語の lang を付ける
     expect(screen.getByText('繁體中文').closest('[lang]')).toHaveAttribute('lang', 'zh-TW')
-    expect(screen.getByText('語言')).toHaveAttribute('lang', 'zh-TW')
+    expect(screen.getByText('介面語言')).toHaveAttribute('lang', 'zh-TW')
+    expect(screen.getByText('Display Language')).toHaveAttribute('lang', 'en')
   })
 
   it('選ぶとすぐに表示が変わって保存され、決定を押すまでは開いたままになる', async () => {

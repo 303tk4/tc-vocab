@@ -49,7 +49,7 @@ test('初めて開いたホームで画面の言語を選べ、決定すると�
   page,
 }) => {
   await page.goto('./')
-  const choice = page.getByRole('group', { name: /言語.*語言.*Language/ })
+  const choice = page.getByRole('group', { name: /Display Language.*アプリの表示言語.*介面語言/ })
   // ブラウザの言語（ja-JP）から判定した日本語が、初めに選ばれている（FR-SET-01）
   await expect(choice.getByRole('radio', { name: '日本語' })).toBeChecked()
 
