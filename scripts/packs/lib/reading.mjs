@@ -51,6 +51,8 @@ export const DICT_VARIANT_CHARS = {
   癡: '痴',
   舖: '鋪',
   樑: '梁',
+  勳: '勛',
+  艷: '豔',
 }
 
 /**
