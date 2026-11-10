@@ -253,6 +253,20 @@ test('設定は再読み込みのあとも保たれる（仕様書 10.1）', asy
   await expect(root).toHaveAttribute('data-font-scale', 'xl')
 })
 
+test('ボタンなどの色を変えると、ウィンドウ上部の色もその場で変わり、再読み込みのあとも保たれる（FR-SET-04、版 1.46）', async ({
+  page,
+}) => {
+  await page.goto('./#/settings')
+  const themeColor = page.locator('meta[name="theme-color"]')
+  await expect(themeColor).toHaveAttribute('content', '#b4232f')
+  await page.getByRole('radio', { name: '緑', exact: true }).check()
+  await expect(themeColor).toHaveAttribute('content', '#1d6b40')
+
+  await page.reload()
+  await expect(page.getByRole('heading', { name: '設定', level: 1 })).toBeVisible()
+  await expect(themeColor).toHaveAttribute('content', '#1d6b40')
+})
+
 test('設定画面で版を確かめ、フィードバックのフォームを開くリンクがある（仕様書 10.3）', async ({
   page,
   context,

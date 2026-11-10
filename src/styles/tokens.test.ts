@@ -3,7 +3,7 @@
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { ACCENT_SWATCHES, ACCENTS } from '../settings/accents'
+import { ACCENT_SWATCHES, ACCENTS, DEFAULT_ACCENT, themeColorFor } from '../settings/accents'
 
 // Vitest では CSS の中身を読み込まない設定のため、ファイルを直接読む
 const tokens = readFileSync(resolve(process.cwd(), 'src/styles/tokens.css'), 'utf8')
@@ -79,5 +79,21 @@ describe.each(THEMES)('テーマ %s', (theme) => {
       expect(contrast(p['--color-danger-strong'], p[bg])).toBeGreaterThanOrEqual(4.5)
     }
     expect(contrast(p['--color-danger'], p['--color-bg'])).toBeGreaterThanOrEqual(3)
+  })
+})
+
+describe('ウィンドウ上部の色（FR-SET-04、版 1.46）', () => {
+  const html = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8')
+
+  it.each(ACCENTS)('%s：白い文字が読める濃さで、index.html の表と一致する', (accent) => {
+    const color = themeColorFor(accent)
+    // タイトルバーの白い文字（3:1 は大きな文字の基準）
+    expect(contrast('#ffffff', color)).toBeGreaterThanOrEqual(3)
+    // 起動時に描画前に塗るインラインスクリプトの表（index.html）と同じ値
+    expect(html).toMatch(new RegExp(`\\b${accent}: '${color}'`))
+  })
+
+  it('index.html の初期値は、初期のアクセントカラーの色', () => {
+    expect(html).toContain(`<meta name="theme-color" content="${themeColorFor(DEFAULT_ACCENT)}" />`)
   })
 })

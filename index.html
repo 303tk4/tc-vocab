@@ -22,9 +22,19 @@
         var theme = s.theme === 'light' || s.theme === 'dark' ? s.theme : dark ? 'dark' : 'light'
         root.dataset.theme = theme
         root.dataset.fontScale = /^(sm|md|lg|xl)$/.test(s.fontScale) ? s.fontScale : 'md'
-        root.dataset.accent = /^(red|green|blue|purple|orange|mono)$/.test(s.accent)
-          ? s.accent
-          : 'red'
+        var accent = /^(red|green|blue|purple|orange|mono)$/.test(s.accent) ? s.accent : 'red'
+        root.dataset.accent = accent
+        // ウィンドウ上部の色（FR-SET-04）。src/settings/accents.ts の themeColorFor と同じ値
+        var themeColors = {
+          red: '#b4232f',
+          green: '#1d6b40',
+          blue: '#1f5fbf',
+          purple: '#6a3fb5',
+          orange: '#b04a0c',
+          mono: '#1f1d1a',
+        }
+        var meta = document.querySelector('meta[name="theme-color"]')
+        if (meta) meta.setAttribute('content', themeColors[accent])
         if (/^(ja|zh-TW|en)$/.test(s.uiLanguage)) root.lang = s.uiLanguage
       })()
     </script>

@@ -16,3 +16,12 @@ export const ACCENT_SWATCHES: Record<Accent, { light: string; dark: string }> = 
   orange: { light: '#b04a0c', dark: '#f0954f' },
   mono: { light: '#1f1d1a', dark: '#ece8e2' },
 }
+
+/**
+ * ウィンドウ上部（アドレスバー・タイトルバー）の色（`<meta name="theme-color">`。FR-SET-04、版 1.46）。
+ * 背景が黒でも、白い文字が読みやすい濃い方（白い背景のときの色）を使う。
+ * index.html のインラインスクリプトにも同じ表があり、tokens.test.ts で一致を確かめる
+ */
+export function themeColorFor(accent: Accent): string {
+  return ACCENT_SWATCHES[accent].light
+}

@@ -1,3 +1,4 @@
+import { themeColorFor, type Accent } from './accents'
 import type { AppSettings, Theme } from './types'
 
 /**
@@ -35,4 +36,20 @@ export function applyToDocument(settings: AppSettings, prefersDark: boolean): vo
   root.dataset.fontScale = settings.fontScale
   root.dataset.accent = settings.accent
   root.lang = settings.uiLanguage
+  applyThemeColor(settings.accent)
+}
+
+/**
+ * ウィンドウ上部の色をアクセントカラーに合わせる（FR-SET-04、版 1.46）。
+ * ブラウザは meta の変更を見て、その場で塗り直す（再読み込みは要らない）
+ */
+export function applyThemeColor(accent: Accent): void {
+  let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')
+  if (!meta) {
+    meta = document.createElement('meta')
+    meta.name = 'theme-color'
+    document.head.append(meta)
+  }
+  const color = themeColorFor(accent)
+  if (meta.content !== color) meta.content = color
 }
