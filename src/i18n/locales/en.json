@@ -13,6 +13,7 @@
   "home": {
     "title": "Study modes",
     "wordCount": "Words: {{count}}",
+    "languageConfirm": "OK",
     "emptyTitle": "Add words to get started",
     "emptyBody": "Free word packs such as TOCFL vocabulary are available. Pick one and add it to start studying right away.",
     "emptyAction": "Add words from a file",

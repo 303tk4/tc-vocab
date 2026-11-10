@@ -11,6 +11,7 @@ import { modes } from '../modes/registry'
 import type { AnyStudyMode } from '../modes/types'
 import { BackupReminder } from './home/BackupReminder'
 import { HomeInstallHint } from './home/HomeInstallHint'
+import { LanguageChoice } from './home/LanguageChoice'
 import styles from './HomePage.module.css'
 import { usePageTitle } from '../hooks/usePageTitle'
 
@@ -21,6 +22,9 @@ export function HomePage() {
 
   return (
     <div className="stack">
+      {/* 初回起動時の言語の選択（FR-HOME-07）。最初の案内とモードの一覧の上に置く */}
+      <LanguageChoice />
+
       {wordCount === 0 && <EmptyState />}
 
       <section aria-labelledby="modes-title">

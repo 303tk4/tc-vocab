@@ -1,0 +1,16 @@
+/* 初回起動時の言語の選択（FR-HOME-07） */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.heading {
+  font-size: 1.125rem;
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger-strong);
+}

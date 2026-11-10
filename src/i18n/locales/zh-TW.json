@@ -13,6 +13,7 @@
   "home": {
     "title": "學習模式",
     "wordCount": "已登錄單字：{{count}} 個",
+    "languageConfirm": "確定",
     "emptyTitle": "新增單字，開始學習吧",
     "emptyBody": "我們提供 TOCFL 等免費的「單字包」。選擇並新增後，就能馬上開始學習。",
     "emptyAction": "從檔案新增單字",

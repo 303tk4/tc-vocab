@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, type ReactNode } from 'react'
 import styles from './SegmentedControl.module.css'
 
 interface Option<T extends string> {
@@ -11,7 +11,8 @@ interface Option<T extends string> {
 }
 
 interface Props<T extends string> {
-  label: string
+  /** 見出し。言語ごとに lang を付けたいとき（FR-HOME-07）は要素で渡す */
+  label: ReactNode
   value: T
   options: readonly Option<T>[]
   onChange(value: T): void

@@ -45,6 +45,26 @@ test('最初の案内からサンプル単語を追加すると、ホームか�
   await expect(page.getByRole('heading', { name: '学習モード' })).toBeVisible()
 })
 
+test('初めて開いたホームで画面の言語を選べ、決定すると次からは示さない（FR-HOME-07）', async ({
+  page,
+}) => {
+  await page.goto('./')
+  const choice = page.getByRole('group', { name: /言語.*語言.*Language/ })
+  // ブラウザの言語（ja-JP）から判定した日本語が、初めに選ばれている（FR-SET-01）
+  await expect(choice.getByRole('radio', { name: '日本語' })).toBeChecked()
+
+  // 選ぶとすぐに画面の言語が変わる
+  await choice.getByRole('radio', { name: 'English' }).check()
+  await expect(page.getByRole('heading', { name: 'Study modes' })).toBeVisible()
+  await page.getByRole('button', { name: 'OK', exact: true }).click()
+  await expect(choice).toBeHidden()
+
+  // 読み込み直しても、選んだ言語のままで、選択の欄は出ない
+  await page.reload()
+  await expect(page.getByRole('heading', { name: 'Study modes' })).toBeVisible()
+  await expect(choice).toHaveCount(0)
+})
+
 test('準備画面の「一回の出題数」で、1回の学習の枚数を変えられる（FR-PLUG-08、仕様書 8.1）', async ({
   page,
 }) => {

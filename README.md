@@ -8,7 +8,7 @@ A browser app for learning Taiwanese Mandarin (Traditional Chinese) vocabulary. 
 
 - 登録は要りません。単語と学習の記録は、お使いの端末（ブラウザ）の中だけに保存します。
 - インターネットに接続していなくても使えます（一度開いたあと）。
-- 画面の言語は日本語・繁體中文・English から選べます。
+- 画面の言語は日本語・繁體中文・English から選べます。初めて開いたときに、ホームの先頭で選べます（あとから設定でも変えられます）。
 
 ## 使い方
 

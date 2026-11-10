@@ -13,6 +13,7 @@
   "home": {
     "title": "学習モード",
     "wordCount": "登録単語数：{{count}} 語",
+    "languageConfirm": "決定",
     "emptyTitle": "単語を追加して始めましょう",
     "emptyBody": "TOCFL などの単語集を無料で用意しています。選んで追加すれば、すぐに学習を始められます。",
     "emptyAction": "ファイルを読み込んで単語を追加",
