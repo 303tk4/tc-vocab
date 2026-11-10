@@ -54,7 +54,7 @@ hanzi,zhuyin,pinyin,meaning,example,example_translation,tags
 
 文字の大きさ、背景の色（白・黒）、ボタンなどの色、画面の言語を変えられます。暗記カードの1日の新規カードの数や、注音・拼音を表示するかどうかも設定できます。
 
-設定画面のいちばん下の「このアプリについて」で、アプリの版を確かめられます。感想や不具合は、そこにあるリンクのフォーム（Google フォーム）から開発者に送れます。
+設定画面のいちばん下の「このアプリについて」で、アプリの版を確かめられます。感想や不具合は、そこにあるリンクのフォーム（Google フォーム）から開発者に送れます。著作権とライセンス、出典、免責、データの扱いもここで確かめられます。
 
 ## データの保存についての注意
 
@@ -74,6 +74,23 @@ hanzi,zhuyin,pinyin,meaning,example,example_translation,tags
 ## 対応ブラウザ
 
 Chrome・Edge・Firefox・Safari（パソコン）と、iPhone・iPad の Safari、Android の Chrome の、それぞれ最新版と1つ前の版です。
+
+## ライセンス
+
+© 2026 303tk4
+
+- アプリのプログラムは [MIT License](LICENSE) で公開しています。
+- 単語集（`public/packs/`）はプログラムとは別の条件です。開発者が作った部分（意味・例文・タグ）は [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)、他者の素材（語の選定と級、注音）はそれぞれの出典の条件に従います。詳しくは [public/packs/README.md](public/packs/README.md) を見てください。
+- アプリが使っているオープンソースのライブラリの一覧とライセンスは、設定画面の「このアプリについて」→「出典とライセンス」で確かめられます。
+
+## 出典
+
+- 単語集の語の選定と級：國家教育研究院「臺灣華語文能力基準」詞語表（<https://coct.naer.edu.tw/page.jsp?ID=41>）
+- 注音：中華民國教育部《重編國語辭典修訂本》（<https://dict.revised.moe.edu.tw/>）。[創用CC 姓名標示-禁止改作 3.0 臺灣](https://creativecommons.org/licenses/by-nd/3.0/tw/)
+
+## 免責
+
+単語集の意味・例文には AI による下書きを多く含み、誤りがありえます。このアプリは無保証で提供されます。
 
 ---
 

@@ -165,7 +165,32 @@ test('設定画面で版を確かめ、フィードバックのフォームを�
   // オフラインでは押せない状態になり、戻ると押せる
   await context.setOffline(true)
   await expect(page.getByRole('button', { name: '意見を送るフォームを開く' })).toBeDisabled()
-  await expect(page.getByText('インターネットに接続すると開けます。')).toBeVisible()
+  await expect(page.getByText('インターネットに接続すると開けます。').first()).toBeVisible()
   await context.setOffline(false)
   await expect(link).toBeVisible()
+})
+
+test('設定画面で著作権・出典とライセンス・免責・データの扱いを確かめられる（仕様書 10.3、FR-SET-07〜10）', async ({
+  page,
+}) => {
+  await page.goto('./#/settings')
+  await expect(page.getByText('© 2026 303tk4')).toBeVisible()
+  const repo = page.getByRole('link', { name: /^ソースコードとライセンス（GitHub）/ })
+  await expect(repo).toHaveAttribute('href', 'https://github.com/303tk4/tc-vocab')
+  await expect(repo).toHaveAttribute('target', '_blank')
+  await expect(page.getByRole('heading', { name: '免責' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'データの扱い' })).toBeVisible()
+
+  await page.getByRole('button', { name: '出典とライセンス' }).click()
+  const dialog = page.getByRole('dialog', { name: '出典とライセンス' })
+  await expect(dialog.getByText('教育部《重編國語辭典修訂本》', { exact: false })).toBeVisible()
+  await expect(dialog.getByText('react', { exact: true })).toBeVisible()
+  // 名前を押すと、そのライブラリのライセンスの全文が開く
+  const react = dialog
+    .getByRole('listitem')
+    .filter({ has: page.getByText('react', { exact: true }) })
+  await react.getByText('react', { exact: true }).click()
+  await expect(react.getByText(/Permission is hereby granted/)).toBeVisible()
+  await dialog.getByRole('button', { name: '閉じる' }).click()
+  await expect(dialog).toBeHidden()
 })

@@ -10,6 +10,7 @@ import { LANGUAGE_NAMES, modeNamespace } from '../i18n'
 import { modes } from '../modes/registry'
 import type { AnyStudyMode } from '../modes/types'
 import { buildFeedbackUrl, FEEDBACK_FORM } from '../services/feedback'
+import { COPYRIGHT, REPO_URL } from '../services/licenses'
 import { getPersistState, type PersistState } from '../services/storage-persist'
 import { useSettings } from '../settings/context'
 import { ACCENT_SWATCHES, ACCENTS } from '../settings/accents'
@@ -19,6 +20,7 @@ import { useMediaQuery } from '../hooks/useMediaQuery'
 import styles from './SettingsPage.module.css'
 import { useOnline } from '../hooks/useOnline'
 import { usePageTitle } from '../hooks/usePageTitle'
+import { SourcesDialog } from './settings/SourcesDialog'
 
 export function SettingsPage() {
   const { t } = useTranslation()
@@ -95,10 +97,13 @@ export function SettingsPage() {
   )
 }
 
-/** このアプリについて：版の表示（FR-SET-06）と開発者へのフィードバック（FR-SET-05）。仕様書 10.3 */
+/**
+ * このアプリについて（仕様書 10.3）：版の表示（FR-SET-06）、開発者へのフィードバック（FR-SET-05）、
+ * 著作権とライセンス（FR-SET-07）、出典とライセンス（FR-SET-08）、免責（FR-SET-09）、データの扱い（FR-SET-10）
+ */
 function About() {
   const { t, i18n } = useTranslation()
-  const online = useOnline()
+  const [sourcesOpen, setSourcesOpen] = useState(false)
   const feedbackUrl = buildFeedbackUrl(FEEDBACK_FORM, {
     version: __APP_VERSION__,
     language: i18n.language,
@@ -115,32 +120,61 @@ function About() {
           <div className={styles.feedback}>
             <h3 className="section-title">{t('settings.feedback')}</h3>
             <p>{t('settings.feedbackBody')}</p>
-            {online ? (
-              <a
-                href={feedbackUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button button--block-sm"
-              >
-                {t('settings.feedbackLink')}
-                <span className="visually-hidden">{t('settings.newTab')}</span>
-                <ExternalLinkIcon />
-              </a>
-            ) : (
-              <>
-                {/* オフラインではフォームを開けないため、押せない状態にする */}
-                <button type="button" className="button button--block-sm" disabled>
-                  {t('settings.feedbackLink')}
-                  <ExternalLinkIcon />
-                </button>
-                <p className={`muted ${styles.hint}`}>{t('settings.feedbackOffline')}</p>
-              </>
-            )}
+            <ExternalButton href={feedbackUrl}>{t('settings.feedbackLink')}</ExternalButton>
             <p className={`muted ${styles.hint}`}>{t('settings.feedbackNote')}</p>
           </div>
         )}
+        {/* 著作権とライセンス（FR-SET-07）、出典とライセンス（FR-SET-08） */}
+        <div className={styles.feedback}>
+          <h3 className="section-title">{t('about.rightsTitle')}</h3>
+          <p>{COPYRIGHT}</p>
+          <p>{t('about.codeLicense')}</p>
+          <ExternalButton href={REPO_URL}>{t('about.sourceCodeLink')}</ExternalButton>
+          <button
+            type="button"
+            className="button button--block-sm"
+            onClick={() => setSourcesOpen(true)}
+          >
+            {t('about.sourcesTitle')}
+          </button>
+        </div>
+        {/* 免責（FR-SET-09） */}
+        <div className={styles.feedback}>
+          <h3 className="section-title">{t('about.disclaimerTitle')}</h3>
+          <p>{t('about.disclaimerBody')}</p>
+        </div>
+        {/* データの扱い（FR-SET-10、NFR-06） */}
+        <div className={styles.feedback}>
+          <h3 className="section-title">{t('about.privacyTitle')}</h3>
+          <p>{t('about.privacyBody')}</p>
+        </div>
       </div>
+      <SourcesDialog open={sourcesOpen} onClose={() => setSourcesOpen(false)} />
     </section>
+  )
+}
+
+/** 新しいタブで開く外部のリンク。オフラインでは開けないため、押せない状態にする（仕様書 10.3） */
+function ExternalButton({ href, children }: { href: string; children: string }) {
+  const { t } = useTranslation()
+  const online = useOnline()
+  if (!online) {
+    return (
+      <>
+        <button type="button" className="button button--block-sm" disabled>
+          {children}
+          <ExternalLinkIcon />
+        </button>
+        <p className={`muted ${styles.hint}`}>{t('settings.feedbackOffline')}</p>
+      </>
+    )
+  }
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="button button--block-sm">
+      {children}
+      <span className="visually-hidden">{t('settings.newTab')}</span>
+      <ExternalLinkIcon />
+    </a>
   )
 }
 

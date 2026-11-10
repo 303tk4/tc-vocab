@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { thirdPartyLicenses } from './scripts/licenses-plugin.ts'
 
 // アプリの版（FR-SET-06）。package.json の version を正本とする（仕様書 12.2）
 const { version } = JSON.parse(
@@ -19,6 +20,8 @@ export default defineConfig({
   base: '/tc-vocab/',
   plugins: [
     react(),
+    // ライブラリのライセンスの一覧 licenses.json（FR-SET-08）。事前キャッシュの対象になる
+    thirdPartyLicenses(fileURLToPath(new URL('.', import.meta.url))),
     // PWA（仕様書 12.1）
     VitePWA({
       // 更新は利用者の操作で反映する（FR-PWA-03）。登録は src/app/UpdatePrompt.tsx で行う

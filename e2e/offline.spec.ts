@@ -33,3 +33,19 @@ test('一度開いたあとは、オフラインでも起動してサンプル�
   await page.getByRole('button', { name: /答えを表示/ }).click()
   await expect(page.getByRole('group', { name: '覚え具合の評価' })).toBeVisible()
 })
+
+test('オフラインでも、出典とライセンスのライブラリの一覧を開ける（FR-SET-08）', async ({
+  page,
+  context,
+}) => {
+  await page.goto('./#/settings')
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready
+  })
+  await page.reload()
+  await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true)
+
+  await context.setOffline(true)
+  await page.getByRole('button', { name: '出典とライセンス' }).click()
+  await expect(page.getByRole('dialog').getByText('react', { exact: true })).toBeVisible()
+})

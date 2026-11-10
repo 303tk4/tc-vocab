@@ -87,6 +87,25 @@
     "feedbackNote": "This opens an external site (Google Forms). What you write is sent to that site. Your words and study records are not sent.",
     "feedbackOffline": "Available when you are online."
   },
+  "about": {
+    "rightsTitle": "Copyright and license",
+    "codeLicense": "The source code of this app is released under the MIT License.",
+    "sourceCodeLink": "Source code and license (GitHub)",
+    "sourcesTitle": "Sources and licenses",
+    "packsTitle": "Word packs",
+    "sourceVocab": "Word selection and levels",
+    "sourceZhuyin": "Zhuyin",
+    "sourceMeanings": "Meanings and examples",
+    "sourceMeaningsBody": "Created by the developer (303tk4) with the help of AI.",
+    "license": "License: ",
+    "librariesTitle": "Libraries",
+    "librariesNote": "Open-source libraries used by this app. Select a name to show the full license text.",
+    "librariesError": "The list of libraries could not be loaded.",
+    "disclaimerTitle": "Disclaimer",
+    "disclaimerBody": "Many meanings and examples in the word packs are AI-generated drafts and may contain errors. This app is provided without any warranty.",
+    "privacyTitle": "Your data",
+    "privacyBody": "Your words, study records and settings are stored only on this device (in the browser) and are never sent anywhere, including to the developer. There is no analytics, advertising or tracking. Only when you open the feedback form is what you write sent to that site (Google Forms)."
+  },
   "words": {
     "title": "Word data",
     "import": "Add words from a file",

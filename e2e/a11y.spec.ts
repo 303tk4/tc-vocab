@@ -45,6 +45,13 @@ test.describe('単語があるとき', () => {
     await page.goto('./#/settings')
     await expect(page.getByRole('heading', { name: '設定', level: 1 })).toBeVisible()
     await expectNoA11yViolations(page)
+
+    // 出典とライセンスのダイアログ（FR-SET-08）
+    await page.getByRole('button', { name: '出典とライセンス' }).click()
+    const dialog = page.getByRole('dialog')
+    await expect(dialog.getByText('react', { exact: true })).toBeVisible()
+    await dialog.getByText('react', { exact: true }).click()
+    await expectNoA11yViolations(page)
   })
 
   test('暗記カード（準備・表・裏・結果）', async ({ page }) => {

@@ -85,6 +85,8 @@ public/samples/starter.json  # サンプル単語（すべてに「サンプル�
 docs/SPEC.md                 # 仕様書
 e2e/                         # Playwright の E2E テスト（flows, offline, a11y, keyboard, perf）
 scripts/check-size.mjs       # 初回表示の JS の大きさの確認
+scripts/licenses-plugin.ts   # ライブラリのライセンスの一覧 licenses.json を書き出す（FR-SET-08）
+LICENSE                      # MIT License（プログラム）。単語集の条件は public/packs/README.md
 scripts/build-icons.mjs      # public/favicon.svg から PWA のアイコン画像（PNG）を作る
 ```
 

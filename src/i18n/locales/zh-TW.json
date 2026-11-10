@@ -87,6 +87,25 @@
     "feedbackNote": "將開啟外部網站（Google 表單）。您填寫的內容會傳送到該網站，單字與學習紀錄不會被傳送。",
     "feedbackOffline": "連上網路後即可開啟。"
   },
+  "about": {
+    "rightsTitle": "著作權與授權",
+    "codeLicense": "本應用程式的程式碼以 MIT License 公開。",
+    "sourceCodeLink": "原始碼與授權條款（GitHub）",
+    "sourcesTitle": "出處與授權",
+    "packsTitle": "詞彙集",
+    "sourceVocab": "詞語的選定與級別",
+    "sourceZhuyin": "注音",
+    "sourceMeanings": "意思・例句",
+    "sourceMeaningsBody": "由開發者（303tk4）使用 AI 製作。",
+    "license": "授權：",
+    "librariesTitle": "函式庫",
+    "librariesNote": "本應用程式使用的開源函式庫。點選名稱可顯示授權條款全文。",
+    "librariesError": "無法載入函式庫清單。",
+    "disclaimerTitle": "免責聲明",
+    "disclaimerBody": "詞彙集的意思與例句多為 AI 產生的草稿，可能有錯誤。本應用程式不提供任何保證。",
+    "privacyTitle": "資料的處理",
+    "privacyBody": "詞語、學習紀錄與設定只儲存在這個裝置（瀏覽器）中，不會傳送給包括開發者在內的任何外部對象。不進行分析、廣告或追蹤。只有在開啟意見回饋表單時，您填寫的內容才會傳送到該網站（Google 表單）。"
+  },
   "words": {
     "title": "單字資料",
     "import": "從檔案新增單字",
