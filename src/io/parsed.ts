@@ -1,6 +1,9 @@
 import type { Progress } from '../types/word'
 import type { ValidationError, WordDraft } from './validate'
 
+/** 取り込むファイルのサイズの上限（FR-IO-07） */
+export const MAX_FILE_SIZE = 20 * 1024 * 1024
+
 /** UTF-8 の BOM（U+FEFF） */
 export const BOM = String.fromCharCode(0xfeff)
 

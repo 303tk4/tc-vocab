@@ -2,9 +2,9 @@
 import { parseCsv } from './csv'
 import { decodeText } from './encoding'
 import { parseJson } from './json'
-import { ImportFileError, type ParsedFile } from './parsed'
+import { ImportFileError, MAX_FILE_SIZE, type ParsedFile } from './parsed'
 
-export const MAX_FILE_SIZE = 20 * 1024 * 1024
+export { MAX_FILE_SIZE }
 
 /** 表計算ソフトのファイル。そのままでは読めないため、CSV で保存し直すよう案内する */
 const SPREADSHEET_EXTENSIONS = ['.xlsx', '.xls', '.xlsm', '.ods', '.numbers']

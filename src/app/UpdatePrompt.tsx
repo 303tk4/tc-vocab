@@ -1,5 +1,6 @@
 import { useRegisterSW } from 'virtual:pwa-register/react'
 import { applyUpdate } from './applyUpdate'
+import { StorageNotice } from './StorageNotice'
 import { UpdateNotice } from './UpdateNotice'
 
 /** 新しい版に切り替えて再読み込みする。どの場合も最後は必ず再読み込みする（FR-PWA-03） */
@@ -34,10 +35,14 @@ export function UpdatePrompt() {
   })
 
   return (
-    <UpdateNotice
-      needRefresh={needRefresh}
-      onReload={reloadToUpdate}
-      onDismiss={() => setNeedRefresh(false)}
-    />
+    <>
+      <UpdateNotice
+        needRefresh={needRefresh}
+        onReload={reloadToUpdate}
+        onDismiss={() => setNeedRefresh(false)}
+      />
+      {/* データが消えうることの知らせ（FR-PWA-06）は、更新の通知が閉じてから示す */}
+      {!needRefresh && <StorageNotice />}
+    </>
   )
 }

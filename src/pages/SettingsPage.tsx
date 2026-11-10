@@ -1,6 +1,6 @@
-import { Suspense, useEffect, useMemo, useState } from 'react'
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { BackLink } from '../components/BackLink'
 import { ChevronRightIcon, ExternalLinkIcon } from '../components/icons'
 import { InstallHelp } from '../components/InstallHelp'
@@ -20,6 +20,7 @@ import { useMediaQuery } from '../hooks/useMediaQuery'
 import styles from './SettingsPage.module.css'
 import { useOnline } from '../hooks/useOnline'
 import { usePageTitle } from '../hooks/usePageTitle'
+import { BackupPanel } from './settings/BackupPanel'
 import { SourcesDialog } from './settings/SourcesDialog'
 
 export function SettingsPage() {
@@ -86,6 +87,8 @@ export function SettingsPage() {
       <section className="stack">
         <h2 className="section-title">{t('settings.data')}</h2>
         <StorageStatus />
+        {/* バックアップと初期化（仕様書 10.4、FR-SET-11〜13） */}
+        <BackupPanel />
         <Link to="/words" className="button button--block-sm">
           {t('settings.dataLink')}
           <ChevronRightIcon />
@@ -182,6 +185,16 @@ function ExternalButton({ href, children }: { href: string; children: string }) 
 function StorageStatus() {
   const { t } = useTranslation()
   const [state, setState] = useState<PersistState | null>(null)
+  const location = useLocation()
+  const ref = useRef<HTMLDivElement>(null)
+
+  // データが消えうることの知らせ（FR-PWA-06）の「詳しく」から開いたときは、この欄を示す
+  useEffect(() => {
+    if ((location.state as { focus?: string } | null)?.focus === 'storage') {
+      ref.current?.scrollIntoView({ block: 'start' })
+      ref.current?.focus()
+    }
+  }, [location.state])
 
   useEffect(() => {
     let active = true
@@ -194,7 +207,7 @@ function StorageStatus() {
   }, [])
 
   return (
-    <div className={`panel ${styles.storage}`} aria-busy={state === null}>
+    <div ref={ref} tabIndex={-1} className={`panel ${styles.storage}`} aria-busy={state === null}>
       <h3 className="section-title">{t('settings.storage')}</h3>
       {state === null ? (
         <p className="muted">{t('common.loading')}</p>

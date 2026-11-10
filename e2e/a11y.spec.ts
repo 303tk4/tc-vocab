@@ -52,6 +52,12 @@ test.describe('単語があるとき', () => {
     await expect(dialog.getByText('react', { exact: true })).toBeVisible()
     await dialog.getByText('react', { exact: true }).click()
     await expectNoA11yViolations(page)
+    await dialog.getByRole('button', { name: '閉じる' }).click()
+
+    // 初期化の確認（FR-SET-13）
+    await page.getByRole('button', { name: 'アプリを初期状態に戻す' }).click()
+    await expect(page.getByRole('dialog', { name: 'アプリを初期状態に戻しますか？' })).toBeVisible()
+    await expectNoA11yViolations(page)
   })
 
   test('暗記カード（準備・表・裏・結果）', async ({ page }) => {

@@ -3,7 +3,7 @@ import { buildCsv, parseCsv } from '../../io/csv'
 import { buildJson, parseJson } from '../../io/json'
 import { jieyun, makeWord, tricky } from '../../test/fixtures'
 import type { Progress } from '../../types/word'
-import { requestPersistentStorage } from '../../services/storage-persist'
+import { afterWordsSaved } from '../../services/storage-notice'
 import { db } from '../schema'
 import {
   addWord,
@@ -19,8 +19,8 @@ import {
   mergeDuplicateGroups,
 } from './words'
 
-vi.mock('../../services/storage-persist', () => ({
-  requestPersistentStorage: vi.fn(() => Promise.resolve(true)),
+vi.mock('../../services/storage-notice', () => ({
+  afterWordsSaved: vi.fn(() => Promise.resolve()),
 }))
 
 const progress: Progress[] = [
@@ -115,7 +115,7 @@ describe('削除', () => {
     expect(await db.words.count()).toBe(0)
     expect(await db.progress.count()).toBe(0)
     expect(await db.sessions.count()).toBe(0)
-    expect(await db.settings.count()).toBe(1)
+    expect(await db.settings.get('app.theme')).toEqual({ key: 'app.theme', value: 'dark' })
   })
 })
 
@@ -167,9 +167,9 @@ describe('重複単語の統合（FR-WORDS-13）', () => {
   })
 })
 
-describe('保護の要求（FR-PWA-04）', () => {
+describe('保護の要求と知らせ（FR-PWA-04・06）', () => {
   it('単語を追加したときに要求し、何も追加しなかったときは要求しない', async () => {
-    const request = vi.mocked(requestPersistentStorage)
+    const request = vi.mocked(afterWordsSaved)
     request.mockClear()
     const json = buildJson([jieyun])
 
@@ -194,12 +194,12 @@ describe('addWord・updateWord（FR-WORDS-15・16）', () => {
   }
 
   it('追加すると id と日時を付けて保存し、保存の保護を要求する', async () => {
-    vi.mocked(requestPersistentStorage).mockClear()
+    vi.mocked(afterWordsSaved).mockClear()
     const word = await addWord(content, 1000)
     expect(word).toMatchObject({ ...content, createdAt: 1000, updatedAt: 1000 })
     expect(word.id).toBeTruthy()
     expect(await db.words.get(word.id)).toEqual(word)
-    expect(requestPersistentStorage).toHaveBeenCalled()
+    expect(afterWordsSaved).toHaveBeenCalled()
   })
 
   it('編集では updatedAt だけを更新し、作成日時と学習進捗は変えない', async () => {

@@ -35,6 +35,8 @@ window.scrollTo = () => {}
 beforeEach(async () => {
   localStorage.clear()
   await Promise.all(db.tables.map((table) => table.clear()))
+  // データが消えうることの知らせ（FR-PWA-06）は、ほかの画面のテストでは出さない（示し済みとする）
+  await db.settings.put({ key: 'app.storageNoticeShown', value: true })
 })
 
 afterEach(() => {

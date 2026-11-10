@@ -7,7 +7,7 @@ import {
 } from '../../io/duplicates'
 import { planImport, type ImportOptions, type ImportPlan } from '../../io/importer'
 import type { ParsedFile } from '../../io/parsed'
-import { requestPersistentStorage } from '../../services/storage-persist'
+import { afterWordsSaved } from '../../services/storage-notice'
 import type { Progress, Word, WordContent } from '../../types/word'
 import { db } from '../schema'
 
@@ -60,8 +60,9 @@ export type ImportResult = Pick<
  */
 export async function importWords(file: ParsedFile, options: ImportOptions): Promise<ImportResult> {
   const result = await importInTransaction(file, options)
-  // 守るべきデータができた時点で、自動削除からの保護を要求する（FR-PWA-04）
-  if (result.added + result.duplicatesAdded > 0) void requestPersistentStorage()
+  // 守るべきデータができた時点で、自動削除からの保護を要求する（FR-PWA-04）。
+  // 保護されていなければ、データが消えうることを1回だけ知らせる（FR-PWA-06）
+  if (result.added + result.duplicatesAdded > 0) void afterWordsSaved()
   return result
 }
 
@@ -165,8 +166,8 @@ export async function addWord(draft: WordContent, now = Date.now()): Promise<Wor
     updatedAt: now,
   }
   await db.words.add(word)
-  // 守るべきデータができた時点で、自動削除からの保護を要求する（FR-PWA-04）
-  void requestPersistentStorage()
+  // 守るべきデータができた時点で、自動削除からの保護を要求する（FR-PWA-04、FR-PWA-06）
+  void afterWordsSaved()
   return word
 }
 
@@ -181,14 +182,17 @@ export class WordNotFoundError extends Error {
  * 単語の内容を書き換える（FR-WORDS-16・FR-FC-16）。
  * id・作成日時はそのままで `updatedAt` だけを更新し、学習進捗には触れない
  */
-export function updateWord(id: string, draft: WordContent, now = Date.now()): Promise<Word> {
-  return db.transaction('rw', db.words, async () => {
+export async function updateWord(id: string, draft: WordContent, now = Date.now()): Promise<Word> {
+  const word = await db.transaction('rw', db.words, async () => {
     const current = await db.words.get(id)
     if (!current) throw new WordNotFoundError()
     const word: Word = { ...current, ...contentOf(draft), updatedAt: now }
     await db.words.put(word)
     return word
   })
+  // 編集したときも、保護されていなければ1回だけ知らせる（FR-PWA-06）
+  void afterWordsSaved()
+  return word
 }
 
 /** 重複する登録済みの単語（仕様書 6.1。FR-WORDS-17）。excludeId は編集中の単語 */

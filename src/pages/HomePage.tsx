@@ -9,6 +9,7 @@ import { countWords } from '../db/repos/words'
 import { modeNamespace } from '../i18n'
 import { modes } from '../modes/registry'
 import type { AnyStudyMode } from '../modes/types'
+import { BackupReminder } from './home/BackupReminder'
 import { HomeInstallHint } from './home/HomeInstallHint'
 import styles from './HomePage.module.css'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -39,6 +40,9 @@ export function HomePage() {
           ))}
         </ul>
       </section>
+
+      {/* バックアップの勧め（FR-SET-14）。単語の増やし方の案内の上に置く */}
+      {wordCount !== undefined && wordCount > 0 && <BackupReminder />}
 
       {wordCount !== undefined && wordCount > 0 && <AddWordsHint />}
 

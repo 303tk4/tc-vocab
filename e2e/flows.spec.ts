@@ -194,3 +194,105 @@ test('設定画面で著作権・出典とライセンス・免責・データ�
   await dialog.getByRole('button', { name: '閉じる' }).click()
   await expect(dialog).toBeHidden()
 })
+
+test('バックアップを保存して初期化し、そのファイルから復元できる（仕様書 10.4、FR-SET-11〜13）', async ({
+  page,
+}) => {
+  // 単語を追加して1枚学習し、背景の色を変えておく
+  await addSampleWords(page)
+  const count = await wordCount(page)
+  await page.getByRole('link', { name: /^暗記カード/ }).click()
+  await startFlashcard(page)
+  await page.getByRole('button', { name: /答えを表示/ }).click()
+  await page.getByRole('button', { name: /^普通/ }).click()
+  await page.getByRole('button', { name: '中断' }).click()
+  await expect(page.getByRole('heading', { name: '結果' })).toBeVisible()
+  await page.goto('./#/settings')
+  await page.getByRole('radio', { name: '黒', exact: true }).check()
+
+  // バックアップを保存する
+  await expect(page.getByText('まだバックアップを保存していません。')).toBeVisible()
+  const downloadPromise = page.waitForEvent('download')
+  await page.getByRole('button', { name: 'バックアップを保存', exact: true }).click()
+  const download = await downloadPromise
+  expect(download.suggestedFilename()).toMatch(/^tc-vocab-backup-\d{8}-\d{4}\.json$/)
+  const json = await readFile(await download.path(), 'utf8')
+  const data = JSON.parse(json) as {
+    backup: boolean
+    words: unknown[]
+    progress: unknown[]
+    sessions: unknown[]
+    settings: { key: string; value: unknown }[]
+  }
+  expect(data.backup).toBe(true)
+  expect(data.words).toHaveLength(count)
+  expect(data.progress.length).toBeGreaterThan(0)
+  expect(data.sessions.length).toBeGreaterThan(0)
+  expect(data.settings).toContainEqual({ key: 'app.theme', value: 'dark' })
+  await expect(page.getByText(/^前回のバックアップ：/)).toBeVisible()
+
+  // 初期化する。確認では「キャンセル」が初めに選ばれている
+  await page.getByRole('button', { name: 'アプリを初期状態に戻す' }).click()
+  const reset = page.getByRole('dialog', { name: 'アプリを初期状態に戻しますか？' })
+  await expect(reset.getByText(`単語 ${count} 語と、`, { exact: false })).toBeVisible()
+  await expect(reset.getByRole('button', { name: 'キャンセル' })).toBeFocused()
+  await reset.getByRole('button', { name: '初期状態に戻す', exact: true }).click()
+  await expect(page.getByText('登録単語数：0 語')).toBeVisible()
+  await expect(page.locator('html')).not.toHaveAttribute('data-theme', 'dark')
+
+  // 単語のファイルはバックアップとして選べない
+  await page.goto('./#/settings')
+  const input = page.getByTestId('backup-file')
+  await input.setInputFiles({
+    name: 'words.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify({ format: 'tc-vocab', version: 1, words: [] })),
+  })
+  await expect(page.getByRole('alert')).toContainText('バックアップではありません')
+
+  // 保存したファイルから復元する
+  await input.setInputFiles({
+    name: download.suggestedFilename(),
+    mimeType: 'application/json',
+    buffer: Buffer.from(json),
+  })
+  const restore = page.getByRole('dialog', { name: 'バックアップから復元しますか？' })
+  await expect(
+    restore.getByText(`ファイルの内容：単語 ${count} 語`, { exact: false }),
+  ).toBeVisible()
+  await expect(restore.getByText('今のデータ：単語 0 語', { exact: false })).toBeVisible()
+  await restore.getByRole('button', { name: '復元する' }).click()
+  await expect(page.getByText(`登録単語数：${count} 語`)).toBeVisible()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await page.goto('./#/settings')
+  await expect(page.getByText(/^前回のバックアップ：/)).toBeVisible()
+})
+
+test('保護されていない環境では、初めて単語を追加したときに1回だけ知らせる（FR-PWA-06）', async ({
+  page,
+}) => {
+  await page.goto('./')
+  // 自動削除から保護されていない環境にする
+  await page.evaluate(() => {
+    Object.defineProperty(navigator.storage, 'persisted', { value: () => Promise.resolve(false) })
+    Object.defineProperty(navigator.storage, 'persist', { value: () => Promise.resolve(false) })
+  })
+  await page.getByRole('button', { name: /サンプル単語を追加/ }).click()
+  const notice = page
+    .getByRole('status')
+    .filter({ hasText: 'データはこの端末のブラウザの中にあります' })
+  await expect(notice).toBeVisible()
+  await notice.getByRole('button', { name: '詳しく' }).click()
+  await expect(page.getByRole('heading', { name: '設定', level: 1 })).toBeVisible()
+  await expect(notice).toBeHidden()
+
+  // 一度示したら、また単語を追加しても示さない
+  await page.goto('./#/words')
+  await page.getByRole('button', { name: '単語を追加', exact: true }).click()
+  const dialog = page.getByRole('dialog')
+  await dialog.getByLabel(/^繁体字/).fill('烏龍茶')
+  await dialog.getByLabel(/^意味/).fill('ウーロン茶')
+  await dialog.getByRole('button', { name: '保存', exact: true }).click()
+  await expect(dialog).toBeHidden()
+  await expect(notice).toBeHidden()
+})

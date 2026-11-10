@@ -35,7 +35,7 @@ export function buildJson(words: Word[], progress?: Progress[], now = new Date()
   return JSON.stringify(data, null, 2) + '\n'
 }
 
-function isProgress(value: unknown): value is Progress {
+export function isProgress(value: unknown): value is Progress {
   if (typeof value !== 'object' || value === null) return false
   const p = value as Record<string, unknown>
   return (
