@@ -50,6 +50,12 @@ const PACKS = [
   { id: 'tocfl-5', version: 1, updatedAt: '2026-11-10', levels: ['第7級'] },
 ].map((p) => ({ ...p, file: `${p.id}.json`, meanings: join(here, 'meanings', `${p.id}.ja.tsv`) }))
 
+/**
+ * 辞書と詞語表からは読みを決められない語の読み（繁体字 → 注音）。指定した読みは確定とみなす。
+ * 有助於：詞語表の見出しは「有助（於）」で、「於」の読みがない。辞書の「於」の先頭の読み ㄨ は感嘆詞
+ */
+const READING_FIXES = { 有助於: 'ㄧㄡˇ ㄓㄨˋ ㄩˊ' }
+
 /** 級ごとのタグ：「TOCFL」、TOCFL の級の目安、TBCL の級 */
 function tagsFor(entry) {
   const tocfl = TOCFL_GUIDE.levelTags[entry.level]
@@ -67,7 +73,10 @@ function buildPack(pack, { allEntries, index, worklistAt, readingsOnly }) {
     ? parseMeanings(readFileSync(pack.meanings, 'utf8'))
     : new Map()
   const { words, missing, readingNotes } = buildWords(entries, {
-    decide: (hanzi, hints) => decideReading(hanzi, hints, index),
+    decide: (hanzi, hints) =>
+      READING_FIXES[hanzi]
+        ? { zhuyin: READING_FIXES[hanzi], sure: true, reason: 'fixed', hint: hints.join(' / ') }
+        : decideReading(hanzi, hints, index),
     meanings,
     tagsFor,
   })
