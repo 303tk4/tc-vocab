@@ -197,9 +197,56 @@ const PACK_TEXT = {
  * id〜source は仕様書 16.5（版 1.12）の形式。updatedAt 以降は、パッケージ画面で級の対応表や出典を
  * 詳しく示すための追加の項目（仕様書への追記を提案中。README 参照）。
  */
-function indexEntry({ id, file, version, updatedAt, wordCount, size, tagCounts }) {
-  const text = PACK_TEXT[id]
-  if (!text) throw new Error(`パッケージの文言がありません：${id}`)
+/**
+ * 意味の言語ごとの文言（仕様書 16.5「意味の言語」）。日本語版の文言をもとに、
+ * 説明の「意味は日本語」を置き換え、名前に意味の言語を添える（アプリが意味の言語を示すまでの区別のため）。
+ */
+const MEANING_LANGUAGES = {
+  ja: { nameSuffix: null, replace: [] },
+  en: {
+    nameSuffix: { ja: '【意味：英語】', 'zh-TW': '【釋義：英文】', en: ' [English meanings]' },
+    replace: [
+      ['意味は日本語で、', '意味は英語で、'],
+      ['釋義為日文，', '釋義為英文，'],
+      ['Meanings are in Japanese and', 'Meanings are in English and'],
+    ],
+  },
+}
+
+/** 日本語版の文言を、意味の言語に合わせて書き換える */
+function localizeText(text, lang) {
+  const conf = MEANING_LANGUAGES[lang]
+  if (!conf) throw new Error(`意味の言語の文言がありません：${lang}`)
+  const description = Object.fromEntries(
+    Object.entries(text.description).map(([k, v]) => {
+      let out = v
+      for (const [a, b] of conf.replace) out = out.replace(a, b)
+      return [k, out]
+    }),
+  )
+  if (lang !== 'ja' && JSON.stringify(description) === JSON.stringify(text.description)) {
+    throw new Error(`説明の意味の言語を書き換えられませんでした：${lang}`)
+  }
+  const name = conf.nameSuffix
+    ? Object.fromEntries(Object.entries(text.name).map(([k, v]) => [k, v + conf.nameSuffix[k]]))
+    : text.name
+  return { ...text, name, description }
+}
+
+function indexEntry({
+  id,
+  base = id,
+  lang = 'ja',
+  file,
+  version,
+  updatedAt,
+  wordCount,
+  size,
+  tagCounts,
+}) {
+  const baseText = PACK_TEXT[base]
+  if (!baseText) throw new Error(`パッケージの文言がありません：${base}`)
+  const text = localizeText(baseText, lang)
   return {
     id,
     file,
@@ -210,7 +257,7 @@ function indexEntry({ id, file, version, updatedAt, wordCount, size, tagCounts }
     size,
     // 一覧に示すタグ
     tags: text.tags,
-    meaningLanguage: 'ja',
+    meaningLanguage: lang,
     license:
       '語の選定と級は國家教育研究院「臺灣華語文能力基準」詞語表、注音は教育部《重編國語辭典修訂本》（創用CC 姓名標示-禁止改作 3.0 臺灣）による。意味は AI による下書き。',
     // 辞書の姓名標示は「公眾授權使用說明」の指定どおりに書く

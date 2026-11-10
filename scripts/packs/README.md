@@ -10,15 +10,24 @@
 | `tocfl-4` | 第6級     | 高階級（B2）〜流利級（C1） | 4,222 | 作成済み |
 | `tocfl-5` | 第7級     | 流利級（C1）〜精通級（C2） | 5,006 | 作成済み |
 
+意味の言語ごとに別の単語集とする（仕様書 16.5「意味の言語」）。上の表は日本語版。英語版は `tocfl-1-en` のように ID に `-en` を付け、語・読み・タグは日本語版と同じにする。名前には「【意味：英語】」などを添える（アプリが `meaningLanguage` を示すようになるまで、一覧で区別できるようにするため）。
+
+| 英語版                     | 状態               |
+| -------------------------- | ------------------ |
+| `tocfl-1-en`               | 作成済み           |
+| `tocfl-2-en`〜`tocfl-5-en` | 意味の下書きがまだ |
+
 ```bash
 # 1. 辞書のデータを入手する（下の「元データ」。リポジトリには入れていない）
-# 2. パッケージを作る（意味の表 meanings/<id>.ja.tsv があるものをすべて
+# 2. パッケージを作る（意味の表 meanings/<区分>.<言語>.tsv があるものをすべて
 #    public/packs/<id>.json・index.json と reports/<id>-readings.md に出力）
 node scripts/packs/build-tocfl.mjs
 node scripts/packs/build-tocfl.mjs --pack tocfl-2   # 1つだけ作る
 
 # 意味が未記入の語の一覧を書き出す（意味の下書き用）
 node scripts/packs/build-tocfl.mjs --pack tocfl-3 --worklist 一覧.tsv
+# 英語版では、日本語版の意味を手がかりとして各行の末尾に添える
+node scripts/packs/build-tocfl.mjs --pack tocfl-2-en --worklist 一覧.tsv
 
 # 読みの確認リストだけ作る（意味の下書きの前に読みを確かめる）
 node scripts/packs/build-tocfl.mjs --readings-only --pack tocfl-3
@@ -39,7 +48,7 @@ node --test scripts/packs/
 | `lib/reading.mjs`                | 繁体字から注音を決める（辞書と詞語表の照合）                           |
 | `lib/pack.mjs`・`lib/output.mjs` | パッケージの組み立てと出力の整形                                       |
 | `lib/*.test.mjs`                 | 単体テスト（`node --test scripts/packs/`）                             |
-| `meanings/<id>.ja.tsv`           | 日本語の意味（AI による下書き）。`TBCL の id<TAB>繁体字<TAB>意味`      |
+| `meanings/<区分>.<言語>.tsv`     | 意味（AI による下書き）。`ja`・`en`。`TBCL の id<TAB>繁体字<TAB>意味`  |
 | `reports/<id>-readings.md`       | 生成物。辞書と詞語表の読みが完全には一致しなかった語の一覧（確認用）   |
 | `sources/`                       | 元データ（下表）                                                       |
 
@@ -126,7 +135,7 @@ TOCFL の〈華語八千詞表〉は、國家華語測驗推動工作委員會�
 
 ## 意味の下書き
 
-`meanings/<id>.ja.tsv` は AI（Claude）による下書き。パッケージの説明（`index.json` の `description`・`meaningNote`）にそのことを書いている。見出しが「爸爸/爸」のような語は別々の単語にし、同じ繁体字・同じ拼音の語（仕様書 6.1 の重複）は級の低いほうだけを残す。
+`meanings/<区分>.<言語>.tsv` は AI（Claude）による下書き。英語版は日本語版の意味を参考にしつつ、繁体字と読みから直接書いた。パッケージの説明（`index.json` の `description`・`meaningNote`）にそのことを書いている。見出しが「爸爸/爸」のような語は別々の単語にし、同じ繁体字・同じ拼音の語（仕様書 6.1 の重複）は級の低いほうだけを残す。
 
 ## 仕様書への追記が必要な点（メモ）
 
