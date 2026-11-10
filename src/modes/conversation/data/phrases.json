@@ -1301,6 +1301,601 @@
       ]
     },
     {
+      "id": "r0068",
+      "kind": "respond",
+      "line": {
+        "text": "第一次來嗎？",
+        "zhuyin": "ㄉㄧˋ ㄧ ㄘˋ ㄌㄞˊ ˙ㄇㄚ？",
+        "pinyin": "dì yī cì lái ma?"
+      },
+      "answers": [
+        {
+          "text": "對，第一次來。",
+          "zhuyin": "ㄉㄨㄟˋ，ㄉㄧˋ ㄧ ㄘˋ ㄌㄞˊ。",
+          "pinyin": "duì, dì yī cì lái."
+        },
+        {
+          "text": "不是，我之前來過。",
+          "zhuyin": "ㄅㄨˋ ㄕˋ，ㄨㄛˇ ㄓ ㄑㄧㄢˊ ㄌㄞˊ ㄍㄨㄛˋ。",
+          "pinyin": "bù shì, wǒ zhī qián lái guò."
+        }
+      ]
+    },
+    {
+      "id": "r0069",
+      "kind": "respond",
+      "line": {
+        "text": "請給我健保卡。",
+        "zhuyin": "ㄑㄧㄥˇ ㄍㄟˇ ㄨㄛˇ ㄐㄧㄢˋ ㄅㄠˇ ㄎㄚˇ。",
+        "pinyin": "qǐng gěi wǒ jiàn bǎo kǎ."
+      },
+      "answers": [
+        {
+          "text": "好，在這裡。",
+          "zhuyin": "ㄏㄠˇ，ㄗㄞˋ ㄓㄜˋ ㄌㄧˇ。",
+          "pinyin": "hǎo, zài zhè lǐ."
+        },
+        {
+          "text": "我沒有健保卡，可以自費嗎？",
+          "zhuyin": "ㄨㄛˇ ㄇㄟˊ ㄧㄡˇ ㄐㄧㄢˋ ㄅㄠˇ ㄎㄚˇ，ㄎㄜˇ ㄧˇ ㄗˋ ㄈㄟˋ ˙ㄇㄚ？",
+          "pinyin": "wǒ méi yǒu jiàn bǎo kǎ, kě yǐ zì fèi ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0070",
+      "kind": "respond",
+      "line": {
+        "text": "要看哪一科？",
+        "zhuyin": "ㄧㄠˋ ㄎㄢˋ ㄋㄚˇ ㄧ ㄎㄜ？",
+        "pinyin": "yào kàn nǎ yī kē?"
+      },
+      "answers": [
+        {
+          "text": "我要看內科。",
+          "zhuyin": "ㄨㄛˇ ㄧㄠˋ ㄎㄢˋ ㄋㄟˋ ㄎㄜ。",
+          "pinyin": "wǒ yào kàn nèi kē."
+        },
+        {
+          "text": "我不知道，我發燒又咳嗽。",
+          "zhuyin": "ㄨㄛˇ ㄅㄨˋ ㄓ ㄉㄠˋ，ㄨㄛˇ ㄈㄚ ㄕㄠ ㄧㄡˋ ㄎㄜˊ ㄙㄡˋ。",
+          "pinyin": "wǒ bù zhī dào, wǒ fā shāo yòu ké sòu."
+        }
+      ]
+    },
+    {
+      "id": "r0071",
+      "kind": "respond",
+      "line": {
+        "text": "請先量一下體溫。",
+        "zhuyin": "ㄑㄧㄥˇ ㄒㄧㄢ ㄌㄧㄤˊ ㄧ ㄒㄧㄚˋ ㄊㄧˇ ㄨㄣ。",
+        "pinyin": "qǐng xiān liáng yī xià tǐ wēn."
+      },
+      "answers": [
+        {
+          "text": "好。",
+          "zhuyin": "ㄏㄠˇ。",
+          "pinyin": "hǎo."
+        }
+      ]
+    },
+    {
+      "id": "r0072",
+      "kind": "respond",
+      "line": {
+        "text": "哪裡不舒服？",
+        "zhuyin": "ㄋㄚˇ ㄌㄧˇ ㄅㄨˋ ㄕㄨ ˙ㄈㄨ？",
+        "pinyin": "nǎ lǐ bù shū fu?"
+      },
+      "answers": [
+        {
+          "text": "我喉嚨痛，還有一點發燒。",
+          "zhuyin": "ㄨㄛˇ ㄏㄡˊ ˙ㄌㄨㄥ ㄊㄨㄥˋ，ㄏㄞˊ ㄧㄡˇ ㄧ ㄉㄧㄢˇ ㄈㄚ ㄕㄠ。",
+          "pinyin": "wǒ hóu long tòng, hái yǒu yī diǎn fā shāo."
+        },
+        {
+          "text": "我從昨天開始拉肚子。",
+          "zhuyin": "ㄨㄛˇ ㄘㄨㄥˊ ㄗㄨㄛˊ ㄊㄧㄢ ㄎㄞ ㄕˇ ㄌㄚ ㄉㄨˋ ˙ㄗ。",
+          "pinyin": "wǒ cóng zuó tiān kāi shǐ lā dù zi."
+        }
+      ]
+    },
+    {
+      "id": "r0073",
+      "kind": "respond",
+      "line": {
+        "text": "這樣的症狀多久了？",
+        "zhuyin": "ㄓㄜˋ ㄧㄤˋ ˙ㄉㄜ ㄓㄥˋ ㄓㄨㄤˋ ㄉㄨㄛ ㄐㄧㄡˇ ˙ㄌㄜ？",
+        "pinyin": "zhè yàng de zhèng zhuàng duō jiǔ le?"
+      },
+      "answers": [
+        {
+          "text": "大概三天了。",
+          "zhuyin": "ㄉㄚˋ ㄍㄞˋ ㄙㄢ ㄊㄧㄢ ˙ㄌㄜ。",
+          "pinyin": "dà gài sān tiān le."
+        },
+        {
+          "text": "從昨天晚上開始。",
+          "zhuyin": "ㄘㄨㄥˊ ㄗㄨㄛˊ ㄊㄧㄢ ㄨㄢˇ ˙ㄕㄤ ㄎㄞ ㄕˇ。",
+          "pinyin": "cóng zuó tiān wǎn shang kāi shǐ."
+        }
+      ]
+    },
+    {
+      "id": "r0074",
+      "kind": "respond",
+      "line": {
+        "text": "有沒有對什麼藥過敏？",
+        "zhuyin": "ㄧㄡˇ ㄇㄟˊ ㄧㄡˇ ㄉㄨㄟˋ ㄕㄣˊ ˙ㄇㄜ ㄧㄠˋ ㄍㄨㄛˋ ㄇㄧㄣˇ？",
+        "pinyin": "yǒu méi yǒu duì shén me yào guò mǐn?"
+      },
+      "answers": [
+        {
+          "text": "沒有。",
+          "zhuyin": "ㄇㄟˊ ㄧㄡˇ。",
+          "pinyin": "méi yǒu."
+        },
+        {
+          "text": "我對盤尼西林過敏。",
+          "zhuyin": "ㄨㄛˇ ㄉㄨㄟˋ ㄆㄢˊ ㄋㄧˊ ㄒㄧ ㄌㄧㄣˊ ㄍㄨㄛˋ ㄇㄧㄣˇ。",
+          "pinyin": "wǒ duì pán ní xī lín guò mǐn."
+        }
+      ]
+    },
+    {
+      "id": "r0075",
+      "kind": "respond",
+      "line": {
+        "text": "有在吃什麼藥嗎？",
+        "zhuyin": "ㄧㄡˇ ㄗㄞˋ ㄔ ㄕㄣˊ ˙ㄇㄜ ㄧㄠˋ ˙ㄇㄚ？",
+        "pinyin": "yǒu zài chī shén me yào ma?"
+      },
+      "answers": [
+        {
+          "text": "沒有。",
+          "zhuyin": "ㄇㄟˊ ㄧㄡˇ。",
+          "pinyin": "méi yǒu."
+        },
+        {
+          "text": "有，我在吃過敏的藥。",
+          "zhuyin": "ㄧㄡˇ，ㄨㄛˇ ㄗㄞˋ ㄔ ㄍㄨㄛˋ ㄇㄧㄣˇ ˙ㄉㄜ ㄧㄠˋ。",
+          "pinyin": "yǒu, wǒ zài chī guò mǐn de yào."
+        }
+      ]
+    },
+    {
+      "id": "r0076",
+      "kind": "respond",
+      "line": {
+        "text": "這個藥一天吃三次，飯後吃。",
+        "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄧㄠˋ ㄧ ㄊㄧㄢ ㄔ ㄙㄢ ㄘˋ，ㄈㄢˋ ㄏㄡˋ ㄔ。",
+        "pinyin": "zhè ge yào yī tiān chī sān cì, fàn hòu chī."
+      },
+      "answers": [
+        {
+          "text": "好，一次吃幾顆？",
+          "zhuyin": "ㄏㄠˇ，ㄧ ㄘˋ ㄔ ㄐㄧˇ ㄎㄜ？",
+          "pinyin": "hǎo, yī cì chī jǐ kē?"
+        },
+        {
+          "text": "好，我知道了。",
+          "zhuyin": "ㄏㄠˇ，ㄨㄛˇ ㄓ ㄉㄠˋ ˙ㄌㄜ。",
+          "pinyin": "hǎo, wǒ zhī dào le."
+        }
+      ]
+    },
+    {
+      "id": "r0077",
+      "kind": "respond",
+      "line": {
+        "text": "請到旁邊的櫃台領藥。",
+        "zhuyin": "ㄑㄧㄥˇ ㄉㄠˋ ㄆㄤˊ ㄅㄧㄢ ˙ㄉㄜ ㄍㄨㄟˋ ㄊㄞˊ ㄌㄧㄥˇ ㄧㄠˋ。",
+        "pinyin": "qǐng dào páng biān de guì tái lǐng yào."
+      },
+      "answers": [
+        {
+          "text": "好，謝謝。",
+          "zhuyin": "ㄏㄠˇ，ㄒㄧㄝˋ ˙ㄒㄧㄝ。",
+          "pinyin": "hǎo, xiè xie."
+        }
+      ]
+    },
+    {
+      "id": "r0078",
+      "kind": "respond",
+      "line": {
+        "text": "掛號費一百五十元。",
+        "zhuyin": "ㄍㄨㄚˋ ㄏㄠˋ ㄈㄟˋ ㄧ ㄅㄞˇ ㄨˇ ㄕˊ ㄩㄢˊ。",
+        "pinyin": "guà hào fèi yī bǎi wǔ shí yuán."
+      },
+      "answers": [
+        {
+          "text": "好。",
+          "zhuyin": "ㄏㄠˇ。",
+          "pinyin": "hǎo."
+        },
+        {
+          "text": "可以刷卡嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄕㄨㄚ ㄎㄚˇ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ shuā kǎ ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0079",
+      "kind": "respond",
+      "line": {
+        "text": "請問是什麼問題？",
+        "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ ㄕˋ ㄕㄣˊ ˙ㄇㄜ ㄨㄣˋ ㄊㄧˊ？",
+        "pinyin": "qǐng wèn shì shén me wèn tí?"
+      },
+      "answers": [
+        {
+          "text": "螢幕破了。",
+          "zhuyin": "ㄧㄥˊ ㄇㄨˋ ㄆㄛˋ ˙ㄌㄜ。",
+          "pinyin": "yíng mù pò le."
+        },
+        {
+          "text": "手機開不了機。",
+          "zhuyin": "ㄕㄡˇ ㄐㄧ ㄎㄞ ㄅㄨˋ ㄌㄧㄠˇ ㄐㄧ。",
+          "pinyin": "shǒu jī kāi bù liǎo jī."
+        }
+      ]
+    },
+    {
+      "id": "r0080",
+      "kind": "respond",
+      "line": {
+        "text": "還在保固期內嗎？",
+        "zhuyin": "ㄏㄞˊ ㄗㄞˋ ㄅㄠˇ ㄍㄨˋ ㄑㄧˊ ㄋㄟˋ ˙ㄇㄚ？",
+        "pinyin": "hái zài bǎo gù qí nèi ma?"
+      },
+      "answers": [
+        {
+          "text": "應該還在。",
+          "zhuyin": "ㄧㄥ ㄍㄞ ㄏㄞˊ ㄗㄞˋ。",
+          "pinyin": "yīng gāi hái zài."
+        },
+        {
+          "text": "已經過保固了。",
+          "zhuyin": "ㄧˇ ㄐㄧㄥ ㄍㄨㄛˋ ㄅㄠˇ ㄍㄨˋ ˙ㄌㄜ。",
+          "pinyin": "yǐ jīng guò bǎo gù le."
+        }
+      ]
+    },
+    {
+      "id": "r0081",
+      "kind": "respond",
+      "line": {
+        "text": "有保固卡或發票嗎？",
+        "zhuyin": "ㄧㄡˇ ㄅㄠˇ ㄍㄨˋ ㄎㄚˇ ㄏㄨㄛˋ ㄈㄚ ㄆㄧㄠˋ ˙ㄇㄚ？",
+        "pinyin": "yǒu bǎo gù kǎ huò fā piào ma?"
+      },
+      "answers": [
+        {
+          "text": "有，在這裡。",
+          "zhuyin": "ㄧㄡˇ，ㄗㄞˋ ㄓㄜˋ ㄌㄧˇ。",
+          "pinyin": "yǒu, zài zhè lǐ."
+        },
+        {
+          "text": "沒有，不見了。",
+          "zhuyin": "ㄇㄟˊ ㄧㄡˇ，ㄅㄨˋ ㄐㄧㄢˋ ˙ㄌㄜ。",
+          "pinyin": "méi yǒu, bù jiàn le."
+        }
+      ]
+    },
+    {
+      "id": "r0082",
+      "kind": "respond",
+      "line": {
+        "text": "檢測要收三百元檢測費。",
+        "zhuyin": "ㄐㄧㄢˇ ㄘㄜˋ ㄧㄠˋ ㄕㄡ ㄙㄢ ㄅㄞˇ ㄩㄢˊ ㄐㄧㄢˇ ㄘㄜˋ ㄈㄟˋ。",
+        "pinyin": "jiǎn cè yào shōu sān bǎi yuán jiǎn cè fèi."
+      },
+      "answers": [
+        {
+          "text": "好，沒問題。",
+          "zhuyin": "ㄏㄠˇ，ㄇㄟˊ ㄨㄣˋ ㄊㄧˊ。",
+          "pinyin": "hǎo, méi wèn tí."
+        },
+        {
+          "text": "如果修的話，還要另外付檢測費嗎？",
+          "zhuyin": "ㄖㄨˊ ㄍㄨㄛˇ ㄒㄧㄡ ˙ㄉㄜ ㄏㄨㄚˋ，ㄏㄞˊ ㄧㄠˋ ㄌㄧㄥˋ ㄨㄞˋ ㄈㄨˋ ㄐㄧㄢˇ ㄘㄜˋ ㄈㄟˋ ˙ㄇㄚ？",
+          "pinyin": "rú guǒ xiū de huà, hái yào lìng wài fù jiǎn cè fèi ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0083",
+      "kind": "respond",
+      "line": {
+        "text": "修好大概要三到五天。",
+        "zhuyin": "ㄒㄧㄡ ㄏㄠˇ ㄉㄚˋ ㄍㄞˋ ㄧㄠˋ ㄙㄢ ㄉㄠˋ ㄨˇ ㄊㄧㄢ。",
+        "pinyin": "xiū hǎo dà gài yào sān dào wǔ tiān."
+      },
+      "answers": [
+        {
+          "text": "可以快一點嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄎㄨㄞˋ ㄧ ㄉㄧㄢˇ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ kuài yī diǎn ma?"
+        },
+        {
+          "text": "好，那我等你們通知。",
+          "zhuyin": "ㄏㄠˇ，ㄋㄚˋ ㄨㄛˇ ㄉㄥˇ ㄋㄧˇ ˙ㄇㄣ ㄊㄨㄥ ㄓ。",
+          "pinyin": "hǎo, nà wǒ děng nǐ men tōng zhī."
+        }
+      ]
+    },
+    {
+      "id": "r0084",
+      "kind": "respond",
+      "line": {
+        "text": "資料有備份嗎？修理可能會清除資料。",
+        "zhuyin": "ㄗ ㄌㄧㄠˋ ㄧㄡˇ ㄅㄟˋ ㄈㄣˋ ˙ㄇㄚ？ㄒㄧㄡ ㄌㄧˇ ㄎㄜˇ ㄋㄥˊ ㄏㄨㄟˋ ㄑㄧㄥ ㄔㄨˊ ㄗ ㄌㄧㄠˋ。",
+        "pinyin": "zī liào yǒu bèi fèn ma? xiū lǐ kě néng huì qīng chú zī liào."
+      },
+      "answers": [
+        {
+          "text": "有，我已經備份了。",
+          "zhuyin": "ㄧㄡˇ，ㄨㄛˇ ㄧˇ ㄐㄧㄥ ㄅㄟˋ ㄈㄣˋ ˙ㄌㄜ。",
+          "pinyin": "yǒu, wǒ yǐ jīng bèi fèn le."
+        },
+        {
+          "text": "還沒，我先備份再拿來。",
+          "zhuyin": "ㄏㄞˊ ㄇㄟˊ，ㄨㄛˇ ㄒㄧㄢ ㄅㄟˋ ㄈㄣˋ ㄗㄞˋ ㄋㄚˊ ㄌㄞˊ。",
+          "pinyin": "hái méi, wǒ xiān bèi fèn zài ná lái."
+        }
+      ]
+    },
+    {
+      "id": "r0085",
+      "kind": "respond",
+      "line": {
+        "text": "換電池大概要兩千元。",
+        "zhuyin": "ㄏㄨㄢˋ ㄉㄧㄢˋ ㄔˊ ㄉㄚˋ ㄍㄞˋ ㄧㄠˋ ㄌㄧㄤˇ ㄑㄧㄢ ㄩㄢˊ。",
+        "pinyin": "huàn diàn chí dà gài yào liǎng qiān yuán."
+      },
+      "answers": [
+        {
+          "text": "好，請幫我換。",
+          "zhuyin": "ㄏㄠˇ，ㄑㄧㄥˇ ㄅㄤ ㄨㄛˇ ㄏㄨㄢˋ。",
+          "pinyin": "hǎo, qǐng bāng wǒ huàn."
+        },
+        {
+          "text": "我考慮一下。",
+          "zhuyin": "ㄨㄛˇ ㄎㄠˇ ㄌㄩˋ ㄧ ㄒㄧㄚˋ。",
+          "pinyin": "wǒ kǎo lǜ yī xià."
+        }
+      ]
+    },
+    {
+      "id": "r0086",
+      "kind": "respond",
+      "line": {
+        "text": "可以告訴我們手機的密碼嗎？",
+        "zhuyin": "ㄎㄜˇ ㄧˇ ㄍㄠˋ ㄙㄨˋ ㄨㄛˇ ˙ㄇㄣ ㄕㄡˇ ㄐㄧ ˙ㄉㄜ ㄇㄧˋ ㄇㄚˇ ˙ㄇㄚ？",
+        "pinyin": "kě yǐ gào sù wǒ men shǒu jī de mì mǎ ma?"
+      },
+      "answers": [
+        {
+          "text": "可以，我寫給你。",
+          "zhuyin": "ㄎㄜˇ ㄧˇ，ㄨㄛˇ ㄒㄧㄝˇ ㄍㄟˇ ㄋㄧˇ。",
+          "pinyin": "kě yǐ, wǒ xiě gěi nǐ."
+        },
+        {
+          "text": "不好意思，我不太方便給。",
+          "zhuyin": "ㄅㄨˋ ㄏㄠˇ ㄧˋ ˙ㄙ，ㄨㄛˇ ㄅㄨˋ ㄊㄞˋ ㄈㄤ ㄅㄧㄢˋ ㄍㄟˇ。",
+          "pinyin": "bù hǎo yì si, wǒ bù tài fāng biàn gěi."
+        }
+      ]
+    },
+    {
+      "id": "r0087",
+      "kind": "respond",
+      "line": {
+        "text": "修好了會打電話通知你。",
+        "zhuyin": "ㄒㄧㄡ ㄏㄠˇ ˙ㄌㄜ ㄏㄨㄟˋ ㄉㄚˇ ㄉㄧㄢˋ ㄏㄨㄚˋ ㄊㄨㄥ ㄓ ㄋㄧˇ。",
+        "pinyin": "xiū hǎo le huì dǎ diàn huà tōng zhī nǐ."
+      },
+      "answers": [
+        {
+          "text": "好，謝謝。",
+          "zhuyin": "ㄏㄠˇ，ㄒㄧㄝˋ ˙ㄒㄧㄝ。",
+          "pinyin": "hǎo, xiè xie."
+        },
+        {
+          "text": "可以用簡訊通知嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄩㄥˋ ㄐㄧㄢˇ ㄒㄩㄣˋ ㄊㄨㄥ ㄓ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ yòng jiǎn xùn tōng zhī ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0088",
+      "kind": "respond",
+      "line": {
+        "text": "這是取件單，來拿的時候請帶著。",
+        "zhuyin": "ㄓㄜˋ ㄕˋ ㄑㄩˇ ㄐㄧㄢˋ ㄉㄢ，ㄌㄞˊ ㄋㄚˊ ˙ㄉㄜ ㄕˊ ㄏㄡˋ ㄑㄧㄥˇ ㄉㄞˋ ˙ㄓㄜ。",
+        "pinyin": "zhè shì qǔ jiàn dān, lái ná de shí hòu qǐng dài zhe."
+      },
+      "answers": [
+        {
+          "text": "好，謝謝。",
+          "zhuyin": "ㄏㄠˇ，ㄒㄧㄝˋ ˙ㄒㄧㄝ。",
+          "pinyin": "hǎo, xiè xie."
+        }
+      ]
+    },
+    {
+      "id": "r0089",
+      "kind": "respond",
+      "line": {
+        "text": "您好，這裡是清潔隊。",
+        "zhuyin": "ㄋㄧㄣˊ ㄏㄠˇ，ㄓㄜˋ ㄌㄧˇ ㄕˋ ㄑㄧㄥ ㄐㄧㄝˊ ㄉㄨㄟˋ。",
+        "pinyin": "nín hǎo, zhè lǐ shì qīng jié duì."
+      },
+      "answers": [
+        {
+          "text": "你好，我想預約大型垃圾清運。",
+          "zhuyin": "ㄋㄧˇ ㄏㄠˇ，ㄨㄛˇ ㄒㄧㄤˇ ㄩˋ ㄩㄝ ㄉㄚˋ ㄒㄧㄥˊ ㄌㄜˋ ㄙㄜˋ ㄑㄧㄥ ㄩㄣˋ。",
+          "pinyin": "nǐ hǎo, wǒ xiǎng yù yuē dà xíng lè sè qīng yùn."
+        }
+      ]
+    },
+    {
+      "id": "r0090",
+      "kind": "respond",
+      "line": {
+        "text": "要丟什麼東西？",
+        "zhuyin": "ㄧㄠˋ ㄉㄧㄡ ㄕㄣˊ ˙ㄇㄜ ㄉㄨㄥ ˙ㄒㄧ？",
+        "pinyin": "yào diū shén me dōng xi?"
+      },
+      "answers": [
+        {
+          "text": "一張沙發跟一個床墊。",
+          "zhuyin": "ㄧ ㄓㄤ ㄕㄚ ㄈㄚ ㄍㄣ ㄧ ˙ㄍㄜ ㄔㄨㄤˊ ㄉㄧㄢˋ。",
+          "pinyin": "yī zhāng shā fā gēn yī ge chuáng diàn."
+        },
+        {
+          "text": "一個舊的衣櫃。",
+          "zhuyin": "ㄧ ˙ㄍㄜ ㄐㄧㄡˋ ˙ㄉㄜ ㄧ ㄍㄨㄟˋ。",
+          "pinyin": "yī ge jiù de yī guì."
+        }
+      ]
+    },
+    {
+      "id": "r0091",
+      "kind": "respond",
+      "line": {
+        "text": "大概多大？",
+        "zhuyin": "ㄉㄚˋ ㄍㄞˋ ㄉㄨㄛ ㄉㄚˋ？",
+        "pinyin": "dà gài duō dà?"
+      },
+      "answers": [
+        {
+          "text": "大概兩公尺長。",
+          "zhuyin": "ㄉㄚˋ ㄍㄞˋ ㄌㄧㄤˇ ㄍㄨㄥ ㄔˇ ㄔㄤˊ。",
+          "pinyin": "dà gài liǎng gōng chǐ cháng."
+        },
+        {
+          "text": "跟一般的單人床差不多。",
+          "zhuyin": "ㄍㄣ ㄧ ㄅㄢ ˙ㄉㄜ ㄉㄢ ㄖㄣˊ ㄔㄨㄤˊ ㄔㄚˋ ˙ㄅㄨ ㄉㄨㄛ。",
+          "pinyin": "gēn yī bān de dān rén chuáng chà bu duō."
+        }
+      ]
+    },
+    {
+      "id": "r0092",
+      "kind": "respond",
+      "line": {
+        "text": "請問地址是？",
+        "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ ㄉㄧˋ ㄓˇ ㄕˋ？",
+        "pinyin": "qǐng wèn dì zhǐ shì?"
+      },
+      "answers": [
+        {
+          "text": "在中山路一百號。",
+          "zhuyin": "ㄗㄞˋ ㄓㄨㄥ ㄕㄢ ㄌㄨˋ ㄧ ㄅㄞˇ ㄏㄠˋ。",
+          "pinyin": "zài zhōng shān lù yī bǎi hào."
+        },
+        {
+          "text": "我傳簡訊給你可以嗎？",
+          "zhuyin": "ㄨㄛˇ ㄔㄨㄢˊ ㄐㄧㄢˇ ㄒㄩㄣˋ ㄍㄟˇ ㄋㄧˇ ㄎㄜˇ ㄧˇ ˙ㄇㄚ？",
+          "pinyin": "wǒ chuán jiǎn xùn gěi nǐ kě yǐ ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0093",
+      "kind": "respond",
+      "line": {
+        "text": "我們星期三下午會去收。",
+        "zhuyin": "ㄨㄛˇ ˙ㄇㄣ ㄒㄧㄥ ㄑㄧˊ ㄙㄢ ㄒㄧㄚˋ ㄨˇ ㄏㄨㄟˋ ㄑㄩˋ ㄕㄡ。",
+        "pinyin": "wǒ men xīng qí sān xià wǔ huì qù shōu."
+      },
+      "answers": [
+        {
+          "text": "好，謝謝。",
+          "zhuyin": "ㄏㄠˇ，ㄒㄧㄝˋ ˙ㄒㄧㄝ。",
+          "pinyin": "hǎo, xiè xie."
+        },
+        {
+          "text": "可以改成星期六嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄍㄞˇ ㄔㄥˊ ㄒㄧㄥ ㄑㄧˊ ㄌㄧㄡˋ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ gǎi chéng xīng qí liù ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0094",
+      "kind": "respond",
+      "line": {
+        "text": "請在晚上七點前放到一樓門口。",
+        "zhuyin": "ㄑㄧㄥˇ ㄗㄞˋ ㄨㄢˇ ˙ㄕㄤ ㄑㄧ ㄉㄧㄢˇ ㄑㄧㄢˊ ㄈㄤˋ ㄉㄠˋ ㄧ ㄌㄡˊ ㄇㄣˊ ㄎㄡˇ。",
+        "pinyin": "qǐng zài wǎn shang qī diǎn qián fàng dào yī lóu mén kǒu."
+      },
+      "answers": [
+        {
+          "text": "好，我知道了。",
+          "zhuyin": "ㄏㄠˇ，ㄨㄛˇ ㄓ ㄉㄠˋ ˙ㄌㄜ。",
+          "pinyin": "hǎo, wǒ zhī dào le."
+        },
+        {
+          "text": "東西很重，可以幫忙搬下樓嗎？",
+          "zhuyin": "ㄉㄨㄥ ˙ㄒㄧ ㄏㄣˇ ㄓㄨㄥˋ，ㄎㄜˇ ㄧˇ ㄅㄤ ㄇㄤˊ ㄅㄢ ㄒㄧㄚˋ ㄌㄡˊ ˙ㄇㄚ？",
+          "pinyin": "dōng xi hěn zhòng, kě yǐ bāng máng bān xià lóu ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0095",
+      "kind": "respond",
+      "line": {
+        "text": "床墊要先用塑膠袋包起來。",
+        "zhuyin": "ㄔㄨㄤˊ ㄉㄧㄢˋ ㄧㄠˋ ㄒㄧㄢ ㄩㄥˋ ㄙㄨˋ ㄐㄧㄠ ㄉㄞˋ ㄅㄠ ㄑㄧˇ ㄌㄞˊ。",
+        "pinyin": "chuáng diàn yào xiān yòng sù jiāo dài bāo qǐ lái."
+      },
+      "answers": [
+        {
+          "text": "好，沒問題。",
+          "zhuyin": "ㄏㄠˇ，ㄇㄟˊ ㄨㄣˋ ㄊㄧˊ。",
+          "pinyin": "hǎo, méi wèn tí."
+        }
+      ]
+    },
+    {
+      "id": "r0096",
+      "kind": "respond",
+      "line": {
+        "text": "電視跟冰箱要另外回收喔。",
+        "zhuyin": "ㄉㄧㄢˋ ㄕˋ ㄍㄣ ㄅㄧㄥ ㄒㄧㄤ ㄧㄠˋ ㄌㄧㄥˋ ㄨㄞˋ ㄏㄨㄟˊ ㄕㄡ ˙ㄛ。",
+        "pinyin": "diàn shì gēn bīng xiāng yào lìng wài huí shōu o."
+      },
+      "answers": [
+        {
+          "text": "那要怎麼處理？",
+          "zhuyin": "ㄋㄚˋ ㄧㄠˋ ㄗㄣˇ ˙ㄇㄜ ㄔㄨˇ ㄌㄧˇ？",
+          "pinyin": "nà yào zěn me chǔ lǐ?"
+        }
+      ]
+    },
+    {
+      "id": "r0097",
+      "kind": "respond",
+      "line": {
+        "text": "垃圾要先分類再丟。",
+        "zhuyin": "ㄌㄜˋ ㄙㄜˋ ㄧㄠˋ ㄒㄧㄢ ㄈㄣ ㄌㄟˋ ㄗㄞˋ ㄉㄧㄡ。",
+        "pinyin": "lè sè yào xiān fēn lèi zài diū."
+      },
+      "answers": [
+        {
+          "text": "好，不好意思。",
+          "zhuyin": "ㄏㄠˇ，ㄅㄨˋ ㄏㄠˇ ㄧˋ ˙ㄙ。",
+          "pinyin": "hǎo, bù hǎo yì si."
+        }
+      ]
+    },
+    {
       "id": "s0001",
       "kind": "say",
       "answers": [
@@ -2247,6 +2842,321 @@
           "text": "借過一下。",
           "zhuyin": "ㄐㄧㄝˋ ㄍㄨㄛˋ ㄧ ㄒㄧㄚˋ。",
           "pinyin": "jiè guò yī xià."
+        }
+      ]
+    },
+    {
+      "id": "s0071",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "請問現在可以掛號嗎？",
+          "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ ㄒㄧㄢˋ ㄗㄞˋ ㄎㄜˇ ㄧˇ ㄍㄨㄚˋ ㄏㄠˋ ˙ㄇㄚ？",
+          "pinyin": "qǐng wèn xiàn zài kě yǐ guà hào ma?"
+        },
+        {
+          "text": "不用預約可以看嗎？",
+          "zhuyin": "ㄅㄨˋ ㄩㄥˋ ㄩˋ ㄩㄝ ㄎㄜˇ ㄧˇ ㄎㄢˋ ˙ㄇㄚ？",
+          "pinyin": "bù yòng yù yuē kě yǐ kàn ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0072",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我沒有健保，我要自費。",
+          "zhuyin": "ㄨㄛˇ ㄇㄟˊ ㄧㄡˇ ㄐㄧㄢˋ ㄅㄠˇ，ㄨㄛˇ ㄧㄠˋ ㄗˋ ㄈㄟˋ。",
+          "pinyin": "wǒ méi yǒu jiàn bǎo, wǒ yào zì fèi."
+        }
+      ]
+    },
+    {
+      "id": "s0073",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我發燒了。",
+          "zhuyin": "ㄨㄛˇ ㄈㄚ ㄕㄠ ˙ㄌㄜ。",
+          "pinyin": "wǒ fā shāo le."
+        },
+        {
+          "text": "我好像發燒了。",
+          "zhuyin": "ㄨㄛˇ ㄏㄠˇ ㄒㄧㄤˋ ㄈㄚ ㄕㄠ ˙ㄌㄜ。",
+          "pinyin": "wǒ hǎo xiàng fā shāo le."
+        }
+      ]
+    },
+    {
+      "id": "s0074",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我咳嗽，喉嚨也很痛。",
+          "zhuyin": "ㄨㄛˇ ㄎㄜˊ ㄙㄡˋ，ㄏㄡˊ ˙ㄌㄨㄥ ㄧㄝˇ ㄏㄣˇ ㄊㄨㄥˋ。",
+          "pinyin": "wǒ ké sòu, hóu long yě hěn tòng."
+        }
+      ]
+    },
+    {
+      "id": "s0075",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我拉肚子。",
+          "zhuyin": "ㄨㄛˇ ㄌㄚ ㄉㄨˋ ˙ㄗ。",
+          "pinyin": "wǒ lā dù zi."
+        },
+        {
+          "text": "我肚子不舒服。",
+          "zhuyin": "ㄨㄛˇ ㄉㄨˋ ˙ㄗ ㄅㄨˋ ㄕㄨ ˙ㄈㄨ。",
+          "pinyin": "wǒ dù zi bù shū fu."
+        }
+      ]
+    },
+    {
+      "id": "s0076",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我頭很痛。",
+          "zhuyin": "ㄨㄛˇ ㄊㄡˊ ㄏㄣˇ ㄊㄨㄥˋ。",
+          "pinyin": "wǒ tóu hěn tòng."
+        }
+      ]
+    },
+    {
+      "id": "s0077",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "這個藥要怎麼吃？",
+          "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄧㄠˋ ㄧㄠˋ ㄗㄣˇ ˙ㄇㄜ ㄔ？",
+          "pinyin": "zhè ge yào yào zěn me chī?"
+        },
+        {
+          "text": "可以再說一次怎麼吃嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄗㄞˋ ㄕㄨㄛ ㄧ ㄘˋ ㄗㄣˇ ˙ㄇㄜ ㄔ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ zài shuō yī cì zěn me chī ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0078",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "可以開診斷證明嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄎㄞ ㄓㄣˇ ㄉㄨㄢˋ ㄓㄥˋ ㄇㄧㄥˊ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ kāi zhěn duàn zhèng míng ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0079",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "請問有會說英文的醫生嗎？",
+          "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ ㄧㄡˇ ㄏㄨㄟˋ ㄕㄨㄛ ㄧㄥ ㄨㄣˊ ˙ㄉㄜ ㄧ ㄕㄥ ˙ㄇㄚ？",
+          "pinyin": "qǐng wèn yǒu huì shuō yīng wén de yī shēng ma?"
+        },
+        {
+          "text": "請問有會說日文的醫生嗎？",
+          "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ ㄧㄡˇ ㄏㄨㄟˋ ㄕㄨㄛ ㄖˋ ㄨㄣˊ ˙ㄉㄜ ㄧ ㄕㄥ ˙ㄇㄚ？",
+          "pinyin": "qǐng wèn yǒu huì shuō rì wén de yī shēng ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0080",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我的手機螢幕破了。",
+          "zhuyin": "ㄨㄛˇ ˙ㄉㄜ ㄕㄡˇ ㄐㄧ ㄧㄥˊ ㄇㄨˋ ㄆㄛˋ ˙ㄌㄜ。",
+          "pinyin": "wǒ de shǒu jī yíng mù pò le."
+        }
+      ]
+    },
+    {
+      "id": "s0081",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "手機充不了電。",
+          "zhuyin": "ㄕㄡˇ ㄐㄧ ㄔㄨㄥ ㄅㄨˋ ㄌㄧㄠˇ ㄉㄧㄢˋ。",
+          "pinyin": "shǒu jī chōng bù liǎo diàn."
+        },
+        {
+          "text": "我的手機不能充電。",
+          "zhuyin": "ㄨㄛˇ ˙ㄉㄜ ㄕㄡˇ ㄐㄧ ㄅㄨˋ ㄋㄥˊ ㄔㄨㄥ ㄉㄧㄢˋ。",
+          "pinyin": "wǒ de shǒu jī bù néng chōng diàn."
+        }
+      ]
+    },
+    {
+      "id": "s0082",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我的電腦開不了機。",
+          "zhuyin": "ㄨㄛˇ ˙ㄉㄜ ㄉㄧㄢˋ ㄋㄠˇ ㄎㄞ ㄅㄨˋ ㄌㄧㄠˇ ㄐㄧ。",
+          "pinyin": "wǒ de diàn nǎo kāi bù liǎo jī."
+        }
+      ]
+    },
+    {
+      "id": "s0083",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "電池很快就沒電了。",
+          "zhuyin": "ㄉㄧㄢˋ ㄔˊ ㄏㄣˇ ㄎㄨㄞˋ ㄐㄧㄡˋ ㄇㄟˊ ㄉㄧㄢˋ ˙ㄌㄜ。",
+          "pinyin": "diàn chí hěn kuài jiù méi diàn le."
+        }
+      ]
+    },
+    {
+      "id": "s0084",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "修理大概要多少錢？",
+          "zhuyin": "ㄒㄧㄡ ㄌㄧˇ ㄉㄚˋ ㄍㄞˋ ㄧㄠˋ ㄉㄨㄛ ㄕㄠˇ ㄑㄧㄢˊ？",
+          "pinyin": "xiū lǐ dà gài yào duō shǎo qián?"
+        },
+        {
+          "text": "可以先幫我估價嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄒㄧㄢ ㄅㄤ ㄨㄛˇ ㄍㄨ ㄐㄧㄚˋ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ xiān bāng wǒ gū jià ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0085",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "大概要修幾天？",
+          "zhuyin": "ㄉㄚˋ ㄍㄞˋ ㄧㄠˋ ㄒㄧㄡ ㄐㄧˇ ㄊㄧㄢ？",
+          "pinyin": "dà gài yào xiū jǐ tiān?"
+        }
+      ]
+    },
+    {
+      "id": "s0086",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "今天可以修好嗎？",
+          "zhuyin": "ㄐㄧㄣ ㄊㄧㄢ ㄎㄜˇ ㄧˇ ㄒㄧㄡ ㄏㄠˇ ˙ㄇㄚ？",
+          "pinyin": "jīn tiān kě yǐ xiū hǎo ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0087",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "可以不要刪除我的資料嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄅㄨˋ ㄧㄠˋ ㄕㄢ ㄔㄨˊ ㄨㄛˇ ˙ㄉㄜ ㄗ ㄌㄧㄠˋ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ bù yào shān chú wǒ de zī liào ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0088",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我來拿修好的手機。",
+          "zhuyin": "ㄨㄛˇ ㄌㄞˊ ㄋㄚˊ ㄒㄧㄡ ㄏㄠˇ ˙ㄉㄜ ㄕㄡˇ ㄐㄧ。",
+          "pinyin": "wǒ lái ná xiū hǎo de shǒu jī."
+        }
+      ]
+    },
+    {
+      "id": "s0089",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我想預約大型垃圾清運。",
+          "zhuyin": "ㄨㄛˇ ㄒㄧㄤˇ ㄩˋ ㄩㄝ ㄉㄚˋ ㄒㄧㄥˊ ㄌㄜˋ ㄙㄜˋ ㄑㄧㄥ ㄩㄣˋ。",
+          "pinyin": "wǒ xiǎng yù yuē dà xíng lè sè qīng yùn."
+        }
+      ]
+    },
+    {
+      "id": "s0090",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我要丟一張舊沙發。",
+          "zhuyin": "ㄨㄛˇ ㄧㄠˋ ㄉㄧㄡ ㄧ ㄓㄤ ㄐㄧㄡˋ ㄕㄚ ㄈㄚ。",
+          "pinyin": "wǒ yào diū yī zhāng jiù shā fā."
+        }
+      ]
+    },
+    {
+      "id": "s0091",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "請問要收費嗎？",
+          "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ ㄧㄠˋ ㄕㄡ ㄈㄟˋ ˙ㄇㄚ？",
+          "pinyin": "qǐng wèn yào shōu fèi ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0092",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "請問哪一天可以來收？",
+          "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ ㄋㄚˇ ㄧ ㄊㄧㄢ ㄎㄜˇ ㄧˇ ㄌㄞˊ ㄕㄡ？",
+          "pinyin": "qǐng wèn nǎ yī tiān kě yǐ lái shōu?"
+        }
+      ]
+    },
+    {
+      "id": "s0093",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "東西要放在哪裡？",
+          "zhuyin": "ㄉㄨㄥ ˙ㄒㄧ ㄧㄠˋ ㄈㄤˋ ㄗㄞˋ ㄋㄚˇ ㄌㄧˇ？",
+          "pinyin": "dōng xi yào fàng zài nǎ lǐ?"
+        }
+      ]
+    },
+    {
+      "id": "s0094",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "垃圾車幾點會來？",
+          "zhuyin": "ㄌㄜˋ ㄙㄜˋ ㄔㄜ ㄐㄧˇ ㄉㄧㄢˇ ㄏㄨㄟˋ ㄌㄞˊ？",
+          "pinyin": "lè sè chē jǐ diǎn huì lái?"
+        }
+      ]
+    },
+    {
+      "id": "s0095",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "這個是資源回收嗎？",
+          "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄕˋ ㄗ ㄩㄢˊ ㄏㄨㄟˊ ㄕㄡ ˙ㄇㄚ？",
+          "pinyin": "zhè ge shì zī yuán huí shōu ma?"
+        },
+        {
+          "text": "這個要丟哪裡？",
+          "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄧㄠˋ ㄉㄧㄡ ㄋㄚˇ ㄌㄧˇ？",
+          "pinyin": "zhè ge yào diū nǎ lǐ?"
         }
       ]
     }

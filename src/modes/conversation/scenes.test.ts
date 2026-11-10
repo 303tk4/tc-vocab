@@ -68,6 +68,13 @@ describe('配布する場面のデータ（仕様書 18.5）', () => {
     for (const p of realPhrases) expect(p.id).toMatch(/^[rs]\d{4}$/)
   })
 
+  it('上級向けの場面（版 1.37）があり、基本の場面の後に並ぶ（FR-CONV-09）', () => {
+    const advanced = realIndex.scenes.filter((s) => s.level >= 2).map((s) => s.id)
+    expect(advanced).toEqual(['clinic', 'device-repair', 'bulky-waste'])
+    const sorted = sortScenes(realIndex.scenes).map((s) => s.level)
+    expect(sorted).toEqual([...sorted].sort((a, b) => a - b))
+  })
+
   it('「歡迎光臨」（r0001）は一覧にあるが、コンビニでは出題しない', () => {
     expect(realPhrases.some((p) => p.id === 'r0001')).toBe(true)
     const store = realIndex.scenes.find((s) => s.id === 'convenience-store')

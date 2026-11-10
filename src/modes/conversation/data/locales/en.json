@@ -5,7 +5,10 @@
     "restaurant": "Restaurant",
     "drink-stand": "Drink stand",
     "night-market": "Night market",
-    "transport": "Getting around (taxi, MRT, bus)"
+    "transport": "Getting around (taxi, MRT, bus)",
+    "clinic": "Clinic / hospital",
+    "device-repair": "Phone and computer repair",
+    "bulky-waste": "Bulky waste pickup"
   },
   "items": {
     "r0001": {
@@ -484,6 +487,223 @@
         "OK."
       ]
     },
+    "r0068": {
+      "line": "Is this your first visit?",
+      "answers": [
+        "Yes, it's my first time.",
+        "No, I've been here before."
+      ]
+    },
+    "r0069": {
+      "line": "Your health insurance card, please.",
+      "answers": [
+        "Here it is.",
+        "I don't have an NHI card. Can I pay out of pocket?"
+      ],
+      "note": "健保卡 is Taiwan's National Health Insurance card. Visitors without it pay the full cost (自費)."
+    },
+    "r0070": {
+      "line": "Which department do you need?",
+      "answers": [
+        "Internal medicine, please.",
+        "I'm not sure. I have a fever and a cough."
+      ],
+      "note": "Departments include 內科 (internal medicine), 耳鼻喉科 (ENT), 皮膚科 (dermatology) and 牙科 (dentistry)."
+    },
+    "r0071": {
+      "line": "Please take your temperature first.",
+      "answers": [
+        "OK."
+      ]
+    },
+    "r0072": {
+      "line": "What's wrong?",
+      "answers": [
+        "I have a sore throat and a slight fever.",
+        "I've had diarrhea since yesterday."
+      ]
+    },
+    "r0073": {
+      "line": "How long have you had these symptoms?",
+      "answers": [
+        "About three days.",
+        "Since last night."
+      ]
+    },
+    "r0074": {
+      "line": "Are you allergic to any medicine?",
+      "answers": [
+        "No.",
+        "I'm allergic to penicillin."
+      ],
+      "note": "盤尼西林 = penicillin."
+    },
+    "r0075": {
+      "line": "Are you taking any medication?",
+      "answers": [
+        "No.",
+        "Yes, I'm taking allergy medicine."
+      ]
+    },
+    "r0076": {
+      "line": "Take this medicine three times a day, after meals.",
+      "answers": [
+        "OK. How many pills each time?",
+        "OK, got it."
+      ],
+      "note": "顆 is the counter for pills."
+    },
+    "r0077": {
+      "line": "Please pick up your medicine at the counter next door.",
+      "answers": [
+        "OK, thank you."
+      ],
+      "note": "Clinics usually hand out medicine on site."
+    },
+    "r0078": {
+      "line": "The registration fee is 150 dollars.",
+      "answers": [
+        "OK.",
+        "Can I pay by card?"
+      ],
+      "note": "掛號費 is a registration fee paid at each visit; the amount varies."
+    },
+    "r0079": {
+      "line": "What's the problem?",
+      "answers": [
+        "The screen is cracked.",
+        "My phone won't turn on."
+      ]
+    },
+    "r0080": {
+      "line": "Is it still under warranty?",
+      "answers": [
+        "It should be.",
+        "The warranty's already expired."
+      ],
+      "note": "保固 = warranty."
+    },
+    "r0081": {
+      "line": "Do you have the warranty card or the receipt?",
+      "answers": [
+        "Yes, here.",
+        "No, I've lost it."
+      ]
+    },
+    "r0082": {
+      "line": "There's a 300-dollar inspection fee.",
+      "answers": [
+        "OK, no problem.",
+        "If I get it repaired, do I still pay the inspection fee?"
+      ],
+      "note": "檢測費 = diagnostic fee. Some shops waive it if you go ahead with the repair."
+    },
+    "r0083": {
+      "line": "The repair will take about three to five days.",
+      "answers": [
+        "Can it be done any faster?",
+        "OK, I'll wait to hear from you."
+      ]
+    },
+    "r0084": {
+      "line": "Have you backed up your data? The repair may erase it.",
+      "answers": [
+        "Yes, I've backed it up.",
+        "Not yet. I'll back it up first and bring it back."
+      ]
+    },
+    "r0085": {
+      "line": "Replacing the battery costs about 2,000 dollars.",
+      "answers": [
+        "OK, please replace it.",
+        "I'll think about it."
+      ]
+    },
+    "r0086": {
+      "line": "Could you tell us the phone passcode?",
+      "answers": [
+        "Sure, I'll write it down for you.",
+        "Sorry, I'd rather not."
+      ],
+      "note": "Shops sometimes ask for it to test the phone. You may refuse."
+    },
+    "r0087": {
+      "line": "We'll call you when it's fixed.",
+      "answers": [
+        "OK, thanks.",
+        "Could you let me know by text message?"
+      ],
+      "note": "簡訊 = text message (SMS)."
+    },
+    "r0088": {
+      "line": "Here's your claim slip. Please bring it when you pick it up.",
+      "answers": [
+        "OK, thank you."
+      ]
+    },
+    "r0089": {
+      "line": "Hello, this is the sanitation team.",
+      "answers": [
+        "Hello, I'd like to book a bulky waste pickup."
+      ],
+      "note": "清潔隊 is the local sanitation team. Bulky waste pickups are usually booked by phone or online."
+    },
+    "r0090": {
+      "line": "What do you want to throw away?",
+      "answers": [
+        "A sofa and a mattress.",
+        "An old wardrobe."
+      ]
+    },
+    "r0091": {
+      "line": "About how big is it?",
+      "answers": [
+        "About two meters long.",
+        "About the size of a single bed."
+      ]
+    },
+    "r0092": {
+      "line": "What's the address?",
+      "answers": [
+        "No. 100, Zhongshan Road.",
+        "Can I send it to you by text?"
+      ]
+    },
+    "r0093": {
+      "line": "We'll come to collect it on Wednesday afternoon.",
+      "answers": [
+        "OK, thank you.",
+        "Could we change it to Saturday?"
+      ]
+    },
+    "r0094": {
+      "line": "Please put it at the ground-floor entrance by 7 p.m.",
+      "answers": [
+        "OK, understood.",
+        "It's heavy. Could you help carry it downstairs?"
+      ],
+      "note": "Crews usually don't carry items out of the building for you."
+    },
+    "r0095": {
+      "line": "Please wrap the mattress in plastic first.",
+      "answers": [
+        "OK, no problem."
+      ]
+    },
+    "r0096": {
+      "line": "TVs and fridges are collected separately.",
+      "answers": [
+        "Then what should I do with them?"
+      ],
+      "note": "Appliances are usually taken back by stores or recycling companies."
+    },
+    "r0097": {
+      "line": "Please sort your rubbish before throwing it out.",
+      "answers": [
+        "OK, sorry."
+      ],
+      "note": "Rubbish is usually sorted into general waste, recycling (資源回收) and food waste (廚餘)."
+    },
     "s0001": {
       "intent": "You want to say you don't need a bag.",
       "answers": [
@@ -953,6 +1173,168 @@
         "Excuse me, coming through."
       ],
       "note": "借過 = excuse me, let me through."
+    },
+    "s0071": {
+      "intent": "You want to ask if you can see a doctor now without an appointment.",
+      "answers": [
+        "Can I register now?",
+        "Can I be seen without an appointment?"
+      ],
+      "note": "掛號 = to register for a consultation."
+    },
+    "s0072": {
+      "intent": "You want to say you have no health insurance and will pay yourself.",
+      "answers": [
+        "I don't have health insurance, so I'll pay out of pocket."
+      ]
+    },
+    "s0073": {
+      "intent": "You want to say you have a fever.",
+      "answers": [
+        "I have a fever.",
+        "I think I have a fever."
+      ]
+    },
+    "s0074": {
+      "intent": "You want to say you have a cough and a sore throat.",
+      "answers": [
+        "I have a cough, and my throat really hurts."
+      ]
+    },
+    "s0075": {
+      "intent": "You want to say you have an upset stomach.",
+      "answers": [
+        "I have diarrhea.",
+        "My stomach doesn't feel well."
+      ]
+    },
+    "s0076": {
+      "intent": "You want to say you have a headache.",
+      "answers": [
+        "I have a bad headache."
+      ]
+    },
+    "s0077": {
+      "intent": "You want to ask how to take the medicine.",
+      "answers": [
+        "How should I take this medicine?",
+        "Could you tell me again how to take it?"
+      ]
+    },
+    "s0078": {
+      "intent": "You want a medical certificate.",
+      "answers": [
+        "Could you issue a medical certificate?"
+      ],
+      "note": "診斷證明 = medical certificate, e.g. for insurance claims."
+    },
+    "s0079": {
+      "intent": "You want to ask if a doctor speaks English or Japanese.",
+      "answers": [
+        "Is there a doctor who speaks English?",
+        "Is there a doctor who speaks Japanese?"
+      ]
+    },
+    "s0080": {
+      "intent": "You want to say your phone screen is cracked.",
+      "answers": [
+        "My phone screen is cracked."
+      ]
+    },
+    "s0081": {
+      "intent": "You want to say your phone won't charge.",
+      "answers": [
+        "My phone won't charge.",
+        "My phone can't be charged."
+      ]
+    },
+    "s0082": {
+      "intent": "You want to say your computer won't turn on.",
+      "answers": [
+        "My computer won't start."
+      ]
+    },
+    "s0083": {
+      "intent": "You want to say the battery runs out quickly.",
+      "answers": [
+        "The battery dies really fast."
+      ]
+    },
+    "s0084": {
+      "intent": "You want to ask about the repair cost.",
+      "answers": [
+        "About how much will the repair cost?",
+        "Could you give me an estimate first?"
+      ],
+      "note": "估價 = estimate."
+    },
+    "s0085": {
+      "intent": "You want to ask how many days the repair takes.",
+      "answers": [
+        "How many days will the repair take?"
+      ]
+    },
+    "s0086": {
+      "intent": "You want to ask if it can be fixed today.",
+      "answers": [
+        "Can it be fixed today?"
+      ]
+    },
+    "s0087": {
+      "intent": "You don't want your data erased.",
+      "answers": [
+        "Could you not delete my data?"
+      ]
+    },
+    "s0088": {
+      "intent": "You've come to collect your repaired phone.",
+      "answers": [
+        "I'm here to pick up my repaired phone."
+      ]
+    },
+    "s0089": {
+      "intent": "You want to book a bulky waste pickup.",
+      "answers": [
+        "I'd like to book a bulky waste pickup."
+      ]
+    },
+    "s0090": {
+      "intent": "You want to throw away an old sofa.",
+      "answers": [
+        "I want to throw away an old sofa."
+      ]
+    },
+    "s0091": {
+      "intent": "You want to ask if there is a fee.",
+      "answers": [
+        "Is there a charge?"
+      ]
+    },
+    "s0092": {
+      "intent": "You want to ask which day they can collect it.",
+      "answers": [
+        "Which day can you come to collect it?"
+      ]
+    },
+    "s0093": {
+      "intent": "You want to ask where to put the items.",
+      "answers": [
+        "Where should I put the items?"
+      ]
+    },
+    "s0094": {
+      "intent": "You want to ask what time the garbage truck comes.",
+      "answers": [
+        "What time does the garbage truck come?"
+      ],
+      "note": "In Taiwan you usually hand your rubbish directly to the garbage truck, which plays music as it arrives."
+    },
+    "s0095": {
+      "intent": "You want to ask if something is recyclable.",
+      "answers": [
+        "Is this recyclable?",
+        "Where should this go?"
+      ]
     }
   }
 }

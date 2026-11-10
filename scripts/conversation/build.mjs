@@ -22,7 +22,17 @@ const root = join(here, '..', '..')
 const OUT = join(root, 'src', 'modes', 'conversation', 'data')
 
 /** 場面の並び（index.json の順。同じ難しさの中はこの順に示す。FR-CONV-09） */
-const SCENES = ['convenience-store', 'restaurant', 'drink-stand', 'night-market', 'transport']
+const SCENES = [
+  'convenience-store',
+  'restaurant',
+  'drink-stand',
+  'night-market',
+  'transport',
+  // 上級向け（版 1.37）
+  'clinic',
+  'device-repair',
+  'bulky-waste',
+]
 /** 用意する訓練の言語（18.6）。言語を足すときは、各場面の下書きに訳を加えてからここに足す */
 const LANGUAGES = ['ja', 'en']
 
