@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { Dialog } from '../../components/Dialog'
 import { ReviewReadingNote } from '../../components/ReviewReadingNote'
 import { countReviewReading } from '../../io/reviewReading'
@@ -13,8 +13,10 @@ import {
 } from '../../io/importer'
 import {
   formatSize,
+  meaningLanguageName,
   packStatus,
   pickText,
+  sortByMeaningLanguage,
   type InstalledPacks,
   type LevelGuide,
   type PackEntry,
@@ -22,7 +24,14 @@ import {
 } from '../../io/packs'
 import type { ParsedFile } from '../../io/parsed'
 import { addPack, fetchPack, fetchPackIndex } from '../../services/packs'
-import { addSampleWords, fetchSamples, SAMPLE_STRATEGIES, SAMPLE_TAG } from '../../services/samples'
+import {
+  addSampleWords,
+  fetchSamples,
+  SAMPLE_LANGUAGES,
+  SAMPLE_STRATEGIES,
+  SAMPLE_TAG,
+  type SampleLanguage,
+} from '../../services/samples'
 import styles from './WordsPage.module.css'
 
 /** 見本として示す単語の数 */
@@ -34,8 +43,11 @@ interface Props {
   onAdded(name: string, result: ImportResult): void
 }
 
-/** 一覧の項目。サンプル単語は同梱のパッケージとして先頭に示す（FR-SMP-04） */
-type PackItem = { kind: 'samples' } | { kind: 'pack'; entry: PackEntry }
+/**
+ * 一覧の項目。サンプル単語は同梱のパッケージとして、意味の言語ごと（日本語版・英語版）に先頭に示す
+ * （FR-SMP-04）
+ */
+type PackItem = { kind: 'samples'; language: SampleLanguage } | { kind: 'pack'; entry: PackEntry }
 
 type IndexState =
   | { status: 'loading' }
@@ -49,7 +61,24 @@ type State =
   | { step: 'preview'; item: PackItem; file: ParsedFile; preview: ImportPreview }
 
 const isOffline = () => typeof navigator !== 'undefined' && navigator.onLine === false
-const keyOf = (item: PackItem) => (item.kind === 'samples' ? 'samples' : `pack:${item.entry.id}`)
+const keyOf = (item: PackItem) =>
+  item.kind === 'samples' ? `samples:${item.language}` : `pack:${item.entry.id}`
+/** 登録中の単語の数の記録のキー。サンプル単語はどの版も `サンプル` タグで数える（仕様書 11章） */
+const countKeyOf = (item: PackItem) => (item.kind === 'samples' ? 'samples' : keyOf(item))
+/** 意味の言語（仕様書 16.5）。サンプル単語は版の言語 */
+const meaningOf = (item: PackItem) =>
+  item.kind === 'samples' ? item.language : item.entry.meaningLanguage
+
+/** 「意味：English」の表示（16.5）。言語名はその言語自身での名前で示す */
+function MeaningLanguage({ language }: { language: string }) {
+  return (
+    <Trans
+      i18nKey="packs.meaningLanguage"
+      values={{ language: meaningLanguageName(language) }}
+      components={[<span key="language" lang={language} />]}
+    />
+  )
+}
 
 /** 単語パッケージの一覧と追加（仕様書 16.5、FR-WORDS-07） */
 export function PacksDialog({ open, onClose, onAdded }: Props) {
@@ -102,6 +131,14 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
   const nameOf = (item: PackItem) =>
     item.kind === 'samples' ? t('packs.samplesName') : pickText(item.entry.name, i18n.language)
 
+  /** 意味の言語を添えた名前。同じ名前の言語違い（サンプル単語の日本語版と英語版など）を区別する */
+  const labelOf = (item: PackItem) => {
+    const language = meaningOf(item)
+    return language
+      ? t('packs.nameWithLanguage', { name: nameOf(item), language: meaningLanguageName(language) })
+      : nameOf(item)
+  }
+
   const reset = () => {
     setConfirmingOverwrite(false)
     setState({ step: 'list' })
@@ -119,7 +156,8 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
     setState({ step: 'loading', key: keyOf(item) })
     setRunError('')
     try {
-      const file = item.kind === 'samples' ? await fetchSamples() : await fetchPack(item.entry)
+      const file =
+        item.kind === 'samples' ? await fetchSamples(item.language) : await fetchPack(item.entry)
       const preview = previewImport(file, await listWords())
       // 重複の扱いの初期値：パッケージは「タグだけ付ける」、サンプル単語は「インポートしない」
       setStrategy(item.kind === 'samples' ? 'skip' : 'tagOnly')
@@ -152,9 +190,13 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
       const { item, file } = state
       const result =
         item.kind === 'samples'
-          ? await addSampleWords(file, SAMPLE_STRATEGIES.find((s) => s === strategy) ?? 'skip')
+          ? await addSampleWords(
+              item.language,
+              file,
+              SAMPLE_STRATEGIES.find((s) => s === strategy) ?? 'skip',
+            )
           : await addPack(item.entry, file, strategy)
-      const name = nameOf(item)
+      const name = item.kind === 'samples' ? labelOf(item) : nameOf(item)
       reset()
       onAdded(name, result)
     } catch {
@@ -185,9 +227,15 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
     const examples = preview.rows.filter((r) => r.word).slice(0, EXAMPLE_COUNT)
     const reviewCount = countReviewReading(preview.rows.map((r) => r.word))
     const strategies = item.kind === 'samples' ? SAMPLE_STRATEGIES : PACK_STRATEGIES
+    const language = meaningOf(item)
     body = (
       <>
         <p className={styles.fileName}>{nameOf(item)}</p>
+        {language && (
+          <p className={styles.packMeta}>
+            <MeaningLanguage language={language} />
+          </p>
+        )}
         <dl className={styles.counts}>
           <div>
             <dt>{t('io.countNew')}</dt>
@@ -288,10 +336,19 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
     )
   } else {
     const loadingKey = state.step === 'loading' ? state.key : null
+    // UI 言語と同じ意味の言語の単語集を先に並べ、無ければ英語を先にする（16.5「意味の言語」）。
+    // サンプル単語は意味の言語にかかわらず先頭に置く（FR-SMP-04）
+    const samples = sortByMeaningLanguage(
+      SAMPLE_LANGUAGES.map((language) => ({ language, meaningLanguage: language })),
+      i18n.language,
+    )
     const items: PackItem[] = [
-      { kind: 'samples' },
+      ...samples.map(({ language }): PackItem => ({ kind: 'samples', language })),
       ...(index.status === 'ready'
-        ? index.packs.map((entry): PackItem => ({ kind: 'pack', entry }))
+        ? sortByMeaningLanguage(index.packs, i18n.language).map((entry): PackItem => ({
+            kind: 'pack',
+            entry,
+          }))
         : []),
     ]
     body = (
@@ -301,7 +358,8 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
           {items.map((item) => {
             const key = keyOf(item)
             // 追加済みのものも一覧に残し、印を付けて、もう一度選べるようにする（16.5）
-            const count = present[key] ?? 0
+            const count = present[countKeyOf(item)] ?? 0
+            const language = meaningOf(item)
             const status: PackStatus =
               item.kind === 'pack'
                 ? packStatus(item.entry, installed, count)
@@ -346,6 +404,11 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
                       </span>
                     )}
                   </p>
+                  {language && (
+                    <p className={styles.packMeta}>
+                      <MeaningLanguage language={language} />
+                    </p>
+                  )}
                   <p className={styles.packDescription}>
                     {item.kind === 'samples'
                       ? t('packs.samplesDescription')
@@ -366,7 +429,7 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
                     type="button"
                     className="button"
                     disabled={loadingKey !== null}
-                    aria-label={t('packs.chooseNamed', { action, name: nameOf(item) })}
+                    aria-label={t('packs.chooseNamed', { action, name: labelOf(item) })}
                     aria-describedby={status === 'notInstalled' ? undefined : `${inputId}-${key}`}
                     onClick={() => void choose(item)}
                   >

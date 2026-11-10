@@ -1,5 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { formatSize, PackIndexError, packStatus, parsePackIndex, pickText } from './packs'
+import {
+  formatSize,
+  meaningLanguageName,
+  PackIndexError,
+  packStatus,
+  parsePackIndex,
+  pickText,
+  preferredMeaningLanguage,
+  primaryLanguage,
+  sortByMeaningLanguage,
+} from './packs'
 
 const entry = {
   id: 'tocfl-novice',
@@ -127,5 +137,84 @@ describe('packStatus（仕様書 16.5）', () => {
 
   it('記録が無ければ、同じタグの単語があっても未追加とする', () => {
     expect(packStatus(entry, {}, 500)).toBe('notInstalled')
+  })
+})
+
+describe('意味の言語（仕様書 16.5）', () => {
+  const packs = [
+    { id: 'tocfl-1', meaningLanguage: 'ja' },
+    { id: 'tocfl-1-en', meaningLanguage: 'en' },
+    { id: 'tocfl-2', meaningLanguage: 'ja' },
+    { id: 'old' },
+    { id: 'tocfl-2-en', meaningLanguage: 'en' },
+    { id: 'tocfl-1-vi', meaningLanguage: 'vi' },
+  ]
+  const ids = (items: { id: string }[]) => items.map((i) => i.id)
+
+  it('言語タグの主な部分を取り出す', () => {
+    expect(primaryLanguage('en-US')).toBe('en')
+    expect(primaryLanguage('zh_TW')).toBe('zh')
+    expect(primaryLanguage('JA')).toBe('ja')
+  })
+
+  it('UI 言語と同じ意味の言語の単語集を先にし、ほかは元の順を保つ', () => {
+    expect(ids(sortByMeaningLanguage(packs, 'ja'))).toEqual([
+      'tocfl-1',
+      'tocfl-2',
+      'tocfl-1-en',
+      'old',
+      'tocfl-2-en',
+      'tocfl-1-vi',
+    ])
+    expect(ids(sortByMeaningLanguage(packs, 'vi'))).toEqual([
+      'tocfl-1-vi',
+      'tocfl-1',
+      'tocfl-1-en',
+      'tocfl-2',
+      'old',
+      'tocfl-2-en',
+    ])
+  })
+
+  it('言語は主な部分で比べる（en-US と en は同じ）', () => {
+    expect(preferredMeaningLanguage(packs, 'en-US')).toBe('en')
+    expect(ids(sortByMeaningLanguage(packs, 'en-US')).slice(0, 2)).toEqual([
+      'tocfl-1-en',
+      'tocfl-2-en',
+    ])
+  })
+
+  it('UI 言語に合う単語集が無いときは英語を先にする', () => {
+    expect(preferredMeaningLanguage(packs, 'zh-TW')).toBe('en')
+    expect(ids(sortByMeaningLanguage(packs, 'zh-TW'))).toEqual([
+      'tocfl-1-en',
+      'tocfl-2-en',
+      'tocfl-1',
+      'tocfl-2',
+      'old',
+      'tocfl-1-vi',
+    ])
+  })
+
+  it('英語も無ければ元の順のまま', () => {
+    const jaOnly = packs.filter((p) => p.meaningLanguage !== 'en')
+    expect(ids(sortByMeaningLanguage(jaOnly, 'ko'))).toEqual(ids(jaOnly))
+  })
+
+  it('元の配列は変えない', () => {
+    const copy = [...packs]
+    sortByMeaningLanguage(packs, 'en')
+    expect(packs).toEqual(copy)
+  })
+
+  it('言語名はその言語自身での名前で示す', () => {
+    expect(meaningLanguageName('ja')).toBe('日本語')
+    expect(meaningLanguageName('en')).toBe('English')
+    expect(meaningLanguageName('vi')).toBe('Tiếng Việt')
+  })
+
+  it('名前がわからない言語や不正な言語タグは、そのまま示す', () => {
+    expect(meaningLanguageName('xx')).toBe('xx')
+    expect(meaningLanguageName('!!')).toBe('!!')
   })
 })

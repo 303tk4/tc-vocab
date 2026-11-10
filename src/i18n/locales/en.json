@@ -383,6 +383,8 @@
     "samplesName": "Sample words",
     "samplesDescription": "Basic Taiwanese Mandarin vocabulary (about 50 words). All of them get the “サンプル” tag.",
     "bundled": "Built into the app · no download",
+    "meaningLanguage": "Meanings in <0>{{language}}</0>",
+    "nameWithLanguage": "{{name}} (meanings in {{language}})",
     "wordCount": "{{formatted}} words",
     "size": "about {{value}} {{unit}}",
     "license": "License: {{license}}",
