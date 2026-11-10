@@ -11,17 +11,66 @@ import { requestPersistentStorage } from './storage-persist'
 
 const MIME = 'application/json'
 
-async function makeBackupFile(now = new Date()): Promise<File> {
-  const text = buildBackup(await loadBackupContent(), __APP_VERSION__, now)
-  return new File([text], backupFileName(now), { type: MIME })
+/** 作成したバックアップのファイルと、その作成日時 */
+export interface BackupFile {
+  file: File
+  createdAt: number
 }
 
-/** バックアップのファイルをダウンロードし、保存した日時を記録する（FR-SET-11） */
-export async function saveBackup(): Promise<void> {
-  const now = new Date()
-  const file = await makeBackupFile(now)
-  downloadText(file.name, await file.text(), MIME)
-  await recordBackup(now.getTime())
+/**
+ * バックアップのファイルを作る（FR-SET-11）。共有の画面や保存先を選ぶ画面は押した操作の直後でないと
+ * 開けないブラウザがあるため、保存方法を選ぶダイアログを開く前に作っておく（仕様書 10.4）
+ */
+export async function createBackupFile(now = new Date()): Promise<BackupFile> {
+  const text = buildBackup(await loadBackupContent(), __APP_VERSION__, now)
+  return { file: new File([text], backupFileName(now), { type: MIME }), createdAt: now.getTime() }
+}
+
+/** 保存先を選ぶ画面（File System Access API）。パソコンの Chrome・Edge にある */
+type SaveFilePicker = (options: {
+  suggestedName: string
+  types: { description: string; accept: Record<string, string[]> }[]
+}) => Promise<{
+  createWritable(): Promise<{ write(data: Blob): Promise<void>; close(): Promise<void> }>
+}>
+
+function saveFilePicker(): SaveFilePicker | undefined {
+  if (typeof window === 'undefined') return undefined
+  const picker = (window as Window & { showSaveFilePicker?: SaveFilePicker }).showSaveFilePicker
+  return typeof picker === 'function' ? picker.bind(window) : undefined
+}
+
+/** 保存先を選んで保存できるか（できなければ、ブラウザのダウンロードとして保存する） */
+export function canPickSaveLocation(): boolean {
+  return saveFilePicker() !== undefined
+}
+
+export type SaveOutcome = 'saved' | 'cancelled'
+
+const isAbort = (error: unknown) => error instanceof DOMException && error.name === 'AbortError'
+
+/** ファイルとして保存し、作成日時を記録する。保存先の選択を取りやめたら 'cancelled' */
+export async function saveBackupFile({ file, createdAt }: BackupFile): Promise<SaveOutcome> {
+  const picker = saveFilePicker()
+  let saved = false
+  if (picker) {
+    try {
+      const handle = await picker({
+        suggestedName: file.name,
+        types: [{ description: 'JSON', accept: { [MIME]: ['.json'] } }],
+      })
+      const writable = await handle.createWritable()
+      await writable.write(file)
+      await writable.close()
+      saved = true
+    } catch (error) {
+      if (isAbort(error)) return 'cancelled'
+      // 押した操作の直後でない、埋め込みの画面で使えないなどで開けなかったときは、ダウンロードとして保存する
+    }
+  }
+  if (!saved) downloadText(file.name, await file.text(), MIME)
+  await recordBackup(createdAt)
+  return 'saved'
 }
 
 /** ファイルを共有の機能（Web Share API）で渡せるか */
@@ -34,20 +83,16 @@ export function canShareBackup(): boolean {
   }
 }
 
-/**
- * 共有の機能でバックアップを渡す。取りやめたときは 'cancelled' を返し、日時は記録しない
- */
-export async function shareBackup(): Promise<'shared' | 'cancelled'> {
-  const now = new Date()
-  const file = await makeBackupFile(now)
+/** 共有の機能でファイルを渡し、作成日時を記録する。取りやめたら 'cancelled' */
+export async function shareBackupFile({ file, createdAt }: BackupFile): Promise<SaveOutcome> {
   try {
     await navigator.share({ files: [file], title: file.name })
   } catch (error) {
-    if (error instanceof DOMException && error.name === 'AbortError') return 'cancelled'
+    if (isAbort(error)) return 'cancelled'
     throw error
   }
-  await recordBackup(now.getTime())
-  return 'shared'
+  await recordBackup(createdAt)
+  return 'saved'
 }
 
 /** ホームを開き直す（言語・背景の色などを反映するため、ページを読み込み直す） */

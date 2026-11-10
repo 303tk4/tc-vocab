@@ -77,7 +77,7 @@
       "unsupported": "此瀏覽器無法確認資料是否受到保護。"
     },
     "storageHint": "在手機上把本 App 加入主畫面（電腦則從瀏覽器選單選擇「安裝為 App」），就比較容易受到保護。",
-    "exportHint": "重要的單字與學習紀錄，建議用下方的「儲存備份」存成檔案，比較安心。",
+    "exportHint": "重要的單字與學習紀錄，建議用下方的「建立備份檔案」存起來，比較安心。",
     "about": "關於本 App",
     "version": "版本：{{version}}",
     "feedback": "意見回饋",
@@ -109,12 +109,8 @@
   "backup": {
     "title": "備份與初始化",
     "intro": "可將單字、學習紀錄與設定一起存成一個檔案，之後再從該檔案還原。適用於更換裝置，或瀏覽器資料被清除時。",
-    "save": "儲存備份",
-    "share": "分享並儲存",
-    "shareNote": "可直接傳到 Google 雲端硬碟、電子郵件或通訊軟體等。",
-    "saving": "儲存中…",
-    "saved": "已儲存備份。",
-    "saveFailed": "無法儲存備份。",
+    "saved": "已建立備份檔案。",
+    "saveFailed": "無法建立備份檔案。",
     "lastBackup": "上次備份：{{date}}",
     "never": "尚未儲存過備份。",
     "restore": "從備份還原",
@@ -125,7 +121,7 @@
     "countsFile": "檔案內容：單字 {{words}} 個、學習進度 {{progress}} 筆、學習紀錄 {{sessions}} 筆",
     "countsNow": "目前資料：單字 {{words}} 個、學習進度 {{progress}} 筆、學習紀錄 {{sessions}} 筆",
     "replaceWarning": "目前的資料（單字、學習紀錄、設定）將全部被取代，且無法復原。",
-    "saveFirst": "先備份目前的資料",
+    "saveFirst": "先建立備份檔案",
     "restoreRun": "還原",
     "restoring": "還原中…",
     "restoreFailed": "無法還原。資料沒有變更。",
@@ -150,7 +146,14 @@
       "readFailed": "無法讀取檔案。",
       "empty": "檔案是空的。",
       "invalidEncoding": "檔案的文字編碼不是 UTF-8。"
-    }
+    },
+    "create": "建立備份檔案",
+    "creating": "建立中…",
+    "chooseTitle": "請選擇備份檔案的儲存方式",
+    "saveAsFile": "儲存為檔案",
+    "saveToLocation": "選擇位置並儲存",
+    "downloadNote": "會儲存到瀏覽器的下載位置（通常是「下載」資料夾）。",
+    "shareToApp": "分享到其他 App（Google 雲端硬碟、電子郵件等）"
   },
   "storageNotice": {
     "title": "資料儲存在此裝置的瀏覽器中",

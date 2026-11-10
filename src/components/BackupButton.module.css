@@ -1,0 +1,31 @@
+/* 「バックアップファイルを作成する」と保存方法の選択（FR-SET-11、仕様書 10.4） */
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.root p {
+  margin: 0;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.choices p {
+  margin: 0;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.error {
+  color: var(--color-danger-strong);
+}

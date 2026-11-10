@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { loadReminderInput } from '../../db/repos/backup'
 import { getSetting, setSetting } from '../../db/repos/settings'
-import { useBackupActions } from '../../hooks/useBackupActions'
+import { BackupButton } from '../../components/BackupButton'
 import {
   BACKUP_REMINDER_INTERVAL,
   BACKUP_REMINDER_SNOOZE_KEY,
@@ -27,11 +27,11 @@ export function BackupReminder() {
     ])
     return shouldRemindBackup({ ...input, lastBackupAt, snoozedUntil })
   })
-  const { busy, message, save } = useBackupActions()
   const [failed, setFailed] = useState(false)
+  // 作成し終えたら、その旨を示すために残す
+  const [saved, setSaved] = useState(false)
 
-  // 保存し終えたら、その旨を示すために残す
-  if (!show && message?.kind !== 'ok') return null
+  if (!show && !saved) return null
 
   const close = async () => {
     setFailed(false)
@@ -49,31 +49,14 @@ export function BackupReminder() {
         {t('backup.reminderTitle')}
       </h2>
       <p>{t('backup.reminderBody')}</p>
-      {message && (
-        <p
-          className={message.kind === 'error' ? styles.error : undefined}
-          role={message.kind === 'error' ? 'alert' : 'status'}
-        >
-          {message.text}
-        </p>
-      )}
       {failed && (
         <p className={styles.error} role="alert">
           {t('install.hideFailed')}
         </p>
       )}
       <div className={styles.actions}>
-        {show && (
-          <button
-            type="button"
-            className="button button--primary button--block-sm"
-            disabled={busy}
-            onClick={() => void save()}
-          >
-            {busy ? t('backup.saving') : t('backup.save')}
-          </button>
-        )}
-        {show && (
+        <BackupButton className="button--primary" onSaved={() => setSaved(true)} />
+        {!saved && (
           <button type="button" className="button button--block-sm" onClick={() => void close()}>
             {t('common.close')}
           </button>

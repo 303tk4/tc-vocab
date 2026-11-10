@@ -77,7 +77,7 @@
       "unsupported": "This browser cannot tell whether your data is protected."
     },
     "storageHint": "Adding this app to your phone’s home screen (on a computer, choosing “Install as app” from the browser menu) makes protection more likely.",
-    "exportHint": "To keep your words and study history safe, save a file with “Save backup” below.",
+    "exportHint": "To keep your words and study history safe, save them with “Create backup file” below.",
     "about": "About this app",
     "version": "Version: {{version}}",
     "feedback": "Feedback to the developer",
@@ -109,12 +109,8 @@
   "backup": {
     "title": "Backup and reset",
     "intro": "Save your words, study history and settings together in one file, and restore them from that file later. Useful when you change devices or if your browser data is deleted.",
-    "save": "Save backup",
-    "share": "Share to save",
-    "shareNote": "Send it straight to Google Drive, email, a messaging app and so on.",
-    "saving": "Saving…",
-    "saved": "Backup saved.",
-    "saveFailed": "Could not save the backup.",
+    "saved": "Backup file created.",
+    "saveFailed": "Could not create the backup file.",
     "lastBackup": "Last backup: {{date}}",
     "never": "You have not saved a backup yet.",
     "restore": "Restore from backup",
@@ -125,7 +121,7 @@
     "countsFile": "In the file: words {{words}}, study progress {{progress}}, study sessions {{sessions}}",
     "countsNow": "Current data: words {{words}}, study progress {{progress}}, study sessions {{sessions}}",
     "replaceWarning": "All current data (words, study history and settings) will be replaced. This cannot be undone.",
-    "saveFirst": "Back up current data first",
+    "saveFirst": "Create a backup file first",
     "restoreRun": "Restore",
     "restoring": "Restoring…",
     "restoreFailed": "Could not restore. Your data has not been changed.",
@@ -150,7 +146,14 @@
       "readFailed": "Could not read the file.",
       "empty": "The file is empty.",
       "invalidEncoding": "The file is not encoded in UTF-8."
-    }
+    },
+    "create": "Create backup file",
+    "creating": "Creating…",
+    "chooseTitle": "Choose how to save the backup file",
+    "saveAsFile": "Save as a file",
+    "saveToLocation": "Choose where to save",
+    "downloadNote": "It is saved to your browser’s download location (usually the Downloads folder).",
+    "shareToApp": "Share to another app (Google Drive, email, etc.)"
   },
   "storageNotice": {
     "title": "Your data is stored in this browser",

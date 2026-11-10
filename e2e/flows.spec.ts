@@ -198,6 +198,12 @@ test('設定画面で著作権・出典とライセンス・免責・データ�
 test('バックアップを保存して初期化し、そのファイルから復元できる（仕様書 10.4、FR-SET-11〜13）', async ({
   page,
 }) => {
+  // 共有の機能がある端末として扱い、保存方法を選ぶダイアログを出す。
+  // 保存先を選ぶ画面（showSaveFilePicker）はテストから操作できないため、ダウンロードとして保存させる
+  await page.addInitScript(() => {
+    delete (window as { showSaveFilePicker?: unknown }).showSaveFilePicker
+    Object.defineProperty(navigator, 'canShare', { value: () => true, configurable: true })
+  })
   // 単語を追加して1枚学習し、背景の色を変えておく
   await addSampleWords(page)
   const count = await wordCount(page)
@@ -210,11 +216,17 @@ test('バックアップを保存して初期化し、そのファイルから�
   await page.goto('./#/settings')
   await page.getByRole('radio', { name: '黒', exact: true }).check()
 
-  // バックアップを保存する
+  // バックアップファイルを作成し、保存方法として「ファイルとして保存」を選ぶ（版 1.34）
   await expect(page.getByText('まだバックアップを保存していません。')).toBeVisible()
+  await page.getByRole('button', { name: 'バックアップファイルを作成する', exact: true }).click()
+  const choose = page.getByRole('dialog', {
+    name: 'バックアップファイルの保存方法を選んでください',
+  })
+  await expect(choose.getByRole('button', { name: /^ほかのアプリと共有/ })).toBeVisible()
   const downloadPromise = page.waitForEvent('download')
-  await page.getByRole('button', { name: 'バックアップを保存', exact: true }).click()
+  await choose.getByRole('button', { name: 'ファイルとして保存' }).click()
   const download = await downloadPromise
+  await expect(page.getByText('バックアップファイルを作成しました。')).toBeVisible()
   expect(download.suggestedFilename()).toMatch(/^tc-vocab-backup-\d{8}-\d{4}\.json$/)
   const json = await readFile(await download.path(), 'utf8')
   const data = JSON.parse(json) as {

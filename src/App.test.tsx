@@ -94,7 +94,7 @@ describe('データの保存の状態（FR-PWA-04）', () => {
     renderApp('/settings')
     expect(await screen.findByText(/Your data is not protected/)).toBeInTheDocument()
     expect(screen.getByText(/makes protection more likely/)).toBeInTheDocument()
-    expect(screen.getByText(/Save backup” below/)).toBeInTheDocument()
+    expect(screen.getByText(/Create backup file” below/)).toBeInTheDocument()
   })
 
   it('保護されていれば、書き出しの勧めは出さない（ホーム画面への追加の案内は出す。FR-PWA-05）', async () => {
@@ -104,7 +104,7 @@ describe('データの保存の状態（FR-PWA-04）', () => {
     })
     renderApp('/settings')
     expect(await screen.findByText(/Your data is protected/)).toBeInTheDocument()
-    expect(screen.queryByText(/Save backup” below/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/Create backup file” below/)).not.toBeInTheDocument()
     expect(screen.getByText(/makes protection more likely/)).toBeInTheDocument()
   })
 

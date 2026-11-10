@@ -1,12 +1,12 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { useEffect, useMemo, useRef, useState, type ChangeEvent, type RefObject } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BackupButton } from '../../components/BackupButton'
 import { Dialog } from '../../components/Dialog'
 import { countData, type DataCounts } from '../../db/repos/backup'
 import { getSetting } from '../../db/repos/settings'
 import { BackupFileError, LAST_BACKUP_KEY, readBackupFile, type Backup } from '../../io/backup'
-import { canShareBackup, resetApp, restoreFromBackup } from '../../services/backup'
-import { useBackupActions, type BackupMessage as Message } from '../../hooks/useBackupActions'
+import { resetApp, restoreFromBackup } from '../../services/backup'
 import styles from './BackupPanel.module.css'
 
 /** 日時を画面の言語で示す */
@@ -14,52 +14,6 @@ function useFormatDate() {
   const { i18n } = useTranslation()
   return (time: number) =>
     new Date(time).toLocaleString(i18n.language, { dateStyle: 'medium', timeStyle: 'short' })
-}
-
-function MessageLine({ message }: { message: Message }) {
-  if (!message) return null
-  return message.kind === 'error' ? (
-    <p className={styles.error} role="alert">
-      {message.text}
-    </p>
-  ) : (
-    <p className={styles.ok} role="status">
-      {message.text}
-    </p>
-  )
-}
-
-/** 保存のボタン列。ダイアログの中（「先に…保存する」）でも使う */
-function SaveButtons({ saveLabel }: { saveLabel?: string }) {
-  const { t } = useTranslation()
-  const { busy, message, save, share } = useBackupActions()
-  const shareable = useMemo(() => canShareBackup(), [])
-  return (
-    <div className={styles.group}>
-      <div className={styles.buttons}>
-        <button
-          type="button"
-          className="button button--block-sm"
-          disabled={busy}
-          onClick={() => void save()}
-        >
-          {busy ? t('backup.saving') : (saveLabel ?? t('backup.save'))}
-        </button>
-        {shareable && (
-          <button
-            type="button"
-            className="button button--block-sm"
-            disabled={busy}
-            onClick={() => void share()}
-          >
-            {t('backup.share')}
-          </button>
-        )}
-      </div>
-      {shareable && <p className={styles.hint}>{t('backup.shareNote')}</p>}
-      <MessageLine message={message} />
-    </div>
-  )
 }
 
 /** バックアップと初期化（仕様書 10.4、FR-SET-11〜13） */
@@ -109,7 +63,7 @@ export function BackupPanel() {
             ? t('backup.lastBackup', { date: formatDate(lastBackupAt) })
             : t('backup.never')}
         </p>
-        <SaveButtons />
+        <BackupButton />
       </div>
 
       <div className={styles.block}>
@@ -243,7 +197,7 @@ function RestoreDialog({
           />
           <Counts label="countsNow" counts={value.counts} />
           <p className={styles.strong}>{t('backup.replaceWarning')}</p>
-          <SaveButtons saveLabel={t('backup.saveFirst')} />
+          <BackupButton label={t('backup.saveFirst')} />
           {error && (
             <p className={styles.error} role="alert">
               {error}
@@ -306,7 +260,7 @@ function ResetDialog({ counts, onClose }: { counts: DataCounts | null; onClose()
         <div className={styles.dialogBody}>
           <p>{t('backup.resetBody', { count: counts.words })}</p>
           <p className={styles.strong}>{t('backup.cannotUndo')}</p>
-          <SaveButtons saveLabel={t('backup.saveFirst')} />
+          <BackupButton label={t('backup.saveFirst')} />
           {error && (
             <p className={styles.error} role="alert">
               {error}
