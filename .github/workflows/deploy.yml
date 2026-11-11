@@ -31,7 +31,8 @@ jobs:
       - run: npm run build # tsc -b（型チェック）を含む
       - run: npm run size # 初回表示の JS の大きさ（NFR-02）
       # E2E テスト（仕様書 13.1）。CI では Chromium だけで動かす
-      - run: npx playwright install --with-deps chromium
+      # Ubuntu のパッケージを取り寄せられないとき（CI のマシンの通信の不具合）は、ブラウザだけを入れて進める
+      - run: npx playwright install --with-deps chromium || npx playwright install chromium
       - run: npx playwright test --project=chromium
       - run: npx playwright test --project=perf # 1万語での性能（NFR-01）。ほかのテストと同時に動かさない
       - uses: actions/upload-pages-artifact@v5
