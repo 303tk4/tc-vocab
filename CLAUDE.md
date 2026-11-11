@@ -2,7 +2,7 @@
 
 台湾華語（繁体字）の単語を学ぶブラウザアプリ。React + TypeScript で作り、GitHub Pages で公開している。
 
-- 公開 URL：https://303tk4.github.io/tc-vocab/
+- 公開 URL：https://tc-vocab.fromzeropoint.com/
 - 仕様の正本は [docs/SPEC.md](docs/SPEC.md)。このファイルは要点と作業の決まりだけをまとめたもの。食い違ったときは SPEC.md を優先する。
 
 ## 作業の進め方
@@ -42,7 +42,7 @@ npm test               # Vitest（一度だけ実行）
 npm run build          # 型チェック（tsc -b）+ ビルド
 npm run size           # 初回表示の JS の大きさ（gzip 後 200KB 以下、NFR-02）
 npm run test:e2e       # E2E（Playwright。先に build。Chrome だけなら `npx playwright test --project=chromium`）
-npm run preview        # ビルド結果の確認（/tc-vocab/ 配下）
+npm run preview        # ビルド結果の確認（http://localhost:4173/）
 ```
 
 ## コミット前のチェック（必須）

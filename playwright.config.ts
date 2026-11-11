@@ -20,7 +20,7 @@ export default defineConfig({
   // まれに間に合わないため
   expect: { timeout: 8_000 },
   use: {
-    baseURL: `http://localhost:${PORT}/tc-vocab/`,
+    baseURL: `http://localhost:${PORT}/`,
     locale: 'ja-JP',
     trace: 'retain-on-failure',
     // Service Worker はオフラインの確かめ（offline.spec.ts）でだけ使う
@@ -44,7 +44,7 @@ export default defineConfig({
   ],
   webServer: {
     command: `npm run preview -- --port ${PORT} --strictPort`,
-    url: `http://localhost:${PORT}/tc-vocab/`,
+    url: `http://localhost:${PORT}/`,
     reuseExistingServer: !isCI,
   },
 })

@@ -16,8 +16,8 @@ const { version } = JSON.parse(
 // https://vite.dev/config/
 export default defineConfig({
   define: { __APP_VERSION__: JSON.stringify(version) },
-  // GitHub Pages の公開パス（https://<user>.github.io/tc-vocab/）。仕様書 12.2
-  base: '/tc-vocab/',
+  // 独自ドメインのサブドメイン直下で公開する（https://tc-vocab.fromzeropoint.com/）。仕様書 12.2
+  base: '/',
   plugins: [
     react(),
     // ライブラリのライセンスの一覧 licenses.json（FR-SET-08）。事前キャッシュの対象になる

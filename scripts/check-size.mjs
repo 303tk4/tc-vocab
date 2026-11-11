@@ -6,7 +6,7 @@ import { gzipSync } from 'node:zlib'
 const LIMIT_KB = 200
 const html = readFileSync('dist/index.html', 'utf8')
 // index.html が読み込む JS（script と modulepreload）
-const files = [...html.matchAll(/(?:src|href)="\/tc-vocab\/(assets\/[^"]+\.js)"/g)].map((m) => m[1])
+const files = [...html.matchAll(/(?:src|href)="\/(assets\/[^"]+\.js)"/g)].map((m) => m[1])
 if (files.length === 0) {
   console.error('dist/index.html から JS が見つかりません。先に npm run build を実行してください。')
   process.exit(1)

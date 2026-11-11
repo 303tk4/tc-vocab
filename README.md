@@ -4,7 +4,7 @@ A browser app for learning Taiwanese Mandarin (Traditional Chinese) vocabulary. 
 
 台湾華語（繁体字）の単語を、スマートフォン・タブレット・パソコンのブラウザで学習するアプリです。
 
-**アプリを開く：<https://303tk4.github.io/tc-vocab/>**
+**アプリを開く：<https://tc-vocab.fromzeropoint.com/>**
 
 - 登録は要りません。単語と学習の記録は、お使いの端末（ブラウザ）の中だけに保存します。
 - インターネットに接続していなくても使えます（一度開いたあと）。
@@ -126,17 +126,17 @@ npx playwright install webkit
 
 ### コマンド
 
-| コマンド               | 内容                                                            |
-| ---------------------- | --------------------------------------------------------------- |
-| `npm run dev`          | 開発サーバーを起動                                              |
-| `npm run build`        | 型チェックと本番ビルド（`dist/` に出力）                        |
-| `npm run size`         | 初回表示の JS の大きさ（gzip 後 200KB 以下）を確認              |
-| `npm run preview`      | ビルド結果をローカルで確認（`http://localhost:4173/tc-vocab/`） |
-| `npm test`             | 単体テスト（Vitest）                                            |
-| `npm run test:e2e`     | E2E テスト（Playwright。先に `npm run build` が必要）           |
-| `npm run lint`         | ESLint                                                          |
-| `npm run format`       | Prettier で整形                                                 |
-| `npm run format:check` | 整形漏れの確認                                                  |
+| コマンド               | 内容                                                   |
+| ---------------------- | ------------------------------------------------------ |
+| `npm run dev`          | 開発サーバーを起動                                     |
+| `npm run build`        | 型チェックと本番ビルド（`dist/` に出力）               |
+| `npm run size`         | 初回表示の JS の大きさ（gzip 後 200KB 以下）を確認     |
+| `npm run preview`      | ビルド結果をローカルで確認（`http://localhost:4173/`） |
+| `npm test`             | 単体テスト（Vitest）                                   |
+| `npm run test:e2e`     | E2E テスト（Playwright。先に `npm run build` が必要）  |
+| `npm run lint`         | ESLint                                                 |
+| `npm run format`       | Prettier で整形                                        |
+| `npm run format:check` | 整形漏れの確認                                         |
 
 コミットの前に次をすべて通します。CI も同じ順に実行します。
 
