@@ -108,6 +108,12 @@ test('場面別会話（準備・表・裏・結果。単語が無くても開�
   await page.getByText('表示の設定').click()
   await expect(page.getByRole('checkbox', { name: '注音を表示' })).toBeVisible()
   await expectNoA11yViolations(page)
+  // 場面を選ぶダイアログ（FR-CONV-01、版 1.52）
+  await page.getByRole('button', { name: '場面を選び直す' }).click()
+  await expect(page.getByRole('dialog', { name: '場面を選ぶ' })).toBeVisible()
+  await expectNoA11yViolations(page)
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog')).toBeHidden()
 
   await startConversation(page)
   await expectNoA11yViolations(page)

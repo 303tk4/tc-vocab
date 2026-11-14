@@ -41,7 +41,7 @@ export interface SceneEntry {
   items: string[]
   /** 用意のある訓練の言語 */
   languages: string[]
-  /** 難しさ。1：基本、2：上級向け（FR-CONV-09） */
+  /** 難しさ。1：基本、2：中級向け（FR-CONV-09。版 1.52 で上級向けから名前を変更） */
   level: number
   /** 背景の画像（data/ からの相対パス。FR-CONV-16） */
   image?: string
@@ -411,4 +411,52 @@ export async function sceneImageUrl(scene: SceneEntry): Promise<string | null> {
   if (!scene.image) return null
   const load = imageFiles[`./data/${scene.image}`]
   return load ? load() : null
+}
+
+/** 難しさの名前の文言キー（setup.levels.*）。1：基本、2：中級向け、3 以上：上級向け（FR-CONV-09、版 1.52） */
+export function levelKey(level: number): '1' | '2' | '3' {
+  return level <= 1 ? '1' : level === 2 ? '2' : '3'
+}
+
+/** 場面を難しさごとにまとめる（並びは sortScenes の順。FR-CONV-09） */
+export function groupScenesByLevel(
+  scenes: readonly SceneEntry[],
+): { level: number; scenes: SceneEntry[] }[] {
+  const groups: { level: number; scenes: SceneEntry[] }[] = []
+  for (const scene of sortScenes(scenes)) {
+    const last = groups.at(-1)
+    if (last && levelKey(last.level) === levelKey(scene.level)) last.scenes.push(scene)
+    else groups.push({ level: scene.level, scenes: [scene] })
+  }
+  return groups
+}
+
+/** 準備画面に名前を並べる場面の数の上限。超えた分は「ほか N 件」とする（FR-CONV-01、版 1.52） */
+export const SCENE_SUMMARY_MAX = 3
+
+/**
+ * 準備画面に示す、選んでいる場面のまとめ（FR-CONV-01、版 1.52）。
+ * - all：何も選んでいない（すべての場面から出す）。count は選べる場面の数
+ * - unavailable：選んだ場面がどれも、この言語では出せない
+ * - some：選んでいる場面（並びは sortScenes の順）のうち先頭の数件と、残りの数
+ */
+export type SceneSummary =
+  | { kind: 'all'; count: number }
+  | { kind: 'unavailable' }
+  | { kind: 'some'; shown: SceneEntry[]; rest: number }
+
+export function summarizeScenes(
+  scenes: readonly SceneEntry[],
+  selectedIds: readonly string[],
+  language: string,
+): SceneSummary {
+  const usable = sortScenes(scenes).filter((s) => s.languages.includes(language))
+  if (selectedIds.length === 0) return { kind: 'all', count: usable.length }
+  const selected = usable.filter((s) => selectedIds.includes(s.id))
+  if (selected.length === 0) return { kind: 'unavailable' }
+  return {
+    kind: 'some',
+    shown: selected.slice(0, SCENE_SUMMARY_MAX),
+    rest: Math.max(0, selected.length - SCENE_SUMMARY_MAX),
+  }
 }

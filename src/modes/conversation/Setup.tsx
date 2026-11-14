@@ -1,6 +1,8 @@
 // 場面別会話の準備画面（仕様書 18.1 FR-CONV-01・09・22、18.2 FR-CONV-05〜07）
+// 場面は準備画面に選んでいるものだけを示し、一覧はダイアログで選ぶ（版 1.52）
 import { useEffect, useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Dialog } from '../../components/Dialog'
 import { SegmentedControl } from '../../components/SegmentedControl'
 import { languageName } from '../../i18n/languages'
 import type { SetupProps } from '../types'
@@ -8,13 +10,16 @@ import { KIND_FILTERS, sanitizeOptions, type ConversationOptions } from './optio
 import {
   availableLanguages,
   countItems,
+  groupScenesByLevel,
+  levelKey,
   loadSceneIndex,
   loadTranslation,
   pickLanguage,
   sceneCounts,
   studiedItemIds,
-  sortScenes,
+  summarizeScenes,
   type PhraseTranslation,
+  type SceneEntry,
   type SceneIndex,
 } from './scenes'
 import styles from './Setup.module.css'
@@ -37,6 +42,8 @@ export default function ConversationSetup({
   const [translation, setTranslation] = useState<PhraseTranslation | null>(null)
   // 進捗の記録がある項目の ID（r0001 など。FR-CONV-22）。読めなければ数を示さない
   const [studiedIds, setStudiedIds] = useState<ReadonlySet<string> | null>(null)
+  // 場面を選ぶダイアログ（FR-CONV-01、版 1.52）
+  const [choosing, setChoosing] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -105,6 +112,8 @@ export default function ConversationSetup({
         : [...options.scenes, sceneId],
     })
 
+  const summary = summarizeScenes(index.scenes, options.scenes, language)
+
   const languageOptions = languages.map((l) => ({ value: l, label: languageName(l), lang: l }))
 
   return (
@@ -140,57 +149,123 @@ export default function ConversationSetup({
         <p className={styles.hint}>{t('setup.languageHint')}</p>
       </div>
 
-      <fieldset className={styles.scenes}>
-        <legend className={styles.label}>{t('setup.scenes')}</legend>
-        <p className={styles.hint}>{t('setup.scenesHint')}</p>
-        <ul className={styles.sceneList}>
-          {sortScenes(index.scenes).map((scene) => {
-            const usable = scene.languages.includes(language)
-            const name = usable ? translation?.scenes[scene.id] : undefined
-            const counts = studiedIds && sceneCounts(scene, studiedIds)
-            return (
-              <li key={scene.id}>
-                <label className={styles.scene} data-disabled={!usable || undefined}>
-                  <input
-                    type="checkbox"
-                    checked={usable && options.scenes.includes(scene.id)}
-                    disabled={!usable}
-                    onChange={() => toggleScene(scene.id)}
-                  />
-                  <span className={styles.sceneText}>
-                    <span className={styles.sceneName}>
-                      <span lang="zh-TW">{scene.name}</span>
-                      {name && (
-                        <span className={styles.sceneLocal} lang={language}>
-                          {name}
-                        </span>
-                      )}
-                    </span>
-                    {/* 上級向けの印（FR-CONV-09） */}
-                    {scene.level >= 2 && (
-                      <span className={styles.badge}>{t('setup.advanced')}</span>
-                    )}
-                    {/* 出題済み / 登録の数（FR-CONV-22） */}
-                    {counts && (
-                      <span className={styles.counts}>
-                        {t('setup.sceneCounts', { studied: counts.studied, total: counts.total })}
-                      </span>
-                    )}
-                    {/* 選んだ言語の用意が無い場面（FR-CONV-07） */}
-                    {!usable && (
-                      <span className={styles.onlyIn}>
-                        {t('setup.onlyIn', {
-                          languages: scene.languages.map(languageName).join('・'),
-                        })}
-                      </span>
-                    )}
-                  </span>
-                </label>
+      {/* 選んでいる場面のまとめと、選び直すボタン（FR-CONV-01、版 1.52） */}
+      <div className={styles.field} role="group" aria-labelledby={`${id}-scenes`}>
+        <span id={`${id}-scenes`} className={styles.label}>
+          {t('setup.scenes')}
+        </span>
+        {summary.kind === 'all' && <p>{t('setup.scenesAll', { count: summary.count })}</p>}
+        {summary.kind === 'unavailable' && <p>{t('setup.scenesUnavailable')}</p>}
+        {summary.kind === 'some' && (
+          <ul className={styles.chosen}>
+            {summary.shown.map((scene) => (
+              <li key={scene.id} className={styles.chosenItem}>
+                <SceneName
+                  scene={scene}
+                  localName={translation?.scenes[scene.id]}
+                  language={language}
+                />
               </li>
-            )
-          })}
-        </ul>
-      </fieldset>
+            ))}
+            {summary.rest > 0 && (
+              <li className={styles.chosenMore}>
+                {t('setup.scenesMore', { count: summary.rest })}
+              </li>
+            )}
+          </ul>
+        )}
+        <div>
+          <button type="button" className="button" onClick={() => setChoosing(true)}>
+            {t('setup.chooseScenes')}
+          </button>
+        </div>
+      </div>
+
+      <Dialog
+        open={choosing}
+        title={t('setup.chooseScenesTitle')}
+        onClose={() => setChoosing(false)}
+        actions={
+          <button
+            type="button"
+            className="button button--primary"
+            onClick={() => setChoosing(false)}
+          >
+            {tc('common.close')}
+          </button>
+        }
+      >
+        <p className={styles.hint}>{t('setup.scenesHint')}</p>
+        <div className={styles.bulk}>
+          <button
+            type="button"
+            className="button"
+            onClick={() =>
+              change({
+                scenes: index.scenes.filter((s) => s.languages.includes(language)).map((s) => s.id),
+              })
+            }
+          >
+            {t('setup.selectAll')}
+          </button>
+          <button
+            type="button"
+            className="button"
+            disabled={options.scenes.length === 0}
+            onClick={() => change({ scenes: [] })}
+          >
+            {t('setup.clearAll')}
+          </button>
+        </div>
+        {/* 難しさごとに分け、基本を先に並べる（FR-CONV-09） */}
+        {groupScenesByLevel(index.scenes).map((group) => (
+          <fieldset key={group.level} className={styles.scenes}>
+            <legend className={styles.label}>{t(`setup.levels.${levelKey(group.level)}`)}</legend>
+            <ul className={styles.sceneList}>
+              {group.scenes.map((scene) => {
+                const usable = scene.languages.includes(language)
+                const counts = studiedIds && sceneCounts(scene, studiedIds)
+                return (
+                  <li key={scene.id}>
+                    <label className={styles.scene} data-disabled={!usable || undefined}>
+                      <input
+                        type="checkbox"
+                        checked={usable && options.scenes.includes(scene.id)}
+                        disabled={!usable}
+                        onChange={() => toggleScene(scene.id)}
+                      />
+                      <span className={styles.sceneText}>
+                        <SceneName
+                          scene={scene}
+                          localName={usable ? translation?.scenes[scene.id] : undefined}
+                          language={language}
+                        />
+                        {/* 出題済み / 登録の数（FR-CONV-22） */}
+                        {counts && (
+                          <span className={styles.counts}>
+                            {t('setup.sceneCounts', {
+                              studied: counts.studied,
+                              total: counts.total,
+                            })}
+                          </span>
+                        )}
+                        {/* 選んだ言語の用意が無い場面（FR-CONV-07） */}
+                        {!usable && (
+                          <span className={styles.onlyIn}>
+                            {t('setup.onlyIn', {
+                              languages: scene.languages.map(languageName).join('・'),
+                            })}
+                          </span>
+                        )}
+                      </span>
+                    </label>
+                  </li>
+                )
+              })}
+            </ul>
+          </fieldset>
+        ))}
+      </Dialog>
 
       <div className={styles.field}>
         <SegmentedControl
@@ -206,5 +281,27 @@ export default function ConversationSetup({
       </p>
       <p className={styles.hint}>{t('setup.changeNote')}</p>
     </div>
+  )
+}
+
+/** 場面の名前。繁体字の名前と、訓練の言語の名前を並べる（18.2） */
+function SceneName({
+  scene,
+  localName,
+  language,
+}: {
+  scene: SceneEntry
+  localName: string | undefined
+  language: string
+}) {
+  return (
+    <span className={styles.sceneName}>
+      <span lang="zh-TW">{scene.name}</span>
+      {localName && (
+        <span className={styles.sceneLocal} lang={language}>
+          {localName}
+        </span>
+      )}
+    </span>
   )
 }

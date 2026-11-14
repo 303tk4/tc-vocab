@@ -8,7 +8,9 @@
     "transport": "Getting around (taxi, MRT, bus)",
     "clinic": "Clinic / hospital",
     "device-repair": "Phone and computer repair",
-    "bulky-waste": "Bulky waste pickup"
+    "bulky-waste": "Bulky waste pickup",
+    "immigration": "Immigration Agency",
+    "rental": "Renting a room"
   },
   "items": {
     "r0001": {
@@ -704,6 +706,242 @@
       ],
       "note": "Rubbish is usually sorted into general waste, recycling (資源回收) and food waste (廚餘)."
     },
+    "r0098": {
+      "line": "Hello, what can I help you with?",
+      "answers": [
+        "I'd like to extend my ARC.",
+        "I'd like to ask about my residence status."
+      ],
+      "note": "移民署 is the National Immigration Agency, which handles foreigners' residence. Procedures can change, so check the latest information with the agency."
+    },
+    "r0099": {
+      "line": "Please take a number first.",
+      "answers": [
+        "OK, where do I get one?",
+        "OK, thank you."
+      ],
+      "note": "號碼牌 is a queue ticket. You often choose your purpose on a machine to get one."
+    },
+    "r0100": {
+      "line": "Your passport and ARC, please.",
+      "answers": [
+        "Here you are."
+      ],
+      "note": "居留證 is the Alien Resident Certificate (ARC) for foreigners living in Taiwan."
+    },
+    "r0101": {
+      "line": "Did you bring your certificate of enrollment?",
+      "answers": [
+        "Yes, here it is.",
+        "No. Do I have to bring it?"
+      ],
+      "note": "在學證明 is a certificate of enrollment issued by your school. It is usually required to extend a student ARC."
+    },
+    "r0102": {
+      "line": "Where do you study?",
+      "answers": [
+        "I'm learning Chinese at a university language center.",
+        "I'm a graduate student."
+      ],
+      "note": "語言中心 is a university language center offering Mandarin classes for foreigners."
+    },
+    "r0103": {
+      "line": "When do you graduate?",
+      "answers": [
+        "I graduate this June.",
+        "I've already graduated."
+      ]
+    },
+    "r0104": {
+      "line": "What are your plans after graduation?",
+      "answers": [
+        "I'd like to stay in Taiwan and look for a job.",
+        "I'm going back to my country to work."
+      ]
+    },
+    "r0105": {
+      "line": "When does your ARC expire?",
+      "answers": [
+        "Next month.",
+        "At the end of this month."
+      ]
+    },
+    "r0106": {
+      "line": "Has your work permit come through?",
+      "answers": [
+        "Yes, here's the approval letter.",
+        "Not yet. The company is still applying."
+      ],
+      "note": "工作許可 is a work permit from the Ministry of Labor. The employer usually applies for it. After it is granted, you change the purpose of your residence at the Immigration Agency."
+    },
+    "r0107": {
+      "line": "What's the company's name and address?",
+      "answers": [
+        "They're both on this document.",
+        "I'll write them down for you."
+      ]
+    },
+    "r0108": {
+      "line": "Has your address changed?",
+      "answers": [
+        "No, it hasn't.",
+        "Yes, I moved last month."
+      ],
+      "note": "If you move, you usually need to report your new address."
+    },
+    "r0109": {
+      "line": "The photo needs to be a recent one.",
+      "answers": [
+        "OK, I'll bring one tomorrow.",
+        "Where can I get photos taken nearby?"
+      ],
+      "note": "There are usually rules on the size of the photo and when it was taken."
+    },
+    "r0110": {
+      "line": "You need to submit more documents for this.",
+      "answers": [
+        "What do I need to submit?",
+        "Can I send it online?"
+      ],
+      "note": "補件 means submitting missing documents afterwards."
+    },
+    "r0111": {
+      "line": "Please go over there and pay the fee first.",
+      "answers": [
+        "OK. Can I pay by card?",
+        "How much do I need to pay?"
+      ],
+      "note": "規費 is the processing fee."
+    },
+    "r0112": {
+      "line": "It takes about seven working days.",
+      "answers": [
+        "OK, how do I pick it up?",
+        "Could it be faster? I'm leaving the country next month."
+      ],
+      "note": "工作天 means working days. How long it takes depends on the procedure and the season."
+    },
+    "r0113": {
+      "line": "Will you pick up the new ARC yourself, or shall we mail it to you?",
+      "answers": [
+        "I'll come and pick it up.",
+        "Please mail it to me."
+      ],
+      "note": "You can usually choose to pick it up in person or have it sent by registered mail."
+    },
+    "r0114": {
+      "line": "You can apply for this online.",
+      "answers": [
+        "Really? Where do I apply?",
+        "OK, I'll try it when I get home."
+      ],
+      "note": "Some procedures, such as extending an ARC, can be done online."
+    },
+    "r0115": {
+      "line": "Hello, are you here to see the place?",
+      "answers": [
+        "Yes, I called yesterday.",
+        "Yes, I'd like to see this studio."
+      ],
+      "note": "套房 is a room with its own bathroom, 雅房 a room with a shared bathroom, and 整層 a whole apartment."
+    },
+    "r0116": {
+      "line": "Are you a student or do you work?",
+      "answers": [
+        "I'm a student.",
+        "I work."
+      ]
+    },
+    "r0117": {
+      "line": "Will you be living alone?",
+      "answers": [
+        "Yes, just me.",
+        "I'll be living with a friend, so two of us."
+      ]
+    },
+    "r0118": {
+      "line": "How long are you planning to stay?",
+      "answers": [
+        "At least a year.",
+        "About six months. Is that OK?"
+      ],
+      "note": "Leases are usually for one year."
+    },
+    "r0119": {
+      "line": "Do you have any pets?",
+      "answers": [
+        "No.",
+        "I have a cat. Is that OK?"
+      ]
+    },
+    "r0120": {
+      "line": "Do you smoke?",
+      "answers": [
+        "No.",
+        "Yes, but I always smoke outside."
+      ]
+    },
+    "r0121": {
+      "line": "The rent is 12,000 a month, and the deposit is two months.",
+      "answers": [
+        "Does the rent include the management fee?",
+        "Could the deposit be one month?"
+      ],
+      "note": "押金 is the security deposit. It is often two months' rent and is returned when you move out."
+    },
+    "r0122": {
+      "line": "Electricity is 5 per unit.",
+      "answers": [
+        "Is it the power company's rate?",
+        "Is the air conditioning charged the same way?"
+      ],
+      "note": "度 is a kilowatt-hour. Landlords often set their own rate per unit using each room's meter. 台電 is Taiwan's power company."
+    },
+    "r0123": {
+      "line": "Water and internet are included in the rent.",
+      "answers": [
+        "Great.",
+        "How fast is the internet?"
+      ]
+    },
+    "r0124": {
+      "line": "No cooking is allowed here.",
+      "answers": [
+        "Then can I use an electric cooker?",
+        "OK, I understand."
+      ],
+      "note": "開伙 means cooking in your room; many places do not allow it. 電鍋 is the electric steamer-cooker found in most Taiwanese homes."
+    },
+    "r0125": {
+      "line": "The lease is for one year.",
+      "answers": [
+        "OK.",
+        "What happens if I move out early?"
+      ]
+    },
+    "r0126": {
+      "line": "If you end the lease early, the deposit won't be returned.",
+      "answers": [
+        "How much notice do I need to give?",
+        "OK, I understand."
+      ],
+      "note": "What happens when you end a lease early depends on the contract. Check it before signing."
+    },
+    "r0127": {
+      "line": "When can you move in?",
+      "answers": [
+        "On the first of next month.",
+        "As soon as possible."
+      ]
+    },
+    "r0128": {
+      "line": "You have to take out the rubbish yourself.",
+      "answers": [
+        "OK, I understand.",
+        "How should I sort the rubbish?"
+      ],
+      "note": "Many buildings have no rubbish room, and you hand your rubbish directly to the garbage truck."
+    },
     "s0001": {
       "intent": "You want to say you don't need a bag.",
       "answers": [
@@ -1334,6 +1572,105 @@
       "answers": [
         "Is this recyclable?",
         "Where should this go?"
+      ]
+    },
+    "s0096": {
+      "intent": "You want to say your ARC is about to expire and you want to extend it.",
+      "answers": [
+        "My ARC is about to expire. I'd like to extend it."
+      ]
+    },
+    "s0097": {
+      "intent": "You want to ask what you need to do to stay in Taiwan and look for work after graduating.",
+      "answers": [
+        "I'd like to stay in Taiwan to look for a job after I graduate. What do I need to do?"
+      ],
+      "note": "Graduates can extend their residence to look for work. Check the conditions and duration with the Immigration Agency."
+    },
+    "s0098": {
+      "intent": "You want to ask how to change your ARC now that you have found a job.",
+      "answers": [
+        "I've found a job. How do I change my ARC?"
+      ]
+    },
+    "s0099": {
+      "intent": "You want to ask which documents you need to prepare.",
+      "answers": [
+        "Which documents do I need to prepare?"
+      ]
+    },
+    "s0100": {
+      "intent": "You want them to show you how to fill in the form.",
+      "answers": [
+        "How do I fill in this form?",
+        "Could you show me how to fill it in?"
+      ]
+    },
+    "s0101": {
+      "intent": "You want to ask if you can leave the country before you get your new ARC.",
+      "answers": [
+        "Can I leave the country before I get my new ARC?"
+      ]
+    },
+    "s0102": {
+      "intent": "You want to say you have moved and need to change your address.",
+      "answers": [
+        "I've moved and would like to change my address."
+      ]
+    },
+    "s0103": {
+      "intent": "You want to ask how they will let you know when it is done.",
+      "answers": [
+        "How will you let me know when it's ready?"
+      ]
+    },
+    "s0104": {
+      "intent": "You want to see the place and ask when is convenient.",
+      "answers": [
+        "I'd like to see the place. When would be convenient?"
+      ]
+    },
+    "s0105": {
+      "intent": "You want to ask what the rent includes.",
+      "answers": [
+        "What does the rent include?"
+      ]
+    },
+    "s0106": {
+      "intent": "You want to ask how electricity is charged.",
+      "answers": [
+        "How is electricity charged?"
+      ]
+    },
+    "s0107": {
+      "intent": "You want to ask if pets are allowed.",
+      "answers": [
+        "Are pets allowed?"
+      ]
+    },
+    "s0108": {
+      "intent": "You want to ask about a washing machine and where to dry clothes.",
+      "answers": [
+        "Is there a washing machine?",
+        "Where can I hang my laundry?"
+      ]
+    },
+    "s0109": {
+      "intent": "You want to ask who to contact if something breaks.",
+      "answers": [
+        "Who do I contact if something breaks?"
+      ]
+    },
+    "s0110": {
+      "intent": "You want to ask if public transport nearby is convenient.",
+      "answers": [
+        "Is public transport convenient around here?"
+      ]
+    },
+    "s0111": {
+      "intent": "You want to read the lease before signing.",
+      "answers": [
+        "Could I see the lease first?"
       ]
     }
   }

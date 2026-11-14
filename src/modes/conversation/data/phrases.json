@@ -1896,6 +1896,652 @@
       ]
     },
     {
+      "id": "r0098",
+      "kind": "respond",
+      "line": {
+        "text": "您好，要辦什麼？",
+        "zhuyin": "ㄋㄧㄣˊ ㄏㄠˇ，ㄧㄠˋ ㄅㄢˋ ㄕㄣˊ ˙ㄇㄜ？",
+        "pinyin": "nín hǎo, yào bàn shén me?"
+      },
+      "answers": [
+        {
+          "text": "我要延長居留證。",
+          "zhuyin": "ㄨㄛˇ ㄧㄠˋ ㄧㄢˊ ㄔㄤˊ ㄐㄩ ㄌㄧㄡˊ ㄓㄥˋ。",
+          "pinyin": "wǒ yào yán cháng jū liú zhèng."
+        },
+        {
+          "text": "我想問居留的事情。",
+          "zhuyin": "ㄨㄛˇ ㄒㄧㄤˇ ㄨㄣˋ ㄐㄩ ㄌㄧㄡˊ ˙ㄉㄜ ㄕˋ ㄑㄧㄥˊ。",
+          "pinyin": "wǒ xiǎng wèn jū liú de shì qíng."
+        }
+      ]
+    },
+    {
+      "id": "r0099",
+      "kind": "respond",
+      "line": {
+        "text": "請先抽號碼牌。",
+        "zhuyin": "ㄑㄧㄥˇ ㄒㄧㄢ ㄔㄡ ㄏㄠˋ ㄇㄚˇ ㄆㄞˊ。",
+        "pinyin": "qǐng xiān chōu hào mǎ pái."
+      },
+      "answers": [
+        {
+          "text": "好，在哪裡抽？",
+          "zhuyin": "ㄏㄠˇ，ㄗㄞˋ ㄋㄚˇ ㄌㄧˇ ㄔㄡ？",
+          "pinyin": "hǎo, zài nǎ lǐ chōu?"
+        },
+        {
+          "text": "好，謝謝。",
+          "zhuyin": "ㄏㄠˇ，ㄒㄧㄝˋ ˙ㄒㄧㄝ。",
+          "pinyin": "hǎo, xiè xie."
+        }
+      ]
+    },
+    {
+      "id": "r0100",
+      "kind": "respond",
+      "line": {
+        "text": "護照跟居留證給我。",
+        "zhuyin": "ㄏㄨˋ ㄓㄠˋ ㄍㄣ ㄐㄩ ㄌㄧㄡˊ ㄓㄥˋ ㄍㄟˇ ㄨㄛˇ。",
+        "pinyin": "hù zhào gēn jū liú zhèng gěi wǒ."
+      },
+      "answers": [
+        {
+          "text": "好，在這裡。",
+          "zhuyin": "ㄏㄠˇ，ㄗㄞˋ ㄓㄜˋ ㄌㄧˇ。",
+          "pinyin": "hǎo, zài zhè lǐ."
+        }
+      ]
+    },
+    {
+      "id": "r0101",
+      "kind": "respond",
+      "line": {
+        "text": "有帶在學證明嗎？",
+        "zhuyin": "ㄧㄡˇ ㄉㄞˋ ㄗㄞˋ ㄒㄩㄝˊ ㄓㄥˋ ㄇㄧㄥˊ ˙ㄇㄚ？",
+        "pinyin": "yǒu dài zài xué zhèng míng ma?"
+      },
+      "answers": [
+        {
+          "text": "有，在這裡。",
+          "zhuyin": "ㄧㄡˇ，ㄗㄞˋ ㄓㄜˋ ㄌㄧˇ。",
+          "pinyin": "yǒu, zài zhè lǐ."
+        },
+        {
+          "text": "沒有，一定要帶嗎？",
+          "zhuyin": "ㄇㄟˊ ㄧㄡˇ，ㄧ ㄉㄧㄥˋ ㄧㄠˋ ㄉㄞˋ ˙ㄇㄚ？",
+          "pinyin": "méi yǒu, yī dìng yào dài ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0102",
+      "kind": "respond",
+      "line": {
+        "text": "你在哪裡念書？",
+        "zhuyin": "ㄋㄧˇ ㄗㄞˋ ㄋㄚˇ ㄌㄧˇ ㄋㄧㄢˋ ㄕㄨ？",
+        "pinyin": "nǐ zài nǎ lǐ niàn shū?"
+      },
+      "answers": [
+        {
+          "text": "我在大學的語言中心學中文。",
+          "zhuyin": "ㄨㄛˇ ㄗㄞˋ ㄉㄚˋ ㄒㄩㄝˊ ˙ㄉㄜ ㄩˇ ㄧㄢˊ ㄓㄨㄥ ㄒㄧㄣ ㄒㄩㄝˊ ㄓㄨㄥ ㄨㄣˊ。",
+          "pinyin": "wǒ zài dà xué de yǔ yán zhōng xīn xué zhōng wén."
+        },
+        {
+          "text": "我是研究所的學生。",
+          "zhuyin": "ㄨㄛˇ ㄕˋ ㄧㄢˊ ㄐㄧㄡˋ ㄙㄨㄛˇ ˙ㄉㄜ ㄒㄩㄝˊ ㄕㄥ。",
+          "pinyin": "wǒ shì yán jiù suǒ de xué shēng."
+        }
+      ]
+    },
+    {
+      "id": "r0103",
+      "kind": "respond",
+      "line": {
+        "text": "什麼時候畢業？",
+        "zhuyin": "ㄕㄣˊ ˙ㄇㄜ ㄕˊ ㄏㄡˋ ㄅㄧˋ ㄧㄝˋ？",
+        "pinyin": "shén me shí hòu bì yè?"
+      },
+      "answers": [
+        {
+          "text": "今年六月畢業。",
+          "zhuyin": "ㄐㄧㄣ ㄋㄧㄢˊ ㄌㄧㄡˋ ㄩㄝˋ ㄅㄧˋ ㄧㄝˋ。",
+          "pinyin": "jīn nián liù yuè bì yè."
+        },
+        {
+          "text": "我已經畢業了。",
+          "zhuyin": "ㄨㄛˇ ㄧˇ ㄐㄧㄥ ㄅㄧˋ ㄧㄝˋ ˙ㄌㄜ。",
+          "pinyin": "wǒ yǐ jīng bì yè le."
+        }
+      ]
+    },
+    {
+      "id": "r0104",
+      "kind": "respond",
+      "line": {
+        "text": "畢業以後有什麼打算？",
+        "zhuyin": "ㄅㄧˋ ㄧㄝˋ ㄧˇ ㄏㄡˋ ㄧㄡˇ ㄕㄣˊ ˙ㄇㄜ ㄉㄚˇ ㄙㄨㄢˋ？",
+        "pinyin": "bì yè yǐ hòu yǒu shén me dǎ suàn?"
+      },
+      "answers": [
+        {
+          "text": "我想留在台灣找工作。",
+          "zhuyin": "ㄨㄛˇ ㄒㄧㄤˇ ㄌㄧㄡˊ ㄗㄞˋ ㄊㄞˊ ㄨㄢ ㄓㄠˇ ㄍㄨㄥ ㄗㄨㄛˋ。",
+          "pinyin": "wǒ xiǎng liú zài tái wān zhǎo gōng zuò."
+        },
+        {
+          "text": "我要回國工作。",
+          "zhuyin": "ㄨㄛˇ ㄧㄠˋ ㄏㄨㄟˊ ㄍㄨㄛˊ ㄍㄨㄥ ㄗㄨㄛˋ。",
+          "pinyin": "wǒ yào huí guó gōng zuò."
+        }
+      ]
+    },
+    {
+      "id": "r0105",
+      "kind": "respond",
+      "line": {
+        "text": "你的居留證什麼時候到期？",
+        "zhuyin": "ㄋㄧˇ ˙ㄉㄜ ㄐㄩ ㄌㄧㄡˊ ㄓㄥˋ ㄕㄣˊ ˙ㄇㄜ ㄕˊ ㄏㄡˋ ㄉㄠˋ ㄑㄧˊ？",
+        "pinyin": "nǐ de jū liú zhèng shén me shí hòu dào qí?"
+      },
+      "answers": [
+        {
+          "text": "下個月到期。",
+          "zhuyin": "ㄒㄧㄚˋ ㄍㄜˋ ㄩㄝˋ ㄉㄠˋ ㄑㄧˊ。",
+          "pinyin": "xià gè yuè dào qí."
+        },
+        {
+          "text": "這個月底。",
+          "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄩㄝˋ ㄉㄧˇ。",
+          "pinyin": "zhè ge yuè dǐ."
+        }
+      ]
+    },
+    {
+      "id": "r0106",
+      "kind": "respond",
+      "line": {
+        "text": "工作許可下來了嗎？",
+        "zhuyin": "ㄍㄨㄥ ㄗㄨㄛˋ ㄒㄩˇ ㄎㄜˇ ㄒㄧㄚˋ ㄌㄞˊ ˙ㄌㄜ ˙ㄇㄚ？",
+        "pinyin": "gōng zuò xǔ kě xià lái le ma?"
+      },
+      "answers": [
+        {
+          "text": "下來了，這是許可函。",
+          "zhuyin": "ㄒㄧㄚˋ ㄌㄞˊ ˙ㄌㄜ，ㄓㄜˋ ㄕˋ ㄒㄩˇ ㄎㄜˇ ㄏㄢˊ。",
+          "pinyin": "xià lái le, zhè shì xǔ kě hán."
+        },
+        {
+          "text": "還沒，公司還在申請。",
+          "zhuyin": "ㄏㄞˊ ㄇㄟˊ，ㄍㄨㄥ ㄙ ㄏㄞˊ ㄗㄞˋ ㄕㄣ ㄑㄧㄥˇ。",
+          "pinyin": "hái méi, gōng sī hái zài shēn qǐng."
+        }
+      ]
+    },
+    {
+      "id": "r0107",
+      "kind": "respond",
+      "line": {
+        "text": "公司的名稱跟地址是？",
+        "zhuyin": "ㄍㄨㄥ ㄙ ˙ㄉㄜ ㄇㄧㄥˊ ㄔㄥ ㄍㄣ ㄉㄧˋ ㄓˇ ㄕˋ？",
+        "pinyin": "gōng sī de míng chēng gēn dì zhǐ shì?"
+      },
+      "answers": [
+        {
+          "text": "都寫在這份文件上。",
+          "zhuyin": "ㄉㄡ ㄒㄧㄝˇ ㄗㄞˋ ㄓㄜˋ ㄈㄣˋ ㄨㄣˊ ㄐㄧㄢˋ ㄕㄤˋ。",
+          "pinyin": "dōu xiě zài zhè fèn wén jiàn shàng."
+        },
+        {
+          "text": "我寫給你。",
+          "zhuyin": "ㄨㄛˇ ㄒㄧㄝˇ ㄍㄟˇ ㄋㄧˇ。",
+          "pinyin": "wǒ xiě gěi nǐ."
+        }
+      ]
+    },
+    {
+      "id": "r0108",
+      "kind": "respond",
+      "line": {
+        "text": "你的地址有沒有變？",
+        "zhuyin": "ㄋㄧˇ ˙ㄉㄜ ㄉㄧˋ ㄓˇ ㄧㄡˇ ㄇㄟˊ ㄧㄡˇ ㄅㄧㄢˋ？",
+        "pinyin": "nǐ de dì zhǐ yǒu méi yǒu biàn?"
+      },
+      "answers": [
+        {
+          "text": "沒有變。",
+          "zhuyin": "ㄇㄟˊ ㄧㄡˇ ㄅㄧㄢˋ。",
+          "pinyin": "méi yǒu biàn."
+        },
+        {
+          "text": "有，我上個月搬家了。",
+          "zhuyin": "ㄧㄡˇ，ㄨㄛˇ ㄕㄤˋ ㄍㄜˋ ㄩㄝˋ ㄅㄢ ㄐㄧㄚ ˙ㄌㄜ。",
+          "pinyin": "yǒu, wǒ shàng gè yuè bān jiā le."
+        }
+      ]
+    },
+    {
+      "id": "r0109",
+      "kind": "respond",
+      "line": {
+        "text": "照片要最近拍的。",
+        "zhuyin": "ㄓㄠˋ ㄆㄧㄢˋ ㄧㄠˋ ㄗㄨㄟˋ ㄐㄧㄣˋ ㄆㄞ ˙ㄉㄜ。",
+        "pinyin": "zhào piàn yào zuì jìn pāi de."
+      },
+      "answers": [
+        {
+          "text": "好，我明天再拿來。",
+          "zhuyin": "ㄏㄠˇ，ㄨㄛˇ ㄇㄧㄥˊ ㄊㄧㄢ ㄗㄞˋ ㄋㄚˊ ㄌㄞˊ。",
+          "pinyin": "hǎo, wǒ míng tiān zài ná lái."
+        },
+        {
+          "text": "附近哪裡可以拍照？",
+          "zhuyin": "ㄈㄨˋ ㄐㄧㄣˋ ㄋㄚˇ ㄌㄧˇ ㄎㄜˇ ㄧˇ ㄆㄞ ㄓㄠˋ？",
+          "pinyin": "fù jìn nǎ lǐ kě yǐ pāi zhào?"
+        }
+      ]
+    },
+    {
+      "id": "r0110",
+      "kind": "respond",
+      "line": {
+        "text": "這份文件要補件。",
+        "zhuyin": "ㄓㄜˋ ㄈㄣˋ ㄨㄣˊ ㄐㄧㄢˋ ㄧㄠˋ ㄅㄨˇ ㄐㄧㄢˋ。",
+        "pinyin": "zhè fèn wén jiàn yào bǔ jiàn."
+      },
+      "answers": [
+        {
+          "text": "要補什麼？",
+          "zhuyin": "ㄧㄠˋ ㄅㄨˇ ㄕㄣˊ ˙ㄇㄜ？",
+          "pinyin": "yào bǔ shén me?"
+        },
+        {
+          "text": "可以用網路傳嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄩㄥˋ ㄨㄤˇ ㄌㄨˋ ㄔㄨㄢˊ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ yòng wǎng lù chuán ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0111",
+      "kind": "respond",
+      "line": {
+        "text": "請先去那邊繳費。",
+        "zhuyin": "ㄑㄧㄥˇ ㄒㄧㄢ ㄑㄩˋ ㄋㄚˋ ㄅㄧㄢ ㄐㄧㄠˇ ㄈㄟˋ。",
+        "pinyin": "qǐng xiān qù nà biān jiǎo fèi."
+      },
+      "answers": [
+        {
+          "text": "好，可以刷卡嗎？",
+          "zhuyin": "ㄏㄠˇ，ㄎㄜˇ ㄧˇ ㄕㄨㄚ ㄎㄚˇ ˙ㄇㄚ？",
+          "pinyin": "hǎo, kě yǐ shuā kǎ ma?"
+        },
+        {
+          "text": "請問要繳多少？",
+          "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ ㄧㄠˋ ㄐㄧㄠˇ ㄉㄨㄛ ㄕㄠˇ？",
+          "pinyin": "qǐng wèn yào jiǎo duō shǎo?"
+        }
+      ]
+    },
+    {
+      "id": "r0112",
+      "kind": "respond",
+      "line": {
+        "text": "大概要七個工作天。",
+        "zhuyin": "ㄉㄚˋ ㄍㄞˋ ㄧㄠˋ ㄑㄧ ㄍㄜˋ ㄍㄨㄥ ㄗㄨㄛˋ ㄊㄧㄢ。",
+        "pinyin": "dà gài yào qī gè gōng zuò tiān."
+      },
+      "answers": [
+        {
+          "text": "好，要怎麼領？",
+          "zhuyin": "ㄏㄠˇ，ㄧㄠˋ ㄗㄣˇ ˙ㄇㄜ ㄌㄧㄥˇ？",
+          "pinyin": "hǎo, yào zěn me lǐng?"
+        },
+        {
+          "text": "可以快一點嗎？我下個月要出國。",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄎㄨㄞˋ ㄧ ㄉㄧㄢˇ ˙ㄇㄚ？ㄨㄛˇ ㄒㄧㄚˋ ㄍㄜˋ ㄩㄝˋ ㄧㄠˋ ㄔㄨ ㄍㄨㄛˊ。",
+          "pinyin": "kě yǐ kuài yī diǎn ma? wǒ xià gè yuè yào chū guó."
+        }
+      ]
+    },
+    {
+      "id": "r0113",
+      "kind": "respond",
+      "line": {
+        "text": "新的居留證要自己來拿，還是寄給你？",
+        "zhuyin": "ㄒㄧㄣ ˙ㄉㄜ ㄐㄩ ㄌㄧㄡˊ ㄓㄥˋ ㄧㄠˋ ㄗˋ ㄐㄧˇ ㄌㄞˊ ㄋㄚˊ，ㄏㄞˊ ㄕˋ ㄐㄧˋ ㄍㄟˇ ㄋㄧˇ？",
+        "pinyin": "xīn de jū liú zhèng yào zì jǐ lái ná, hái shì jì gěi nǐ?"
+      },
+      "answers": [
+        {
+          "text": "我自己來拿。",
+          "zhuyin": "ㄨㄛˇ ㄗˋ ㄐㄧˇ ㄌㄞˊ ㄋㄚˊ。",
+          "pinyin": "wǒ zì jǐ lái ná."
+        },
+        {
+          "text": "請寄給我。",
+          "zhuyin": "ㄑㄧㄥˇ ㄐㄧˋ ㄍㄟˇ ㄨㄛˇ。",
+          "pinyin": "qǐng jì gěi wǒ."
+        }
+      ]
+    },
+    {
+      "id": "r0114",
+      "kind": "respond",
+      "line": {
+        "text": "這個可以在網路上申請。",
+        "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄎㄜˇ ㄧˇ ㄗㄞˋ ㄨㄤˇ ㄌㄨˋ ㄕㄤˋ ㄕㄣ ㄑㄧㄥˇ。",
+        "pinyin": "zhè ge kě yǐ zài wǎng lù shàng shēn qǐng."
+      },
+      "answers": [
+        {
+          "text": "是嗎？要在哪裡申請？",
+          "zhuyin": "ㄕˋ ˙ㄇㄚ？ㄧㄠˋ ㄗㄞˋ ㄋㄚˇ ㄌㄧˇ ㄕㄣ ㄑㄧㄥˇ？",
+          "pinyin": "shì ma? yào zài nǎ lǐ shēn qǐng?"
+        },
+        {
+          "text": "好，我回去試試看。",
+          "zhuyin": "ㄏㄠˇ，ㄨㄛˇ ㄏㄨㄟˊ ˙ㄑㄩ ㄕˋ ˙ㄕ ㄎㄢˋ。",
+          "pinyin": "hǎo, wǒ huí qu shì shi kàn."
+        }
+      ]
+    },
+    {
+      "id": "r0115",
+      "kind": "respond",
+      "line": {
+        "text": "你好，是要來看房子的嗎？",
+        "zhuyin": "ㄋㄧˇ ㄏㄠˇ，ㄕˋ ㄧㄠˋ ㄌㄞˊ ㄎㄢˋ ㄈㄤˊ ˙ㄗ ˙ㄉㄜ ˙ㄇㄚ？",
+        "pinyin": "nǐ hǎo, shì yào lái kàn fáng zi de ma?"
+      },
+      "answers": [
+        {
+          "text": "對，我昨天有打電話。",
+          "zhuyin": "ㄉㄨㄟˋ，ㄨㄛˇ ㄗㄨㄛˊ ㄊㄧㄢ ㄧㄡˇ ㄉㄚˇ ㄉㄧㄢˋ ㄏㄨㄚˋ。",
+          "pinyin": "duì, wǒ zuó tiān yǒu dǎ diàn huà."
+        },
+        {
+          "text": "對，我想看這間套房。",
+          "zhuyin": "ㄉㄨㄟˋ，ㄨㄛˇ ㄒㄧㄤˇ ㄎㄢˋ ㄓㄜˋ ㄐㄧㄢ ㄊㄠˋ ㄈㄤˊ。",
+          "pinyin": "duì, wǒ xiǎng kàn zhè jiān tào fáng."
+        }
+      ]
+    },
+    {
+      "id": "r0116",
+      "kind": "respond",
+      "line": {
+        "text": "你是學生還是上班族？",
+        "zhuyin": "ㄋㄧˇ ㄕˋ ㄒㄩㄝˊ ㄕㄥ ㄏㄞˊ ㄕˋ ㄕㄤˋ ㄅㄢ ㄗㄨˊ？",
+        "pinyin": "nǐ shì xué shēng hái shì shàng bān zú?"
+      },
+      "answers": [
+        {
+          "text": "我是學生。",
+          "zhuyin": "ㄨㄛˇ ㄕˋ ㄒㄩㄝˊ ㄕㄥ。",
+          "pinyin": "wǒ shì xué shēng."
+        },
+        {
+          "text": "我在上班。",
+          "zhuyin": "ㄨㄛˇ ㄗㄞˋ ㄕㄤˋ ㄅㄢ。",
+          "pinyin": "wǒ zài shàng bān."
+        }
+      ]
+    },
+    {
+      "id": "r0117",
+      "kind": "respond",
+      "line": {
+        "text": "你一個人住嗎？",
+        "zhuyin": "ㄋㄧˇ ㄧ ˙ㄍㄜ ㄖㄣˊ ㄓㄨˋ ˙ㄇㄚ？",
+        "pinyin": "nǐ yī ge rén zhù ma?"
+      },
+      "answers": [
+        {
+          "text": "對，一個人。",
+          "zhuyin": "ㄉㄨㄟˋ，ㄧ ˙ㄍㄜ ㄖㄣˊ。",
+          "pinyin": "duì, yī ge rén."
+        },
+        {
+          "text": "我跟朋友兩個人住。",
+          "zhuyin": "ㄨㄛˇ ㄍㄣ ㄆㄥˊ ㄧㄡˇ ㄌㄧㄤˇ ㄍㄜˋ ㄖㄣˊ ㄓㄨˋ。",
+          "pinyin": "wǒ gēn péng yǒu liǎng gè rén zhù."
+        }
+      ]
+    },
+    {
+      "id": "r0118",
+      "kind": "respond",
+      "line": {
+        "text": "你打算住多久？",
+        "zhuyin": "ㄋㄧˇ ㄉㄚˇ ㄙㄨㄢˋ ㄓㄨˋ ㄉㄨㄛ ㄐㄧㄡˇ？",
+        "pinyin": "nǐ dǎ suàn zhù duō jiǔ?"
+      },
+      "answers": [
+        {
+          "text": "至少一年。",
+          "zhuyin": "ㄓˋ ㄕㄠˇ ㄧ ㄋㄧㄢˊ。",
+          "pinyin": "zhì shǎo yī nián."
+        },
+        {
+          "text": "大概半年，可以嗎？",
+          "zhuyin": "ㄉㄚˋ ㄍㄞˋ ㄅㄢˋ ㄋㄧㄢˊ，ㄎㄜˇ ㄧˇ ˙ㄇㄚ？",
+          "pinyin": "dà gài bàn nián, kě yǐ ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0119",
+      "kind": "respond",
+      "line": {
+        "text": "有沒有養寵物？",
+        "zhuyin": "ㄧㄡˇ ㄇㄟˊ ㄧㄡˇ ㄧㄤˇ ㄔㄨㄥˇ ㄨˋ？",
+        "pinyin": "yǒu méi yǒu yǎng chǒng wù?"
+      },
+      "answers": [
+        {
+          "text": "沒有。",
+          "zhuyin": "ㄇㄟˊ ㄧㄡˇ。",
+          "pinyin": "méi yǒu."
+        },
+        {
+          "text": "我有一隻貓，可以嗎？",
+          "zhuyin": "ㄨㄛˇ ㄧㄡˇ ㄧ ㄓ ㄇㄠ，ㄎㄜˇ ㄧˇ ˙ㄇㄚ？",
+          "pinyin": "wǒ yǒu yī zhī māo, kě yǐ ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0120",
+      "kind": "respond",
+      "line": {
+        "text": "你會抽菸嗎？",
+        "zhuyin": "ㄋㄧˇ ㄏㄨㄟˋ ㄔㄡ ㄧㄢ ˙ㄇㄚ？",
+        "pinyin": "nǐ huì chōu yān ma?"
+      },
+      "answers": [
+        {
+          "text": "不會。",
+          "zhuyin": "ㄅㄨˋ ㄏㄨㄟˋ。",
+          "pinyin": "bù huì."
+        },
+        {
+          "text": "會，可是我都在外面抽。",
+          "zhuyin": "ㄏㄨㄟˋ，ㄎㄜˇ ㄕˋ ㄨㄛˇ ㄉㄡ ㄗㄞˋ ㄨㄞˋ ㄇㄧㄢˋ ㄔㄡ。",
+          "pinyin": "huì, kě shì wǒ dōu zài wài miàn chōu."
+        }
+      ]
+    },
+    {
+      "id": "r0121",
+      "kind": "respond",
+      "line": {
+        "text": "房租一個月一萬二，押金兩個月。",
+        "zhuyin": "ㄈㄤˊ ㄗㄨ ㄧ ˙ㄍㄜ ㄩㄝˋ ㄧ ㄨㄢˋ ㄦˋ，ㄧㄚ ㄐㄧㄣ ㄌㄧㄤˇ ㄍㄜˋ ㄩㄝˋ。",
+        "pinyin": "fáng zū yī ge yuè yī wàn èr, yā jīn liǎng gè yuè."
+      },
+      "answers": [
+        {
+          "text": "房租有包含管理費嗎？",
+          "zhuyin": "ㄈㄤˊ ㄗㄨ ㄧㄡˇ ㄅㄠ ㄏㄢˊ ㄍㄨㄢˇ ㄌㄧˇ ㄈㄟˋ ˙ㄇㄚ？",
+          "pinyin": "fáng zū yǒu bāo hán guǎn lǐ fèi ma?"
+        },
+        {
+          "text": "押金可以一個月嗎？",
+          "zhuyin": "ㄧㄚ ㄐㄧㄣ ㄎㄜˇ ㄧˇ ㄧ ˙ㄍㄜ ㄩㄝˋ ˙ㄇㄚ？",
+          "pinyin": "yā jīn kě yǐ yī ge yuè ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0122",
+      "kind": "respond",
+      "line": {
+        "text": "電費一度五塊。",
+        "zhuyin": "ㄉㄧㄢˋ ㄈㄟˋ ㄧ ㄉㄨˋ ㄨˇ ㄎㄨㄞˋ。",
+        "pinyin": "diàn fèi yī dù wǔ kuài."
+      },
+      "answers": [
+        {
+          "text": "是照台電的算嗎？",
+          "zhuyin": "ㄕˋ ㄓㄠˋ ㄊㄞˊ ㄉㄧㄢˋ ˙ㄉㄜ ㄙㄨㄢˋ ˙ㄇㄚ？",
+          "pinyin": "shì zhào tái diàn de suàn ma?"
+        },
+        {
+          "text": "冷氣的電費也是這樣算嗎？",
+          "zhuyin": "ㄌㄥˇ ㄑㄧˋ ˙ㄉㄜ ㄉㄧㄢˋ ㄈㄟˋ ㄧㄝˇ ㄕˋ ㄓㄜˋ ㄧㄤˋ ㄙㄨㄢˋ ˙ㄇㄚ？",
+          "pinyin": "lěng qì de diàn fèi yě shì zhè yàng suàn ma?"
+        }
+      ]
+    },
+    {
+      "id": "r0123",
+      "kind": "respond",
+      "line": {
+        "text": "水費跟網路都包含在房租裡。",
+        "zhuyin": "ㄕㄨㄟˇ ㄈㄟˋ ㄍㄣ ㄨㄤˇ ㄌㄨˋ ㄉㄡ ㄅㄠ ㄏㄢˊ ㄗㄞˋ ㄈㄤˊ ㄗㄨ ㄌㄧˇ。",
+        "pinyin": "shuǐ fèi gēn wǎng lù dōu bāo hán zài fáng zū lǐ."
+      },
+      "answers": [
+        {
+          "text": "太好了。",
+          "zhuyin": "ㄊㄞˋ ㄏㄠˇ ˙ㄌㄜ。",
+          "pinyin": "tài hǎo le."
+        },
+        {
+          "text": "網路速度怎麼樣？",
+          "zhuyin": "ㄨㄤˇ ㄌㄨˋ ㄙㄨˋ ㄉㄨˋ ㄗㄣˇ ˙ㄇㄜ ㄧㄤˋ？",
+          "pinyin": "wǎng lù sù dù zěn me yàng?"
+        }
+      ]
+    },
+    {
+      "id": "r0124",
+      "kind": "respond",
+      "line": {
+        "text": "這裡不能開伙。",
+        "zhuyin": "ㄓㄜˋ ㄌㄧˇ ㄅㄨˋ ㄋㄥˊ ㄎㄞ ㄏㄨㄛˇ。",
+        "pinyin": "zhè lǐ bù néng kāi huǒ."
+      },
+      "answers": [
+        {
+          "text": "那可以用電鍋嗎？",
+          "zhuyin": "ㄋㄚˋ ㄎㄜˇ ㄧˇ ㄩㄥˋ ㄉㄧㄢˋ ㄍㄨㄛ ˙ㄇㄚ？",
+          "pinyin": "nà kě yǐ yòng diàn guō ma?"
+        },
+        {
+          "text": "好，我知道了。",
+          "zhuyin": "ㄏㄠˇ，ㄨㄛˇ ㄓ ㄉㄠˋ ˙ㄌㄜ。",
+          "pinyin": "hǎo, wǒ zhī dào le."
+        }
+      ]
+    },
+    {
+      "id": "r0125",
+      "kind": "respond",
+      "line": {
+        "text": "租約簽一年。",
+        "zhuyin": "ㄗㄨ ㄩㄝ ㄑㄧㄢ ㄧ ㄋㄧㄢˊ。",
+        "pinyin": "zū yuē qiān yī nián."
+      },
+      "answers": [
+        {
+          "text": "好。",
+          "zhuyin": "ㄏㄠˇ。",
+          "pinyin": "hǎo."
+        },
+        {
+          "text": "如果提早搬走，會怎麼樣？",
+          "zhuyin": "ㄖㄨˊ ㄍㄨㄛˇ ㄊㄧˊ ㄗㄠˇ ㄅㄢ ㄗㄡˇ，ㄏㄨㄟˋ ㄗㄣˇ ˙ㄇㄜ ㄧㄤˋ？",
+          "pinyin": "rú guǒ tí zǎo bān zǒu, huì zěn me yàng?"
+        }
+      ]
+    },
+    {
+      "id": "r0126",
+      "kind": "respond",
+      "line": {
+        "text": "提早解約的話，押金不退。",
+        "zhuyin": "ㄊㄧˊ ㄗㄠˇ ㄐㄧㄝˇ ㄩㄝ ˙ㄉㄜ ㄏㄨㄚˋ，ㄧㄚ ㄐㄧㄣ ㄅㄨˋ ㄊㄨㄟˋ。",
+        "pinyin": "tí zǎo jiě yuē de huà, yā jīn bù tuì."
+      },
+      "answers": [
+        {
+          "text": "要提早多久說？",
+          "zhuyin": "ㄧㄠˋ ㄊㄧˊ ㄗㄠˇ ㄉㄨㄛ ㄐㄧㄡˇ ㄕㄨㄛ？",
+          "pinyin": "yào tí zǎo duō jiǔ shuō?"
+        },
+        {
+          "text": "好，我了解了。",
+          "zhuyin": "ㄏㄠˇ，ㄨㄛˇ ㄌㄧㄠˇ ㄐㄧㄝˇ ˙ㄌㄜ。",
+          "pinyin": "hǎo, wǒ liǎo jiě le."
+        }
+      ]
+    },
+    {
+      "id": "r0127",
+      "kind": "respond",
+      "line": {
+        "text": "你什麼時候可以搬進來？",
+        "zhuyin": "ㄋㄧˇ ㄕㄣˊ ˙ㄇㄜ ㄕˊ ㄏㄡˋ ㄎㄜˇ ㄧˇ ㄅㄢ ㄐㄧㄣˋ ㄌㄞˊ？",
+        "pinyin": "nǐ shén me shí hòu kě yǐ bān jìn lái?"
+      },
+      "answers": [
+        {
+          "text": "下個月一號。",
+          "zhuyin": "ㄒㄧㄚˋ ㄍㄜˋ ㄩㄝˋ ㄧ ㄏㄠˋ。",
+          "pinyin": "xià gè yuè yī hào."
+        },
+        {
+          "text": "越快越好。",
+          "zhuyin": "ㄩㄝˋ ㄎㄨㄞˋ ㄩㄝˋ ㄏㄠˇ。",
+          "pinyin": "yuè kuài yuè hǎo."
+        }
+      ]
+    },
+    {
+      "id": "r0128",
+      "kind": "respond",
+      "line": {
+        "text": "垃圾要自己拿去倒。",
+        "zhuyin": "ㄌㄜˋ ㄙㄜˋ ㄧㄠˋ ㄗˋ ㄐㄧˇ ㄋㄚˊ ㄑㄩˋ ㄉㄠˋ。",
+        "pinyin": "lè sè yào zì jǐ ná qù dào."
+      },
+      "answers": [
+        {
+          "text": "好，我知道了。",
+          "zhuyin": "ㄏㄠˇ，ㄨㄛˇ ㄓ ㄉㄠˋ ˙ㄌㄜ。",
+          "pinyin": "hǎo, wǒ zhī dào le."
+        },
+        {
+          "text": "垃圾要怎麼分類？",
+          "zhuyin": "ㄌㄜˋ ㄙㄜˋ ㄧㄠˋ ㄗㄣˇ ˙ㄇㄜ ㄈㄣ ㄌㄟˋ？",
+          "pinyin": "lè sè yào zěn me fēn lèi?"
+        }
+      ]
+    },
+    {
       "id": "s0001",
       "kind": "say",
       "answers": [
@@ -3157,6 +3803,192 @@
           "text": "這個要丟哪裡？",
           "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄧㄠˋ ㄉㄧㄡ ㄋㄚˇ ㄌㄧˇ？",
           "pinyin": "zhè ge yào diū nǎ lǐ?"
+        }
+      ]
+    },
+    {
+      "id": "s0096",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我的居留證快到期了，我想延長。",
+          "zhuyin": "ㄨㄛˇ ˙ㄉㄜ ㄐㄩ ㄌㄧㄡˊ ㄓㄥˋ ㄎㄨㄞˋ ㄉㄠˋ ㄑㄧˊ ˙ㄌㄜ，ㄨㄛˇ ㄒㄧㄤˇ ㄧㄢˊ ㄔㄤˊ。",
+          "pinyin": "wǒ de jū liú zhèng kuài dào qí le, wǒ xiǎng yán cháng."
+        }
+      ]
+    },
+    {
+      "id": "s0097",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我畢業以後想留在台灣找工作，要辦什麼手續？",
+          "zhuyin": "ㄨㄛˇ ㄅㄧˋ ㄧㄝˋ ㄧˇ ㄏㄡˋ ㄒㄧㄤˇ ㄌㄧㄡˊ ㄗㄞˋ ㄊㄞˊ ㄨㄢ ㄓㄠˇ ㄍㄨㄥ ㄗㄨㄛˋ，ㄧㄠˋ ㄅㄢˋ ㄕㄣˊ ˙ㄇㄜ ㄕㄡˇ ㄒㄩˋ？",
+          "pinyin": "wǒ bì yè yǐ hòu xiǎng liú zài tái wān zhǎo gōng zuò, yào bàn shén me shǒu xù?"
+        }
+      ]
+    },
+    {
+      "id": "s0098",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我找到工作了，居留證要怎麼換？",
+          "zhuyin": "ㄨㄛˇ ㄓㄠˇ ㄉㄠˋ ㄍㄨㄥ ㄗㄨㄛˋ ˙ㄌㄜ，ㄐㄩ ㄌㄧㄡˊ ㄓㄥˋ ㄧㄠˋ ㄗㄣˇ ˙ㄇㄜ ㄏㄨㄢˋ？",
+          "pinyin": "wǒ zhǎo dào gōng zuò le, jū liú zhèng yào zěn me huàn?"
+        }
+      ]
+    },
+    {
+      "id": "s0099",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "需要準備哪些文件？",
+          "zhuyin": "ㄒㄩ ㄧㄠˋ ㄓㄨㄣˇ ㄅㄟˋ ㄋㄚˇ ㄒㄧㄝ ㄨㄣˊ ㄐㄧㄢˋ？",
+          "pinyin": "xū yào zhǔn bèi nǎ xiē wén jiàn?"
+        }
+      ]
+    },
+    {
+      "id": "s0100",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "這張表格要怎麼填？",
+          "zhuyin": "ㄓㄜˋ ㄓㄤ ㄅㄧㄠˇ ㄍㄜˊ ㄧㄠˋ ㄗㄣˇ ˙ㄇㄜ ㄊㄧㄢˊ？",
+          "pinyin": "zhè zhāng biǎo gé yào zěn me tián?"
+        },
+        {
+          "text": "可以教我怎麼填嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄐㄧㄠ ㄨㄛˇ ㄗㄣˇ ˙ㄇㄜ ㄊㄧㄢˊ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ jiāo wǒ zěn me tián ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0101",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "新的居留證還沒拿到以前，可以出國嗎？",
+          "zhuyin": "ㄒㄧㄣ ˙ㄉㄜ ㄐㄩ ㄌㄧㄡˊ ㄓㄥˋ ㄏㄞˊ ㄇㄟˊ ㄋㄚˊ ㄉㄠˋ ㄧˇ ㄑㄧㄢˊ，ㄎㄜˇ ㄧˇ ㄔㄨ ㄍㄨㄛˊ ˙ㄇㄚ？",
+          "pinyin": "xīn de jū liú zhèng hái méi ná dào yǐ qián, kě yǐ chū guó ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0102",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我搬家了，想改地址。",
+          "zhuyin": "ㄨㄛˇ ㄅㄢ ㄐㄧㄚ ˙ㄌㄜ，ㄒㄧㄤˇ ㄍㄞˇ ㄉㄧˋ ㄓˇ。",
+          "pinyin": "wǒ bān jiā le, xiǎng gǎi dì zhǐ."
+        }
+      ]
+    },
+    {
+      "id": "s0103",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "辦好以後會怎麼通知我？",
+          "zhuyin": "ㄅㄢˋ ㄏㄠˇ ㄧˇ ㄏㄡˋ ㄏㄨㄟˋ ㄗㄣˇ ˙ㄇㄜ ㄊㄨㄥ ㄓ ㄨㄛˇ？",
+          "pinyin": "bàn hǎo yǐ hòu huì zěn me tōng zhī wǒ?"
+        }
+      ]
+    },
+    {
+      "id": "s0104",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "我想看房子，什麼時候方便？",
+          "zhuyin": "ㄨㄛˇ ㄒㄧㄤˇ ㄎㄢˋ ㄈㄤˊ ˙ㄗ，ㄕㄣˊ ˙ㄇㄜ ㄕˊ ㄏㄡˋ ㄈㄤ ㄅㄧㄢˋ？",
+          "pinyin": "wǒ xiǎng kàn fáng zi, shén me shí hòu fāng biàn?"
+        }
+      ]
+    },
+    {
+      "id": "s0105",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "房租包含哪些費用？",
+          "zhuyin": "ㄈㄤˊ ㄗㄨ ㄅㄠ ㄏㄢˊ ㄋㄚˇ ㄒㄧㄝ ㄈㄟˋ ㄩㄥˋ？",
+          "pinyin": "fáng zū bāo hán nǎ xiē fèi yòng?"
+        }
+      ]
+    },
+    {
+      "id": "s0106",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "電費怎麼算？",
+          "zhuyin": "ㄉㄧㄢˋ ㄈㄟˋ ㄗㄣˇ ˙ㄇㄜ ㄙㄨㄢˋ？",
+          "pinyin": "diàn fèi zěn me suàn?"
+        }
+      ]
+    },
+    {
+      "id": "s0107",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "可以養寵物嗎？",
+          "zhuyin": "ㄎㄜˇ ㄧˇ ㄧㄤˇ ㄔㄨㄥˇ ㄨˋ ˙ㄇㄚ？",
+          "pinyin": "kě yǐ yǎng chǒng wù ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0108",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "有洗衣機嗎？",
+          "zhuyin": "ㄧㄡˇ ㄒㄧˇ ㄧ ㄐㄧ ˙ㄇㄚ？",
+          "pinyin": "yǒu xǐ yī jī ma?"
+        },
+        {
+          "text": "衣服可以曬在哪裡？",
+          "zhuyin": "ㄧ ˙ㄈㄨ ㄎㄜˇ ㄧˇ ㄕㄞˋ ㄗㄞˋ ㄋㄚˇ ㄌㄧˇ？",
+          "pinyin": "yī fu kě yǐ shài zài nǎ lǐ?"
+        }
+      ]
+    },
+    {
+      "id": "s0109",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "東西壞了要找誰修？",
+          "zhuyin": "ㄉㄨㄥ ˙ㄒㄧ ㄏㄨㄞˋ ˙ㄌㄜ ㄧㄠˋ ㄓㄠˇ ㄕㄟˊ ㄒㄧㄡ？",
+          "pinyin": "dōng xi huài le yào zhǎo shéi xiū?"
+        }
+      ]
+    },
+    {
+      "id": "s0110",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "附近交通方便嗎？",
+          "zhuyin": "ㄈㄨˋ ㄐㄧㄣˋ ㄐㄧㄠ ㄊㄨㄥ ㄈㄤ ㄅㄧㄢˋ ˙ㄇㄚ？",
+          "pinyin": "fù jìn jiāo tōng fāng biàn ma?"
+        }
+      ]
+    },
+    {
+      "id": "s0111",
+      "kind": "say",
+      "answers": [
+        {
+          "text": "合約可以先給我看嗎？",
+          "zhuyin": "ㄏㄜˊ ㄩㄝ ㄎㄜˇ ㄧˇ ㄒㄧㄢ ㄍㄟˇ ㄨㄛˇ ㄎㄢˋ ˙ㄇㄚ？",
+          "pinyin": "hé yuē kě yǐ xiān gěi wǒ kàn ma?"
         }
       ]
     }

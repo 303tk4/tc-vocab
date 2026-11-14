@@ -106,8 +106,19 @@ test('単語が0件でも場面別会話を始められ、訓練の言語は画�
 
   // 訓練の言語を English にし、コンビニの「言いたいことを伝える」だけを選ぶ（FR-CONV-01・05）
   await page.getByRole('radio', { name: 'English' }).check()
-  await expect(page.getByText('Convenience store')).toBeVisible()
-  await page.getByRole('checkbox', { name: /便利商店/ }).check()
+  // 場面は「場面を選び直す」で開くダイアログで選ぶ。初めはすべての場面が対象（版 1.52）
+  await expect(page.getByText(/^すべての場面（\d+ 件）$/)).toBeVisible()
+  await page.getByRole('button', { name: '場面を選び直す' }).click()
+  const dialog = page.getByRole('dialog', { name: '場面を選ぶ' })
+  await expect(dialog.getByText('Convenience store')).toBeVisible()
+  await expect(dialog.getByRole('group', { name: '中級向け' })).toBeVisible()
+  await dialog.getByRole('checkbox', { name: /便利商店/ }).check()
+  await dialog.getByRole('button', { name: '閉じる' }).click()
+  await expect(dialog).toBeHidden()
+  // 準備画面には、選んだ場面だけを示す
+  const chosen = page.getByRole('group', { name: '場面', exact: true })
+  await expect(chosen.getByText('Convenience store')).toBeVisible()
+  await expect(chosen.getByText('Restaurant')).toHaveCount(0)
   await page.getByRole('radio', { name: '言いたいことを伝える' }).check()
   await startConversation(page)
 
@@ -126,6 +137,10 @@ test('単語が0件でも場面別会話を始められ、訓練の言語は画�
   await page.reload()
   await page.goto('./#/mode/conversation')
   await expect(page.getByRole('radio', { name: 'English' })).toBeChecked()
+  await expect(
+    page.getByRole('group', { name: '場面', exact: true }).getByText('便利商店'),
+  ).toBeVisible()
+  await page.getByRole('button', { name: '場面を選び直す' }).click()
   await expect(page.getByRole('checkbox', { name: /便利商店/ })).toBeChecked()
 })
 
@@ -325,6 +340,13 @@ test('画面上部のバーから文字の大きさを変えられ、特大で�
   await expect(page.getByRole('radio', { name: '特大', exact: true })).toHaveCount(0)
   await expect(button).toBeFocused()
   await expectNoHorizontalScroll(page)
+  // 場面を選ぶダイアログも、特大で横にはみ出さない（版 1.52）
+  await page.getByRole('button', { name: '場面を選び直す' }).click()
+  await expect(page.getByRole('dialog', { name: '場面を選ぶ' })).toBeVisible()
+  await expectNoHorizontalScroll(page)
+  const overflow = await page.getByRole('dialog').evaluate((el) => el.scrollWidth - el.clientWidth)
+  expect(overflow).toBeLessThanOrEqual(0)
+  await page.keyboard.press('Escape')
 
   // 設定画面と同じ設定なので、再読み込みのあとも保たれる
   await page.reload()

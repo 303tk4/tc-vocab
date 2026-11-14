@@ -1,4 +1,4 @@
-// 場面：クリニック・病院（上級向け。仕様書 18.6）。AI（Claude）による下書き
+// 場面：クリニック・病院（中級向け。仕様書 18.6）。AI（Claude）による下書き
 import { respond, say } from './helpers.mjs'
 
 export default {

@@ -16,6 +16,9 @@ import {
   sceneCounts,
   studiedItemIds,
   sortScenes,
+  groupScenesByLevel,
+  levelKey,
+  summarizeScenes,
   type Phrase,
   type PhraseTranslation,
   type SceneEntry,
@@ -70,9 +73,15 @@ describe('配布する場面のデータ（仕様書 18.5）', () => {
     for (const p of realPhrases) expect(p.id).toMatch(/^[rs]\d{4}$/)
   })
 
-  it('上級向けの場面（版 1.37）があり、基本の場面の後に並ぶ（FR-CONV-09）', () => {
-    const advanced = realIndex.scenes.filter((s) => s.level >= 2).map((s) => s.id)
-    expect(advanced).toEqual(['clinic', 'device-repair', 'bulky-waste'])
+  it('中級向けの場面（版 1.37・1.52）があり、基本の場面の後に並ぶ（FR-CONV-09）', () => {
+    const intermediate = realIndex.scenes.filter((s) => s.level >= 2).map((s) => s.id)
+    expect(intermediate).toEqual([
+      'clinic',
+      'device-repair',
+      'bulky-waste',
+      'immigration',
+      'rental',
+    ])
     const sorted = sortScenes(realIndex.scenes).map((s) => s.level)
     expect(sorted).toEqual([...sorted].sort((a, b) => a - b))
   })
@@ -256,5 +265,46 @@ describe('場面ごとの出題済み / 登録の数（FR-CONV-22）', () => {
   it('項目を増やせば登録の数も増える', () => {
     const grown = scene({ id: 'a', items: ['r0002', 's0001', 'r0001'] })
     expect(sceneCounts(grown, new Set())).toEqual({ studied: 0, total: 3 })
+  })
+})
+
+describe('準備画面の場面のまとめ（FR-CONV-01・09、版 1.52）', () => {
+  const scenes = [
+    scene({ id: 'c', level: 2 }),
+    scene({ id: 'a' }),
+    scene({ id: 'b' }),
+    scene({ id: 'd', level: 2 }),
+    scene({ id: 'e', level: 3 }),
+    scene({ id: 'en-only', languages: ['en'] }),
+  ]
+
+  it('難しさの名前は 1：基本、2：中級向け、3 以上：上級向け', () => {
+    expect([0, 1, 2, 3, 4].map(levelKey)).toEqual(['1', '1', '2', '3', '3'])
+  })
+
+  it('難しさごとにまとめ、基本を先に、同じ難しさの中は元の順に並べる', () => {
+    expect(groupScenesByLevel(scenes).map((g) => [g.level, g.scenes.map((s) => s.id)])).toEqual([
+      [1, ['a', 'b', 'en-only']],
+      [2, ['c', 'd']],
+      [3, ['e']],
+    ])
+  })
+
+  it('何も選んでいなければ「すべて」とし、その言語で選べる場面の数を示す', () => {
+    expect(summarizeScenes(scenes, [], 'ja')).toEqual({ kind: 'all', count: 5 })
+    expect(summarizeScenes(scenes, [], 'en')).toEqual({ kind: 'all', count: 6 })
+  })
+
+  it('選んだ場面を並びの順に3件まで示し、残りは数だけにする', () => {
+    const summary = summarizeScenes(scenes, ['e', 'c', 'a', 'b'], 'ja')
+    expect(summary.kind).toBe('some')
+    if (summary.kind !== 'some') return
+    expect(summary.shown.map((s) => s.id)).toEqual(['a', 'b', 'c'])
+    expect(summary.rest).toBe(1)
+  })
+
+  it('選んだ場面がどれもその言語で出せなければ、そう示す（FR-CONV-07）', () => {
+    expect(summarizeScenes(scenes, ['en-only'], 'ja')).toEqual({ kind: 'unavailable' })
+    expect(summarizeScenes(scenes, ['en-only', 'a'], 'ja')).toMatchObject({ kind: 'some', rest: 0 })
   })
 })

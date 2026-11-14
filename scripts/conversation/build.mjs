@@ -28,10 +28,12 @@ const SCENES = [
   'drink-stand',
   'night-market',
   'transport',
-  // 上級向け（版 1.37）
+  // 中級向け（版 1.37。名前は版 1.52 で上級向けから変更）
   'clinic',
   'device-repair',
   'bulky-waste',
+  'immigration',
+  'rental',
 ]
 /** 用意する訓練の言語（18.6）。言語を足すときは、各場面の下書きに訳を加えてからここに足す */
 const LANGUAGES = ['ja', 'en']
