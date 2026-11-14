@@ -38,7 +38,7 @@
   "answers": "回答例",
   "noReply": "返事は要りません。",
   "note": "補足",
-  "swipeHint": "← もう一度　　普通 →",
+  "nextHint": "いずれかを選ぶと、次の問題に進みます",
   "keyHint": "1〜5：評価　S：読み上げ　Esc：中断",
   "ratingsLabel": "覚え具合の評価",
   "ratings": {

@@ -363,6 +363,15 @@
   color: var(--color-muted);
 }
 
+/* 評価すると次へ進むことの案内（8.4）。読み落とさないよう、ほかの案内より大きく示す（版 1.49） */
+.nextHint {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text);
+}
+
 .hintLine {
   margin: 0;
   font-size: 0.8125rem;

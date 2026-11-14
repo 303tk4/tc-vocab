@@ -13,7 +13,7 @@
   "progress": "Card {{current}} of {{total}}",
   "flipHintTouch": "Tap to show the answer",
   "flipHintKey": "Click or press Space to show the answer",
-  "swipeHint": "← Again    Good →",
+  "nextHint": "Choose one to go to the next question.",
   "keyHint": "1–5: rate   S: speak   T: tags   E: edit   Esc: stop",
   "ratingsLabel": "Rate how well you remembered",
   "ratings": {

@@ -177,10 +177,18 @@ function Study({
     target?.focus({ preventScroll: true })
   }, [pos, flipped])
 
+  // 自動再生（FR-FC-14）：問題（表面）を出したときに読み上げる。裏返したときには読み上げない。
+  // 「意味→繁体字」は表面で読むと答えが分かるので、自動では読み上げない
+  const speakFrontOnShow = useEffectEvent(() => {
+    if (autoSpeak && services.canSpeak && !card.reverse) services.speak(word.hanzi)
+  })
+  useEffect(() => {
+    speakFrontOnShow()
+  }, [pos])
+
   const flip = () => {
     if (flipped) return
     setFlipped(true)
-    if (autoSpeak && services.canSpeak) services.speak(word.hanzi)
   }
 
   const finish = async (finalCounts: Counts, studiedCount: number) => {
@@ -450,7 +458,9 @@ function Study({
               </button>
             ))}
           </div>
-          <p className={styles.hintLine}>{coarse ? t('swipeHint') : t('keyHint')}</p>
+          {/* 評価すると次へ進むことを示す。スワイプの案内は分かりにくいので示さない（8.4・FR-CONV-20） */}
+          <p className={styles.nextHint}>{t('nextHint')}</p>
+          {!coarse && <p className={styles.hintLine}>{t('keyHint')}</p>}
         </div>
       )}
 

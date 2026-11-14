@@ -476,7 +476,9 @@ function Study({
               </button>
             ))}
           </div>
-          <p className={styles.hintLine}>{coarse ? t('swipeHint') : t('keyHint')}</p>
+          {/* 評価すると次へ進むことを示す。スワイプの案内は分かりにくいので示さない（8.4・FR-CONV-20） */}
+          <p className={styles.nextHint}>{t('nextHint')}</p>
+          {!coarse && <p className={styles.hintLine}>{t('keyHint')}</p>}
         </div>
       )}
     </div>

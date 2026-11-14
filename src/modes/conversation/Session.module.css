@@ -307,17 +307,19 @@
   flex-direction: column;
   gap: 0;
   min-width: 0;
-  min-height: 3.5rem;
-  padding: var(--space-2) var(--space-1);
+  /* 押しやすいよう、暗記カードより大きくする（版 1.49） */
+  min-height: 4.5rem;
+  padding: var(--space-3) var(--space-1);
   line-height: 1.3;
 }
 
 .ratingName {
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
 }
 
 .ratingInterval {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 400;
   color: var(--color-muted);
 }
@@ -343,6 +345,15 @@
   font: inherit;
   font-size: 0.6875rem;
   color: var(--color-muted);
+}
+
+/* 評価すると次へ進むことの案内（8.4）。読み落とさないよう、ほかの案内より大きく示す（版 1.49） */
+.nextHint {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text);
 }
 
 .hintLine {

@@ -38,7 +38,7 @@
   "answers": "參考答案",
   "noReply": "不需要回答。",
   "note": "補充",
-  "swipeHint": "← 再一次　　普通 →",
+  "nextHint": "選擇任一項後，會進入下一題。",
   "keyHint": "1～5：評估　S：朗讀　Esc：中斷",
   "ratingsLabel": "表現評估",
   "ratings": {

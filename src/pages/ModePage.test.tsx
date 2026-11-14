@@ -7,10 +7,11 @@ import { getSetting } from '../db/repos/settings'
 import { db } from '../db/schema'
 import i18n from '../i18n'
 import { SettingsProvider } from '../settings/SettingsProvider'
+import { unlockSpeech } from '../services/speech'
 import { makeWord } from '../test/fixtures'
 
 // jsdom には読み上げが無いため、読み上げに対応した環境として扱う（FR-PLUG-09 は対応した環境でだけ置く）
-vi.mock('../services/speech', () => ({ canSpeak: true, speak: vi.fn() }))
+vi.mock('../services/speech', () => ({ canSpeak: true, speak: vi.fn(), unlockSpeech: vi.fn() }))
 
 function renderApp(path: string) {
   return render(
@@ -75,6 +76,31 @@ describe('音声を自動で再生する（FR-PLUG-09）', () => {
     renderApp('/mode/flashcard')
     const box = await screen.findByRole('checkbox', { name: 'Play audio automatically' })
     await waitFor(() => expect(box).toBeChecked())
+  })
+})
+
+describe('スマホでの自動再生（FR-PLUG-09）', () => {
+  it('自動再生がオンなら、「学習を始める」を押したときに読み上げを使えるようにしておく', async () => {
+    const user = userEvent.setup()
+    vi.mocked(unlockSpeech).mockClear()
+    renderApp('/mode/conversation')
+    const box = await screen.findByRole('checkbox', { name: 'Play audio automatically' })
+    await waitFor(() => expect(box).toBeChecked())
+    await screen.findByText(/^\d+ items$/)
+    await user.click(screen.getByRole('button', { name: 'Start' }))
+    expect(unlockSpeech).toHaveBeenCalledTimes(1)
+  })
+
+  it('自動再生がオフなら、何もしない', async () => {
+    const user = userEvent.setup()
+    vi.mocked(unlockSpeech).mockClear()
+    renderApp('/mode/conversation')
+    const box = await screen.findByRole('checkbox', { name: 'Play audio automatically' })
+    await waitFor(() => expect(box).toBeChecked())
+    await user.click(box)
+    await screen.findByText(/^\d+ items$/)
+    await user.click(screen.getByRole('button', { name: 'Start' }))
+    expect(unlockSpeech).not.toHaveBeenCalled()
   })
 })
 

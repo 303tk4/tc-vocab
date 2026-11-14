@@ -75,6 +75,8 @@ test.describe('単語があるとき', () => {
 
     await page.getByRole('button', { name: /答えを表示/ }).click()
     await expect(page.getByRole('group', { name: '覚え具合の評価' })).toBeVisible()
+    // 評価ボタンの下に、選ぶと次へ進むことを示す（8.4・FR-CONV-20）
+    await expect(page.getByText('いずれかを選ぶと、次の問題に進みます')).toBeVisible()
     await expectNoA11yViolations(page)
 
     // 1枚評価してから中断すると結果画面に移る（FR-FC-32）
@@ -101,6 +103,8 @@ test('場面別会話（準備・表・裏・結果。単語が無くても開�
 
   await page.getByRole('button', { name: '回答例を見る' }).click()
   await expect(page.getByRole('group', { name: '覚え具合の評価' })).toBeVisible()
+  // 評価ボタンの下に、選ぶと次へ進むことを示す（8.4・FR-CONV-20）
+  await expect(page.getByText('いずれかを選ぶと、次の問題に進みます')).toBeVisible()
   await expectNoA11yViolations(page)
 
   // 1問評価してから中断すると結果画面に移る（FR-CONV-20・FR-FC-32）

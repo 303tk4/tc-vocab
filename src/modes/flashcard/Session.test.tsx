@@ -263,12 +263,27 @@ describe('表面の読み上げと自動再生（FR-FC-14・17）', () => {
     expect(screen.queryByRole('button', { name: 'Speak the characters' })).not.toBeInTheDocument()
   })
 
-  it('自動再生がオンなら裏返したときに読み上げ、オフなら読み上げない', async () => {
+  it('自動再生がオンなら、「繁体字→意味」は問題を出したときに読み上げる（FR-FC-14）', async () => {
     const user = userEvent.setup()
     const on = renderSession([makeWord({ hanzi: '捷運' })], { autoSpeak: true })
     await screen.findByText('Card 1 of 1')
+    await waitFor(() => expect(on.services.speak).toHaveBeenCalledWith('捷運'))
+    // 裏返したときには、もう一度は読み上げない
     await user.keyboard(' ')
-    expect(on.services.speak).toHaveBeenCalledWith('捷運')
+    expect(on.services.speak).toHaveBeenCalledTimes(1)
+  })
+
+  it('自動再生がオンでも、「意味→繁体字」は答えが分かるので読み上げない（表面でも裏面でも）', async () => {
+    const user = userEvent.setup()
+    const on = renderSession([makeWord({ hanzi: '捷運' })], {
+      autoSpeak: true,
+      options: { direction: 'meaningToHanzi' },
+    })
+    await screen.findByText('Card 1 of 1')
+    expect(on.services.speak).not.toHaveBeenCalled()
+    await user.keyboard(' ')
+    expect(screen.getByRole('group', { name: /Rate/ })).toBeInTheDocument()
+    expect(on.services.speak).not.toHaveBeenCalled()
   })
 
   it('自動再生がオフ（初期値）なら、裏返しても読み上げない', async () => {

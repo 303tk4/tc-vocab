@@ -38,7 +38,7 @@
   "answers": "Sample answers",
   "noReply": "No reply is needed.",
   "note": "Note",
-  "swipeHint": "← Again    Good →",
+  "nextHint": "Choose one to go to the next question.",
   "keyHint": "1–5: rate   S: speak   Esc: stop",
   "ratingsLabel": "Rate how well you did",
   "ratings": {

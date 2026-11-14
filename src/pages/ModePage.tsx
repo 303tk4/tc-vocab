@@ -19,7 +19,7 @@ import {
 } from '../modes/sessionSize'
 import type { AnyStudyMode, CoreServices, SessionResult } from '../modes/types'
 import { AUTO_SPEAK_KEY, resolveAutoSpeak } from '../modes/autoSpeak'
-import { canSpeak, speak } from '../services/speech'
+import { canSpeak, speak, unlockSpeech } from '../services/speech'
 import { useSettings } from '../settings/context'
 import type { Word } from '../types/word'
 import styles from './ModePage.module.css'
@@ -192,6 +192,8 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
 
   const start = () => {
     if (!words || !canStart) return
+    // 自動再生がオンなら、押した操作の中で読み上げを使えるようにしておく（スマホ向け。FR-PLUG-09）
+    if (mode.autoSpeak && autoSpeak) unlockSpeech()
     // セッション中に単語が増減しても出題対象は変えない
     setSessionWords(words)
     startedAt.current = Date.now()

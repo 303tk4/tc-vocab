@@ -471,7 +471,7 @@ test('保護されていない環境では、初めて単語を追加したと�
   await page.getByRole('button', { name: /サンプル単語を追加/ }).click()
   const notice = page
     .getByRole('status')
-    .filter({ hasText: 'データはこの端末のブラウザの中にあります' })
+    .filter({ hasText: 'アプリのデータは、この端末のブラウザに保存しています。' })
   await expect(notice).toBeVisible()
   await notice.getByRole('button', { name: '詳しく' }).click()
   await expect(page.getByRole('heading', { name: '設定', level: 1 })).toBeVisible()
