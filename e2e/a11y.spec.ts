@@ -75,8 +75,15 @@ test.describe('単語があるとき', () => {
 
     await page.getByRole('button', { name: /答えを表示/ }).click()
     await expect(page.getByRole('group', { name: '覚え具合の評価' })).toBeVisible()
-    // 評価ボタンの下に、選ぶと次へ進むことを示す（8.4・FR-CONV-20）
-    await expect(page.getByText('いずれかを選ぶと、次の問題に進みます')).toBeVisible()
+    // 評価ボタンの下に、選ぶと次へ進むことを示す。タッチの環境ではスワイプも案内する（8.4、版 1.50）
+    const touch = await page.evaluate(() => matchMedia('(pointer: coarse)').matches)
+    await expect(
+      page.getByText(
+        touch
+          ? '単語をスワイプ（← もう一度・普通 →）、もしくは評価をどれか押すと、次の問題に進みます'
+          : 'いずれかを選ぶと、次の問題に進みます',
+      ),
+    ).toBeVisible()
     await expectNoA11yViolations(page)
 
     // 1枚評価してから中断すると結果画面に移る（FR-FC-32）

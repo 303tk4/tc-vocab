@@ -14,6 +14,7 @@
   "flipHintTouch": "Tap to show the answer",
   "flipHintKey": "Click or press Space to show the answer",
   "nextHint": "Choose one to go to the next question.",
+  "nextHintTouch": "Swipe the word (← Again · Good →) or tap a rating to go to the next question.",
   "keyHint": "1–5: rate   S: speak   T: tags   E: edit   Esc: stop",
   "ratingsLabel": "Rate how well you remembered",
   "ratings": {

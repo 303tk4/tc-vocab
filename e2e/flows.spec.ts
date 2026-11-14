@@ -251,7 +251,9 @@ test('音を出せない場所向けに、学習を始めるボタンの下で�
   // 表面の読み上げボタンを押したときだけ読み上げる
   await page.getByRole('button', { name: 'セリフを読み上げる' }).click()
   expect(await spokenTexts(page)).toHaveLength(1)
+  // 1問も評価せずに中断するとホームへ戻る。戻り終えてから開き直す（遅い環境で、戻る遷移に上書きされないように）
   await page.getByRole('button', { name: '中断' }).click()
+  await expect(page.getByRole('heading', { name: '学習モード' })).toBeVisible()
 
   // 次に開いたときもオフのまま（FR-PLUG-09）
   await page.goto('./#/mode/conversation')

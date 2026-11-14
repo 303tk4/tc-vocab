@@ -14,6 +14,7 @@
   "flipHintTouch": "點一下顯示答案",
   "flipHintKey": "點擊或按 Space 顯示答案",
   "nextHint": "選擇任一項後，會進入下一題。",
+  "nextHintTouch": "滑動單字（← 再一次・普通 →），或點選任一評估，就會進入下一題。",
   "keyHint": "1～5：評估　S：朗讀　T：標籤　E：編輯　Esc：中斷",
   "ratingsLabel": "記憶程度評估",
   "ratings": {

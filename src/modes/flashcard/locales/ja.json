@@ -14,6 +14,7 @@
   "flipHintTouch": "タップして答えを表示",
   "flipHintKey": "クリックまたは Space で答えを表示",
   "nextHint": "いずれかを選ぶと、次の問題に進みます",
+  "nextHintTouch": "単語をスワイプ（← もう一度・普通 →）、もしくは評価をどれか押すと、次の問題に進みます",
   "keyHint": "1〜5：評価　S：読み上げ　T：タグ　E：編集　Esc：中断",
   "ratingsLabel": "覚え具合の評価",
   "ratings": {

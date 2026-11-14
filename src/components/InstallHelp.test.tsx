@@ -45,7 +45,7 @@ describe('ホーム画面への追加の手助け（FR-PWA-05）', () => {
     expect(event.defaultPrevented).toBe(true)
     await userEvent.click(screen.getByRole('button', { name: 'ホーム画面に追加' }))
     expect(prompt).toHaveBeenCalledOnce()
-    expect(await screen.findByRole('status')).toHaveTextContent('追加しました')
+    expect(await screen.findByRole('status')).toHaveTextContent('アプリをホーム画面に追加しました')
   })
 
   it('パソコンでは「アプリとしてインストール」のボタンにする。断られたらボタンを消す', async () => {
@@ -61,7 +61,7 @@ describe('ホーム画面への追加の手助け（FR-PWA-05）', () => {
     act(() => {
       window.dispatchEvent(new Event('appinstalled'))
     })
-    expect(screen.getByRole('status')).toHaveTextContent('インストールしました')
+    expect(screen.getByRole('status')).toHaveTextContent('アプリをインストールしました')
   })
 
   it('iPhone では共有ボタンからの手順を示し、ボタンは置かない', () => {
