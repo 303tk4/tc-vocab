@@ -229,3 +229,54 @@ describe('暗記カードのセッション', () => {
     await waitFor(() => expect(props.services.words.update).toHaveBeenCalled())
   })
 })
+
+describe('表面の読み上げと自動再生（FR-FC-14・17）', () => {
+  it('「繁体字→意味」の表面に読み上げボタンがあり、押しても裏返さない', async () => {
+    const user = userEvent.setup()
+    const props = renderSession([makeWord({ hanzi: '捷運' })])
+    const button = await screen.findByRole('button', { name: 'Speak the characters' })
+    await user.click(button)
+    expect(props.services.speak).toHaveBeenCalledWith('捷運')
+    expect(screen.queryByRole('group', { name: /Rate/ })).not.toBeInTheDocument()
+    // カードのほかの部分（裏返すボタン）を押すと裏返す
+    await user.click(screen.getByRole('button', { name: /捷運/ }))
+    expect(screen.getByRole('group', { name: /Rate/ })).toBeInTheDocument()
+  })
+
+  it('「意味→繁体字」の表面には置かない（答えが分かるため。8.4）', async () => {
+    renderSession([makeWord()], { options: { direction: 'meaningToHanzi' } })
+    expect(await screen.findByText('Card 1 of 1')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Speak the characters' })).not.toBeInTheDocument()
+  })
+
+  it('読み上げに対応していない環境では置かない', async () => {
+    renderSession([makeWord()], {
+      services: {
+        speak: vi.fn(),
+        canSpeak: false,
+        settings: { uiLanguage: 'en', fontScale: 'md', theme: 'system', accent: 'red' },
+        tags: { list: vi.fn(), setWordTags: vi.fn() },
+        words: { update: vi.fn(), findDuplicate: vi.fn() },
+      },
+    })
+    expect(await screen.findByText('Card 1 of 1')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Speak the characters' })).not.toBeInTheDocument()
+  })
+
+  it('自動再生がオンなら裏返したときに読み上げ、オフなら読み上げない', async () => {
+    const user = userEvent.setup()
+    const on = renderSession([makeWord({ hanzi: '捷運' })], { autoSpeak: true })
+    await screen.findByText('Card 1 of 1')
+    await user.keyboard(' ')
+    expect(on.services.speak).toHaveBeenCalledWith('捷運')
+  })
+
+  it('自動再生がオフ（初期値）なら、裏返しても読み上げない', async () => {
+    const user = userEvent.setup()
+    const off = renderSession([makeWord({ hanzi: '捷運' })])
+    await screen.findByText('Card 1 of 1')
+    await user.keyboard(' ')
+    expect(screen.getByRole('group', { name: /Rate/ })).toBeInTheDocument()
+    expect(off.services.speak).not.toHaveBeenCalled()
+  })
+})

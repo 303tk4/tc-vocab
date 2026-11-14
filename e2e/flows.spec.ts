@@ -215,6 +215,59 @@ test('配布中の単語集を追加できる（仕様書 16.5）', async ({ pag
   expect(await wordCount(page)).toBeGreaterThan(1000)
 })
 
+/** 読み上げた文を記録する（読み上げの代わり）。自動再生の有無を確かめるため */
+async function recordSpeech(page: Page) {
+  await page.addInitScript(() => {
+    const spoken: string[] = []
+    Object.assign(window, { __spoken: spoken })
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.speak = (u: SpeechSynthesisUtterance) => void spoken.push(u.text)
+    }
+  })
+}
+const spokenTexts = (page: Page) =>
+  page.evaluate(() => (window as unknown as { __spoken: string[] }).__spoken)
+
+test('音を出せない場所向けに、学習を始めるボタンの下で自動再生を止められ、表面の読み上げボタンで聞ける（FR-PLUG-09・FR-CONV-10・FR-FC-17）', async ({
+  page,
+}) => {
+  await recordSpeech(page)
+  // 場面別会話：自動再生は初期値オン。オフにしてから「聞き取って、応答する」を始める
+  await page.goto('./#/mode/conversation')
+  const auto = page.getByRole('checkbox', { name: '音声を自動で再生する' })
+  // 読み上げに対応していない環境（Playwright の WebKit など）では、チェックボックスも読み上げボタンも置かない
+  if (!(await page.evaluate(() => 'speechSynthesis' in window))) {
+    await expect(page.getByText(/^対象：\d+ 項目$/)).toBeVisible()
+    await expect(auto).toHaveCount(0)
+    return
+  }
+  await expect(auto).toBeChecked()
+  await expect(page.getByText('開始すると音声が流れます。')).toBeVisible()
+  await auto.uncheck()
+  await expect(page.getByText('音声は流れません（ラッパのボタンで再生できます）。')).toBeVisible()
+  await page.getByRole('radio', { name: '聞き取って、応答する' }).check()
+  await startConversation(page)
+  expect(await spokenTexts(page)).toEqual([])
+  // 表面の読み上げボタンを押したときだけ読み上げる
+  await page.getByRole('button', { name: 'セリフを読み上げる' }).click()
+  expect(await spokenTexts(page)).toHaveLength(1)
+  await page.getByRole('button', { name: '中断' }).click()
+
+  // 次に開いたときもオフのまま（FR-PLUG-09）
+  await page.goto('./#/mode/conversation')
+  await expect(page.getByRole('checkbox', { name: '音声を自動で再生する' })).not.toBeChecked()
+
+  // 暗記カード：表面の読み上げボタンで、裏返さずに繁体字を聞ける
+  // サンプル単語の追加でページを読み込み直すので、読み上げの記録はここで空に戻る
+  await addSampleWords(page)
+  await page.goto('./#/mode/flashcard')
+  await expect(page.getByRole('checkbox', { name: '音声を自動で再生する' })).not.toBeChecked()
+  await startFlashcard(page)
+  await page.getByRole('button', { name: '繁体字を読み上げる' }).click()
+  expect(await spokenTexts(page)).toHaveLength(1)
+  await expect(page.getByRole('group', { name: '覚え具合の評価' })).toHaveCount(0)
+})
+
 test('場面別会話の問題文の言語は、画面の言語を変えると初期値（画面の言語、無ければ English）に戻る（FR-CONV-06）', async ({
   page,
 }) => {

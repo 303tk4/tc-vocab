@@ -1,14 +1,11 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router'
 import { BackLink } from '../components/BackLink'
 import { ChevronRightIcon, ExternalLinkIcon } from '../components/icons'
 import { InstallHelp } from '../components/InstallHelp'
 import { SegmentedControl } from '../components/SegmentedControl'
-import { createModeSettingsStore } from '../db/repos/settings'
-import { LANGUAGE_NAMES, modeNamespace } from '../i18n'
-import { modes } from '../modes/registry'
-import type { AnyStudyMode } from '../modes/types'
+import { LANGUAGE_NAMES } from '../i18n'
 import { buildFeedbackUrl, FEEDBACK_FORM } from '../services/feedback'
 import { COPYRIGHT, REPO_URL } from '../services/licenses'
 import { getPersistState, type PersistState } from '../services/storage-persist'
@@ -32,7 +29,6 @@ export function SettingsPage() {
   // 色見本は、いま表示しているテーマの色にする
   const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')
   const shownTheme = resolveTheme(settings.theme, prefersDark)
-  const modesWithPanel = modes.filter((m) => m.SettingsPanel)
 
   return (
     <div className="stack">
@@ -77,14 +73,11 @@ export function SettingsPage() {
         />
       </section>
 
-      {modesWithPanel.length > 0 && (
-        <section className="stack">
-          <h2 className="section-title">{t('settings.modeSettings')}</h2>
-          {modesWithPanel.map((mode) => (
-            <ModeSettings key={mode.id} mode={mode} />
-          ))}
-        </section>
-      )}
+      {/* モード別の設定は準備画面に移した（FR-PLUG-10） */}
+      <section className="stack">
+        <h2 className="section-title">{t('settings.modeSettings')}</h2>
+        <p className="muted">{t('settings.modeSettingsMoved')}</p>
+      </section>
 
       <section className="stack">
         <h2 className="section-title">{t('settings.data')}</h2>
@@ -229,21 +222,6 @@ function StorageStatus() {
           )}
         </>
       )}
-    </div>
-  )
-}
-
-function ModeSettings({ mode }: { mode: AnyStudyMode }) {
-  const { t } = useTranslation(modeNamespace(mode.id))
-  const { t: tc } = useTranslation()
-  const store = useMemo(() => createModeSettingsStore(mode.id), [mode.id])
-  const Panel = mode.SettingsPanel
-  return (
-    <div className="panel stack">
-      <h3 className="section-title">{t(mode.titleKey)}</h3>
-      <Suspense fallback={<p className="muted">{tc('common.loading')}</p>}>
-        {Panel && <Panel settings={store} />}
-      </Suspense>
     </div>
   )
 }

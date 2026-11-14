@@ -1,18 +1,18 @@
-// 暗記カードのモード別設定（仕様書 10.2、FR-FC-02・12・14）
+// 暗記カードのモード別の表示の設定（仕様書 10.2、FR-FC-12）。自動の読み上げは準備画面のチェックボックス（FR-PLUG-09・FR-FC-14）
 import type { ModeSettingsStore } from '../../db/repos/settings'
 
 export interface FlashcardSettings {
   showZhuyin: boolean
   showPinyin: boolean
-  /** 裏返したときに自動で読み上げる */
-  autoSpeak: boolean
 }
 
 export const DEFAULT_SETTINGS: FlashcardSettings = {
   showZhuyin: true,
   showPinyin: true,
-  autoSpeak: false,
 }
+
+/** 音声の自動再生の初期値（FR-PLUG-09・FR-FC-14）。裏返したときに繁体字を読み上げる */
+export const DEFAULT_AUTO_SPEAK = false
 
 /** 一回の出題数の初期値（FR-PLUG-08。入力欄はコアの準備画面にある。版 1.41） */
 export const DEFAULT_SESSION_SIZE = 20
@@ -21,7 +21,6 @@ export const DEFAULT_SESSION_SIZE = 20
 export const SETTING_KEYS = {
   showZhuyin: 'showZhuyin',
   showPinyin: 'showPinyin',
-  autoSpeak: 'autoSpeak',
 } as const satisfies Record<keyof FlashcardSettings, string>
 
 /** 保存値を検証し、不正な値は初期値で補う */
@@ -30,7 +29,6 @@ export function sanitizeSettings(raw: Partial<Record<keyof FlashcardSettings, un
   return {
     showZhuyin: bool(raw.showZhuyin, DEFAULT_SETTINGS.showZhuyin),
     showPinyin: bool(raw.showPinyin, DEFAULT_SETTINGS.showPinyin),
-    autoSpeak: bool(raw.autoSpeak, DEFAULT_SETTINGS.autoSpeak),
   } satisfies FlashcardSettings
 }
 

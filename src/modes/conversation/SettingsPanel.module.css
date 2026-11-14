@@ -55,3 +55,8 @@
   margin: 0;
   accent-color: var(--color-accent);
 }
+
+.toggle[data-disabled] {
+  color: var(--color-muted);
+  cursor: not-allowed;
+}

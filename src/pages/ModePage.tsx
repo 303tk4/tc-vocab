@@ -18,10 +18,12 @@ import {
   SESSION_SIZE_KEY,
 } from '../modes/sessionSize'
 import type { AnyStudyMode, CoreServices, SessionResult } from '../modes/types'
+import { AUTO_SPEAK_KEY, resolveAutoSpeak } from '../modes/autoSpeak'
 import { canSpeak, speak } from '../services/speech'
 import { useSettings } from '../settings/context'
 import type { Word } from '../types/word'
 import styles from './ModePage.module.css'
+import { AutoSpeakField } from './mode/AutoSpeakField'
 import { SessionSizeField } from './mode/SessionSizeField'
 import { usePageTitle } from '../hooks/usePageTitle'
 
@@ -89,6 +91,9 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
   )
   const [sizeSaveFailed, setSizeSaveFailed] = useState(false)
   const sessionSize = mode.sessionSize ? parseSessionSize(sizeDraft) : null
+  // 音声を自動で再生するか（FR-PLUG-09）。読み上げに対応していない環境では使わない
+  const [autoSpeak, setAutoSpeak] = useState(mode.autoSpeak?.defaultValue ?? false)
+  const [autoSpeakSaveFailed, setAutoSpeakSaveFailed] = useState(false)
   const startedAt = useRef(0)
 
   // 学習セッション中は更新の通知を保留する（FR-PWA-03）
@@ -120,6 +125,28 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
       )
       .catch((error: unknown) => console.error('出題数の読み込みに失敗しました', error))
   }, [mode, modeSettings])
+
+  // 保存した自動再生の値を読む。暗記カードは版 1.47 までの設定と同じキーなので引き継ぐ（FR-FC-14）
+  useEffect(() => {
+    if (!mode.autoSpeak) return
+    const { defaultValue } = mode.autoSpeak
+    void modeSettings
+      .get(AUTO_SPEAK_KEY)
+      .then((saved) => setAutoSpeak(resolveAutoSpeak(saved, defaultValue)))
+      .catch((error: unknown) => console.error('自動再生の設定の読み込みに失敗しました', error))
+  }, [mode, modeSettings])
+
+  const changeAutoSpeak = (checked: boolean) => {
+    setAutoSpeak(checked)
+    modeSettings.set(AUTO_SPEAK_KEY, checked).then(
+      () => setAutoSpeakSaveFailed(false),
+      (error: unknown) => {
+        // 保存に失敗したら知らせる（NFR-07）。今回の学習にはその値を使える
+        console.error('自動再生の設定の保存に失敗しました', error)
+        setAutoSpeakSaveFailed(true)
+      },
+    )
+  }
 
   const changeSize = (text: string) => {
     setSizeDraft(text)
@@ -232,6 +259,14 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
             >
               {t('mode.start')}
             </button>
+            {/* 学習を始めるボタンのすぐ下に、目立つ形で置く（FR-MODE-05・FR-PLUG-09） */}
+            {mode.autoSpeak && canSpeak && (
+              <AutoSpeakField
+                checked={autoSpeak}
+                saveFailed={autoSpeakSaveFailed}
+                onChange={changeAutoSpeak}
+              />
+            )}
             {mode.sessionSize && (
               <SessionSizeField
                 value={sizeDraft}
@@ -242,6 +277,15 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
               />
             )}
           </div>
+          {/* モード別の表示の設定（FR-PLUG-10）。開閉できる欄にし、初めは閉じる */}
+          {mode.SettingsPanel && (
+            <details className={`panel ${styles.display}`}>
+              <summary className={styles.displaySummary}>{t('mode.displaySettings')}</summary>
+              <Suspense fallback={loading}>
+                <mode.SettingsPanel settings={modeSettings} autoSpeak={autoSpeak && canSpeak} />
+              </Suspense>
+            </details>
+          )}
         </div>
       )}
 
@@ -253,6 +297,7 @@ function ModeRunner({ mode }: { mode: AnyStudyMode }) {
             progress={progress}
             modeSettings={modeSettings}
             sessionSize={sessionSize ?? undefined}
+            autoSpeak={mode.autoSpeak ? autoSpeak && canSpeak : undefined}
             services={services}
             onFinish={finish}
             onAbort={() => void navigate('/')}

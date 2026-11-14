@@ -45,7 +45,12 @@
     "sessionSize": "每次出題數",
     "sessionSizeHint": "可選擇 1～200。已到複習時間的題目，會比新題目先出題。",
     "sessionSizeInvalid": "請輸入 1～200 的整數。",
-    "sessionSizeSaveFailed": "無法儲存出題數。本次學習仍可使用。"
+    "sessionSizeSaveFailed": "無法儲存出題數。本次學習仍可使用。",
+    "autoSpeak": "自動播放語音",
+    "autoSpeakOn": "開始後會播放語音。",
+    "autoSpeakOff": "不會播放語音（可按喇叭按鈕播放）。",
+    "autoSpeakSaveFailed": "無法儲存設定。本次練習仍會使用。",
+    "displaySettings": "顯示設定"
   },
   "settings": {
     "title": "設定",
@@ -90,7 +95,8 @@
     "feedbackLink": "開啟意見回饋表單",
     "newTab": "（在新分頁開啟）",
     "feedbackNote": "將開啟外部網站（Google 表單）。您填寫的內容會傳送到該網站，單字與學習紀錄不會被傳送。",
-    "feedbackOffline": "連上網路後即可開啟。"
+    "feedbackOffline": "連上網路後即可開啟。",
+    "modeSettingsMoved": "學習模式的設定（自動播放語音、顯示注音與拼音等）可在各模式開始練習的畫面變更。"
   },
   "about": {
     "rightsTitle": "著作權與授權",

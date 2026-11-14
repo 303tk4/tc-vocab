@@ -91,6 +91,10 @@ test('場面別会話（準備・表・裏・結果。単語が無くても開�
   await expect(page.getByRole('button', { name: '学習を始める' })).toBeVisible()
   await expect(page.getByText(/^対象：\d+ 項目$/)).toBeVisible()
   await expectNoA11yViolations(page)
+  // 「学習を始める」の下の表示の設定を開いた状態（FR-PLUG-10）
+  await page.getByText('表示の設定').click()
+  await expect(page.getByRole('checkbox', { name: '注音を表示' })).toBeVisible()
+  await expectNoA11yViolations(page)
 
   await startConversation(page)
   await expectNoA11yViolations(page)

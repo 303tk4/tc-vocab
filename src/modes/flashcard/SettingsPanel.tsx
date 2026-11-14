@@ -1,12 +1,12 @@
-// 暗記カードのモード別設定（仕様書 10.2）。変更は即座に保存する
+// 暗記カードの表示の設定（仕様書 10.2・FR-PLUG-10）。準備画面に置き、変更は即座に保存する
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { SettingsPanelProps } from '../types'
 import { loadSettings, SETTING_KEYS, type FlashcardSettings } from './settings'
 import styles from './SettingsPanel.module.css'
 
-type ToggleKey = 'showZhuyin' | 'showPinyin' | 'autoSpeak'
-const TOGGLES: ToggleKey[] = ['showZhuyin', 'showPinyin', 'autoSpeak']
+type ToggleKey = 'showZhuyin' | 'showPinyin'
+const TOGGLES: ToggleKey[] = ['showZhuyin', 'showPinyin']
 
 export default function FlashcardSettingsPanel({ settings: store }: SettingsPanelProps) {
   const { t } = useTranslation('mode.flashcard')

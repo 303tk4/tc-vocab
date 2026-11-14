@@ -143,10 +143,6 @@
   color: var(--color-muted);
 }
 
-.replay {
-  font-size: 0.875rem;
-}
-
 .hint {
   font-size: 0.875rem;
   color: var(--color-muted);

@@ -158,7 +158,14 @@ type Counts = Record<Rating, number>
 
 const zeroCounts = (): Counts => Object.fromEntries(RATINGS.map((rating) => [rating, 0])) as Counts
 
-function Study({ loaded, progress, services, onFinish, onAbort }: Props & { loaded: Loaded }) {
+function Study({
+  loaded,
+  progress,
+  services,
+  autoSpeak = true,
+  onFinish,
+  onAbort,
+}: Props & { loaded: Loaded }) {
   const { t } = useTranslation('mode.conversation')
   const { t: tc } = useTranslation()
   const coarse = useMediaQuery('(pointer: coarse)')
@@ -187,7 +194,8 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
   const { phrase } = card
   const key = keyOf(card)
   const prevState = states.get(key)
-  const audioOnly = settings.audioOnly && services.canSpeak
+  // 自動再生がオフのときは音が出ないので、音声だけでは出さない（FR-CONV-11）
+  const audioOnly = settings.audioOnly && autoSpeak && services.canSpeak
 
   // 場面の背景の画像（FR-CONV-16）。設定がオフ・画像が無い・読めないときは使わない
   useEffect(() => {
@@ -210,7 +218,7 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
 
   // 「答える」の表面を出したら、セリフを読み上げる（FR-CONV-10）
   const speakLineOnShow = useEffectEvent(() => {
-    if (phrase.kind === 'respond' && phrase.line && services.canSpeak) {
+    if (autoSpeak && phrase.kind === 'respond' && phrase.line && services.canSpeak) {
       services.speak(phrase.line.text)
     }
   })
@@ -388,14 +396,16 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
                     {phrase.line.text}
                   </p>
                 )}
+                {/* 答えを見る前にセリフを聞ける読み上げボタン。暗記カードの表面と同じ形（FR-CONV-10） */}
                 {services.canSpeak && (
                   <button
                     type="button"
-                    className={`button ${styles.replay}`}
+                    className={styles.speak}
+                    aria-label={t('speakLine')}
+                    title={t('speakLine')}
                     onClick={() => services.speak(phrase.line!.text)}
                   >
                     <SpeakerIcon />
-                    {t('replay')}
                   </button>
                 )}
               </div>

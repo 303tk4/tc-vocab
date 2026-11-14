@@ -27,3 +27,16 @@
   font-size: 1.5rem;
   font-weight: 700;
 }
+
+/* 表示の設定（FR-PLUG-10）。開閉できる欄 */
+.display > :not(summary) {
+  margin-top: var(--space-3);
+}
+
+.displaySummary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+  cursor: pointer;
+}

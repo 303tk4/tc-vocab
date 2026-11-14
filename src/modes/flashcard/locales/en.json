@@ -60,7 +60,6 @@
   "settings": {
     "showZhuyin": "Show Zhuyin",
     "showPinyin": "Show Pinyin",
-    "autoSpeak": "Speak automatically when the card is flipped",
     "saveFailed": "Could not save the setting."
   },
   "editWord": "Edit word"

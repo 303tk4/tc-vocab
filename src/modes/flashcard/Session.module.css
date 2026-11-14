@@ -68,6 +68,30 @@
   cursor: pointer;
 }
 
+/* カードを覆う、裏返すためのボタン（FR-FC-30）。文字はその上に重ねて、押すとこのボタンに届く */
+.flip {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.front > :not(.flip) {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 表面の読み上げボタン（FR-FC-17）。押しても裏返さない */
+.front > .frontSpeak {
+  z-index: 2;
+  pointer-events: auto;
+}
+
 .front:active {
   transform: scale(0.995);
 }

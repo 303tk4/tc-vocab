@@ -1,5 +1,5 @@
 // 暗記カードの学習セッション（仕様書 8章）
-import { useEffect, useEffectEvent, useRef, useState } from 'react'
+import { useEffect, useEffectEvent, useId, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PencilIcon, SpeakerIcon, TagIcon } from '../../components/icons'
 import { WordEditDialog } from '../../components/WordEditDialog'
@@ -132,7 +132,14 @@ interface TagEditing {
   failed: boolean
 }
 
-function Study({ loaded, progress, services, onFinish, onAbort }: Props & { loaded: Loaded }) {
+function Study({
+  loaded,
+  progress,
+  services,
+  autoSpeak = false,
+  onFinish,
+  onAbort,
+}: Props & { loaded: Loaded }) {
   const { t } = useTranslation('mode.flashcard')
   const { t: tc } = useTranslation()
   const coarse = useMediaQuery('(pointer: coarse)')
@@ -155,6 +162,7 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
   const [wordEditing, setWordEditing] = useState<{ allTags: string[] } | null>(null)
 
   const frontRef = useRef<HTMLButtonElement>(null)
+  const frontId = useId()
   const backRef = useRef<HTMLDivElement>(null)
 
   const card = cards[pos]
@@ -172,7 +180,7 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
   const flip = () => {
     if (flipped) return
     setFlipped(true)
-    if (settings.autoSpeak && services.canSpeak) services.speak(word.hanzi)
+    if (autoSpeak && services.canSpeak) services.speak(word.hanzi)
   }
 
   const finish = async (finalCounts: Counts, studiedCount: number) => {
@@ -299,6 +307,8 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
         if (!target?.closest('button, a')) e.preventDefault()
         return
       }
+      // 表面の読み上げボタンにフォーカスがあるときは、そのボタンの操作にする（FR-FC-17）
+      if (target?.closest('[data-speak]')) return
       e.preventDefault()
       if (!e.repeat) flip()
     } else if (/^[1-9]$/.test(e.key) && Number(e.key) <= RATINGS.length) {
@@ -354,22 +364,35 @@ function Study({ loaded, progress, services, onFinish, onAbort }: Props & { load
       </div>
 
       {!flipped ? (
-        <button
-          key={`front-${pos}`}
-          ref={frontRef}
-          type="button"
-          className={`${styles.card} ${styles.front}`}
-          onClick={flip}
-        >
+        <div key={`front-${pos}`} className={`${styles.card} ${styles.front}`}>
+          {/* カード全体を押すと裏返す（FR-FC-30）。読み上げボタンを中に入れられないよう、
+              カードを覆うボタンと、その上に重ねた読み上げボタンに分ける（FR-FC-17） */}
+          <button
+            ref={frontRef}
+            type="button"
+            className={styles.flip}
+            aria-labelledby={`${frontId}-q ${frontId}-hint`}
+            onClick={flip}
+          />
           {card.reverse ? (
-            <span className={styles.frontMeaning}>{word.meaning}</span>
+            <span id={`${frontId}-q`} className={styles.frontMeaning}>
+              {word.meaning}
+            </span>
           ) : (
-            <span className={styles.frontHanzi} lang="zh-TW">
+            <span id={`${frontId}-q`} className={styles.frontHanzi} lang="zh-TW">
               {word.hanzi}
             </span>
           )}
-          <span className={styles.hint}>{coarse ? t('flipHintTouch') : t('flipHintKey')}</span>
-        </button>
+          {/* 答えを見る前に音を聞ける。「意味→繁体字」では答えが分かるので置かない（FR-FC-17・8.4） */}
+          {!card.reverse && services.canSpeak && (
+            <span className={styles.frontSpeak}>
+              <SpeakButton label={t('speakWord')} onClick={() => services.speak(word.hanzi)} />
+            </span>
+          )}
+          <span id={`${frontId}-hint`} className={styles.hint}>
+            {coarse ? t('flipHintTouch') : t('flipHintKey')}
+          </span>
+        </div>
       ) : (
         <div
           key={`back-${pos}`}
@@ -541,6 +564,7 @@ function SpeakButton({ label, onClick }: { label: string; onClick(): void }) {
     <button
       type="button"
       className={styles.speak}
+      data-speak=""
       aria-label={label}
       title={label}
       onClick={onClick}

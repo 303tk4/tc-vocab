@@ -1,4 +1,4 @@
-// 場面別会話のモード別設定（仕様書 10.2）。変更は即座に保存する
+// 場面別会話の表示の設定（仕様書 10.2・FR-PLUG-10）。準備画面に置き、変更は即座に保存する
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { SettingsPanelProps } from '../types'
@@ -8,7 +8,10 @@ import styles from './SettingsPanel.module.css'
 type ToggleKey = 'showZhuyin' | 'showPinyin' | 'audioOnly' | 'showBackground'
 const TOGGLES: ToggleKey[] = ['showZhuyin', 'showPinyin', 'audioOnly', 'showBackground']
 
-export default function ConversationSettingsPanel({ settings: store }: SettingsPanelProps) {
+export default function ConversationSettingsPanel({
+  settings: store,
+  autoSpeak = true,
+}: SettingsPanelProps) {
   const { t } = useTranslation('mode.conversation')
   const { t: tc } = useTranslation()
   const [values, setValues] = useState<ConversationSettings | null>(null)
@@ -41,19 +44,21 @@ export default function ConversationSettingsPanel({ settings: store }: SettingsP
 
   return (
     <div className="stack">
-      {TOGGLES.map((key) => (
-        <label key={key} className={styles.toggle}>
-          <input
-            type="checkbox"
-            checked={values[key]}
-            onChange={(e) => save(key, e.target.checked)}
-          />
-          <span>{t(`settings.${key}`)}</span>
-        </label>
-      ))}
-
-      {/* 訓練の言語は準備画面で選ぶ（FR-CONV-05） */}
-      <p className={styles.hint}>{t('settings.languageNote')}</p>
+      {TOGGLES.map((key) => {
+        // 自動再生がオフのあいだは、音が出ないので「音声だけで出す」を選べない（FR-CONV-11）
+        const disabled = key === 'audioOnly' && !autoSpeak
+        return (
+          <label key={key} className={styles.toggle} data-disabled={disabled || undefined}>
+            <input
+              type="checkbox"
+              checked={values[key] && !disabled}
+              disabled={disabled}
+              onChange={(e) => save(key, e.target.checked)}
+            />
+            <span>{t(`settings.${key}`)}</span>
+          </label>
+        )
+      })}
 
       {saveFailed && (
         <p className={styles.invalid} role="alert">

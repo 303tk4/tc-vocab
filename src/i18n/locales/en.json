@@ -45,7 +45,12 @@
     "sessionSize": "Questions per session",
     "sessionSizeHint": "Choose from 1 to 200. Questions due for review are asked before new ones.",
     "sessionSizeInvalid": "Enter a whole number from 1 to 200.",
-    "sessionSizeSaveFailed": "Could not save the number. You can still use it for this session."
+    "sessionSizeSaveFailed": "Could not save the number. You can still use it for this session.",
+    "autoSpeak": "Play audio automatically",
+    "autoSpeakOn": "Audio will play when you start.",
+    "autoSpeakOff": "No audio will play (use the speaker button to play it).",
+    "autoSpeakSaveFailed": "Could not save this setting. It will still be used this time.",
+    "displaySettings": "Display settings"
   },
   "settings": {
     "title": "Settings",
@@ -90,7 +95,8 @@
     "feedbackLink": "Open the feedback form",
     "newTab": " (opens in a new tab)",
     "feedbackNote": "This opens an external site (Google Forms). What you write is sent to that site. Your words and study records are not sent.",
-    "feedbackOffline": "Available when you are online."
+    "feedbackOffline": "Available when you are online.",
+    "modeSettingsMoved": "Study mode settings (autoplay, Zhuyin and Pinyin display, and so on) are on each mode’s start screen."
   },
   "about": {
     "rightsTitle": "Copyright and license",

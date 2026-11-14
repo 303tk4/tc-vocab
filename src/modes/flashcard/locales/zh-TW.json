@@ -60,7 +60,6 @@
   "settings": {
     "showZhuyin": "顯示注音",
     "showPinyin": "顯示拼音",
-    "autoSpeak": "翻面時自動朗讀",
     "saveFailed": "無法儲存設定。"
   },
   "editWord": "編輯單字"

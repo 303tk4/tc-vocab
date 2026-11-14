@@ -60,7 +60,6 @@
   "settings": {
     "showZhuyin": "注音を表示",
     "showPinyin": "拼音を表示",
-    "autoSpeak": "裏返したときに自動で読み上げる",
     "saveFailed": "設定を保存できませんでした。"
   },
   "editWord": "単語を編集"

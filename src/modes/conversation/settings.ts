@@ -17,6 +17,9 @@ export const DEFAULT_SETTINGS: ConversationSettings = {
   showBackground: true,
 }
 
+/** 音声の自動再生の初期値（FR-PLUG-09・FR-CONV-10）。表面を出したらセリフを読み上げる */
+export const DEFAULT_AUTO_SPEAK = true
+
 /** 一回の出題数の初期値（FR-PLUG-08。入力欄はコアの準備画面にある。版 1.41） */
 export const DEFAULT_SESSION_SIZE = 10
 

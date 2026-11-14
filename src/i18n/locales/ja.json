@@ -45,7 +45,12 @@
     "sessionSize": "一回の出題数",
     "sessionSizeHint": "1〜200 の範囲で選択できます。復習の期限が来た問題は、新規の問題よりも先に出題されます。",
     "sessionSizeInvalid": "1〜200 の整数を入力してください。",
-    "sessionSizeSaveFailed": "出題数を保存できませんでした。今回の学習には使えます。"
+    "sessionSizeSaveFailed": "出題数を保存できませんでした。今回の学習には使えます。",
+    "autoSpeak": "音声を自動で再生する",
+    "autoSpeakOn": "開始すると音声が流れます。",
+    "autoSpeakOff": "音声は流れません（ラッパのボタンで再生できます）。",
+    "autoSpeakSaveFailed": "設定を保存できませんでした。今回の学習には使えます。",
+    "displaySettings": "表示の設定"
   },
   "settings": {
     "title": "設定",
@@ -90,7 +95,8 @@
     "feedbackLink": "意見を送るフォームを開く",
     "newTab": "（新しいタブで開きます）",
     "feedbackNote": "外部のサイト（Google フォーム）が開きます。書いた内容はそのサイトに送られます。単語や学習の記録は送られません。",
-    "feedbackOffline": "インターネットに接続すると開けます。"
+    "feedbackOffline": "インターネットに接続すると開けます。",
+    "modeSettingsMoved": "学習モードの設定（音声の自動再生、注音・拼音の表示など）は、各モードの学習を始める画面で変えられます。"
   },
   "about": {
     "rightsTitle": "著作権とライセンス",

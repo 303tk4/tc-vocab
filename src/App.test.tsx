@@ -165,11 +165,12 @@ describe('一回の出題数（FR-PLUG-08、仕様書 8.1）', () => {
     await waitFor(() => expect(conv).toHaveValue(10))
   })
 
-  it('設定画面には置かない（10.2）', async () => {
+  it('設定画面には、モード別の設定を置かず案内だけを示す（10.2・FR-PLUG-10）', async () => {
     renderApp('/settings')
-    // 両方のモードの設定が出るまで待つ
-    expect(await screen.findAllByText('Show Zhuyin')).toHaveLength(2)
+    expect(
+      await screen.findByText(/Study mode settings .* are on each mode’s start screen./),
+    ).toBeInTheDocument()
+    expect(screen.queryByText('Show Zhuyin')).not.toBeInTheDocument()
     expect(screen.queryByLabelText('Questions per session')).not.toBeInTheDocument()
-    expect(screen.queryByText('New cards per day')).not.toBeInTheDocument()
   })
 })

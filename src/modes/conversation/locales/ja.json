@@ -32,7 +32,7 @@
   "showAnswerKeyHint": "Space：回答例を見る",
   "showText": "文字を見る",
   "audioOnly": "音声だけで出しています",
-  "replay": "もう一度聞く",
+  "speakLine": "セリフを読み上げる",
   "speak": "読み上げる",
   "line": "セリフ",
   "answers": "回答例",
@@ -81,7 +81,6 @@
     "showPinyin": "拼音を表示",
     "audioOnly": "セリフを音声だけで出す（読み上げに対応した環境のみ）",
     "showBackground": "背景の画像を表示する",
-    "languageNote": "訓練の言語（問題文と訳の言語）は、学習を始める画面で選びます。",
     "saveFailed": "設定を保存できませんでした。"
   }
 }

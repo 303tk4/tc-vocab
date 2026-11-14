@@ -58,6 +58,8 @@ export interface SessionProps<O> {
   modeSettings: ModeSettingsStore
   /** 一回の出題数（sessionSize を宣言したモードだけ。FR-PLUG-08） */
   sessionSize?: number
+  /** 音声を自動で再生するか（autoSpeak を宣言したモードだけ。FR-PLUG-09） */
+  autoSpeak?: boolean
   services: CoreServices
   onFinish(result: SessionResult): void
   onAbort(): void
@@ -66,6 +68,8 @@ export interface SessionProps<O> {
 export interface SettingsPanelProps {
   /** このモード専用の設定 API（FR-PLUG-05） */
   settings: ModeSettingsStore
+  /** 準備画面の「音声を自動で再生する」の今の値（FR-PLUG-09・10） */
+  autoSpeak?: boolean
 }
 
 export interface ResultProps {
@@ -95,7 +99,7 @@ export interface StudyMode<O = unknown> {
   defaultOptions: O
   Setup?: Lazy<SetupProps<O>>
   Session: Lazy<SessionProps<O>>
-  /** 設定画面に表示するモード別設定 */
+  /** 準備画面の「表示の設定」に表示するモード別設定（FR-PLUG-10） */
   SettingsPanel?: Lazy<SettingsPanelProps>
   /** 結果画面の集計の表示（FR-PLUG-06）。省略時は summary をそのまま並べる */
   Result?: Lazy<ResultProps>
@@ -112,6 +116,12 @@ export interface StudyMode<O = unknown> {
    * 単位の文言はモードの名前空間のキー sessionSizeUnit（例：「枚」）
    */
   sessionSize?: { defaultValue: number }
+  /**
+   * 音声の自動再生を使う（FR-PLUG-09）。宣言すると、コアが準備画面の「学習を始める」のすぐ下に
+   * 「音声を自動で再生する」のチェックボックスを置き、値を mode.<id>.autoSpeak に保存して
+   * SessionProps.autoSpeak で渡す
+   */
+  autoSpeak?: { defaultValue: boolean }
 }
 
 /** レジストリでは型引数を消して扱う。モード定義ごとの型安全性は defineMode で確保する */

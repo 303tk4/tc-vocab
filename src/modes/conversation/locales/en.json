@@ -32,7 +32,7 @@
   "showAnswerKeyHint": "Space: show sample answers",
   "showText": "Show text",
   "audioOnly": "Audio only",
-  "replay": "Play again",
+  "speakLine": "Read the line aloud",
   "speak": "Speak",
   "line": "What they said",
   "answers": "Sample answers",
@@ -81,7 +81,6 @@
     "showPinyin": "Show Pinyin",
     "audioOnly": "Play staff lines as audio only (where speech is supported)",
     "showBackground": "Show background images",
-    "languageNote": "Choose the training language (for prompts and translations) on the screen where you start studying.",
     "saveFailed": "Could not save the setting."
   }
 }
