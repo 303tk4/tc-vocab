@@ -308,6 +308,38 @@ test('設定は再読み込みのあとも保たれる（仕様書 10.1）', asy
   await expect(root).toHaveAttribute('data-font-scale', 'xl')
 })
 
+test('画面上部のバーから文字の大きさを変えられ、特大でも横にはみ出さない（FR-NAV-02、版 1.51）', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 375, height: 812 })
+  await page.goto('./#/mode/conversation')
+  await expect(page.getByText(/^対象：\d+ 項目$/)).toBeVisible()
+  const button = page.getByRole('button', { name: '文字の大きさ' })
+  await button.click()
+  await page.getByRole('radio', { name: '特大', exact: true }).check()
+  const root = page.locator('html')
+  await expect(root).toHaveAttribute('data-font-scale', 'xl')
+  // メニューを開いたまま、画面の幅からはみ出さない。場面の一覧も横にはみ出さない（版 1.51 で直した）
+  await expectNoHorizontalScroll(page)
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('radio', { name: '特大', exact: true })).toHaveCount(0)
+  await expect(button).toBeFocused()
+  await expectNoHorizontalScroll(page)
+
+  // 設定画面と同じ設定なので、再読み込みのあとも保たれる
+  await page.reload()
+  await expect(root).toHaveAttribute('data-font-scale', 'xl')
+})
+
+/** 横スクロールが出ていない */
+async function expectNoHorizontalScroll(page: Page) {
+  const { scrollWidth, clientWidth } = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+  }))
+  expect(scrollWidth).toBeLessThanOrEqual(clientWidth)
+}
+
 test('ボタンなどの色を変えると、ウィンドウ上部の色もその場で変わり、再読み込みのあとも保たれる（FR-SET-04、版 1.46）', async ({
   page,
 }) => {

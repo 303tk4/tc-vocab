@@ -15,6 +15,7 @@
 }
 
 .headerInner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,6 +48,12 @@
 .tagline {
   font-size: 0.875rem;
   color: var(--color-muted);
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
 }
 
 .nav {

@@ -12,6 +12,10 @@ test('ホーム（単語が無いとき）', async ({ page }) => {
   await page.goto('./')
   await expect(page.getByRole('heading', { name: '単語を追加して始めましょう' })).toBeVisible()
   await expectNoA11yViolations(page)
+  // 画面上部のバーの文字の大きさのメニュー（FR-NAV-02）
+  await page.getByRole('button', { name: '文字の大きさ' }).click()
+  await expect(page.getByRole('radio', { name: '中', exact: true })).toBeVisible()
+  await expectNoA11yViolations(page)
 })
 
 test.describe('単語があるとき', () => {

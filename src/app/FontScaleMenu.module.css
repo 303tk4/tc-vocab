@@ -1,0 +1,49 @@
+/* 画面上部のバーの、文字の大きさのメニュー（FR-NAV-02） */
+/* メニューはバーの右端にそろえる（位置の基準はバーの中身 .headerInner） */
+.root {
+  display: flex;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  /* アイコンの大きさ（em）を、ほかのナビのアイコンとそろえる */
+  font: inherit;
+  cursor: pointer;
+}
+
+.button[aria-expanded='true'] {
+  color: var(--color-accent-strong);
+  background: var(--color-accent-soft);
+}
+
+@media (hover: hover) {
+  .button[aria-expanded='false']:hover {
+    background: var(--color-surface-2);
+  }
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 20;
+  width: max-content;
+  /* 文字を大きくしても画面の幅からはみ出さない（左右の余白 16px ずつ） */
+  max-width: calc(100vw - 32px);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow:
+    var(--shadow-card),
+    0 8px 24px rgb(0 0 0 / 12%);
+}

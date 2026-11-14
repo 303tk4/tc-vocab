@@ -126,3 +126,13 @@ export function ExternalLinkIcon() {
     </Icon>
   )
 }
+
+/** 文字の大きさ（小さい A と大きい A。FR-NAV-02） */
+export function TextSizeIcon() {
+  return (
+    <Icon>
+      <path d="M1.5 21l4-10.5 4 10.5M3 17h5" />
+      <path d="M10 21l6-18 6 18M12.3 14.5h7.4" />
+    </Icon>
+  )
+}

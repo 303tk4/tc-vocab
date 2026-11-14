@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, NavLink, Outlet } from 'react-router'
 import { BookIcon, GearIcon } from '../components/icons'
 import styles from './Layout.module.css'
+import { FontScaleMenu } from './FontScaleMenu'
 import { UpdatePrompt } from './UpdatePrompt'
 
 export function Layout() {
@@ -21,16 +22,20 @@ export function Layout() {
             <span className={styles.tagline}>{t('app.tagline')}</span>
             <span className="visually-hidden">{t('nav.brandHomeSuffix')}</span>
           </Link>
-          <nav className={styles.nav}>
-            <NavLink to="/words" className={navClass}>
-              <BookIcon />
-              <span className={styles.navLabel}>{t('nav.words')}</span>
-            </NavLink>
-            <NavLink to="/settings" className={navClass}>
-              <GearIcon />
-              <span className={styles.navLabel}>{t('nav.settings')}</span>
-            </NavLink>
-          </nav>
+          <div className={styles.tools}>
+            {/* 文字の大きさ（FR-NAV-02） */}
+            <FontScaleMenu />
+            <nav className={styles.nav}>
+              <NavLink to="/words" className={navClass}>
+                <BookIcon />
+                <span className={styles.navLabel}>{t('nav.words')}</span>
+              </NavLink>
+              <NavLink to="/settings" className={navClass}>
+                <GearIcon />
+                <span className={styles.navLabel}>{t('nav.settings')}</span>
+              </NavLink>
+            </nav>
+          </div>
         </div>
       </header>
       <main className={styles.main}>
