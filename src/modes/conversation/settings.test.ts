@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createModeSettingsStore } from '../../db/repos/settings'
-import { DEFAULT_OPTIONS, sanitizeOptions } from './options'
+import indexJson from './data/index.json'
+import { DEFAULT_OPTIONS, DEFAULT_SCENES, sanitizeOptions } from './options'
 import { DEFAULT_SESSION_SIZE, DEFAULT_SETTINGS, loadSettings, sanitizeSettings } from './settings'
 
 describe('場面別会話のモード別設定（仕様書 10.2）', () => {
@@ -42,5 +43,21 @@ describe('準備画面のオプション（FR-CONV-01）', () => {
         kinds: 'say',
       },
     )
+  })
+
+  it('初めて開いたときは、コンビニ・夜市・飲食店を選んでおく（版 1.53）', () => {
+    expect(sanitizeOptions(undefined).scenes).toEqual([
+      'convenience-store',
+      'night-market',
+      'restaurant',
+    ])
+    expect(sanitizeOptions({ kinds: 'say' }).scenes).toEqual(DEFAULT_SCENES)
+    // 初期値の場面は、配布する場面の一覧にある
+    const ids = indexJson.scenes.map((x) => x.id)
+    for (const id of DEFAULT_SCENES) expect(ids).toContain(id)
+  })
+
+  it('保存した選択が空（すべての場面）なら、初期値の場面に戻さない', () => {
+    expect(sanitizeOptions({ scenes: [] }).scenes).toEqual([])
   })
 })

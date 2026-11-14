@@ -106,17 +106,22 @@ test('単語が0件でも場面別会話を始められ、訓練の言語は画�
 
   // 訓練の言語を English にし、コンビニの「言いたいことを伝える」だけを選ぶ（FR-CONV-01・05）
   await page.getByRole('radio', { name: 'English' }).check()
-  // 場面は「場面を選び直す」で開くダイアログで選ぶ。初めはすべての場面が対象（版 1.52）
-  await expect(page.getByText(/^すべての場面（\d+ 件）$/)).toBeVisible()
+  // 場面は「場面を選び直す」で開くダイアログで選ぶ（版 1.52）。初めはコンビニ・飲食店・夜市を選んでおき、
+  // ボタンの横に用意している場面の数を示す（版 1.53）
+  const chosen = page.getByRole('group', { name: '場面', exact: true })
+  for (const name of ['便利商店', '餐廳', '夜市']) {
+    await expect(chosen.getByText(name, { exact: true })).toBeVisible()
+  }
+  await expect(chosen.getByText(/^全 \d+ 場面$/)).toBeVisible()
   await page.getByRole('button', { name: '場面を選び直す' }).click()
   const dialog = page.getByRole('dialog', { name: '場面を選ぶ' })
   await expect(dialog.getByText('Convenience store')).toBeVisible()
   await expect(dialog.getByRole('group', { name: '中級向け' })).toBeVisible()
+  await dialog.getByRole('button', { name: '選択をすべて外す' }).click()
   await dialog.getByRole('checkbox', { name: /便利商店/ }).check()
   await dialog.getByRole('button', { name: '閉じる' }).click()
   await expect(dialog).toBeHidden()
   // 準備画面には、選んだ場面だけを示す
-  const chosen = page.getByRole('group', { name: '場面', exact: true })
   await expect(chosen.getByText('Convenience store')).toBeVisible()
   await expect(chosen.getByText('Restaurant')).toHaveCount(0)
   await page.getByRole('radio', { name: '言いたいことを伝える' }).check()

@@ -9,6 +9,7 @@
     "scenesHint": "If none are selected, items come from all scenes.",
     "scenesAll": "All scenes ({{count}})",
     "scenesMore": "+{{count}} more",
+    "scenesTotal": "{{count}} scenes in total",
     "scenesUnavailable": "The selected scenes are not available in this language.",
     "chooseScenes": "Change scenes",
     "chooseScenesTitle": "Choose scenes",

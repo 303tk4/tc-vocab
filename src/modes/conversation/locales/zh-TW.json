@@ -9,6 +9,7 @@
     "scenesHint": "若未選擇任何情境，將從所有情境出題。",
     "scenesAll": "所有情境（共 {{count}} 個）",
     "scenesMore": "等 {{count}} 個",
+    "scenesTotal": "共 {{count}} 個情境",
     "scenesUnavailable": "所選的情境沒有這個語言的版本。",
     "chooseScenes": "重新選擇情境",
     "chooseScenesTitle": "選擇情境",

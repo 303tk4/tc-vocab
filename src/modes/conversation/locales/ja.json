@@ -9,6 +9,7 @@
     "scenesHint": "何も選択されていない場合、すべての場面から出題されます。",
     "scenesAll": "すべての場面（{{count}} 件）",
     "scenesMore": "ほか {{count}} 件",
+    "scenesTotal": "全 {{count}} 場面",
     "scenesUnavailable": "選んだ場面は、この言語では出題できません。",
     "chooseScenes": "場面を選び直す",
     "chooseScenesTitle": "場面を選ぶ",

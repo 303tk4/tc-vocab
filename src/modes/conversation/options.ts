@@ -11,15 +11,18 @@ export interface ConversationOptions {
   language: string | null
   /** language を選んだときの UI 言語。UI 言語が変わったら language は使わない（FR-CONV-06） */
   languageUi: string | null
-  /** 選んだ場面の ID。空はすべての場面 */
+  /** 選んだ場面の ID。空はすべての場面。初期値は DEFAULT_SCENES */
   scenes: string[]
   kinds: KindFilter
 }
 
+/** 初めて開いたときに選んでおく場面（FR-CONV-01、版 1.53）。保存した選択があればそちらを使う */
+export const DEFAULT_SCENES = ['convenience-store', 'night-market', 'restaurant']
+
 export const DEFAULT_OPTIONS: ConversationOptions = {
   language: null,
   languageUi: null,
-  scenes: [],
+  scenes: DEFAULT_SCENES,
   kinds: 'both',
 }
 
@@ -31,7 +34,7 @@ export function sanitizeOptions(raw: unknown): ConversationOptions {
     languageUi: typeof o.languageUi === 'string' && o.languageUi !== '' ? o.languageUi : null,
     scenes: Array.isArray(o.scenes)
       ? o.scenes.filter((s): s is string => typeof s === 'string')
-      : [],
+      : [...DEFAULT_SCENES],
     kinds: KIND_FILTERS.includes(o.kinds as KindFilter) ? (o.kinds as KindFilter) : 'both',
   }
 }

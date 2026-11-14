@@ -143,3 +143,24 @@
   flex-wrap: wrap;
   gap: var(--space-2);
 }
+
+/* 「場面を選び直す」と、用意している場面の数（版 1.53） */
+.chooseRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.total {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+/* 「場面を選び直す」は、選択中の項目と同じ色で目立たせる（版 1.53）。「学習を始める」より控えめにする */
+.chooseButton {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+  font-weight: 600;
+}

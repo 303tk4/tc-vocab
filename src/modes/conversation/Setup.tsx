@@ -174,10 +174,18 @@ export default function ConversationSetup({
             )}
           </ul>
         )}
-        <div>
-          <button type="button" className="button" onClick={() => setChoosing(true)}>
+        {/* 用意している場面の数を、選び直すボタンの横に示す（版 1.53） */}
+        <div className={styles.chooseRow}>
+          <button
+            type="button"
+            className={`button ${styles.chooseButton}`}
+            onClick={() => setChoosing(true)}
+          >
             {t('setup.chooseScenes')}
           </button>
+          <span className={styles.total}>
+            {t('setup.scenesTotal', { count: index.scenes.length })}
+          </span>
         </div>
       </div>
 
