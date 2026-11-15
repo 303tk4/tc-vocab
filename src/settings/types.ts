@@ -1,7 +1,8 @@
 // 仕様書 10.1
 import { ACCENTS, DEFAULT_ACCENT, type Accent } from './accents'
 
-export const UI_LANGUAGES = ['ja', 'zh-TW', 'en'] as const
+// ベトナム語は版 1.55（仕様書 16.8）
+export const UI_LANGUAGES = ['ja', 'zh-TW', 'en', 'vi'] as const
 export type UiLanguage = (typeof UI_LANGUAGES)[number]
 
 export const FONT_SCALES = ['sm', 'md', 'lg', 'xl'] as const
@@ -32,6 +33,7 @@ export function detectLanguage(languages: readonly string[]): UiLanguage {
     if (lang.startsWith('ja')) return 'ja'
     if (lang === 'zh-tw' || lang === 'zh-hk' || lang.startsWith('zh-hant')) return 'zh-TW'
     if (lang.startsWith('en')) return 'en'
+    if (lang.startsWith('vi')) return 'vi'
   }
   return 'en'
 }

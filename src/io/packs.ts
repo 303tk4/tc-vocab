@@ -172,9 +172,10 @@ export function parsePackIndex(text: string): PackEntry[] {
   return packs
 }
 
-/** UI 言語の文字列を選ぶ。無ければ ja、次に最初の項目で代用する */
+/** UI 言語の文字列を選ぶ。無ければ en、次に ja、次に最初の項目で代用する */
 export function pickText(text: LocalizedText, language: string): string {
-  return text[language] ?? text.ja ?? Object.values(text)[0] ?? ''
+  // 無い言語では English、次に日本語で代用する（仕様書 16.5・16.8。版 1.55）
+  return text[language] ?? text.en ?? text.ja ?? Object.values(text)[0] ?? ''
 }
 
 /**

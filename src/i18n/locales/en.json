@@ -54,7 +54,7 @@
   },
   "settings": {
     "title": "Settings",
-    "language": "Interface language",
+    "language": "Display language",
     "fontScale": "Display size",
     "fontScales": {
       "sm": "Small",

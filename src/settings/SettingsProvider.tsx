@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { getSettingsByPrefix, setSetting } from '../db/repos/settings'
 import { useMediaQuery } from '../hooks/useMediaQuery'
-import i18n from '../i18n'
+import i18n, { changeUiLanguage } from '../i18n'
 import { applyToDocument, readBootSettings, writeBootSettings } from './boot'
 import { SettingsContext, type SettingsContextValue } from './context'
 import { defaultSettings, sanitizeSettings, SETTING_KEYS, type AppSettings } from './types'
@@ -39,7 +39,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     applyToDocument(settings, prefersDark)
     writeBootSettings(settings)
-    if (i18n.language !== settings.uiLanguage) void i18n.changeLanguage(settings.uiLanguage)
+    // 文言を読み込んでから切り替える（仕様書 16.8）
+    if (i18n.language !== settings.uiLanguage) void changeUiLanguage(settings.uiLanguage)
   }, [settings, prefersDark])
 
   const update = useCallback((patch: Partial<AppSettings>) => {

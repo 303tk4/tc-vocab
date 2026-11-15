@@ -17,7 +17,19 @@ export function readBootSettings(): Partial<AppSettings> {
   }
 }
 
+/**
+ * 写しを書き換えないようにした状態か。復元・初期化（FR-SET-12・13）で写しを書き直してから
+ * ページを読み込み直すまでの間に、元の画面が古い設定で写しを上書きしないようにする
+ */
+let bootLocked = false
+
+/** これ以降、このページでは写しを書き換えない（ページを読み込み直す直前に呼ぶ） */
+export function lockBootSettings(): void {
+  bootLocked = true
+}
+
 export function writeBootSettings(settings: AppSettings): void {
+  if (bootLocked) return
   try {
     localStorage.setItem(BOOT_STORAGE_KEY, JSON.stringify(settings))
   } catch {

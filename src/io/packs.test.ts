@@ -109,10 +109,12 @@ describe('級の対応表（levelGuide）', () => {
 })
 
 describe('pickText', () => {
-  it('UI 言語、ja、最初の項目の順に選ぶ', () => {
+  it('UI 言語、en、ja、最初の項目の順に選ぶ（版 1.55）', () => {
     expect(pickText({ ja: 'あ', en: 'a' }, 'en')).toBe('a')
-    expect(pickText({ ja: 'あ', en: 'a' }, 'zh-TW')).toBe('あ')
+    expect(pickText({ ja: 'あ', en: 'a' }, 'vi')).toBe('a')
+    expect(pickText({ ja: 'あ', 'zh-TW': '啊' }, 'vi')).toBe('あ')
     expect(pickText({ en: 'a' }, 'zh-TW')).toBe('a')
+    expect(pickText({ ko: '아' }, 'vi')).toBe('아')
     expect(pickText({}, 'ja')).toBe('')
   })
 })

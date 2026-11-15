@@ -1,0 +1,98 @@
+{
+  "title": "Luyện hội thoại theo tình huống",
+  "description": "Luyện các tình huống hằng ngày như ở cửa hàng tiện lợi hay nhà hàng: trả lời câu nhân viên nói, hoặc nói điều bạn muốn bằng tiếng Trung. So sánh với câu trả lời mẫu và tự đánh giá theo thang 5 mức.",
+  "sessionSizeUnit": "câu",
+  "setup": {
+    "language": "Chọn ngôn ngữ của đề bài",
+    "languageHint": "Chọn ngôn ngữ cho đề bài và bản dịch. Ngôn ngữ hiển thị của ứng dụng không thay đổi.",
+    "scenes": "Tình huống",
+    "scenesHint": "Nếu không chọn tình huống nào, câu hỏi sẽ lấy từ tất cả các tình huống.",
+    "scenesAll": "Tất cả tình huống ({{count}})",
+    "scenesMore": "và {{count}} tình huống khác",
+    "scenesTotal": "Tổng cộng {{count}} tình huống",
+    "scenesUnavailable": "Các tình huống đã chọn không có ở ngôn ngữ này.",
+    "chooseScenes": "Chọn lại tình huống",
+    "chooseScenesTitle": "Chọn tình huống",
+    "selectAll": "Chọn tất cả",
+    "clearAll": "Bỏ chọn tất cả",
+    "levels": {
+      "1": "Cơ bản",
+      "2": "Trung cấp",
+      "3": "Nâng cao"
+    },
+    "sceneCounts": "Đã học {{studied}} / Tổng {{total}}",
+    "onlyIn": "Chỉ có {{languages}}",
+    "kinds": "Loại câu hỏi",
+    "kindOptions": {
+      "both": "Cả hai loại",
+      "respond": "Nghe và trả lời",
+      "say": "Nói điều bạn muốn"
+    },
+    "targetItems": "{{count}} câu",
+    "noItems": "Không có câu nào phù hợp với cài đặt này.",
+    "changeNote": "Bạn có thể thay đổi các cài đặt này bất cứ lúc nào trước khi bắt đầu.",
+    "loadFailed": "Không thể tải danh sách tình huống."
+  },
+  "loadFailed": "Không thể tải dữ liệu học.",
+  "saveFailed": "Không thể lưu đánh giá. Hãy đánh giá lại.",
+  "progress": "Câu {{current}} / {{total}}",
+  "kind": {
+    "respond": "Bạn sẽ trả lời thế nào?",
+    "say": "Hãy nói bằng tiếng Trung"
+  },
+  "showAnswer": "Xem câu trả lời mẫu",
+  "showAnswerKeyHint": "Space: xem câu trả lời mẫu",
+  "showText": "Hiện chữ",
+  "audioOnly": "Chỉ âm thanh",
+  "speakLine": "Đọc to câu thoại",
+  "speak": "Đọc",
+  "line": "Câu người kia nói",
+  "answers": "Câu trả lời mẫu",
+  "noReply": "Không cần trả lời.",
+  "note": "Ghi chú",
+  "nextHint": "Chọn một mục để sang câu tiếp theo.",
+  "keyHint": "1–5: đánh giá   S: đọc   Esc: dừng",
+  "ratingsLabel": "Đánh giá mức độ bạn làm được",
+  "ratings": {
+    "again": "Lại",
+    "hard": "Khó",
+    "good": "Tốt",
+    "easy": "Dễ",
+    "perfect": "Hoàn hảo"
+  },
+  "intervals": {
+    "minutes": "{{value}} phút",
+    "days": "{{value}} ngày",
+    "months": "{{value}} tháng",
+    "years": "{{value}} năm"
+  },
+  "empty": {
+    "title": "Hôm nay không có gì để học",
+    "nextDue": "Lần ôn tiếp theo: {{date}}",
+    "noSchedule": "Chưa có lịch ôn tập."
+  },
+  "summary": {
+    "studied": "Số câu đã học",
+    "durationSec": "Thời gian",
+    "dueTomorrow": "Cần ôn ngày mai",
+    "again": "Lại",
+    "hard": "Khó",
+    "good": "Tốt",
+    "easy": "Dễ",
+    "perfect": "Hoàn hảo"
+  },
+  "result": {
+    "ratings": "Đánh giá",
+    "items": "{{count}}",
+    "times": "{{count}}",
+    "minSec": "{{m}} phút {{s}} giây",
+    "sec": "{{s}} giây"
+  },
+  "settings": {
+    "showZhuyin": "Hiện chú âm",
+    "showPinyin": "Hiện bính âm",
+    "audioOnly": "Phát câu của nhân viên chỉ bằng âm thanh (nếu thiết bị hỗ trợ đọc)",
+    "showBackground": "Hiện ảnh nền",
+    "saveFailed": "Không thể lưu cài đặt."
+  }
+}

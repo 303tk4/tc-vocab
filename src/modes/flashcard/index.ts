@@ -3,6 +3,7 @@ import { CardsIcon } from '../../components/icons'
 import { defineMode } from '../types'
 import en from './locales/en.json'
 import ja from './locales/ja.json'
+import vi from './locales/vi.json'
 import zhTW from './locales/zh-TW.json'
 import type { FlashcardOptions } from './options'
 import { DEFAULT_AUTO_SPEAK, DEFAULT_SESSION_SIZE } from './settings'
@@ -24,7 +25,7 @@ export const flashcardMode = defineMode<FlashcardOptions>({
   Session: lazy(() => import('./Session')),
   Result: lazy(() => import('./Result')),
   SettingsPanel: lazy(() => import('./SettingsPanel')),
-  locales: { ja, 'zh-TW': zhTW, en },
+  locales: { ja, 'zh-TW': zhTW, en, vi },
   // ホームのバッジ：復習期限が来ている件数（FR-HOME-02、仕様書 8.1）
   async getBadge({ progress, now }) {
     const due = await progress.dueBefore(now)

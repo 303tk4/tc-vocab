@@ -9,7 +9,7 @@
 
 - **実装は SPEC.md に従う。** 仕様にない機能の追加や、仕様と異なる実装をする場合は、先に SPEC.md の変更案をユーザーに示し、承認を得る。
 - **SPEC.md を変更したら**、表紙の「版」を上げ、17章「改訂履歴」に1行追加する。要件 ID（例：`FR-WORDS-08`）は既存の番号を変えずに追番する。
-- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5, M4, M4.5, M4.6, M4.7, M5, M5.1, M5.2, M5.3, M6 …）の単位で進める。完了済みは M0〜M5.3、M6（アプリの版 1.12.2）。次は15章の「以降」（クイズモードなどの機能追加）。各マイルストーンはユーザーの指示があってから始める。
+- 実装は15章のマイルストーン（M0, M1, M2, M2.5, M3, M3.5, M4, M4.5, M4.6, M4.7, M5, M5.1, M5.2, M5.3, M6 …）の単位で進める。完了済みは M0〜M5.3、M6（アプリの版 1.13.0）。次は15章の「以降」（クイズモードなどの機能追加）。各マイルストーンはユーザーの指示があってから始める。
 - コード中のコメント、テスト名、コミットメッセージは日本語で書く。コメントでは、関係する要件 ID や仕様書の節番号を示す（例：`// 取り込みの計画（仕様書 9.3）`）。
 - **並行で動かすセッションは、必ず自分の作業用フォルダ（git worktree）で作業する。** 同じフォルダを複数のセッションで同時に書き換えない。作業が終わったら（ブランチを統合した、または不要になったら）、使った worktree の片付け（`git worktree remove` とブランチの削除）を人間に促すか、承認を得て Claude が行う。
 
@@ -21,7 +21,7 @@
 | UI             | React 19 + TypeScript 6.0（`strict`）。TypeScript 7 は typescript-eslint が未対応のため使わない |
 | ルーティング   | React Router（HashRouter）                                                                      |
 | データ         | IndexedDB + Dexie。画面への反映は `dexie-react-hooks` の `useLiveQuery`                         |
-| 多言語化       | i18next + react-i18next（ja / zh-TW / en）                                                      |
+| 多言語化       | i18next + react-i18next（ja / zh-TW / en / vi）                                                 |
 | CSV            | Papa Parse                                                                                      |
 | 仮想スクロール | TanStack Virtual（`@tanstack/react-virtual`）                                                   |
 | スタイル       | CSS Modules + CSS カスタムプロパティ（`src/styles/tokens.css`）。UI ライブラリは使わない        |
@@ -74,7 +74,7 @@ src/
 │  ├─ schema.ts           # Dexie のスキーマ。変更時は version を上げて upgrade() で移行する
 │  └─ repos/              # DB 操作はここに集約（words.ts, tags.ts, progress.ts）
 ├─ io/                    # インポート・エクスポートと検証（DB に依存しない純粋な処理）
-├─ i18n/                  # i18next の初期化と共通の文言（locales/ja.json, zh-TW.json, en.json）
+├─ i18n/                  # i18next の初期化と共通の文言（locales/ja.json, zh-TW.json, en.json, vi.json。選んだ言語だけ動的に読む）
 ├─ services/              # 読み上げ、サンプル単語など
 ├─ settings/              # 設定の型・Provider
 ├─ components/            # 複数の画面で使う UI 部品（Dialog, TagChips, TagField, WordTagsDialog, SegmentedControl, icons）
@@ -99,7 +99,7 @@ scripts/conversation/        # 場面別会話のデータを作る（build.mjs�
 
 ## 実装の決まり
 
-- **文言**はすべて i18n を通す。共通の文言は `src/i18n/locales/` の3ファイルに、同じキーで追加する。キーが3言語でそろっていることは `src/i18n/locales.test.ts` が確認する。
+- **文言**はすべて i18n を通す。共通の文言は `src/i18n/locales/` の4ファイル（ja・zh-TW・en・vi）に、同じキーで追加する。キーがすべての言語でそろっていることは `src/i18n/locales.test.ts` が確認する。
 - **初回表示の JS は gzip 後 200KB 以下**（NFR-02）。大きな依存（Papa Parse など）を使う画面や処理は `React.lazy` か動的 `import()` で遅らせる。`npm run size` で確認する。
 - **1万語で単語一覧の表示と学習の開始が1秒以内**（NFR-01）。全件を読む処理を足したら `e2e/perf.spec.ts` で確かめる。
 - **DB への書き込みに失敗したら画面に通知**し、データを壊さない（NFR-07）。複数の表や行にまたがる書き込みは `db.transaction` で1つにまとめる。
@@ -125,7 +125,7 @@ scripts/conversation/        # 場面別会話のデータを作る（build.mjs�
    ├─ SettingsPanel.tsx  # 準備画面の「表示の設定」に出すモード別設定（任意）。default export（FR-PLUG-10）
    ├─ Result.tsx      # 結果画面の集計の表示（任意）。default export
    ├─ *.ts / *.test.ts   # 出題や採点のロジックと、その単体テスト
-   └─ locales/        # ja.json, zh-TW.json, en.json（同じキー）
+   └─ locales/        # ja.json, zh-TW.json, en.json, vi.json（同じキー）
    ```
 3. **`index.ts` で定義する**：
    - `id` は `^[a-z][a-z0-9-]*$` の形にする。進捗や設定の保存キーにもなるので、公開後は変えない。
@@ -136,7 +136,7 @@ scripts/conversation/        # 場面別会話のデータを作る（build.mjs�
    - 音声を自動で再生するモードは `autoSpeak: { defaultValue }` を指定する。「学習を始める」のすぐ下に「音声を自動で再生する」のチェックボックスをコアが目立つ形で置き、`SessionProps.autoSpeak` で値を渡す。オフのときは自動で読み上げず、読み上げボタンと S キーのときだけ読み上げる（FR-PLUG-09）。
    - 単語ではなくモード自身の内容を出題するモード（例：`conversation`）は `usesWords: false` とする。タグの選択と単語数の条件は使われず、開始できるかは `Setup` が `onCanStartChange` で知らせる。進捗の ID は `itemProgressId(modeId, itemId)`（`item:` で始まる。仕様書 6.2・FR-PLUG-07）。
    - `Setup`・`Session`・`SettingsPanel`・`Result` は必ず `lazy(() => import('./Session'))` の形で遅延読み込みにする（FR-PLUG-02）。
-   - `locales: { ja, 'zh-TW': zhTW, en }` を渡す。文言は名前空間 `mode.quiz` に登録されるので、コンポーネントでは `useTranslation('mode.quiz')` で使う（FR-PLUG-03）。
+   - `locales: { ja, 'zh-TW': zhTW, en, vi }` を渡す。文言は名前空間 `mode.quiz` に登録されるので、コンポーネントでは `useTranslation('mode.quiz')` で使う（FR-PLUG-03）。
 4. **登録する**：`src/modes/registry.ts` の `modes` 配列に追加する。並び順がホームでの表示順になる。これだけでホームに表示され、`#/mode/quiz` で開ける（FR-PLUG-01）。
 5. **データの扱い**（FR-PLUG-04・05）：
    - モードから `db` や `db/repos/` を直接使わない。単語は `SessionProps.words`（準備画面の条件で絞り込み済み）で受け取る。進捗は `SessionProps.progress`（`ProgressStore`。modeId で自動的に区切られる）で読み書きする。
@@ -144,6 +144,6 @@ scripts/conversation/        # 場面別会話のデータを作る（build.mjs�
    - 終了時は `onFinish({ summary })`、中断時は `onAbort()` を呼ぶ。セッション履歴の保存や結果画面への遷移は `ModePage` が行う。
    - モード固有の設定は `settings` テーブルのキー `mode.<modeId>.*` に保存する。読み書きは `ModeSettingsStore`（セッションでは `SessionProps.modeSettings`、SettingsPanel では props の `settings`）を使う。キーには `mode.<modeId>.` が自動で付く。
 6. **確認する**：
-   - `src/modes/registry.test.ts`（ID の重複と形式）と `src/i18n/locales.test.ts`（3言語のキー）は、追加したモードも自動で検査する。
+   - `src/modes/registry.test.ts`（ID の重複と形式）と `src/i18n/locales.test.ts`（すべての言語のキー）は、追加したモードも自動で検査する。
    - モードのロジックには単体テストを書く。
    - 「コミット前のチェック」をすべて通し、`npm run preview` でホームから開いて学習できることを確かめる。

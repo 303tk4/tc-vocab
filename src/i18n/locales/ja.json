@@ -54,7 +54,7 @@
   },
   "settings": {
     "title": "設定",
-    "language": "言語",
+    "language": "アプリの表示言語",
     "fontScale": "文字の大きさ",
     "fontScales": {
       "sm": "小",

@@ -9,17 +9,18 @@ import { SETTING_KEYS, UI_LANGUAGES, type UiLanguage } from '../../settings/type
 import styles from './LanguageChoice.module.css'
 
 /**
- * 見出し。まだ言語を選んでいないので、UI 言語によらず3言語で示す（FR-HOME-07）。
+ * 見出し。まだ言語を選んでいないので、UI 言語によらずすべての UI 言語で示す（FR-HOME-07）。
  * 日本語以外の利用者が多くなる想定のため、English を先にする（版 1.45）
  */
 const HEADING = [
   { lang: 'en', text: 'Display Language' },
   { lang: 'ja', text: 'アプリの表示言語' },
   { lang: 'zh-TW', text: '介面語言' },
+  { lang: 'vi', text: 'Ngôn ngữ hiển thị' },
 ] as const
 
 /**
- * 選択肢の並び順。見出しと同じく English を先にし、残りは UI_LANGUAGES の順（日本語・繁體中文）。
+ * 選択肢の並び順。見出しと同じく English を先にし、残りは UI_LANGUAGES の順（日本語・繁體中文・Tiếng Việt）。
  * 設定画面の並びとは別。UI 言語を足したら（仕様書 16.8）自動で加わる（版 1.45）
  */
 const CHOICE_ORDER: readonly UiLanguage[] = ['en', ...UI_LANGUAGES.filter((lang) => lang !== 'en')]

@@ -90,3 +90,21 @@ test('オフラインでも、場面別会話の場面のデータを読んで�
   await page.getByRole('button', { name: '回答例を見る' }).click()
   await expect(page.getByRole('group', { name: '覚え具合の評価' })).toBeVisible()
 })
+
+test('オフラインでも、画面の言語を Tiếng Việt に切り替えられる（仕様書 16.8）', async ({
+  page,
+  context,
+}) => {
+  await page.goto('./')
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready
+  })
+  await page.reload()
+  await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true)
+
+  // 言語ごとの文言は動的 import() で読むが、事前キャッシュに含まれる
+  await context.setOffline(true)
+  await page.goto('./#/settings')
+  await page.getByRole('radio', { name: 'Tiếng Việt' }).check()
+  await expect(page.getByRole('heading', { name: 'Cài đặt', level: 1 })).toBeVisible()
+})

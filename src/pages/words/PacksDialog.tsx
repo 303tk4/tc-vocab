@@ -1,6 +1,7 @@
 import { useEffect, useId, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Dialog } from '../../components/Dialog'
+import { loadLanguage } from '../../i18n'
 import { ReviewReadingNote } from '../../components/ReviewReadingNote'
 import { countReviewReading } from '../../io/reviewReading'
 import { getInstalledPacks } from '../../db/repos/packs'
@@ -106,6 +107,21 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
   const [busy, setBusy] = useState(false)
   const [runError, setRunError] = useState('')
   const inputId = useId()
+  // サンプル単語の説明は、その版の言語の文言で示す（FR-SMP-04）。共通の文言は選んだ言語だけを
+  // 読み込むため（仕様書 16.8）、ほかの言語の文言を読み終えてから示す
+  const [samplesTextReady, setSamplesTextReady] = useState(false)
+  useEffect(() => {
+    if (!open) return
+    let active = true
+    Promise.all(SAMPLE_LANGUAGES.map((language) => loadLanguage(language)))
+      .then(() => {
+        if (active) setSamplesTextReady(true)
+      })
+      .catch((error: unknown) => console.error('文言の読み込みに失敗しました', error))
+    return () => {
+      active = false
+    }
+  }, [open])
 
   // 開いたときに一覧を読み込む。オフラインのときは読み込まない（16.5 の「通信と容量の表示」）
   useEffect(() => {
@@ -424,7 +440,8 @@ export function PacksDialog({ open, onClose, onAdded }: Props) {
                   {/* 説明文は意味の言語で示す（16.5・FR-SMP-04）。名前だけが UI 言語に合わせる */}
                   {item.kind === 'samples' ? (
                     <p className={styles.packDescription} lang={item.language}>
-                      {t('packs.samplesDescription', { tag: SAMPLE_TAG, lng: item.language })}
+                      {samplesTextReady &&
+                        t('packs.samplesDescription', { tag: SAMPLE_TAG, lng: item.language })}
                     </p>
                   ) : (
                     <PackDescription entry={item.entry} uiLanguage={i18n.language} />

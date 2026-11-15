@@ -13,6 +13,10 @@ describe('detectLanguage', () => {
     [['fr-FR'], 'en'],
     [[], 'en'],
     [['fr-FR', 'ja-JP'], 'ja'],
+    // ベトナム語（版 1.55）
+    [['vi-VN'], 'vi'],
+    [['vi'], 'vi'],
+    [['fr-FR', 'vi-VN', 'en-US'], 'vi'],
   ] as const)('%j → %s', (languages, expected) => {
     expect(detectLanguage(languages)).toBe(expected)
   })

@@ -3,6 +3,7 @@ import { modes } from '../modes/registry'
 import { UI_LANGUAGES } from '../settings/types'
 import en from './locales/en.json'
 import ja from './locales/ja.json'
+import vi from './locales/vi.json'
 import zhTW from './locales/zh-TW.json'
 
 /** ネストしたオブジェクトのキーを "a.b.c" 形式で列挙する */
@@ -17,14 +18,15 @@ function keysOf(obj: Record<string, unknown>, prefix = ''): string[] {
 }
 
 describe('共通の翻訳文言', () => {
-  it('3言語でキーが一致する', () => {
+  it('すべての UI 言語でキーが一致する', () => {
     expect(keysOf(zhTW)).toEqual(keysOf(ja))
     expect(keysOf(en)).toEqual(keysOf(ja))
+    expect(keysOf(vi)).toEqual(keysOf(ja))
   })
 })
 
 describe.each(modes.map((m) => [m.id, m] as const))('モード %s の翻訳文言', (_id, mode) => {
-  it('3言語でキーが一致する', () => {
+  it('すべての UI 言語でキーが一致する', () => {
     const base = keysOf(mode.locales.ja)
     for (const lang of UI_LANGUAGES) expect(keysOf(mode.locales[lang])).toEqual(base)
   })

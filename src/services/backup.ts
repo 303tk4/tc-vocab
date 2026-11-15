@@ -5,7 +5,7 @@
 import { loadBackupContent, recordBackup, resetAllData, restoreBackup } from '../db/repos/backup'
 import { backupFileName, buildBackup, type Backup } from '../io/backup'
 import { downloadText } from '../io/download'
-import { BOOT_STORAGE_KEY, writeBootSettings } from '../settings/boot'
+import { BOOT_STORAGE_KEY, lockBootSettings, writeBootSettings } from '../settings/boot'
 import { defaultSettings, sanitizeSettings, SETTING_KEYS } from '../settings/types'
 import { requestPersistentStorage } from './storage-persist'
 
@@ -154,6 +154,8 @@ export async function restoreFromBackup(backup: Backup): Promise<void> {
       defaultSettings(),
     ),
   )
+  // 読み込み直すまでに、元の画面が古い設定で写しを上書きしないようにする
+  lockBootSettings()
   await requestPersistentStorage()
   reloadHome()
 }
@@ -166,5 +168,7 @@ export async function resetApp(): Promise<void> {
   } catch {
     // localStorage が使えない環境では、消すものも無い
   }
+  // 読み込み直すまでに、元の画面が古い設定で写しを書き戻さないようにする
+  lockBootSettings()
   reloadHome()
 }

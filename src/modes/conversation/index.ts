@@ -3,6 +3,7 @@ import { ChatIcon } from '../../components/icons'
 import { defineMode } from '../types'
 import en from './locales/en.json'
 import ja from './locales/ja.json'
+import vi from './locales/vi.json'
 import zhTW from './locales/zh-TW.json'
 import { MODE_ID } from './modeId'
 import { DEFAULT_OPTIONS, type ConversationOptions } from './options'
@@ -24,7 +25,7 @@ export const conversationMode = defineMode<ConversationOptions>({
   Session: lazy(() => import('./Session')),
   Result: lazy(() => import('./Result')),
   SettingsPanel: lazy(() => import('./SettingsPanel')),
-  locales: { ja, 'zh-TW': zhTW, en },
+  locales: { ja, 'zh-TW': zhTW, en, vi },
   // ホームのバッジ：復習期限が来ている項目の件数（FR-CONV-04）
   async getBadge({ progress, now }) {
     const due = await progress.dueBefore(now)

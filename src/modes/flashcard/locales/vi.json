@@ -1,0 +1,67 @@
+{
+  "title": "Thẻ ghi nhớ",
+  "description": "Lật thẻ để xem nghĩa và tự đánh giá mức độ nhớ. Từ sẽ được hỏi lại ngay trước khi bạn quên.",
+  "sessionSizeUnit": "thẻ",
+  "direction": "Chiều của thẻ",
+  "directions": {
+    "hanziToMeaning": "Chữ → Nghĩa",
+    "meaningToHanzi": "Nghĩa → Chữ",
+    "random": "Ngẫu nhiên"
+  },
+  "loadFailed": "Không thể tải dữ liệu học.",
+  "saveFailed": "Không thể lưu đánh giá. Hãy đánh giá lại thẻ này.",
+  "progress": "Thẻ {{current}} / {{total}}",
+  "flipHintTouch": "Chạm để xem đáp án",
+  "flipHintKey": "Bấm chuột hoặc phím Space để xem đáp án",
+  "nextHint": "Chọn một mục để sang câu tiếp theo.",
+  "nextHintTouch": "Vuốt từ (← Lại · Tốt →) hoặc chạm vào một mức đánh giá để sang câu tiếp theo.",
+  "keyHint": "1–5: đánh giá   S: đọc   T: nhãn   E: sửa   Esc: dừng",
+  "ratingsLabel": "Đánh giá mức độ bạn nhớ",
+  "ratings": {
+    "again": "Lại",
+    "hard": "Khó",
+    "good": "Tốt",
+    "easy": "Dễ",
+    "perfect": "Hoàn hảo"
+  },
+  "intervals": {
+    "minutes": "{{value}} phút",
+    "days": "{{value}} ngày",
+    "months": "{{value}} tháng",
+    "years": "{{value}} năm"
+  },
+  "speakWord": "Đọc chữ",
+  "speakExample": "Đọc câu ví dụ",
+  "examples": "Câu ví dụ",
+  "tags": "Nhãn",
+  "editTags": "Sửa nhãn",
+  "tagSaveFailed": "Không thể lưu nhãn. Vui lòng thử lại.",
+  "empty": {
+    "title": "Hôm nay không có thẻ nào để học",
+    "nextDue": "Lần ôn tiếp theo: {{date}}",
+    "noSchedule": "Chưa có lịch ôn tập."
+  },
+  "summary": {
+    "studied": "Số thẻ đã học",
+    "durationSec": "Thời gian",
+    "dueTomorrow": "Cần ôn ngày mai",
+    "again": "Lại",
+    "hard": "Khó",
+    "good": "Tốt",
+    "easy": "Dễ",
+    "perfect": "Hoàn hảo"
+  },
+  "result": {
+    "ratings": "Đánh giá",
+    "cards": "{{count}}",
+    "times": "{{count}}",
+    "minSec": "{{m}} phút {{s}} giây",
+    "sec": "{{s}} giây"
+  },
+  "settings": {
+    "showZhuyin": "Hiện chú âm",
+    "showPinyin": "Hiện bính âm",
+    "saveFailed": "Không thể lưu cài đặt."
+  },
+  "editWord": "Sửa từ"
+}

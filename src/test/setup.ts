@@ -1,7 +1,7 @@
 import 'fake-indexeddb/auto'
 import '@testing-library/jest-dom/vitest'
 import { cleanup, configure } from '@testing-library/react'
-import { afterEach, beforeEach } from 'vitest'
+import { afterEach, beforeAll, beforeEach } from 'vitest'
 import { db } from '../db/schema'
 
 // findBy・waitFor の待ち時間（既定 1 秒）を少し伸ばす。全体を並べて流すと、重い画面のテストがまれに時間切れになるため
@@ -34,6 +34,13 @@ if (typeof HTMLDialogElement !== 'undefined' && !HTMLDialogElement.prototype.sho
 
 // 仮想スクロールが呼ぶが jsdom には無い
 window.scrollTo = () => {}
+
+// 共通の文言は動的 import() で読み込むため（仕様書 16.8）、テストでは先にすべての言語を読み込んでおく
+beforeAll(async () => {
+  const { loadLanguage } = await import('../i18n')
+  const { UI_LANGUAGES } = await import('../settings/types')
+  await Promise.all(UI_LANGUAGES.map((lang) => loadLanguage(lang)))
+})
 
 beforeEach(async () => {
   localStorage.clear()

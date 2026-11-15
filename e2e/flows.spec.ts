@@ -49,7 +49,9 @@ test('初めて開いたホームで画面の言語を選べ、決定すると�
   page,
 }) => {
   await page.goto('./')
-  const choice = page.getByRole('group', { name: /Display Language.*アプリの表示言語.*介面語言/ })
+  const choice = page.getByRole('group', {
+    name: /Display Language.*アプリの表示言語.*介面語言.*Ngôn ngữ hiển thị/,
+  })
   // ブラウザの言語（ja-JP）から判定した日本語が、初めに選ばれている（FR-SET-01）
   await expect(choice.getByRole('radio', { name: '日本語' })).toBeChecked()
 
@@ -63,6 +65,32 @@ test('初めて開いたホームで画面の言語を選べ、決定すると�
   await page.reload()
   await expect(page.getByRole('heading', { name: 'Study modes' })).toBeVisible()
   await expect(choice).toHaveCount(0)
+})
+
+test('設定の「アプリの表示言語」で Tiếng Việt を選べ、読み込み直しても保たれる（FR-SET-01、仕様書 16.8）', async ({
+  page,
+}) => {
+  await page.goto('./#/settings')
+  const language = page.getByRole('group', { name: 'アプリの表示言語' })
+  await language.getByRole('radio', { name: 'Tiếng Việt' }).check()
+  // 文言を読み込んでから切り替わる
+  await expect(page.getByRole('heading', { name: 'Cài đặt', level: 1 })).toBeVisible()
+  await expect(page.getByRole('group', { name: 'Ngôn ngữ hiển thị' })).toBeVisible()
+  await expect(page.locator('html')).toHaveAttribute('lang', 'vi')
+
+  await page.reload()
+  await expect(page.getByRole('heading', { name: 'Cài đặt', level: 1 })).toBeVisible()
+  await page.goto('./')
+  await expect(page.getByRole('heading', { name: 'Chế độ học' })).toBeVisible()
+
+  // サンプル単語の説明は、画面の言語によらずその版の言語で示す（FR-SMP-04）。
+  // 読み込んでいない言語の文言も、読み込んでから示す（キーのまま出さない）
+  await page.goto('./#/words')
+  await page.getByRole('button', { name: 'Tải bộ từ vựng' }).click()
+  const dialog = page.getByRole('dialog', { name: 'Bộ từ vựng' })
+  await expect(dialog.getByText(/^A sample set for trying out/)).toBeVisible()
+  await expect(dialog.getByText(/^動作や使用感の確認のために/)).toBeVisible()
+  await expect(dialog.getByText('packs.samplesDescription')).toHaveCount(0)
 })
 
 test('準備画面の「一回の出題数」で、1回の学習の枚数を変えられる（FR-PLUG-08、仕様書 8.1）', async ({
